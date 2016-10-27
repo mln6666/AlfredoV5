@@ -70,7 +70,7 @@
                    
                 </td>
                 <td class="text-center">
-                    <button id="@item.IdSale" class="@item.IdSale" data-idsale="@item.IdSale" onclick="holi(@item.IdSale)" >Finalizar</button>
+                    <button id="@item.IdSale" class="@item.IdSale" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)" >Finalizar</button>
                     @Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Detalles", "Details", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Eliminar", "Delete", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
@@ -79,7 +79,7 @@
         }
     </tbody>
 </table>
-<script>function holi(a) {
+<script>function finalizar(a) {
 
     var self = this;
     var idsale = a;
@@ -95,8 +95,6 @@
             $("." + idsale).addClass("hidden");
             document.getElementById(idsale).replaceWith("Finalizada");
         }
-               
-
     };
     $.ajax(options);
 }</script>
