@@ -26,6 +26,8 @@ namespace MinimercadoAlfredo.ViewModels
 
         public string Comments { get; set; }
 
+        public string SaleState { get; set; }
+
 
     }
 }

@@ -31,5 +31,7 @@ namespace MinimercadoAlfredo.Models
         public virtual Customer Customer { get; set; }
 
         public virtual ICollection<SaleLine> SaleLines { get; set; }
-    }
+
+        public virtual SaleState SaleState { get; set; }
+}
 }

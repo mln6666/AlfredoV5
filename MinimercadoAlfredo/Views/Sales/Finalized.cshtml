@@ -1,10 +1,11 @@
-﻿@model IEnumerable<MinimercadoAlfredo.Models.Sale>
+﻿
+@model IEnumerable<MinimercadoAlfredo.Models.Sale>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Finalized";
 }
 
-<h2 class="text-center">Lista de Ventas</h2>
+<h2 class="text-center">Lista de Ventas Finalizadas</h2>
 <hr style="color:grey;border-color:grey" />
 
 
@@ -30,7 +31,7 @@
     <thead>
     <tr class="text-center" style="color: white; background-color: #4d77a3">
         <th>
-           Nº Venta
+            Nº Venta
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SaleDate)

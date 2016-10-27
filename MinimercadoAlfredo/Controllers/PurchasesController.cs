@@ -133,6 +133,13 @@ namespace MinimercadoAlfredo.Controllers
                     db.PurchaseLines.Add(purchaseline);
                     db.SaveChanges();
 
+                    Product prod = new Product();
+                    prod = db.Products.Find(i.IdProduct);
+                    prod.Stock = prod.Stock + i.LineQuantity;
+                    prod.Cost = i.LinePrice;
+                    db.Entry(prod).State = EntityState.Modified;
+                    db.SaveChanges();
+
                 }
                 status = true;
 

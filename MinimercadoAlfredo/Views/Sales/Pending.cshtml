@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MinimercadoAlfredo.Models.Sale>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pending";
 }
 
-<h2 class="text-center">Lista de Ventas</h2>
+<h2 class="text-center">Lista de Ventas Pendientes</h2>
 <hr style="color:grey;border-color:grey" />
 
 
@@ -30,7 +30,7 @@
     <thead>
     <tr class="text-center" style="color: white; background-color: #4d77a3">
         <th>
-           Nº Venta
+            Nº Venta
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SaleDate)
@@ -66,9 +66,11 @@
                     @Html.DisplayFor(modelItem => item.SaleTotal)
                 </td>
                 <td width="100px">
-                    @Html.DisplayFor(modelItem => item.SaleState)
+                    <div id="@item.IdSale">@Html.DisplayFor(modelItem => item.SaleState)</div>
+                   
                 </td>
                 <td class="text-center">
+                    <button id="@item.IdSale" class="@item.IdSale" data-idsale="@item.IdSale" onclick="holi(@item.IdSale)" >Finalizar</button>
                     @Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Detalles", "Details", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Eliminar", "Delete", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
@@ -77,12 +79,53 @@
         }
     </tbody>
 </table>
+<script>function holi(a) {
 
+    var self = this;
+    var idsale = a;
+
+    var options = {};
+    options.url = "/Sales/FinalizeSale";
+    options.type = "GET";
+    options.data = { "misale": idsale };
+    options.dataType = "json";
+    options.success = function (data) {
+        if (data == "Ok") {
+            toastr.success("Venta Nº: " + idsale + " finalizada.");
+            $("." + idsale).addClass("hidden");
+            document.getElementById(idsale).replaceWith("Finalizada");
+        }
+               
+
+    };
+    $.ajax(options);
+}</script>
 
 @section scripts
 {
     <script>
     $(document).ready(function () {
+        //$("#finalizar").click(function () {
+
+        //    var self = this;
+        //    var idsale = $(this).data('idsale');
+
+        //    var options = {};
+        //    options.url = "/Sales/FinalizeSale";
+        //    options.type = "GET";
+        //    options.data = { "misale": idsale };
+        //    options.dataType = "json";
+        //    options.success = function (data) {
+        //        if (data == "Ok") {
+        //            toastr.success("Venta Nº: " + idsale + " finalizada.");
+        //            $("." + idsale).addClass("hidden");
+        //            document.getElementById(idsale).replaceWith("Finalizada");
+        //        }
+               
+
+        //    };
+        //    $.ajax(options);
+        //});
 
         ////Grilla automatica//
         $("#tabla").DataTable({

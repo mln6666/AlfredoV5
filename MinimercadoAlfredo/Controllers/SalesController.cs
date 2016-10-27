@@ -22,6 +22,20 @@ namespace MinimercadoAlfredo.Controllers
             var sales = db.Sales.Include(s => s.Customer);
             return View(sales.ToList());
         }
+        public ActionResult Pending()
+        {
+            var sales = (from s in db.Sales
+                            where s.SaleState == SaleState.Pendiente
+                            select s);
+            return View(sales);
+        }
+        public ActionResult Finalized()
+        {
+            var sales = (from s in db.Sales
+                         where s.SaleState == SaleState.Finalizada
+                         select s);
+            return View(sales);
+        }
 
         public JsonResult Getcustomerdata(string cus)
         {
@@ -36,9 +50,11 @@ namespace MinimercadoAlfredo.Controllers
             var cusid = Int32.Parse(cus);
             AlfredoContext db = new AlfredoContext();
             Customer customerdata = db.Customers.ToList().Find(u => u.IdCustomer == cusid);
-           
+            Customer customerdata3 = new Customer();
+            customerdata3.CustomerAddress = customerdata.CustomerAddress.ToString();
+            customerdata3.CuitCuil = customerdata.CuitCuil.ToString();
 
-            return Json(customerdata, JsonRequestBehavior.AllowGet);
+            return Json(customerdata3, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Getproductdata(string pro)
@@ -68,6 +84,29 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
+        public JsonResult FinalizeSale(string misale)
+        {
+            var saleid = Int32.Parse(misale);
+            AlfredoContext db = new AlfredoContext();
+            Sale saledata = db.Sales.ToList().Find(u => u.IdSale == saleid);
+
+            foreach (var item in saledata.SaleLines)
+            {
+                Product prod = new Product();
+                prod = db.Products.Find(item.IdProduct);
+                prod.Stock = prod.Stock - item.LineQuantity;
+                db.Entry(prod).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+            saledata.SaleState=SaleState.Finalizada;
+            db.Entry(saledata).State = EntityState.Modified;
+            db.SaveChanges();
+
+            var midato = "Ok";
+
+            return Json(midato, JsonRequestBehavior.AllowGet);
+        }
 
         //Vista de ventas Mayoristas, el precio que se carga por defecto en los productos//
         //es el precio mayorista, aunque se lo puede cambiar en la vista.//
@@ -89,18 +128,25 @@ namespace MinimercadoAlfredo.Controllers
         {
             //CustomerName contiene el id del cliente
             bool status = false;
+            bool final = false;
+
+            if (O.SaleState == "1")final = true; 
+            
+                 
+
             Sale sale = new Sale();
             var cusid = Int32.Parse(O.CustomerName);
 
 
             if (ModelState.IsValid)
             {
-               
-                    sale.SaleDate = O.SaleDate;
+               if (final) { sale.SaleState = SaleState.Finalizada; } else { sale.SaleState = SaleState.Pendiente; }
+                sale.SaleDate = O.SaleDate;
                     sale.SaleAddress = O.SaleAddress;
                     sale.Comments = O.Comments;
                     sale.SaleTotal = O.SaleTotal;
                     sale.IdCustomer = cusid;
+                    
                     db.Sales.Add(sale);
                     db.SaveChanges();
 
@@ -118,6 +164,7 @@ namespace MinimercadoAlfredo.Controllers
 
                     Product prod = new Product();
                     prod = db.Products.Find(i.IdProduct);
+                    if (final) { prod.Stock = prod.Stock - i.LineQuantity; }
                     prod.ParcialStock = prod.ParcialStock - i.LineQuantity;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();

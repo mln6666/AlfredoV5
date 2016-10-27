@@ -19,7 +19,8 @@ namespace MinimercadoAlfredo
                         "~/Scripts/datatables/datatables.bootstrap.js",                        
                         "~/Scripts/bootstrap.min.js",
                         "~/Scripts/respond.js",
-                        "~/Scripts/bootbox.js"));
+                        "~/Scripts/bootbox.js",
+                        "~/scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -33,6 +34,7 @@ namespace MinimercadoAlfredo
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-spacelab.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
+                      "~/content/toastr.css",
                       "~/Content/site.css"));
         }
     }

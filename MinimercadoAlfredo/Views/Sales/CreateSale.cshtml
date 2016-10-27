@@ -15,6 +15,10 @@
     <legend>
         Datos Generales
     </legend>
+    <select class="form-control" id="salestate" style="width:40%; height:35px;">
+        <option value="0">Pendiente</option>
+        <option value="1">Finalizada</option>
+    </select>
     <table>
         <thead class="thead-inverse">
             <div class="container-fluid">
@@ -433,6 +437,7 @@
                         SaleDate: $('#saledate').val().trim(),
                         SaleTotal: $('#saletotal').val().trim(),
                         Comments: $('#comments').val().trim(),
+                        SaleState: $('#salestate').val().trim(),
                         SaleLines: orderItems
                     }
 
@@ -456,6 +461,7 @@
                                 $('#cuitcuil').val('');
                                 $('#saledate').val('');
                                 $('#comments').val('');
+                                $('#salestate').val('0');
 
                                 $('#orderItems').empty();
                             } else {

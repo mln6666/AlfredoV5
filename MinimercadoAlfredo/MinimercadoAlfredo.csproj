@@ -222,6 +222,7 @@
     <Compile Include="Models\PurchaseLine.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\SaleLine.cs" />
+    <Compile Include="Models\SaleState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\PurchaseVM.cs" />
@@ -421,6 +422,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -512,6 +515,8 @@
     <Content Include="Scripts\DataTables\responsive.semanticui.js" />
     <Content Include="Scripts\DataTables\responsive.semanticui.min.js" />
     <Content Include="Scripts\DataTables\spanish.json" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -577,6 +582,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Content\Select2\select2.js" />
     <Content Include="Content\Select2\select2.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -658,6 +665,8 @@
     <Content Include="Views\PurchaseLines\Details.cshtml" />
     <Content Include="Views\PurchaseLines\Edit.cshtml" />
     <Content Include="Views\PurchaseLines\Index.cshtml" />
+    <Content Include="Views\Sales\Pending.cshtml" />
+    <Content Include="Views\Sales\Finalized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
