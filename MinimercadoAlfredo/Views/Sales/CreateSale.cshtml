@@ -367,7 +367,8 @@
                 });
 
                     //Clear fields
-                    $(document).find('#linedescription').select2();
+                    //$(document).find('#linedescription').select2();
+                    $("#linedescription").val(0).trigger('change');
                     $('#lineprice,#linediscount,#linequantity,#linetotal').val('');
 
                 }
