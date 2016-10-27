@@ -1,0 +1,50 @@
+﻿@model MinimercadoAlfredo.Models.Purchase
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Purchase</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Provider.ProviderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Provider.ProviderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseTotal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPurchase }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

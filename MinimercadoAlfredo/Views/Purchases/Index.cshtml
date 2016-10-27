@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Purchase>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Lista de Compras</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div>
+    <a href="@Url.Action("CreatePurchase", "Purchases")" class="btn btn-success">Nueva Compra</a>
+</div>
+<br />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th>
+                Fecha de Compra
+            </th>
+            <th>
+                Proveedor
+            </th>          
+            <th>
+                Total Comprado
+            </th>
+            <th class="text-center">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                </td>
+                <td width="250px">
+                    @Html.DisplayFor(modelItem => item.Provider.ProviderName)
+                </td>                
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseTotal)
+                </td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdPurchase }, new {@class = "btn btn-primary btn-sm" }) 
+                    @Html.ActionLink("Detalles", "Details", new { id = item.IdPurchase }, new { @class = "btn btn-primary btn-sm" }) 
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPurchase }, new { @class = "btn btn-primary btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            ////Grilla automatica//
+            //$("#tabla").DataTable({
+            //    "language": { "url": "/Scripts/DataTables/spanish.json" }
+            //});
+
+            $("#tabla").DataTable({
+                    "order": [[0, "desc"]]
+                });
+            
+            
+        })
+    </script>    
+}

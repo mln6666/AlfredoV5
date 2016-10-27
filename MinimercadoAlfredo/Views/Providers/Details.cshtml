@@ -1,0 +1,50 @@
+﻿@model MinimercadoAlfredo.Models.Provider
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Provider</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProviderEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProviderEmail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProvider }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

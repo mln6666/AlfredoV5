@@ -1,0 +1,507 @@
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\ApplicationInsights.config
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\csc.exe
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CSharp.Core.targets
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\System.Collections.Immutable.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\System.Reflection.Metadata.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\vbc.exe
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe.config
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll.config
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.pdb
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Antlr3.Runtime.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.SqlServer.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Agent.Intercept.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.PerfCounterCollector.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Web.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Web.Infrastructure.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Newtonsoft.Json.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Owin.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Helpers.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Mvc.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Optimization.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Razor.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\WebGrease.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Web.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Helpers.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Mvc.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Optimization.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Razor.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Antlr3.Runtime.pdb
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Newtonsoft.Json.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.SqlServer.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Helpers.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Mvc.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Optimization.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Razor.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.Deployment.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.Razor.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\EntityFramework.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\EntityFramework.SqlServer.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
+c:\users\gabriel\documents\visual studio 2015\Projects\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\ApplicationInsights.config
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\csc.exe
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\System.Collections.Immutable.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\System.Reflection.Metadata.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\vbc.exe
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe.config
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll.config
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\MinimercadoAlfredo.pdb
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Antlr3.Runtime.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Web.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Newtonsoft.Json.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Owin.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Helpers.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Mvc.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Optimization.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Razor.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\WebGrease.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.Web.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Helpers.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Mvc.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Optimization.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.Razor.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Antlr3.Runtime.pdb
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Newtonsoft.Json.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Helpers.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\EntityFramework.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.InitialCreate.resources
+C:\Proyectos\MinimercadoAlfredo\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\ApplicationInsights.config
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\csc.exe
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\vbc.exe
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll.config
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\MinimercadoAlfredo.pdb
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Antlr3.Runtime.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\EntityFramework.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\EntityFramework.SqlServer.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.Web.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Newtonsoft.Json.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Owin.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Helpers.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Mvc.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Optimization.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Razor.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\WebGrease.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.Web.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Helpers.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Mvc.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Optimization.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.Razor.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Antlr3.Runtime.pdb
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Newtonsoft.Json.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\EntityFramework.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\EntityFramework.SqlServer.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.Razor.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\EntityFramework.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
+C:\Users\Kai\ProyectosGit\Alfredov2\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\ApplicationInsights.config
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\csc.exe
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\vbc.exe
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll.config
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.pdb
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Antlr3.Runtime.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.SqlServer.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Web.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Newtonsoft.Json.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Owin.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Helpers.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Mvc.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Optimization.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Razor.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\WebGrease.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Web.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Helpers.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Mvc.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Optimization.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Razor.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Antlr3.Runtime.pdb
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Newtonsoft.Json.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.SqlServer.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Razor.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\EntityFramework.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
+C:\Users\Kai\ProyectosGit\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\ApplicationInsights.config
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\csc.exe
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\System.Collections.Immutable.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\System.Reflection.Metadata.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\vbc.exe
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\roslyn\VBCSCompiler.exe.config
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll.config
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\MinimercadoAlfredo.pdb
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Antlr3.Runtime.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.SqlServer.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Agent.Intercept.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.PerfCounterCollector.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Web.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Web.Infrastructure.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Newtonsoft.Json.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Owin.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Helpers.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Mvc.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Optimization.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Razor.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\WebGrease.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.Web.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AI.WindowsServer.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.ApplicationInsights.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Helpers.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Mvc.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Optimization.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.Razor.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Deployment.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\System.Web.WebPages.Razor.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Antlr3.Runtime.pdb
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Newtonsoft.Json.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\EntityFramework.SqlServer.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Core.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.Owin.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Facebook.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Cookies.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Google.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.Twitter.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Helpers.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Mvc.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Optimization.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.Razor.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\EntityFramework.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Core.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.Owin.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.AspNet.Identity.EntityFramework.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Host.SystemWeb.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Facebook.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
+C:\Proyectos\github\AlfredoV4\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb

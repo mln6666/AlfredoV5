@@ -1,0 +1,88 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Sale>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Lista de Ventas</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div>
+    <a href="@Url.Action("CreateSale", "Sales")" class="btn btn-success">Agregar Venta</a>
+</div>
+<br />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th>
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer.CustomerName)
+            </th>                        
+            <th>
+                @Html.DisplayNameFor(model => model.SaleTotal)
+            </th>
+            <th class="text-center">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleDate)
+                </td>
+                <td width="350px">
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>                                
+                <td width="200px">
+                    @Html.DisplayFor(modelItem => item.SaleTotal)
+                </td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdSale }, new {@class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.IdSale }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdSale }, new { @class = "btn btn-primary btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+
+        ////Grilla automatica//
+        $("#tabla").DataTable({
+            "order": [[0, "desc"]]
+        });
+
+        //$("body").on("click", "a.dialog-window1", null, function (e) {
+        //    e.preventDefault();
+
+        //    var $link = $(this); // Reference to <a/> link
+        //    var title = $link.text(); //this is title to fetch in htnl
+        //    $('#myModal1.modal-title').html(title);
+
+        //    var url = $(this).attr('href');
+        //    if (url.indexOf('#') == 0) {
+        //        $('#myModal1').modal('show');
+        //    }
+        //    else {
+        //        $.get(url, function (data) {
+        //            $('#myModal1 .te').html(data);
+        //            $('#myModal1').modal();
+        //        }).success(function () { $('input:text:visible:first').focus(); });
+        //    }
+        //});
+;
+    })
+    </script>
+}
+
+

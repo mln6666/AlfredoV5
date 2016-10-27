@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.PurchaseLine>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPurchase)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Purchase.Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LinePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LineTotal)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPurchase)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Purchase.Comments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LineTotal)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.IdPurchaseLine}) |
+            @Html.ActionLink("Details", "Details", new {id = item.IdPurchaseLine}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.IdPurchaseLine})
+        </td>
+    </tr>
+}
+
+</table>

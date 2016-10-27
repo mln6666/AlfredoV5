@@ -1,0 +1,66 @@
+﻿@model MinimercadoAlfredo.Models.SaleLine
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SaleLine</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sale.SaleAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sale.SaleAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineDiscount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineDiscount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineQuantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineQuantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LineTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LineTotal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdSaleLine }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,187 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+
+@{
+    ViewBag.Title = "Record";
+}
+
+<h2 class="text-center">Lista de Todos los Productos</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div class="row">
+    <div class="col-lg-10"></div>
+    <div class="btn-group col-lg-1">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown">
+            Mostrar <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
+            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
+            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
+            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>
+        </ul>
+    </div>
+</div>
+<br />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductNumber)
+            </th>
+            <th>
+                Último costo de adquisición
+            </th>            
+            <th>
+                Estado
+            </th>
+
+            <th class="text-center">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td width="300px">
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                @if (item.ProductState == true)
+                {
+                    <td width="125px">
+                        <text style="color:green">Activo</text>
+                    </td>
+                }
+                else
+                {
+                    <td width="125px">
+                        <text style="color:red">Desactivado</text>
+                    </td>
+                }
+
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                data-toggle="dropdown">
+                            Acciones <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
+                            <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })">Detalles</a></li>
+                            <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
+                            @if (item.ProductState == false)
+                            {
+                                <li><a href="@Url.Action("Deactivate", "Products", new { id = item.IdProduct })" class="dialog-window2">Activar</a></li>
+                            }
+                        </ul>
+                    </div>                    
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Eliminar Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Activar Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+
+        ////Grilla automatica//
+        $("#tabla").DataTable({
+            "language": {
+                "url": "/Scripts/DataTables/spanish.json"
+            }
+        });
+
+        $("body").on("click", "a.dialog-window1", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal1.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal1').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal1 .te').html(data);
+                    $('#myModal1').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $("body").on("click", "a.dialog-window2", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal2.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal2').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal2 .te').html(data);
+                    $('#myModal2').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $('.dropdown-toggle').dropdown();
+    })
+    </script>
+}

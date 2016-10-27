@@ -1,0 +1,82 @@
+﻿@model MinimercadoAlfredo.Models.Product
+
+@{
+    Layout = null;
+}
+
+<head>
+    <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
+</head>
+
+@if (Model.ProductState == true)
+{
+    <h5 class="text-center">Desactivar este Producto hará que deje de figurar en la Lista de Productos Activos</h5>
+}
+else
+{
+    <h5 class="text-center">Activar este Producto hará que figure en la Lista de Productos Activos</h5>
+}
+<br />
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        <dd>
+            @if (Model.ProductState == true)
+            {
+                <text>Activo</text>
+            }else
+            {
+                <text>Desactivado</text>
+            }
+        </dd>
+
+
+    </dl>
+
+    @using (Html.BeginForm(null, null, new { idProd = Model.IdProduct}, FormMethod.Post)) {
+
+        @Html.AntiForgeryToken()
+
+
+        <div class="form-actions no-color text-center">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            @if (Model.ProductState == true)
+            {
+                <input type="submit" value="Desactivar" class="btn btn-warning" />
+            }
+            else
+            {
+                <input type="submit" value="Activar" class="btn btn-warning" />
+            }
+        </div>
+    }
+</div>
+

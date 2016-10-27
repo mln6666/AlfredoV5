@@ -1,0 +1,102 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Lista de Clientes</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div>
+    <a href="@Url.Action("Create", "Customers")" class="btn btn-success">Agregar Cliente</a>
+</div>
+<br />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerPhone)
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Cuit / Cuil
+            </th>
+            <th class="text-center">
+                Acciones
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CuitCuil)
+                </td>
+                <td class="text-center">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+        ////Grilla automatica//
+        $("#tabla").DataTable({
+            "language": {
+                "url": "/Scripts/DataTables/spanish.json"
+            }
+        });
+
+        //$("body").on("click", "a.dialog-window1", null, function (e) {
+        //    e.preventDefault();
+
+        //    var $link = $(this); // Reference to <a/> link
+        //    var title = $link.text(); //this is title to fetch in htnl
+        //    $('#myModal1.modal-title').html(title);
+
+        //    var url = $(this).attr('href');
+        //    if (url.indexOf('#') == 0) {
+        //        $('#myModal1').modal('show');
+        //    }
+        //    else {
+        //        $.get(url, function (data) {
+        //            $('#myModal1 .te').html(data);
+        //            $('#myModal1').modal();
+        //        }).success(function () { $('input:text:visible:first').focus(); });
+        //    }
+        //});
+
+    })
+</script>
+ 
+}

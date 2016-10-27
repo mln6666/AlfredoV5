@@ -1,0 +1,112 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+
+@{
+    ViewBag.Title = "Minimum";
+}
+
+<h2 class="text-center">Lista de Productos con Stock mínimo</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div class="row">
+    <div class="col-lg-10"></div>
+    <div class="btn-group col-lg-1">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown">
+            Mostrar <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
+            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
+            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
+            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>
+        </ul>
+    </div>
+</div>
+<br />
+<table class="table" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductNumber)
+            </th>
+            <th>
+                Último costo de adquisición
+            </th>            
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>            
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdProduct }, new {@class= "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.IdProduct }, new { @class = "btn btn-primary btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+        ////Grilla automatica//
+        $("#tabla").DataTable({
+            "language": {
+                "url": "/Scripts/DataTables/spanish.json"
+            }
+        });
+
+        $("body").on("click", "a.dialog-window1", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal1.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal1').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal1 .te').html(data);
+                    $('#myModal1').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });        
+
+        $('.dropdown-toggle').dropdown();
+    })
+</script>
+}
