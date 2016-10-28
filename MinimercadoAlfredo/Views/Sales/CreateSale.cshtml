@@ -230,11 +230,11 @@
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
-  
 
- 
 
-<script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+
+
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script>
 
         /////////////////Start:Select searchable////////////////
@@ -272,7 +272,7 @@
                 options.dataType = "json";
                 options.success = function(data) {
                     document.getElementById("lineprice").value = data;
-                   
+
                 };
                 $.ajax(options);
             });
@@ -295,7 +295,7 @@
         });
 
 
-        $('#linetotal').click(function () {
+        $('#linetotal').click(function() {
             var price = parseFloat($('#lineprice').val());
             var quantity = parseFloat($('#linequantity').val());
             var total = price * quantity;
@@ -315,11 +315,12 @@
 
         $(document).ready(function() {
             var orderItems = [];
+            var verifproductos = [];
             //Add button click function
             $('#add').click(function() {
                 //Check validation of order item
                 var isValidItem = true;
-                if ($('#linedescription').val().trim() == '') {
+                if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
                     isValidItem = false;
                     $('#linedescription').siblings('span.error').css('visibility', 'visible');
                 } else {
@@ -358,6 +359,22 @@
                     $('#linetotal').siblings('span.error').css('visibility', 'hidden');
                 }
 
+                if (isValidItem) {
+                    ////////////***********//////////
+                    var historial = verifproductos;
+                    var errorproductos = false;
+                    productoact = parseInt($('#linedescription').val().trim());
+                    $.each(historial, function() {
+                        if (productoact == parseInt(this)) {
+                            errorproductos = true;
+                           
+                        }
+                    });
+                }
+                if (errorproductos) {
+                    isValidItem=false;
+                    alert("Productos Iguales");
+                }
 
                 //Add item to list if valid
                 if (isValidItem) {
@@ -368,8 +385,11 @@
                         LineQuantity: $('#linequantity').val().trim(),
                         LineTotal: $('#linetotal').val().trim(),
                         LineDescription: $('#shadow').val().trim()
-                });
+                    });
+                    verifproductos.push(
+                       parseInt($('#linedescription').val().trim())
 
+                   );
                     //Clear fields
                     //$(document).find('#linedescription').select2();
                     $("#linedescription").val(0).trigger('change');
@@ -464,6 +484,7 @@
                                 $('#salestate').val('0');
 
                                 $('#orderItems').empty();
+                                
                             } else {
                                 alert('Failed');
                             }
@@ -497,6 +518,7 @@
                         $remove.click(function(e) {
                             e.preventDefault();
                             orderItems.splice(i, 1);
+                            verifproductos.splice(i, 1);
                             GeneratedItemsTable();
 
                         });

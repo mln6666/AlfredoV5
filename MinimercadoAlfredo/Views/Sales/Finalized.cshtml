@@ -72,14 +72,33 @@
                 <td class="text-center">
                     @Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Detalles", "Details", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
-                    @Html.ActionLink("Eliminar", "Delete", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdSale, view = 2 }, new { @class = "dialog-window btn btn-primary btn-sm" })
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="margin-left: -30%;margin-right: -30%">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Eliminar Venta</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+            @*<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>*@
+            @*<button type="submit" class="btn btn-primary">Save changes</button>*@
+            @*</div>*@
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @section scripts
 {
     <script>
@@ -109,7 +128,25 @@
         //        }).success(function () { $('input:text:visible:first').focus(); });
         //    }
         //});
-;
+
+        $("body").on("click", "a.dialog-window", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal .modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal .te').html(data);
+                    $('#myModal').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
     })
     </script>
 }

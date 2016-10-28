@@ -94,7 +94,12 @@ namespace MinimercadoAlfredo.Controllers
         {
             ViewBag.Providers = db.Providers.ToList();
             ViewBag.Products = db.Products.ToList();
-            var npurchase = db.Purchases.ToList().Count();
+            var npurchase = 0;
+            if (db.Purchases!=null & db.Purchases.Count()!=0)
+            {
+                npurchase = db.Purchases.ToList().LastOrDefault().IdPurchase;
+            }
+            
 
             ViewBag.npurchase = npurchase + 1;
 

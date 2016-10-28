@@ -114,7 +114,11 @@ namespace MinimercadoAlfredo.Controllers
         {
             ViewBag.Customers = db.Customers.ToList();
             ViewBag.Products = db.Products.ToList();
-            var nsale = db.Sales.ToList().Count();
+            var nsale = 0;
+            if (db.Sales != null & db.Sales.Count() != 0)
+            {
+                nsale = db.Sales.ToList().LastOrDefault().IdSale;
+            }
 
             ViewBag.nsale = nsale + 1;
 
@@ -281,7 +285,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         // GET: Sales/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id,int? view)
         {
             if (id == null)
             {
@@ -298,11 +302,30 @@ namespace MinimercadoAlfredo.Controllers
         // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id,int? view)
         {
             Sale sale = db.Sales.Find(id);
+            bool finalized = false;
+            if (sale.SaleState == SaleState.Finalizada)
+            {finalized = true;}
+
+            foreach (var item in sale.SaleLines)
+            {
+                Product prod = new Product();
+                prod = db.Products.Find(item.IdProduct);
+                if (finalized) { prod.Stock = prod.Stock + item.LineQuantity; }
+                prod.ParcialStock = prod.ParcialStock + item.LineQuantity;
+                db.Entry(prod).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+
             db.Sales.Remove(sale);
             db.SaveChanges();
+            if (view == 0) { return RedirectToAction("Index"); }
+            if (view == 1) { return RedirectToAction("Pending"); }
+            if (view == 2) { return RedirectToAction("Finalized"); }
+
             return RedirectToAction("Index");
         }
 
