@@ -59,13 +59,15 @@
         $(document).ready(function () {
 
             ////Grilla automatica//
-            //$("#tabla").DataTable({
-            //    "language": { "url": "/Scripts/DataTables/spanish.json" }
-            //});
-
             $("#tabla").DataTable({
-                    "order": [[0, "desc"]]
-                });
+                "language": { "url": "/Scripts/DataTables/spanish.json" }
+            }, {
+                order: [[0, "desc"]]
+            });
+
+            //$("#tabla").DataTable({
+            //        "order": [[0, "desc"]]
+            //    });
             
             
         })

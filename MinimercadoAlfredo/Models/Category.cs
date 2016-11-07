@@ -15,6 +15,7 @@ namespace MinimercadoAlfredo.Models
         [Required(ErrorMessage = "Campo Obligatorio")]
         public string CategoryName { get; set; }
 
+        [DataType(DataType.MultilineText)]
         public string CategoryDescription { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }

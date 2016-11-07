@@ -39,6 +39,7 @@ namespace MinimercadoAlfredo.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
+            ViewBag.Categories = db.Categories.ToList();
             return View();
         }
 
@@ -51,15 +52,15 @@ namespace MinimercadoAlfredo.Controllers
         {
             if (ModelState.IsValid)
             {
-                IEnumerable<int> query = (from c in db.Categories
-                                          where c.CategoryName == category.CategoryName
-                                          select c.IdCategory);
+                //IEnumerable<int> query = (from c in db.Categories
+                //                          where c.CategoryName == category.CategoryName
+                //                          select c.IdCategory);
 
-                if (query.Count() != 0)
-                {
-                    ViewBag.RubroExistente = "Rubro Existente.";
-                    return View("Index", db.Categories.ToList());
-                }
+                //if (query.Count() != 0)
+                //{
+                //    ViewBag.RubroExistente = "Rubro Existente.";
+                //    return View("Index", db.Categories.ToList());
+                //}
 
                 db.Categories.Add(category);
                 db.SaveChanges();

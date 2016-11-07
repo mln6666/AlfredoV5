@@ -10,13 +10,23 @@
             var guardar = this;
             e.preventDefault();
             var categoryname = true;
+            var categories = @Html.Raw(ViewBag.Categories);
+
 
             if ($('#CategoryName').val().trim() == '') {
                 categoryname = false;
 
                 $('#spancategoryname').text("Campo requerido")
             }
+            
 
+            //for (i in categories){
+            //    if (i.CategoryName == $('#CategoryName').val().trim()){
+            //        categoryname = false;
+            //        $('#spancategoryname').text('Rubro Existente')
+            //    }
+            //}
+            
             if (categoryname) {
                 $('#spancategoryname').text("");
                 guardar.submit();

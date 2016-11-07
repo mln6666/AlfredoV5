@@ -88,7 +88,7 @@
 </div>
 
 
-@if (ViewBag.RubroExistente != null)
+@*@if (ViewBag.RubroExistente != null)
 {
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
@@ -106,7 +106,7 @@
             </div>
         </div>
     </div>
-}
+}*@
 
 @section scripts
 {
@@ -120,7 +120,7 @@
             }
         });
 
-        $("#myModal").modal('show');
+        //$("#myModal").modal('show');
 
         $("body").on("click", "a.dialog-window1", null, function (e) {
             e.preventDefault();
