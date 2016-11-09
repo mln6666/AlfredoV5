@@ -38,124 +38,119 @@ namespace MinimercadoAlfredo
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(dc));
             var user = userManager.FindByName("alfredo@admin.com");
 
-            if (!userManager.IsInRole(user.Id, "View Product"))
+            if (!userManager.IsInRole(user.Id, "Ver Productos"))
             {
-                userManager.AddToRole(user.Id, "View Product");
+                userManager.AddToRole(user.Id, "Ver Productos");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Product"))
+            if (!userManager.IsInRole(user.Id, "Agregar Producto"))
             {
-                userManager.AddToRole(user.Id, "Create Product");
+                userManager.AddToRole(user.Id, "Agregar Producto");
             }
 
-            if (!userManager.IsInRole(user.Id, "Edit Product"))
+            if (!userManager.IsInRole(user.Id, "Editar Producto"))
             {
-                userManager.AddToRole(user.Id, "Edit Product");
+                userManager.AddToRole(user.Id, "Editar Producto");
             }
 
-            if (!userManager.IsInRole(user.Id, "Delete Product"))
+            if (!userManager.IsInRole(user.Id, "Eliminar Producto"))
             {
-                userManager.AddToRole(user.Id, "Delete Product");
+                userManager.AddToRole(user.Id, "Eliminar Producto");
             }
 
-            if (!userManager.IsInRole(user.Id, "View Category"))
+            if (!userManager.IsInRole(user.Id, "Ver Rubros"))
             {
-                userManager.AddToRole(user.Id, "View Category");
+                userManager.AddToRole(user.Id, "Ver Rubros");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Category"))
+            if (!userManager.IsInRole(user.Id, "Agregar Rubro"))
             {
-                userManager.AddToRole(user.Id, "Create Category");
+                userManager.AddToRole(user.Id, "Agregar Rubro");
             }
 
-            if (!userManager.IsInRole(user.Id, "Edit Category"))
+            if (!userManager.IsInRole(user.Id, "Editar Rubro"))
             {
-                userManager.AddToRole(user.Id, "Edit Category");
+                userManager.AddToRole(user.Id, "Editar Rubro");
+            }
+            
+            if (!userManager.IsInRole(user.Id, "Ver Compras"))
+            {
+                userManager.AddToRole(user.Id, "Ver Compras");
             }
 
-            if (!userManager.IsInRole(user.Id, "Delete Category"))
+            if (!userManager.IsInRole(user.Id, "Registrar Compra"))
             {
-                userManager.AddToRole(user.Id, "Delete Category");
+                userManager.AddToRole(user.Id, "Registrar Compra");
             }
 
-            if (!userManager.IsInRole(user.Id, "View Purchase"))
+            if (!userManager.IsInRole(user.Id, "Editar Compra"))
             {
-                userManager.AddToRole(user.Id, "View Purchase");
+                userManager.AddToRole(user.Id, "Editar Compra");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Purchase"))
+            if (!userManager.IsInRole(user.Id, "Eliminar Compra"))
             {
-                userManager.AddToRole(user.Id, "Create Purchase");
+                userManager.AddToRole(user.Id, "Eliminar Compra");
             }
 
-            if (!userManager.IsInRole(user.Id, "Edit Purchase"))
+            if (!userManager.IsInRole(user.Id, "Ver Ventas"))
             {
-                userManager.AddToRole(user.Id, "Edit Purchase");
+                userManager.AddToRole(user.Id, "Ver Ventas");
             }
 
-            if (!userManager.IsInRole(user.Id, "Delete Purchase"))
+            if (!userManager.IsInRole(user.Id, "Registrar Venta"))
             {
-                userManager.AddToRole(user.Id, "Delete Purchase");
+                userManager.AddToRole(user.Id, "Registrar Venta");
             }
 
-            if (!userManager.IsInRole(user.Id, "View Sale"))
+            if (!userManager.IsInRole(user.Id, "Editar Venta"))
             {
-                userManager.AddToRole(user.Id, "View Sale");
+                userManager.AddToRole(user.Id, "Editar Venta");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Sale"))
+            if (!userManager.IsInRole(user.Id, "Eliminar Venta"))
             {
-                userManager.AddToRole(user.Id, "Create Sale");
+                userManager.AddToRole(user.Id, "Eliminar Venta");
             }
 
-            if (!userManager.IsInRole(user.Id, "Edit Sale"))
+            if (!userManager.IsInRole(user.Id, "Ver Clientes"))
             {
-                userManager.AddToRole(user.Id, "Edit Sale");
+                userManager.AddToRole(user.Id, "Ver Clientes");
             }
 
-            if (!userManager.IsInRole(user.Id, "Delete Sale"))
+            if (!userManager.IsInRole(user.Id, "Agregar Cliente"))
             {
-                userManager.AddToRole(user.Id, "Delete Sale");
+                userManager.AddToRole(user.Id, "Agregar Cliente");
             }
 
-            if (!userManager.IsInRole(user.Id, "View Customer"))
+            if (!userManager.IsInRole(user.Id, "Editar Cliente"))
             {
-                userManager.AddToRole(user.Id, "View Customer");
+                userManager.AddToRole(user.Id, "Editar Cliente");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Customer"))
+            if (!userManager.IsInRole(user.Id, "Eliminar Cliente"))
             {
-                userManager.AddToRole(user.Id, "Create Customer");
+                userManager.AddToRole(user.Id, "Eliminar Cliente");
             }
 
-            if (!userManager.IsInRole(user.Id, "Edit Customer"))
+            if (!userManager.IsInRole(user.Id, "Ver Proveedores"))
             {
-                userManager.AddToRole(user.Id, "Edit Customer");
+                userManager.AddToRole(user.Id, "Ver Proveedores");
             }
 
-            if (!userManager.IsInRole(user.Id, "Delete Customer"))
+            if (!userManager.IsInRole(user.Id, "Agregar Proveedor"))
             {
-                userManager.AddToRole(user.Id, "Delete Customer");
+                userManager.AddToRole(user.Id, "Agregar Proveedor");
             }
 
-            if (!userManager.IsInRole(user.Id, "View Provider"))
+            if (!userManager.IsInRole(user.Id, "Editar Proveedor"))
             {
-                userManager.AddToRole(user.Id, "View Provider");
+                userManager.AddToRole(user.Id, "Editar Proveedor");
             }
 
-            if (!userManager.IsInRole(user.Id, "Create Provider"))
+            if (!userManager.IsInRole(user.Id, "Eliminar Proveedor"))
             {
-                userManager.AddToRole(user.Id, "Create Provider");
-            }
-
-            if (!userManager.IsInRole(user.Id, "Edit Provider"))
-            {
-                userManager.AddToRole(user.Id, "Edit Provider");
-            }
-
-            if (!userManager.IsInRole(user.Id, "Delete Provider"))
-            {
-                userManager.AddToRole(user.Id, "Delete Provider");
+                userManager.AddToRole(user.Id, "Eliminar Proveedor");
             }
         }
 
@@ -168,129 +163,119 @@ namespace MinimercadoAlfredo
                 roleManager.Create(new IdentityRole("Administrador"));
             }
 
-            if (!roleManager.RoleExists("View Product"))
+            if (!roleManager.RoleExists("Ver Productos"))
             {
-                roleManager.Create(new IdentityRole("View Product"));
+                roleManager.Create(new IdentityRole("Ver Productos"));
             }
 
-            if (!roleManager.RoleExists("Create Product"))
+            if (!roleManager.RoleExists("Agregar Producto"))
             {
-                roleManager.Create(new IdentityRole("Create Product"));
+                roleManager.Create(new IdentityRole("Agregar Producto"));
             }
 
-            if (!roleManager.RoleExists("Edit Product"))
+            if (!roleManager.RoleExists("Editar Producto"))
             {
-                roleManager.Create(new IdentityRole("Edit Product"));
+                roleManager.Create(new IdentityRole("Editar Producto"));
             }
 
-            if (!roleManager.RoleExists("Delete Product"))
+            if (!roleManager.RoleExists("Eliminar Producto"))
             {
-                roleManager.Create(new IdentityRole("Delete Product"));
+                roleManager.Create(new IdentityRole("Eliminar Producto"));
             }
 
-            if (!roleManager.RoleExists("View Category"))
+            if (!roleManager.RoleExists("Ver Rubros"))
             {
-                roleManager.Create(new IdentityRole("View Category"));
+                roleManager.Create(new IdentityRole("Ver Rubros"));
             }
 
-            if (!roleManager.RoleExists("Create Category"))
+            if (!roleManager.RoleExists("Agregar Rubro"))
             {
-                roleManager.Create(new IdentityRole("Create Category"));
+                roleManager.Create(new IdentityRole("Agregar Rubro"));
             }
 
-            if (!roleManager.RoleExists("Edit Category"))
+            if (!roleManager.RoleExists("Editar Rubro"))
             {
-                roleManager.Create(new IdentityRole("Edit Category"));
+                roleManager.Create(new IdentityRole("Editar Rubro"));
+            }
+            
+            if (!roleManager.RoleExists("Ver Compras"))
+            {
+                roleManager.Create(new IdentityRole("Ver Compras"));
             }
 
-            if (!roleManager.RoleExists("Delete Category"))
+            if (!roleManager.RoleExists("Registrar Compra"))
             {
-                roleManager.Create(new IdentityRole("Delete Category"));
+                roleManager.Create(new IdentityRole("Registrar Compra"));
             }
 
-            if (!roleManager.RoleExists("Delete Category"))
+            if (!roleManager.RoleExists("Editar Compra"))
             {
-                roleManager.Create(new IdentityRole("Delete Category"));
+                roleManager.Create(new IdentityRole("Editar Compra"));
             }
 
-            if (!roleManager.RoleExists("View Purchase"))
+            if (!roleManager.RoleExists("Eliminar Compra"))
             {
-                roleManager.Create(new IdentityRole("View Purchase"));
+                roleManager.Create(new IdentityRole("Eliminar Compra"));
             }
 
-            if (!roleManager.RoleExists("Create Purchase"))
+            if (!roleManager.RoleExists("Ver Ventas"))
             {
-                roleManager.Create(new IdentityRole("Create Purchase"));
+                roleManager.Create(new IdentityRole("Ver Ventas"));
             }
 
-            if (!roleManager.RoleExists("Edit Purchase"))
+            if (!roleManager.RoleExists("Registrar Venta"))
             {
-                roleManager.Create(new IdentityRole("Edit Purchase"));
+                roleManager.Create(new IdentityRole("Registrar Venta"));
             }
 
-            if (!roleManager.RoleExists("Delete Purchase"))
+            if (!roleManager.RoleExists("Editar Venta"))
             {
-                roleManager.Create(new IdentityRole("Delete Purchase"));
+                roleManager.Create(new IdentityRole("Editar Venta"));
             }
 
-            if (!roleManager.RoleExists("View Sale"))
+            if (!roleManager.RoleExists("Eliminar Venta"))
             {
-                roleManager.Create(new IdentityRole("View Sale"));
+                roleManager.Create(new IdentityRole("Eliminar Venta"));
             }
 
-            if (!roleManager.RoleExists("Create Sale"))
+            if (!roleManager.RoleExists("Ver Proveedores"))
             {
-                roleManager.Create(new IdentityRole("Create Sale"));
+                roleManager.Create(new IdentityRole("Ver Proveedores"));
             }
 
-            if (!roleManager.RoleExists("Edit Sale"))
+            if (!roleManager.RoleExists("Agregar Proveedor"))
             {
-                roleManager.Create(new IdentityRole("Edit Sale"));
+                roleManager.Create(new IdentityRole("Agregar Proveedor"));
             }
 
-            if (!roleManager.RoleExists("Delete Sale"))
+            if (!roleManager.RoleExists("Editar Proveedor"))
             {
-                roleManager.Create(new IdentityRole("Delete Sale"));
+                roleManager.Create(new IdentityRole("Editar Proveedor"));
             }
 
-            if (!roleManager.RoleExists("View Provider"))
+            if (!roleManager.RoleExists("Eliminar Proveedor"))
             {
-                roleManager.Create(new IdentityRole("View Provider"));
+                roleManager.Create(new IdentityRole("Eliminar Proveedor"));
             }
 
-            if (!roleManager.RoleExists("Create Provider"))
+            if (!roleManager.RoleExists("Ver Clientes"))
             {
-                roleManager.Create(new IdentityRole("Create Provider"));
+                roleManager.Create(new IdentityRole("Ver Clientes"));
             }
 
-            if (!roleManager.RoleExists("Edit Provider"))
+            if (!roleManager.RoleExists("Agregar Cliente"))
             {
-                roleManager.Create(new IdentityRole("Edit Provider"));
+                roleManager.Create(new IdentityRole("Agregar Cliente"));
             }
 
-            if (!roleManager.RoleExists("Delete Provider"))
+            if (!roleManager.RoleExists("Editar Cliente"))
             {
-                roleManager.Create(new IdentityRole("Delete Provider"));
+                roleManager.Create(new IdentityRole("Editar Cliente"));
             }
 
-            if (!roleManager.RoleExists("View Customer"))
+            if (!roleManager.RoleExists("Eliminar Cliente"))
             {
-                roleManager.Create(new IdentityRole("View Customer"));
-            }
-
-            if (!roleManager.RoleExists("Create Customer"))
-            {
-                roleManager.Create(new IdentityRole("Create Customer"));
-            }
-
-            if (!roleManager.RoleExists("Edit Customer"))
-            {
-                roleManager.Create(new IdentityRole("Edit Customer"));
-            }
-
-            if (!roleManager.RoleExists("Delete Customer"))
-            {
-                roleManager.Create(new IdentityRole("Delete Customer"));
+                roleManager.Create(new IdentityRole("Eliminar Cliente"));
             }
         }
 

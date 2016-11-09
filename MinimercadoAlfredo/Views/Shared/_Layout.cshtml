@@ -25,8 +25,7 @@
                 @Html.ActionLink("Minimercado Alfredo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                <ul class="nav navbar-nav">                    
                     <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
                     <li>@Html.ActionLink("Productos", "Index", "Products")</li>
                     @*<li class="dropdown" style="left: auto">
@@ -44,6 +43,7 @@
                     <li>@Html.ActionLink("Ventas", "Index", "Sales")</li>
                     <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
+                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
                     
                 </ul>
                 @Html.Partial("_LoginPartial")
