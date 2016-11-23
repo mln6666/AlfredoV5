@@ -57,6 +57,12 @@ namespace MinimercadoAlfredo.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                ViewBag.usuariosinpermisos = "Acceso restringido. El usuario no cuenta con los permisos necesarios !";
+                //return RedirectToAction("Index","Error", new { error=2010});
+            }
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -136,7 +142,7 @@ namespace MinimercadoAlfredo.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Register()
         {
             return View();
@@ -145,7 +151,7 @@ namespace MinimercadoAlfredo.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrador")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -155,7 +161,7 @@ namespace MinimercadoAlfredo.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuenta y el restablecimiento de contraseña, visite http://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
@@ -163,7 +169,7 @@ namespace MinimercadoAlfredo.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Users");
                 }
                 AddErrors(result);
             }

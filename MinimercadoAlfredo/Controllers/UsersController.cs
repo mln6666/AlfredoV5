@@ -16,6 +16,7 @@ namespace MinimercadoAlfredo.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Users
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -35,6 +36,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(usersView);
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult ViewPermissions()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
