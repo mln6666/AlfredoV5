@@ -16,7 +16,7 @@ namespace MinimercadoAlfredo.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Users
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -36,7 +36,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(usersView);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult ViewPermissions()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
@@ -88,7 +88,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(userView);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Roles (string userID)
         {
             if (string.IsNullOrEmpty(userID))
@@ -230,7 +230,7 @@ namespace MinimercadoAlfredo.Controllers
             return View("MyPermissions", userView);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult AddRole(string userID)
         {
             if (string.IsNullOrEmpty(userID))
@@ -266,7 +266,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(userView);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult AddRole(string userID, FormCollection form)
         {
@@ -353,7 +353,7 @@ namespace MinimercadoAlfredo.Controllers
             return View("Roles", userView);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Delete(string userID, string roleID)
         {
             if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(roleID))
@@ -403,7 +403,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         // POST: /Users/Delete/5
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public async Task<ActionResult> DeleteUser(string id)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
