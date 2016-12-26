@@ -84,6 +84,35 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ValStockSale(string pro)
+        {
+            var cero = 0;
+            if (pro == "0")
+            {
+
+                return Json(cero, JsonRequestBehavior.AllowGet);
+            }
+            AlfredoContext db = new AlfredoContext();
+            //IEnumerable<int> query = (from c in db.Products
+            //                          where c.ProductDescription == pro
+            //                          select c.IdProduct);
+
+
+            //int id = query.ElementAt(0);
+            //Product productdata = db.Products.Find(id);
+
+            var proid = Int32.Parse(pro);
+
+
+            Product productdata = db.Products.ToList().Find(u => u.IdProduct == proid);
+
+
+            var midato = productdata.ParcialStock;
+
+            return Json(midato, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult FinalizeSale(string misale)
         {
             var saleid = Int32.Parse(misale);

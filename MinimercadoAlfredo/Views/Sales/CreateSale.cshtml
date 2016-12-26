@@ -248,7 +248,7 @@
             $("#customername").change(function() {
 
                 var options = {};
-                options.url = "/Sales/Getcustomerdata";
+                options.url = '@Url.Action("Getcustomerdata", "Sales")';
                 options.type = "GET";
                 options.data = { "cus": $("#customername").val() };
                 options.dataType = "json";
@@ -266,7 +266,7 @@
             $("#linedescription").change(function() {
 
                 var options = {};
-                options.url = "/Sales/Getproductdata";
+                options.url = '@Url.Action("Getproductdata", "Sales")';
                 options.type = "GET";
                 options.data = { "pro": $("#linedescription").val() };
                 options.dataType = "json";
@@ -367,37 +367,64 @@
                     $.each(historial, function() {
                         if (productoact == parseInt(this)) {
                             errorproductos = true;
-                           
+
                         }
                     });
                 }
                 if (errorproductos) {
-                    isValidItem=false;
-                    alert("Productos Iguales");
+                    isValidItem = false;
+                    bootbox.alert({
+                        title: "Producto existente",
+                        message: "El producto: - " + $('#shadow').val().trim()+" - ya se encuentra en el listado. ",
+                        backdrop: true
+                    });
                 }
+
+                //Validacion de Stock
+                if (isValidItem) {
+                    var options = {};
+                    options.url = '@Url.Action("ValStockSale", "Sales")';
+                    options.type = "GET";
+                    options.data = { "pro": $("#linedescription").val() };
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        var parcialstock = parseFloat(data);
+                        var cantidad = ($('#linequantity').val().trim());
+                        var faltante = parseFloat($('#linequantity').val().trim()) - parcialstock;
+                        if (parcialstock < cantidad) {
+                            bootbox.alert({
+                                title: "No hay suficiente stock",
+                               message: "Producto: " + $('#shadow').val().trim()+"<br/>Stock disponible: "+parcialstock+"<br/>Stock solicitado: "+cantidad+"<br/>Stock faltante: "+faltante,
+                                backdrop: true
+                            });
+                        }
+                        else {
+
+                            orderItems.push({
+                                IdProduct: $('#linedescription').val().trim(),
+                                LinePrice: $('#lineprice').val().trim(),
+                                LineDiscount: $('#linediscount').val().trim(),
+                                LineQuantity: $('#linequantity').val().trim(),
+                                LineTotal: $('#linetotal').val().trim(),
+                                LineDescription: $('#shadow').val().trim()
+                            });
+                            verifproductos.push(
+                                parseInt($('#linedescription').val().trim())
+                            );
+                            //Clear fields
+                            //$(document).find('#linedescription').select2();
+                            $("#linedescription").val(0).trigger('change');
+                            $('#lineprice,#linediscount,#linequantity,#linetotal').val('0');
+                            GeneratedItemsTable();
+                        }
+                    };
+                    $.ajax(options);
+                }
+
 
                 //Add item to list if valid
-                if (isValidItem) {
-                    orderItems.push({
-                        IdProduct: $('#linedescription').val().trim(),
-                        LinePrice: $('#lineprice').val().trim(),
-                        LineDiscount: $('#linediscount').val().trim(),
-                        LineQuantity: $('#linequantity').val().trim(),
-                        LineTotal: $('#linetotal').val().trim(),
-                        LineDescription: $('#shadow').val().trim()
-                    });
-                    verifproductos.push(
-                       parseInt($('#linedescription').val().trim())
-
-                   );
-                    //Clear fields
-                    //$(document).find('#linedescription').select2();
-                    $("#linedescription").val(0).trigger('change');
-                    $('#lineprice,#linediscount,#linequantity,#linetotal').val('0');
-
-                }
+              
                 //populate order items
-                GeneratedItemsTable();
 
             });
             //Save button click function
@@ -464,7 +491,7 @@
                     $(this).val('Please wait...');
 
                     $.ajax({
-                        url: '/Sales/CreateSale',
+                        url: '@Url.Action("CreateSale", "Sales")',
                         type: "POST",
                         data: JSON.stringify(data),
                         dataType: "JSON",
@@ -484,7 +511,7 @@
                                 $('#salestate').val('0');
 
                                 $('#orderItems').empty();
-                                
+
                             } else {
                                 alert('Failed');
                             }
