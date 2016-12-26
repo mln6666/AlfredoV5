@@ -6,12 +6,18 @@
 <head>
     <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
 </head>
-
+@if (ViewBag.errorcategory != null)
+{<h4 class="text-center" style="color:red">Acción no admitida.</h4>
+    <h5 class="text-center" style="color: red">No se permite eliminar un Rubro con productos relacionados.</h5>
+    <div class="form-actions no-color text-center">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button value="Eliminar" class="btn btn-danger disabled">Eliminar</button>
+       
+    </div>
+}
+else
+{
 <h4 class="text-center">¿Está seguro de eliminar el Rubro @Model.CategoryName?</h4>
-<br />
-<h4 class="text-center" style="color:red">IMPORTANTE</h4>
-<h5 class="text-center" style="color:red">Al eliminar este Rubro, estará eliminando todos sus productos relacionados</h5>
-<br />
 <br />
 <div>
     @*<h4>Category</h4>
@@ -40,7 +46,8 @@
 
         <div class="form-actions no-color text-center">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
+             <input type="submit" value="Eliminar" class="btn btn-danger" /> 
         </div>
     }
 </div>
+}
