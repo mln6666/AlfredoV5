@@ -23,6 +23,17 @@
 <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
 <script> $(document).ready(function () {
      $(".js-example-basic-single").select2();
+     $("#linedescription").val(@ViewBag.idultimoprod).trigger('change');
+     var options = {};
+     options.url = "/Purchases/Getproductdata";
+     options.type = "GET";
+     options.data = { "pro": $("#linedescription").val() };
+     options.dataType = "json";
+     options.success = function (data) {
+         document.getElementById("lineprice").value = data;
+
+     };
+     $.ajax(options);
  });
     //////////////////////Start: Autocomplete Product Price/////////////
     $(document).ready(function () {
