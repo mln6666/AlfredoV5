@@ -1,4 +1,5 @@
-﻿@model MinimercadoAlfredo.Models.Product
+﻿@using Newtonsoft.Json
+@model MinimercadoAlfredo.Models.Product
 
 @{
     ViewBag.Title = "Index";
@@ -239,7 +240,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("idCategory", null, "Seleccione un Rubro", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("idCategory", null, "Seleccione un Rubro", htmlAttributes: new { @class = "form-control input-sm" })
                                 @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -247,23 +248,25 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "ProdExistente()",@required="required" } })
+                                <span id="productoexistente" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "NroExistente()", @required = "required", @type="number" } })
                                 @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
+                                <span id="nroexistente" class="text-danger"></span>
+
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
                                 @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -271,7 +274,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
                                 @Html.ValidationMessageFor(model => model.WholeSalePrice, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -279,7 +282,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
                                 @Html.ValidationMessageFor(model => model.PublicPrice, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -287,7 +290,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.UploadDate, "Fecha de Carga", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -295,7 +298,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
                                 @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -303,7 +306,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
                                 @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
                             </div>
                         </div>
@@ -328,7 +331,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Image, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control input-sm" } })
                                 @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -337,7 +340,7 @@
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <input type="submit" value="Guardar" class="btn btn-success">
+                                <input type="submit"  id="botonGuardar" value="Guardar" class="btn btn-success">
                                 @*<input type="reset" value="Vaciar"/>*@
                             </div>
                         </div>
@@ -359,6 +362,64 @@
 
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script>
+        function NroExistente() {
+            
+            if ($('#ProductNumber').val() != "") {
+
+                var options = {};
+                options.url = '@Url.Action("ExisteNro", "Products")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProductNumber").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    if (data) {
+                        $('#nroexistente').text("Número de articulo existente");
+                        $("#botonGuardar").prop("disabled", true);
+                    } else {
+                        $('#nroexistente').text("");
+                        $("#botonGuardar").prop("disabled", false);
+
+                    };
+
+
+                };
+                $.ajax(options);
+
+            }
+
+        }
+
+        function ProdExistente() {
+
+            if ($('#ProductDescription').val() != "") {
+
+                var options = {};
+                options.url = '@Url.Action("ExisteProd", "Products")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProductDescription").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    if (data) {
+                        $('#productoexistente').text("Producto existente");
+                        $("#botonGuardar").prop("disabled", true);
+                    } else {
+                        $('#productoexistente').text("");
+                        $("#botonGuardar").prop("disabled", false);
+
+                    };
+
+
+                };
+                $.ajax(options);
+
+            }
+
+        }
+
+
+
+
+
         function OnSuccess() {
             $("#myModal .close").click();
             $('.modal-backdrop').remove();
@@ -487,7 +548,7 @@
                         LineQuantity: $('#linequantity').val().trim(),
                         LineTotal: $('#linetotal').val().trim(),
                         LineDescription: $('#shadow').val().trim()
-                });
+                    });
 
                     //Clear fields
                     //$('#linedescription').val('').focus();

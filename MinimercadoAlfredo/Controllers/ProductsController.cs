@@ -25,6 +25,25 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
+        public JsonResult ExisteProd(string nombre)
+        {
+
+            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ExisteNro(int nombre)
+        {
+            
+            var existe = db.Products.ToList().Exists(a => a.ProductNumber == nombre);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateModal([Bind(Include = "IdProduct,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
