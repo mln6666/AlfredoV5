@@ -500,17 +500,26 @@
                             //check is successfully save to database
                             if (d.status == true) {
                                 //will send status from server side
-                                alert('SAPEEEEEEEEEEEEE.');
-                                //clear form
-                                orderItems = [];
-                                $('#customername').val('');
-                                $('#saleaddress').val('');
-                                $('#cuitcuil').val('');
-                                $('#saledate').val('');
-                                $('#comments').val('');
-                                $('#salestate').val('0');
+                                //alert('SAPEEEEEEEEEEEEE.');
+                                bootbox.alert({
+                                    
+                                    message: "Venta guardada correctamente",
+                                    callback: function (result) {
+                                        //clear form
+                                        //orderItems = [];
+                                        //$('#customername').val('');
+                                        //$('#saleaddress').val('');
+                                        //$('#cuitcuil').val('');
+                                        //$('#saledate').val('');
+                                        //$('#comments').val('');
+                                        //$('#salestate').val('0');
 
-                                $('#orderItems').empty();
+                                        //$('#orderItems').empty();
+                                        var url = '@Url.Action("CreateSale")';
+                                        window.location.href = url;
+                                    }
+                                });
+                                
 
                             } else {
                                 alert('Failed');

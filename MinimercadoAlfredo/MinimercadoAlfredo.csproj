@@ -675,6 +675,7 @@
     <Content Include="Views\Users\MyPermissions.cshtml" />
     <Content Include="Views\Users\ViewPermissions.cshtml" />
     <Content Include="Views\Users\Roles.cshtml" />
+    <Content Include="Views\Products\_NewProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

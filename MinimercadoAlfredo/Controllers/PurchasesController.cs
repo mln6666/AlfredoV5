@@ -94,6 +94,8 @@ namespace MinimercadoAlfredo.Controllers
         {
             ViewBag.Providers = db.Providers.ToList();
             ViewBag.Products = db.Products.ToList();
+            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName");
+
             var npurchase = 0;
             if (db.Purchases!=null & db.Purchases.Count()!=0)
             {

@@ -1,4 +1,4 @@
-﻿@model MinimercadoAlfredo.Models.Sale
+﻿@model MinimercadoAlfredo.Models.Product
 
 @{
     ViewBag.Title = "Index";
@@ -84,18 +84,18 @@
                                 <label style="color: white; padding-top: 8px">LineDescription</label>
                             </div>
                             <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LinePrice</label>
-                            </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineQuantity</label>
-                            </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineTotal</label>
-                            </div>
+                            <label style="color: white; padding-top: 8px">LinePrice</label>
+                        </div>
+                        <div class="col-md-2" align="center">
+                            <label style="color: white; padding-top: 8px">LineQuantity</label>
+                        </div>
+                        <div class="col-md-2" align="center">
+                            <label style="color: white; padding-top: 8px">LineTotal</label>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </thead>
     </table>
 </div>
@@ -104,39 +104,49 @@
 
 
 <table>
+
     <div class="container-fluid">
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
+
                     <div class="col-md-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
-                            <option value="0">Seleccionar Producto...</option>
-                            @foreach (var item in ViewBag.Products)
-                            {
-                                <option value="@item.IdProduct">@item.ProductDescription</option>
-                            }
-                        </select>
-                        <input type="hidden" id="shadow" value="">
-                        <span class="error">linedescription required</span>
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" />
-                        <span class="error">lineprice required</span>
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" />
-                        <span class="error">linequantity required</span>
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
-                        <span class="error">linetotal required</span>
-                    </div>
+                        <div id="ajaxBeginFormResult">
+                            <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+                                <option value="0">Seleccionar Producto...</option>
+                                @foreach (var item in ViewBag.Products)
+                                {
+                                    <option value="@item.IdProduct">@item.ProductDescription</option>
+                                }
+                            </select>
+                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
+                                <span class="glyphicon glyphicon-plus text-center"></span>
+                            </a>
+                        </div>
+                            <input type="hidden" id="shadow" value="">
+                            <span class="error">linedescription required</span>
+                        </div>
+               
+                <div class="col-md-2" align="center">
+                    <input type="text" class="panel-info" style="width: 130px; height: 25px;" id="lineprice" />
+                    <span class="error">lineprice required</span>
+                </div>
+                <div class="col-md-2" align="center">
+                    <input type="text" class="panel-info" value="1" style="width: 130px; height: 25px;" id="linequantity" />
+                    <span class="error">linequantity required</span>
+                </div>
+                <div class="col-md-2" align="center">
+                    <input type="text" class="panel-info" style="width: 130px; height: 25px;" id="linetotal" />
+                    <span class="error">linetotal required</span>
                 </div>
             </div>
         </div>
     </div>
+    </div>
+
 </table>
+
 <table class="tablecontainer" style="border:none; background-color:dimgrey; ">
     <div id="orderItems" class="tablecontainer" style="border:none ; padding-top:15px">
     </div>
@@ -204,6 +214,143 @@
 
 }
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Agregar producto</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("CreateModal", "Products", new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "ajaxBeginFormResult",
+                    OnSuccess = "OnSuccess"
+                }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("idCategory", null, "Seleccione un Rubro", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WholeSalePrice, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.PublicPrice, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UploadDate, "Fecha de Carga", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="radio col-md-4">
+                                <label>
+                                    <input name="ProductState" id="optionsRadios1" value="true" checked="" type="radio">
+                                    Activo
+                                </label>
+                                <label>    </label>
+                                <label>
+                                    <input name="ProductState" id="optionsRadios2" value="false" type="radio">
+                                    Desactivado
+                                </label>
+                            </div>
+                            <div class="col-md-2"></div>
+
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Image, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <input type="submit" value="Guardar" class="btn btn-success">
+                                @*<input type="reset" value="Vaciar"/>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
 
@@ -212,7 +359,15 @@
 
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script>
+        function OnSuccess() {
+            $("#myModal .close").click();
+            $('.modal-backdrop').remove();
 
+            //alert("Operacion completada");
+            //bootbox.alert("Operación correcta.", function () {
+            //    $('.modal-backdrop').remove();
+            //});
+        }
         /////////////////Start:Select searchable////////////////
         $(document).ready(function() {
             $(".js-example-basic-single").select2();

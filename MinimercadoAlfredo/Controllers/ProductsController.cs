@@ -25,6 +25,27 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateModal([Bind(Include = "IdProduct,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.ParcialStock = product.Stock;
+                db.Products.Add(product);
+                db.SaveChanges();
+                return RedirectToAction("_NewProduct");
+            }
+
+            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+            return RedirectToAction("_NewProduct");
+        }
+
+        public ActionResult _NewProduct()
+        {
+            ViewBag.Products = db.Products.ToList();
+            return View();
+        }
         public ActionResult Minimum()
         {
             var products = (from p in db.Products
