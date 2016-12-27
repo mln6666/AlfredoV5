@@ -44,9 +44,8 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult _NewProduct()
         {
             var lista = db.Products.ToList();
-            Product ultimo = lista.LastOrDefault();
-            ViewBag.Products = db.Products.ToList();
-            ViewBag.idultimoprod = ultimo.IdProduct;
+            ViewBag.Products = lista;
+            ViewBag.idultimoprod = lista.LastOrDefault().IdProduct;
             return View();
         }
         public ActionResult Minimum()
