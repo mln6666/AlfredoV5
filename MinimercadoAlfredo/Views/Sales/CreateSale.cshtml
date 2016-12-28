@@ -74,7 +74,7 @@
                         @*<span class="error">customeraddress required</span>*@
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 150px;height:25px;" id="cuitcuil" placeholder="" />
+                        <input type="number" class="panel-info" style="width: 150px;height:25px;" id="cuitcuil" placeholder="" />
                         <span class="error">cuitcuil required</span>
                     </div>
                     <div class="col-md-2" align="center">
@@ -141,19 +141,19 @@
                         <span class="error">linedescription required</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" />
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" onchange = "totallinea()" onkeypress="solonumerosptocoma()" />
                         <span class="error">lineprice required</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" value="0" style="width: 130px;height:25px;" id="linediscount" />
+                        <input type="tel" min="0" step="1"class="panel-info" value="0" style="width: 130px;height:25px;" id="linediscount" maxlength="3"oninput="javascript:if (this.value > 100) this.value = 100;" onchange = "totallinea();" onkeypress="solonumeros()" />
                         <span class="error">linediscount required</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" />
+                        <input type="number" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" onchange = "totallinea()" onkeypress="solonumeros()" />
                         <span class="error">linequantity required</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
+                        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
                         <span class="error">linetotal required</span>
                     </div>
                 </div>
@@ -235,6 +235,10 @@
 
 
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+<script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+
+
     <script>
 
         /////////////////Start:Select searchable////////////////
@@ -272,7 +276,12 @@
                 options.dataType = "json";
                 options.success = function(data) {
                     document.getElementById("lineprice").value = data;
-
+                    var price = parseFloat($('#lineprice').val());
+                    var quantity = parseFloat($('#linequantity').val());
+                    var discount = parseFloat($('#linediscount').val());
+                    var total = (price * quantity);
+                    total = total - (total * discount / 100);
+                    document.getElementById("linetotal").value = total.toFixed(2);
                 };
                 $.ajax(options);
             });
@@ -280,27 +289,17 @@
         ///////////////////End: Autocomplete Product Price////////
 
         //////////////////Start: LinePrice Calculation//////////////
-        $(document).ready(function() {
-            $("#linequantity").change(function() {
-                    var price = parseFloat($('#lineprice').val());
-                    var quantity = parseFloat($('#linequantity').val());
-
-                    var total = price * quantity;
-
-                    document.getElementById("linetotal").value = total;
-
-
-                }
-            );
-        });
+       
+            function totallinea() {
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);
+            }
 
 
-        $('#linetotal').click(function() {
-            var price = parseFloat($('#lineprice').val());
-            var quantity = parseFloat($('#linequantity').val());
-            var total = price * quantity;
-            document.getElementById("linetotal").value = total;
-        });
 
         ////////////////////End: LinePrice Calculation/////////////
 
@@ -316,6 +315,7 @@
         $(document).ready(function() {
             var orderItems = [];
             var verifproductos = [];
+            var totgral = [];
             //Add button click function
             $('#add').click(function() {
                 //Check validation of order item
@@ -411,6 +411,9 @@
                             verifproductos.push(
                                 parseInt($('#linedescription').val().trim())
                             );
+                            totgral.push(
+                               parseFloat($('#linetotal').val().trim())
+                           );
                             //Clear fields
                             //$(document).find('#linedescription').select2();
                             $("#linedescription").val(0).trigger('change');
@@ -550,11 +553,18 @@
                         $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
+                        //CALCULO TOTAL GRAL
+                        saletotal = 0;
+                        $.each(totgral, function () { saletotal += parseFloat(this) || 0; });
+                        document.getElementById("saletotal").value = saletotal.toFixed(2);
+
+                        //FIN CALCULO TOTAL GRAL
 
                         $remove.click(function(e) {
                             e.preventDefault();
                             orderItems.splice(i, 1);
                             verifproductos.splice(i, 1);
+                            totgral.splice(i, 1);
                             GeneratedItemsTable();
 
                         });
