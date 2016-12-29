@@ -4,22 +4,22 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2 class="text-center">Agregar Cliente</h2>
+<hr style="color:grey;border-color:grey" />
+<br />
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Customers", null, FormMethod.Post, new { id = "createCustomer" })) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Customer</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCustomer()" } })
+                <span id="spancustomer" class="text-danger"></span>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CustomerEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CustomerEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
@@ -48,7 +48,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CuitCuil, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CuitCuil, "CUIL/CUIT", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CuitCuil, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CuitCuil, "", new { @class = "text-danger" })
@@ -57,16 +57,56 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Guardar" id="botonGuardar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <a href="@Url.Action("Index", "Customers")" class="btn btn-primary">Volver</a>
+    @*@Html.ActionLink("Volver", "Index")*@
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    function ValidCustomer() {
+
+        if ($('#CustomerName').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteCliente", "Customers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CustomerName").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spancustomer').text('Cliente existente');
+                    $("#botonGuardar").prop("disabled", true);
+                } else {
+                    $('#spancustomer').text('');
+                    $("#botonGuardar").prop("disabled", false);
+                }
+            }
+            $.ajax(options);
+        } else {
+            $('#spancustomer').text('Campo Obligatorio');
+        }
+    }
+
+    $('#createCustomer').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        if ($('#CustomerName').val() != '') {
+            bootbox.confirm("** Está por agregar un nuevo cliente, ¿Desea continuar?", function (result) {
+                if (result) {
+                    x.submit();
+                }
+            });
+        } else {
+            $('#spancustomer').text('Campo Obligatorio');
+        }
+    })
+</script>
 }
