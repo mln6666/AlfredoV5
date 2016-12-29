@@ -9,7 +9,7 @@
 <br />
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Create", "Products", null, FormMethod.Post, new { id = "createProd" }))
 {
     @Html.AntiForgeryToken()
 
@@ -29,7 +29,7 @@
             @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
-                @*@Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.ProductDescription, "", new { @class = "text-danger" })
                 <span id="spandescexistente" class="text-danger"></span>
             </div>
         </div>
@@ -38,7 +38,7 @@
             @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control", @onchange = "ProdExistente()" } })
-                @*@Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })*@
+                @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
                 <span id="spanprodexistente" class="text-danger"></span>
             </div>
         </div>
@@ -46,24 +46,27 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCost()", @required = "required" } })
                 @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                <span id="spanvalidcost" class="text-danger text-center"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WholeSalePrice, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCost()" } })
+                <span id="spanwholesaleprice" class="text-danger"></span>
+                <span id="spanvalidcost2" class="text-danger text-center"></span>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PublicPrice, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCost()" } })
+                <span id="spanpublicprice" class="text-danger"></span>
+                <span id="spanvalidcost3" class="text-danger text-center"></span>
             </div>
         </div>
 
@@ -131,7 +134,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        
+        var validcost = false;
         function DescExistente() {
 
             if ($('#ProductDescription').val() != "") {
@@ -143,20 +146,20 @@
                 options.dataType = "json";
                 options.success = function (data) {
                     if (data) {
-                        $('#spandescexistente').text("Producto existente");                        
+                        $('#spandescexistente').text("Producto existente");
                         $("#botonGuardar").prop("disabled", true);
                     } else {
-                        $('#spandescexistente').text("");                        
+                        $('#spandescexistente').text("");
                         if ($('#spandescexistente').val().trim() == '') {
                             $("#botonGuardar").prop("disabled", false);
                         }
-                    };                    
+                    };
 
                 };
                 $.ajax(options);
 
             }
-            
+
         }
 
         function ProdExistente() {
@@ -171,82 +174,77 @@
                 options.success = function (data) {
                     if (data) {
                         $('#spanprodexistente').text("Nro de Artículo existente");
-                        $("#botonGuardar").prop("disabled", true);                        
+                        $("#botonGuardar").prop("disabled", true);
                     } else {
                         $('#spanprodexistente').text("");
                         if ($('#spanprodexistente').val().trim() == '') {
                             $("#botonGuardar").prop("disabled", false);
                         }
                     };
-                                      
+
 
                 };
                 $.ajax(options);
 
             }
-            
+
         }
-        
 
-    @*$('#crearprod').submit(function (e) {
-        var x = this;
-        var y = true;
-        e.preventDefault();
-        var options = {};
-        options.url = '@Url.Action("ExisteProd", "Products")';
-        options.type = "GET";
-        options.data = { "nombre": $("#ProductDescription").val() };
-        options.dataType = "json";
-        options.success = function (data) {
-            if (data > 0) {
-                $('#spandescexistente').text("* Ya existe un producto con esa descripción!");
-                y = false;
-            } else {
-                if ($('#ProductDescription').val().trim() == '') {
+        function ValidCost() {
 
-                    $('#spandescexistente').text("* Campo requerido !");
-                    y = false;
+            var cost = parseInt($('#Cost').val());
+            var wholeSalePrice = parseInt($('#WholeSalePrice').val());
+            var publicPrice = parseInt($('#PublicPrice').val());
+
+            if ($('#Cost').val() != '' & $('#WholeSalePrice').val() != '') {
+                if (cost > wholeSalePrice) {
+                    $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
+                    validcost = true;
                 } else {
-                    $('#spandescexistente').text("");
+                    $('#spanvalidcost').text('');
+                    validcost = false;
                 }
             }
 
-
-
-        };
-        $.ajax(options);
-
-        e.preventDefault();
-        var options = {};
-        options.url = '@Url.Action("ExisteNro", "Products")';
-        options.type = "GET";
-        options.data = { "nombre": $("#ProductNumber").val() };
-        options.dataType = "json";
-        options.success = function (data) {
-            if (data > 0) {
-                $('#spanprodexistente').text("* Producto existente!");
-                y = false;
-            } else {
-                if ($('#ProductNumber').val().trim() == '') {
-
-                    $('#spanprodexistente').text("* Campo requerido!");
-                    y = false;
+            if ($('#PublicPrice').val() != '' & $('#WholeSalePrice').val() != '') {
+                if (publicPrice < wholeSalePrice) {
+                    $('#spanvalidcost2').text('El precio mayorista no puede ser menor al precio minorista');
+                    validcost = true;
                 } else {
-                    $('#spanprodexistente').text("");
+                    $('#spanvalidcost2').text('');
+                    validcost = false;
                 }
             }
 
-            if (y) {
+            if ($('#PublicPrice').val() != '' & $('#Cost').val() != '') {
+                if (publicPrice < cost) {
+                    $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                    validcost = true;
+                } else {
+                    $('#spanvalidcost3').text('');
+                    validcost = false;
+                }
+            }
+        }
+
+
+
+        $('#createProd').submit(function (e) {
+            var x = this;
+            e.preventDefault();
+            var isValidItem = true;
+            if ($('#Cost').val() == '' | validcost) {
+                isValidItem = false;
+            }
+
+            if (isValidItem) {
                 bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function (result) {
                     if (result) {
                         x.submit();
                     }
                 });
             }
+        })
 
-
-        };
-        $.ajax(options);
-    });*@
     </script>
 }

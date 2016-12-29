@@ -21,7 +21,7 @@ namespace MinimercadoAlfredo.Models
 
         [Display(Name = "Costo")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
-        public decimal? Cost { get; set; }
+        public decimal Cost { get; set; }
 
         [Display(Name = "P Mayorista")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
