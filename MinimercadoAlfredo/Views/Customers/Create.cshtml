@@ -71,6 +71,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script>
+    var IsValidItem = true;
     function ValidCustomer() {
 
         if ($('#CustomerName').val() != '') {
@@ -84,6 +85,7 @@
                 if (data) {
                     $('#spancustomer').text('Cliente existente');
                     $("#botonGuardar").prop("disabled", true);
+                    IsValidItem = false;
                 } else {
                     $('#spancustomer').text('');
                     $("#botonGuardar").prop("disabled", false);
@@ -92,6 +94,7 @@
             $.ajax(options);
         } else {
             $('#spancustomer').text('Campo Obligatorio');
+            IsValidItem = false;
         }
     }
 
@@ -99,11 +102,13 @@
         var x = this;
         e.preventDefault();
         if ($('#CustomerName').val() != '') {
-            bootbox.confirm("** Está por agregar un nuevo cliente, ¿Desea continuar?", function (result) {
-                if (result) {
-                    x.submit();
-                }
-            });
+            if (IsValidItem) {
+                bootbox.confirm("** Está por agregar un nuevo Cliente, ¿Desea continuar?", function (result) {
+                    if (result) {
+                        x.submit();
+                    }
+                });
+            }
         } else {
             $('#spancustomer').text('Campo Obligatorio');
         }

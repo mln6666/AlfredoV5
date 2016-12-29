@@ -4,23 +4,23 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2 class="text-center">Agregar Proveedor</h2>
+<hr style="color:grey;border-color:grey" />
+<br />
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Providers", null, FormMethod.Post, new { id = "createProvider" })) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Provider</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ProviderName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange= "ProvExistente()" } })
-                @Html.ValidationMessageFor(model => model.ProviderName, "", new { @class = "text-danger" })
-                <span id="proveedorexistente" class="text-danger"></span>
+                @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange= "ValidProvider()" } })
+                @*@Html.ValidationMessageFor(model => model.ProviderName, "", new { @class = "text-danger" })*@
+                <span id="spanprovider" class="text-danger"></span>
             </div>
         </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProviderEmail, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProviderEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProviderEmail, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ProviderEmail, "", new { @class = "text-danger" })
@@ -50,48 +50,62 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" id="botonGuardar" class="btn btn-default" />
+                <input type="submit" value="Guardar" id="botonGuardar" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Volver", "Index")
+    <a href="@Url.Action("Index", "Providers")" class="btn btn-primary">Volver</a>
+    @*@Html.ActionLink("Volver", "Index")*@
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-    function ProvExistente() {
-            
-            if ($('#ProviderName').val() != "") {
-                
-                    var options = {};
-                    options.url = '@Url.Action("ExisteProv", "Providers")';
-                    options.type = "GET";
-                    options.data = {"nombre": $("#ProviderName").val()};
-                    options.dataType = "json";
-                    options.success = function(data) {
-                    if (data) {
-                        $('#proveedorexistente').text("Proveedor existente");
+    var IsValidItem = true;
+    function ValidProvider() {
+
+        if ($('#ProviderName').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteProveedor", "Providers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#ProviderName").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spanprovider').text('Proveedor existente');
                     $("#botonGuardar").prop("disabled", true);
-                    } else {
-                        $('#proveedorexistente').text("");
-                        $("#botonGuardar").prop("disabled", false);
-
-                    };
-
-
-                    };
-                    $.ajax(options);
-
-                    }
-
+                    IsValidItem = false;
+                } else {
+                    $('#spanprovider').text('');
+                    $("#botonGuardar").prop("disabled", false);
+                }
+            }
+            $.ajax(options);
+        } else {
+            $('#spanprovider').text('Campo Obligatorio');
+            IsValidItem = false;
+        }
     }
 
-
-    
+    $('#createProvider').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        if ($('#ProviderName').val() != '') {
+            if (IsValidItem) {
+                bootbox.confirm("** Está por agregar un nuevo Proveedor, ¿Desea continuar?", function (result) {
+                    if (result) {
+                        x.submit();
+                    }
+                });
+            }
+        } else {
+            $('#spanprovider').text('Campo Obligatorio');
+        }
+    })
 </script>
 }

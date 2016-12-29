@@ -43,6 +43,15 @@ namespace MinimercadoAlfredo.Controllers
             return View(provider);
         }
 
+        public JsonResult ExisteProveedor(string nombre)
+        {
+
+            var existe = db.Providers.ToList().Exists(a => a.ProviderName == nombre);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Providers/Create
         public ActionResult Create()
         {
