@@ -153,7 +153,7 @@
                         <span class="error">linequantity required</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
                         <span class="error">linetotal required</span>
                     </div>
                 </div>
@@ -274,14 +274,14 @@
                 options.type = "GET";
                 options.data = { "pro": $("#linedescription").val() };
                 options.dataType = "json";
-                options.success = function(data) {
+                options.success = function (data) {
                     document.getElementById("lineprice").value = data;
                     var price = parseFloat($('#lineprice').val());
                     var quantity = parseFloat($('#linequantity').val());
                     var discount = parseFloat($('#linediscount').val());
                     var total = (price * quantity);
                     total = total - (total * discount / 100);
-                    document.getElementById("linetotal").value = total.toFixed(2);
+                    document.getElementById("linetotal").value = total.toFixed(2);;
                 };
                 $.ajax(options);
             });
@@ -298,8 +298,6 @@
                 total = total - (total * discount / 100);
                 document.getElementById("linetotal").value = total.toFixed(2);
             }
-
-
 
         ////////////////////End: LinePrice Calculation/////////////
 
@@ -399,6 +397,7 @@
                             });
                         }
                         else {
+                            //                    data = data.replace(",",'.');
 
                             orderItems.push({
                                 IdProduct: $('#linedescription').val().trim(),
@@ -418,6 +417,8 @@
                             //$(document).find('#linedescription').select2();
                             $("#linedescription").val(0).trigger('change');
                             $('#lineprice,#linediscount,#linequantity,#linetotal').val('0');
+                            $('#linequantity').val('1');
+
                             GeneratedItemsTable();
                         }
                     };
