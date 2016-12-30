@@ -115,7 +115,6 @@ namespace MinimercadoAlfredo.Controllers
             if (customer.Sales.Count() != 0)
             {
                 ViewBag.errorcustomer = "Acción no permitida! Cliente con ventas relacionadas.";
-                return View("Index");
             }
             return View(customer);
         }

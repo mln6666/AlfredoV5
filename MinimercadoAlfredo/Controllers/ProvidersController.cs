@@ -123,7 +123,6 @@ namespace MinimercadoAlfredo.Controllers
             if (db.Purchases.ToList().Exists(p => p.IdProvider == id))
             {
                 ViewBag.ErrorProvider = "Acción no permitida! Proveedor con Compras relacionadas.";
-                return View("index");
             }
             return View(provider);
         }

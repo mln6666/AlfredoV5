@@ -4,51 +4,65 @@
     Layout = null;
 }
 
-<h4>¿Está seguro de eliminar a @Model.ProviderName de la lista de Proveedores?</h4>
-<br />
-<div>
-    
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProviderName)
-        </dt>
+@if (ViewBag.ErrorProvider != null)
+{
+    <h4 class="text-center" style="color:red">Acción no admitida.</h4>
+    <h5 class="text-center" style="color: red">No se permite eliminar un Cliente con Ventas relacionadas.</h5>
+    <br />
+    <div class="form-actions no-color text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProviderName)
-        </dd>
+    </div>
+}
+else
+{
+    <h4 class="text-center">¿Está seguro de eliminar a @Model.ProviderName de la lista de Proveedores?</h4>
+    <br />
+    <div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProviderAddress)
-        </dt>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ProviderName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProviderAddress)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ProviderName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProviderPhone)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProviderAddress)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProviderPhone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ProviderAddress)
+            </dd>
 
-        <dt>
-            Email
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProviderPhone)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProviderEmail)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ProviderPhone)
+            </dd>
 
-    </dl>
+            <dt>
+                Email
+            </dt>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+            <dd>
+                @Html.DisplayFor(model => model.ProviderEmail)
+            </dd>
 
-        <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
-        </div>
-    }
-</div>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color text-center">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            </div>
+        }
+    </div>
+}
