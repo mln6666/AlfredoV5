@@ -119,6 +119,12 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (db.Purchases.ToList().Exists(p => p.IdProvider == id))
+            {
+                ViewBag.ErrorProvider = "Acción no permitida! Proveedor con Compras relacionadas.";
+                return View("index");
+            }
             return View(provider);
         }
 
@@ -126,10 +132,17 @@ namespace MinimercadoAlfredo.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {
-            Provider provider = db.Providers.Find(id);
-            db.Providers.Remove(provider);
-            db.SaveChanges();
+        {            
+            if (db.Purchases.ToList().Exists(p => p.IdProvider == id))
+            {
+                return HttpNotFound();
+
+            } else
+            {
+                Provider provider = db.Providers.Find(id);
+                db.Providers.Remove(provider);
+                db.SaveChanges();
+            }
             return RedirectToAction("Index");
         }
 

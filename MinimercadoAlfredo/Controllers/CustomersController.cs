@@ -111,6 +111,12 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (customer.Sales.Count() != 0)
+            {
+                ViewBag.errorcustomer = "Acción no permitida! Cliente con ventas relacionadas.";
+                return View("Index");
+            }
             return View(customer);
         }
 
@@ -120,8 +126,14 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
+            if (customer.Sales.Count() == 0)
+            {
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+            } else
+            {
+                return HttpNotFound();
+            }
             return RedirectToAction("Index");
         }
 
