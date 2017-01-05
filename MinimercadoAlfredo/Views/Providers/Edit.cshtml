@@ -69,14 +69,26 @@
     var IsValidItem = true;
     function ValidProvider() {
 
-        if ($('#ProviderName').val() == '') {
+        if ($('#ProviderName').val() != '') {
 
+            var options = {};
+            options.url = '@Url.Action("ExisteProveedor", "Providers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#ProviderName").val(), "idprovider": $("#IdProvider").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spanprovider').text('Proveedor existente');
+                    IsValidItem = false;
+                } else {
+                    $('#spanprovider').text('');
+                    IsValidItem = true;
+                }
+            }
+            $.ajax(options);
+        } else {
             $('#spanprovider').text('Campo Obligatorio');
             IsValidItem = false;
-
-        } else {
-            $('#spanprovider').text('');
-            IsValidItem = true;
         }
     }
 
@@ -95,5 +107,5 @@
             $('#spanprovider').text('Campo Obligatorio');
         }
     })
-    </script>
+</script>
 }

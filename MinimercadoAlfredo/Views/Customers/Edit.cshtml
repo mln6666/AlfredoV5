@@ -74,14 +74,26 @@
     var IsValidItem = true;
     function ValidCustomer() {
 
-        if ($('#CustomerName').val() == '') {
+        if ($('#CustomerName').val() != '') {
 
+            var options = {};
+            options.url = '@Url.Action("ExisteCliente", "Customers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CustomerName").val(), "idcustomer": $("#IdCustomer").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spancustomer').text('Cliente existente');
+                    IsValidItem = false;
+                } else {
+                    $('#spancustomer').text('');
+                    IsValidItem = true;
+                }
+            }
+            $.ajax(options);
+        } else {
             $('#spancustomer').text('Campo Obligatorio');
             IsValidItem = false;
-            
-        } else {
-            $('#spancustomer').text('');
-            IsValidItem = true;
         }
     }
 
@@ -95,10 +107,12 @@
                         x.submit();
                     }
                 });
+            } else {
+                $('#spancustomer').text('Cliente existente');
             }
         } else {
             $('#spancustomer').text('Campo Obligatorio');
         }
     })
-    </script>
+</script>
 }

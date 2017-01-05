@@ -36,6 +36,7 @@
     </div>
 
 }
+
 <script>
     
 
@@ -48,7 +49,7 @@
         options.data = { "dato": $("#CategoryName").val() };
         options.dataType = "json";
         options.success = function (data) {
-            if (data > 0) {
+            if (data) {
                 $('#spanrubroexistente').text("* Rubro existente !");
 
             } else {

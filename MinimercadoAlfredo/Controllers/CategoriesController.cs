@@ -21,15 +21,13 @@ namespace MinimercadoAlfredo.Controllers
             return View(db.Categories.ToList());
         }
 
-        public JsonResult ValRubro(string dato)
+        public JsonResult ValRubro(string dato, int? idcategory)
         {
-            int user = 0;
-            user = db.Categories.Count(u => u.CategoryName == dato);
+            
+            var category = db.Categories.ToList().Exists(u => u.CategoryName == dato & u.IdCategory != idcategory);
 
 
-
-
-            return Json(user, JsonRequestBehavior.AllowGet);
+            return Json(category, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Categories/Details/5
