@@ -45,6 +45,23 @@ namespace MinimercadoAlfredo.Controllers
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ExisteEmail(string nombre, int? idcustomer)
+        {
+
+            var existe = db.Customers.ToList().Exists(a => a.CustomerEmail == nombre & a.IdCustomer != idcustomer);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ExisteCuil(string nombre, int? idcustomer)
+        {
+
+            var existe = db.Customers.ToList().Exists(a => a.CuitCuil == nombre & a.IdCustomer != idcustomer);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
         // GET: Customers/Create
         public ActionResult Create()
         {

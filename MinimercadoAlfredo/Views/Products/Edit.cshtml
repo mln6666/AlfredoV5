@@ -157,46 +157,37 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        var validcost = false;
+        var validcost = true;
+        var validcost2 = true;
+        var validcost3 = true;
+        var IsValidItem = true;
+        var IsValidItem2 = true;
+        function DescExistente() {
 
-        function ValidCost() {
+            if ($('#ProductDescription').val() != "") {
 
-            var cost = parseInt($('#Cost').val());
-            var wholeSalePrice = parseInt($('#WholeSalePrice').val());
-            var publicPrice = parseInt($('#PublicPrice').val());
+                var options = {};
+                options.url = '@Url.Action("ExisteProd", "Products")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    if (data) {
+                        $('#spandescexistente').text("Producto existente");
+                        IsValidItem = false;
+                    } else {
+                        $('#spandescexistente').text("");
+                        IsValidItem = true;
+                    };
 
-            if ($('#Cost').val() != '' & $('#WholeSalePrice').val() != '') {
-                if (cost > wholeSalePrice) {
-                    $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
-                    validcost = true;
-                } else {
-                    $('#spanvalidcost').text('');
-                    validcost = false;
-                }
+                };
+                $.ajax(options);
+
+            } else {
+                IsValidItem = false;
             }
 
-            if ($('#PublicPrice').val() != '' & $('#WholeSalePrice').val() != '') {
-                if (publicPrice < wholeSalePrice) {
-                    $('#spanvalidcost2').text('El precio mayorista no puede ser menor al precio minorista');
-                    validcost = true;
-                } else {
-                    $('#spanvalidcost2').text('');
-                    validcost = false;
-                }
-            }
-
-            if ($('#PublicPrice').val() != '' & $('#Cost').val() != '') {
-                if (publicPrice < cost) {
-                    $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
-                    validcost = true;
-                } else {
-                    $('#spanvalidcost3').text('');
-                    validcost = false;
-                }
-            }
         }
-
-        var isValidItem = true;
 
         function ProdExistente() {
 
@@ -210,64 +201,67 @@
                 options.success = function (data) {
                     if (data) {
                         $('#spanprodexistente').text("Nro de Artículo existente");
-                        isValidItem = false;
+                        IsValidItem2 = false;
                     } else {
                         $('#spanprodexistente').text("");
-                        isValidItem = true;
+                        IsValidItem2 = true;
                     };
 
 
                 };
                 $.ajax(options);
 
-            }
-
-        }
-
-        function DescExistente() {
-
-            if ($('#ProductDescription').val() != "") {
-
-                var options = {};
-                options.url = '@Url.Action("ExisteProd", "Products")';
-                options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val() };
-                options.dataType = "json";
-                options.success = function (data) {
-                    if (data) {
-                        $('#spandescexistente').text("Producto existente");
-                        isValidItem = false;
-                    } else {
-                        $('#spandescexistente').text("");
-                        isValidItem = true;
-                    };
-
-                };
-                $.ajax(options);
+            } else {
+                IsValidItem2 = false;
 
             }
 
         }
+
+        function ValidCost() {
+
+            var cost = parseInt($('#Cost').val());
+            var wholeSalePrice = parseInt($('#WholeSalePrice').val());
+            var publicPrice = parseInt($('#PublicPrice').val());
+
+            if ($('#Cost').val() != '' & $('#WholeSalePrice').val() != '') {
+                if (cost > wholeSalePrice) {
+                    $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
+                    validcost = false;
+                } else {
+                    $('#spanvalidcost').text('');
+                    validcost = true;
+                }
+            }
+
+            if ($('#PublicPrice').val() != '' & $('#WholeSalePrice').val() != '') {
+                if (publicPrice < wholeSalePrice) {
+                    $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
+                    validcost2 = false;
+                } else {
+                    $('#spanvalidcost2').text('');
+                    validcost2 = true;
+                }
+            }
+
+            if ($('#PublicPrice').val() != '' & $('#Cost').val() != '') {
+                if (publicPrice < cost) {
+                    $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                    validcost3 = false;
+                } else {
+                    $('#spanvalidcost3').text('');
+                    validcost3 = true;
+                }
+            }
+        }
+
+
 
         $('#editProd').submit(function (e) {
             var x = this;
             e.preventDefault();
-            
-            if ($('#Cost').val() == '' | validcost) {
-                isValidItem = false;
-            }
 
-            if ($('#ProductDescription').val() == '') {
-                $('#spandescexistente').text('Campo Obligatorio');
-                isValidItem = false;
-            }
-
-            if ($('#ProductNumber').val() == '') {
-                $('#spanprodexistente').text('Campo Obligatorio');
-                isValidItem = false;
-            }
-
-            if (isValidItem) {
+            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3) {
                 bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function (result) {
                     if (result) {
                         x.submit();
@@ -276,5 +270,5 @@
             }
         })
 
-    </script>
+</script>
 }
