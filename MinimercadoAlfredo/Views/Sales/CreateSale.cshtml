@@ -208,7 +208,7 @@
                     </div>
                     <div class="col-md-6" align="center">
                         <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
-                        <span class="error">customername required</span>
+                        
                     </div>
 
 
@@ -470,13 +470,7 @@
                     isAllValid = false;
                 } else {
                     $('#saletotal').siblings('span.error').css('visibility', 'hidden');
-                }
-                if ($('#comments').val().trim() == '') {
-                    $('#comments').siblings('span.error').css('visibility', 'visible');
-                    isAllValid = false;
-                } else {
-                    $('#comments').siblings('span.error').css('visibility', 'hidden');
-                }
+                }                
 
                 //Save if valid
                 if (isAllValid) {
