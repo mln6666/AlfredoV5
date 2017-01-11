@@ -42,7 +42,7 @@
             @Html.DisplayNameFor(model => model.SaleTotal)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SaleState)
+            Estado
         </th>
         <th class="text-center">
             Acciones
@@ -69,9 +69,22 @@
                     @Html.DisplayFor(modelItem => item.SaleState)
                 </td>
                 <td class="text-center">
-                    @Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                data-toggle="dropdown">
+                            Acciones <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action("Edit","Sales", new { id = item.IdSale })">Editar</a></li>
+                            <li><a href="@Url.Action("Details","Sales", new { id = item.IdSale })">Detalles</a></li>
+                            <li><a href="@Url.Action("Delete","Sales", new { id = item.IdSale })" class="dialog-window">Eliminar</a></li>
+                        </ul>
+                    </div>
+                    @*@Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Detalles", "Details", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdSale, view = 0 }, new { @class = "dialog-window btn btn-primary btn-sm" })                </td>
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdSale, view = 0 }, new { @class = "dialog-window btn btn-primary btn-sm" })*@
+                </td>
             </tr>
         }
     </tbody>

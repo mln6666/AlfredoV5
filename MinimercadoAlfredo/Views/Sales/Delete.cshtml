@@ -6,6 +6,7 @@
 
 @if (ViewBag.pendiente != null)
 {
+    <h2 class="text-center text-danger">Acción no permitida</h2>
     <h3 class="text-center text-danger">@ViewBag.pendiente</h3>
     <br />
     <div class="form-actions no-color text-center">
@@ -14,7 +15,7 @@
 }
 else
 {
-    <h3>¿Está seguro que desea eliminar la siguiente venta ?</h3>
+    <h3>¿Está seguro que desea eliminar la siguiente venta?</h3>
     <div>
 
         <table class="table table-striped table-bordered table-condensed resaltar">

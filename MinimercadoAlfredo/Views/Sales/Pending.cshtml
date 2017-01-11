@@ -70,10 +70,22 @@
 
             </td>
             <td class="text-center">
-                <button id="@item.IdSale" class="@item.IdSale" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)">Finalizar</button>
-                @Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
+                <button id="@item.IdSale" class="@item.IdSale btn-success" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)">Finalizar</button>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                            data-toggle="dropdown">
+                        Acciones <span class="caret"></span>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="@Url.Action("Edit","Sales", new { id = item.IdSale })">Editar</a></li>
+                        <li><a href="@Url.Action("Details","Sales", new { id = item.IdSale })">Detalles</a></li>
+                        <li><a href="@Url.Action("Delete","Sales", new { id = item.IdSale })" class="dialog-window">Eliminar</a></li>
+                    </ul>
+                </div>
+                @*@Html.ActionLink("Editar", "Edit", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
                 @Html.ActionLink("Detalles", "Details", new {id = item.IdSale}, new {@class = "btn btn-primary btn-sm"})
-                @Html.ActionLink("Eliminar", "Delete", new {id = item.IdSale, view = 1 }, new {@class = "dialog-window btn btn-primary btn-sm" })
+                @Html.ActionLink("Eliminar", "Delete", new {id = item.IdSale, view = 1 }, new {@class = "dialog-window btn btn-primary btn-sm" })*@
             </td>
         </tr>
     }

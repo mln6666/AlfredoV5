@@ -51,8 +51,15 @@ namespace MinimercadoAlfredo.Controllers
             AlfredoContext db = new AlfredoContext();
             Customer customerdata = db.Customers.ToList().Find(u => u.IdCustomer == cusid);
             Customer customerdata3 = new Customer();
-            customerdata3.CustomerAddress = customerdata.CustomerAddress.ToString();
-            customerdata3.CuitCuil = customerdata.CuitCuil.ToString();
+            if (customerdata.CustomerAddress != null)
+            {
+                customerdata3.CustomerAddress = customerdata.CustomerAddress.ToString();
+            }
+            if (customerdata.CuitCuil != null)
+            {
+
+                customerdata3.CuitCuil = customerdata.CuitCuil.ToString();
+            }
 
             return Json(customerdata3, JsonRequestBehavior.AllowGet);
         }
