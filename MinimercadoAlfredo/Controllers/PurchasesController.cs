@@ -204,6 +204,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(purchase);
         }
 

@@ -325,6 +325,10 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+            if (sale.SaleState == SaleState.Finalizada)
+            {
+                ViewBag.pendiente = "Solo es posible eliminar Ventas Pendientes";
+            }
             return View(sale);
         }
 

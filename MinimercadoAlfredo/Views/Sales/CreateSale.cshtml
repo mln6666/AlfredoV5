@@ -547,11 +547,11 @@
                     var $tbody = $('<tbody/>');
                     $.each(orderItems, function(i, val) {
                         var $row = $('<div class="col-md-12" align="center" ></div>');
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDiscount));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+                        $row.append($('<div class="col-md-5" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDiscount));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
                         //CALCULO TOTAL GRAL

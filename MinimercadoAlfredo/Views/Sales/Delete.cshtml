@@ -2,140 +2,150 @@
 @{
     Layout = null;
 }
-@{
-    ViewBag.Title = "Delete";
+
+
+@if (ViewBag.pendiente != null)
+{
+    <h3 class="text-center text-danger">@ViewBag.pendiente</h3>
+    <br />
+    <div class="form-actions no-color text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+    </div>
 }
+else
+{
+    <h3>¿Está seguro que desea eliminar la siguiente venta ?</h3>
+    <div>
 
-<h3>¿ Está seguro que desea eliminar la siguiente venta ?</h3>
-<div>
-   
-    <table class="table table-striped table-bordered table-condensed resaltar">
-        <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
-                <th class="text-left" style="border-radius: 3px">
+        <table class="table table-striped table-bordered table-condensed resaltar">
+            <thead>
+                <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+                    <th class="text-left" style="border-radius: 3px">
 
-                    Nº Venta
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                   
-                    Estado Venta
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Cliente
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Dirección
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Cuit/Cuil
-                </th>
+                        Nº Venta
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
 
-            </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="text-left">
-                @Html.DisplayFor(model => model.IdSale)
-            </td>
-            <td class="text-left">
-                @Html.DisplayFor(model => model.SaleState)
-            </td>
-            <td class="text-left">
-                @Html.DisplayFor(model => model.Customer.CustomerName)
-            </td>
-            <td class="text-left">
-                @Html.DisplayFor(model => model.SaleAddress)
-            </td>
-            <td class="text-left">
-                @Html.DisplayFor(model => model.Customer.CuitCuil)
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-striped table-bordered table-condensed resaltar">
-        <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+                        Estado Venta
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
+                        Cliente
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
+                        Dirección
+                    </th>
+                    <th class="text-left" style="border-radius: 3px;">
+                        Cuit/Cuil
+                    </th>
 
-                <th class="text-left" style="border-radius: 3px">
-                    Producto
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Cantidad
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Descuento
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Precio Unitario
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Total
-                </th>
-
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.SaleLines)
-            {
+                </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                        @Html.DisplayFor(model => model.IdSale)
                     </td>
                     <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineQuantity)
+                        @Html.DisplayFor(model => model.SaleState)
                     </td>
                     <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineDiscount)
+                        @Html.DisplayFor(model => model.Customer.CustomerName)
                     </td>
                     <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LinePrice)
+                        @Html.DisplayFor(model => model.SaleAddress)
                     </td>
                     <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineTotal)
+                        @Html.DisplayFor(model => model.Customer.CuitCuil)
                     </td>
-                    @*<td class="text-left">
-                            @Html.ActionLink("Editar", "Edit", new { id = item.IdPresentacionPlan }) |
-                            @Html.ActionLink("Detalles", "Details", new { id = item.IdPresentacionPlan }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPresentacionPlan })
-                        </td>*@
                 </tr>
-            }
-        </tbody>
-    </table>
-    <table class="table table-striped table-bordered table-condensed resaltar">
-        <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
-                <th class="text-left" style="border-radius: 3px">
-                    Comentarios
-                </th>
-                <th class="text-left" style="border-radius: 3px">
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed resaltar">
+            <thead>
+                <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
 
-                    Total Venta
-                </th>
+                    <th class="text-left" style="border-radius: 3px">
+                        Producto
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
+                        Cantidad
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
+                        Descuento
+                    </th>
+                    <th class="text-left" style="border-radius: 3px;">
+                        Precio Unitario
+                    </th>
+                    <th class="text-left" style="border-radius: 3px;">
+                        Total
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.SaleLines)
+                {
+                    <tr>
+                        <td class="text-left">
+                            @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                        </td>
+                        <td class="text-left">
+                            @Html.DisplayFor(modelItem => item.LineQuantity)
+                        </td>
+                        <td class="text-left">
+                            @Html.DisplayFor(modelItem => item.LineDiscount)
+                        </td>
+                        <td class="text-left">
+                            @Html.DisplayFor(modelItem => item.LinePrice)
+                        </td>
+                        <td class="text-left">
+                            @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                        @*<td class="text-left">
+                                @Html.ActionLink("Editar", "Edit", new { id = item.IdPresentacionPlan }) |
+                                @Html.ActionLink("Detalles", "Details", new { id = item.IdPresentacionPlan }) |
+                                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPresentacionPlan })
+                            </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <table class="table table-striped table-bordered table-condensed resaltar">
+            <thead>
+                <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+                    <th class="text-left" style="border-radius: 3px">
+                        Comentarios
+                    </th>
+                    <th class="text-left" style="border-radius: 3px">
+
+                        Total Venta
+                    </th>
 
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.Comments)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.SaleTotal)
-                </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-left">
+                        @Html.DisplayFor(model => model.Comments)
+                    </td>
+                    <td class="text-left">
+                        @Html.DisplayFor(model => model.SaleTotal)
+                    </td>
 
-            </tr>
-        </tbody>
-    </table>
+                </tr>
+            </tbody>
+        </table>
 
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar" class="btn btn-default" /> 
-           
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Eliminar" class="btn btn-default" />
+
+            </div>
+        }
+    </div>
+}

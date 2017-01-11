@@ -43,9 +43,21 @@
                     @Html.DisplayFor(modelItem => item.PurchaseTotal)
                 </td>
                 <td class="text-center">
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdPurchase }, new {@class = "btn btn-primary btn-sm" }) 
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                data-toggle="dropdown">
+                            Acciones <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action("Edit","Purchases", new { id = item.IdPurchase })">Editar</a></li>
+                            <li><a href="@Url.Action("Details","Purchases", new { id = item.IdPurchase })">Detalles</a></li>
+                            <li><a href="@Url.Action("Delete","Purchases", new { id = item.IdPurchase })" class="dialog-window1">Eliminar</a></li>
+                        </ul>
+                    </div> 
+                    @*@Html.ActionLink("Editar", "Edit", new { id = item.IdPurchase }, new {@class = "btn btn-primary btn-sm" }) 
                     @Html.ActionLink("Detalles", "Details", new { id = item.IdPurchase }, new { @class = "btn btn-primary btn-sm" }) 
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPurchase }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPurchase }, new { @class = "btn btn-primary btn-sm" })*@
                 </td>
             </tr>
         }
@@ -69,6 +81,7 @@
             //        "order": [[0, "desc"]]
             //    });
             
+            $('.dropdown-toggle').dropdown();
             
         })
     </script>    

@@ -20,7 +20,6 @@
             @Html.LabelFor(model => model.ProviderName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidProvider()" } })
-                @*@Html.ValidationMessageFor(model => model.ProviderName, "", new { @class = "text-danger" })*@
                 <span id="spanprovider" class="text-danger"></span>
             </div>
         </div>
@@ -59,7 +58,6 @@
 
 <div>
     <a href="@Url.Action("Index", "Providers")" class="btn btn-primary">Volver</a>
-    @*@Html.ActionLink("Volver", "Index")*@
 </div>
 
 @section Scripts {

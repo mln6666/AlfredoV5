@@ -47,9 +47,18 @@
                     @Html.DisplayFor(modelItem => item.ProviderEmail)
                 </td>
                 <td class="text-center">
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdProvider }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Detalles", "Details", new { id = item.IdProvider }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdProvider }, new { @class = "btn btn-primary btn-sm dialog-window1" })
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                data-toggle="dropdown">
+                            Acciones <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action("Edit","Providers", new { id = item.IdProvider })">Editar</a></li>
+                            <li><a href="@Url.Action("Details","Providers", new { id = item.IdProvider })">Detalles</a></li>
+                            <li><a href="@Url.Action("Delete","Providers", new { id = item.IdProvider })" class="dialog-window1">Eliminar</a></li>
+                        </ul>
+                    </div>                    
                 </td>
             </tr>
         }
@@ -101,6 +110,7 @@
                 "language": { "url": "/Scripts/DataTables/spanish.json" }
             });
 
+            $('.dropdown-toggle').dropdown();
         })
 
         $("body").on("click", "a.dialog-window1", null, function (e) {
