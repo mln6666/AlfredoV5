@@ -74,7 +74,7 @@
             var options = {};
             options.url = '@Url.Action("ExisteProveedor", "Providers")';
             options.type = "GET";
-            options.data = { "nombre": $("#ProviderName").val(), "idprovider": $("#IdProvider").val() };
+            options.data = { "nombre": $("#ProviderName").val() };
             options.dataType = "json";
             options.success = function (data) {
                 if (data) {
@@ -92,19 +92,15 @@
         }
     }
 
-    $('#editProvider').submit(function (e) {
+    $('#createProvider').submit(function (e) {
         var x = this;
         e.preventDefault();
-        if ($('#ProviderName').val() != '') {
-            if (IsValidItem) {
-                bootbox.confirm("** Está por editar un Proveedor, ¿Desea continuar?", function (result) {
-                    if (result) {
-                        x.submit();
-                    }
-                });
-            }
-        } else {
-            $('#spanprovider').text('Campo Obligatorio');
+        if (IsValidItem) {
+            bootbox.confirm("** Está por agregar un nuevo Proveedor, ¿Desea continuar?", function (result) {
+                if (result) {
+                    x.submit();
+                }
+            });
         }
     })
 </script>
