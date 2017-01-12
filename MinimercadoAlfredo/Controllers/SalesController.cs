@@ -54,11 +54,16 @@ namespace MinimercadoAlfredo.Controllers
             if (customerdata.CustomerAddress != null)
             {
                 customerdata3.CustomerAddress = customerdata.CustomerAddress.ToString();
+            }else
+            {
+                customerdata3.CustomerAddress = String.Empty;
             }
             if (customerdata.CuitCuil != null)
             {
-
                 customerdata3.CuitCuil = customerdata.CuitCuil.ToString();
+            }else
+            {
+                customerdata3.CuitCuil = String.Empty;
             }
 
             return Json(customerdata3, JsonRequestBehavior.AllowGet);

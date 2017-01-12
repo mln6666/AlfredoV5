@@ -118,7 +118,9 @@
 
         ////Grilla automatica//
         $("#tabla").DataTable({
-            "order": [[1, "desc"]]
+            "language": { "url": "/Scripts/DataTables/spanish.json" }
+        }, {
+            order: [[1, "desc"]]
         });
         $('.dropdown-toggle').dropdown();
 
