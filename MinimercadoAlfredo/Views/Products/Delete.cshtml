@@ -7,11 +7,10 @@
 <head>
     <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
 </head>
-
-<h5 class="text-center">¿Está seguro de eliminar el siguiente Producto?</h5>
+<h3 class="text-center text-danger">¿Está seguro de eliminar el siguiente Producto?</h3>
 <br />
+
 <div>
-    
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
@@ -35,16 +34,19 @@
 
         <dd>
             @Html.DisplayFor(model => model.Cost)
-        </dd>        
+        </dd>
 
     </dl>
-
-    @using (Html.BeginForm()) {
+    <br />
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-            <input type="submit" value="Eliminar" class="btn btn-danger" />            
+            <input type="submit" value="Eliminar" class="btn btn-danger" />
         </div>
     }
+
+    
 </div>

@@ -18,8 +18,8 @@
             <th>
                 Descripción
             </th>
-            <th class="text-center">
-                Acciones
+            <th class="text-center" style="width:130px">
+                Opciones
             </th>
         </tr>
     </thead>
@@ -35,9 +35,17 @@
                     @Html.DisplayFor(modelItem => item.CategoryDescription)
                 </td>
                 <td class="text-center">
-                    @Html.ActionLink("Editar", "Edit", new { id = item.IdCategory }, new { @class = "dialog-window3 btn btn-primary btn-sm" })
-                    @*@Html.ActionLink("Detalles", "Details", new { id = item.IdCategory }, new { @class = "btn btn-primary btn-sm" })*@
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCategory }, new { @class = "dialog-window1 btn btn-primary btn-sm" })
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="@Url.Action("Edit","Categories", new { id = item.IdCategory })">Editar</a></li>
+                            <li><a href="@Url.Action("Delete","Categories", new { id = item.IdCategory })" class="dialog-window1">Eliminar</a></li>
+                        </ul>
+                    </div>                    
                 </td>
             </tr>
         }
@@ -88,30 +96,12 @@
 </div>
 
 
-@*@if (ViewBag.RubroExistente != null)
-{
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h2 class="modal-title text-center">Aviso</h2>
-                </div>
-                <div class="modal-body">
-                    <h3 class="text-center" style="color: Red">@ViewBag.RubroExistente</h3>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}*@
 
 @section scripts
 {
     <script>
-    $(document).ready(function () {
+        $(document).ready(function () {
+            $('.dropdown-toggle').dropdown();
 
         ////Grilla automatica//
         $("#tabla").DataTable({

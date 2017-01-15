@@ -44,7 +44,7 @@
             </th>
 
             <th class="text-center">
-                Acciones
+                Opciones
             </th>
         </tr>
     </thead>
@@ -77,11 +77,11 @@
                     </td>
                 }
 
-                <td>
+                <td class="text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                                 data-toggle="dropdown">
-                            Acciones <span class="caret"></span>
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
@@ -90,7 +90,7 @@
                             <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
                             @if (item.ProductState == false)
                             {
-                                <li><a href="@Url.Action("Deactivate", "Products", new { id = item.IdProduct })" class="dialog-window2">Activar</a></li>
+                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window2">Desactivar</a></li>
                             }
                         </ul>
                     </div>                    
