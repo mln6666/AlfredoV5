@@ -16,15 +16,15 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Products
-        public ActionResult Index(bool? confirm)
+        public ActionResult Index(bool? message)
         {
             var products = (from p in db.Products
                             where p.ProductState == true
                             select p);
 
-            if (confirm != null)
+            if (message != null)
             {
-                if (confirm == true)
+                if (message == true)
                 {
                     ViewBag.message = "El Producto ha sido desactivado correctamente.";
                 }
@@ -87,13 +87,13 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult OffProducts(bool? confirm)
+        public ActionResult OffProducts(bool? message)
         {
             var products = (from p in db.Products
                         where p.ProductState == false
                         select p);
 
-            if (confirm != null)
+            if (message != null)
             {
                 ViewBag.message = "El Producto ha sido activado correctamente.";
             }
@@ -101,11 +101,11 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult Record(bool? confirm)
+        public ActionResult Record(bool? message)
         {
             var products = db.Products.Include(p => p.Category);
 
-            if (confirm != null)
+            if (message != null)
             {
                 ViewBag.message = "El Producto se ha eliminado correctamente.";
             }
@@ -182,19 +182,19 @@ namespace MinimercadoAlfredo.Controllers
                     prod.ProductState = false;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Products", new { confirm = true});
+                    return RedirectToAction("Index", "Products", new { message = true});
                 }
                 else
                 {
                     prod.ProductState = true;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("OffProducts", "Products", new { confirm = true});
+                    return RedirectToAction("OffProducts", "Products", new { message = true});
                 }
 
             }else
             {
-                return RedirectToAction("Index", "Products", new { confirm = false });
+                return RedirectToAction("Index", "Products", new { message = false });
             }
             
             
@@ -256,7 +256,7 @@ namespace MinimercadoAlfredo.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Record", "Products", new { confirm = true});
+            return RedirectToAction("Record", "Products", new { message = true});
         }
 
         protected override void Dispose(bool disposing)

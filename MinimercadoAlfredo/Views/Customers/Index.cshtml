@@ -66,15 +66,33 @@
                             <li><a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="dialog-window1">Eliminar</a></li>
                         </ul>
                     </div>
-                    @*@Html.ActionLink("Editar", "Edit", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Detalles", "Details", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm" })
-                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdCustomer }, new { @class = "btn btn-primary btn-sm dialog-window1" })*@
+                    
                 </td>
             </tr>
         }
     </tbody>
 
 </table>
+
+@if (ViewBag.message != null)
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@ViewBag.message</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -113,6 +131,8 @@
 @section scripts
 {
     <script>
+        $('#myModal').modal('show')
+
         $(document).ready(function () {
 
             $('.dropdown-toggle').dropdown();

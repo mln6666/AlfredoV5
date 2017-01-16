@@ -16,8 +16,12 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(bool? message)
         {
+            if (message != null)
+            {
+                ViewBag.message = "El Cliente ha sido eliminado correctamente.";
+            }
             return View(db.Customers.ToList());
         }
 
@@ -150,7 +154,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Customers", new { message = true });
         }
 
         protected override void Dispose(bool disposing)

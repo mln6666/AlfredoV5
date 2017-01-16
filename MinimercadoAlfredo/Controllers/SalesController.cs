@@ -17,23 +17,41 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Sales
-        public ActionResult Index()
+        public ActionResult Index(bool? message)
         {
             var sales = db.Sales.Include(s => s.Customer);
+
+            if (message != null)
+            {
+                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+            }
+
             return View(sales.ToList());
         }
-        public ActionResult Pending()
+        public ActionResult Pending(bool? message)
         {
             var sales = (from s in db.Sales
                             where s.SaleState == SaleState.Pendiente
                             select s);
+
+            if (message != null)
+            {
+                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+            }
+
             return View(sales);
         }
-        public ActionResult Finalized()
+        public ActionResult Finalized(bool? message)
         {
             var sales = (from s in db.Sales
                          where s.SaleState == SaleState.Finalizada
                          select s);
+
+            if (message != null)
+            {
+                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+            }
+
             return View(sales);
         }
 
@@ -367,9 +385,9 @@ namespace MinimercadoAlfredo.Controllers
 
             db.Sales.Remove(sale);
             db.SaveChanges();
-            if (view == 0) { return RedirectToAction("Index"); }
-            if (view == 1) { return RedirectToAction("Pending"); }
-            if (view == 2) { return RedirectToAction("Finalized"); }
+            if (view == 0) { return RedirectToAction("Index", new { message = true }); }
+            if (view == 1) { return RedirectToAction("Pending", new { message = true }); }
+            if (view == 2) { return RedirectToAction("Finalized", new { message = true }); }
 
             return RedirectToAction("Index");
         }

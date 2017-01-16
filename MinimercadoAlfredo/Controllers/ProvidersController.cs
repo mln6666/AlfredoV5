@@ -16,8 +16,12 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Providers
-        public ActionResult Index()
+        public ActionResult Index(bool? message)
         {
+            if (message != null)
+            {
+                ViewBag.message = "El Proveedor ha sido eliminado correctamente.";
+            }
             return View(db.Providers.ToList());
         }
         public JsonResult ExisteProv(string nombre)
@@ -142,7 +146,7 @@ namespace MinimercadoAlfredo.Controllers
                 db.Providers.Remove(provider);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Providers", new { message = true });
         }
 
         protected override void Dispose(bool disposing)

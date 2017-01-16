@@ -17,9 +17,15 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Purchases
-        public ActionResult Index()
+        public ActionResult Index(bool? message)
         {
             var purchases = db.Purchases.Include(p => p.Provider);
+
+            if (message != null)
+            {
+                ViewBag.message = "La Compra ha sido eliminada correctamente.";
+            }
+
             return View(purchases.ToList().OrderByDescending(p => p.PurchaseDate));
         }
 
@@ -216,7 +222,7 @@ namespace MinimercadoAlfredo.Controllers
             Purchase purchase = db.Purchases.Find(id);
             db.Purchases.Remove(purchase);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Purchases", new { message = true });
         }
 
         protected override void Dispose(bool disposing)
