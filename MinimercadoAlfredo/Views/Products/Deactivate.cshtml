@@ -51,10 +51,11 @@ else
         <dd>
             @if (Model.ProductState == true)
             {
-                <text>Activo</text>
-            }else
+                <p class="text-success">Activo</p>
+            }
+            else
             {
-                <text>Desactivado</text>
+                <p class="text-warning">Desactivado</p>
             }
         </dd>
 
@@ -74,7 +75,7 @@ else
             }
             else
             {
-                <input type="submit" value="Activar" class="btn btn-warning" />
+                <input type="submit" value="Activar" class="btn btn-success" />
             }
         </div>
     }
