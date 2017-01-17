@@ -1,7 +1,7 @@
 ﻿@model MinimercadoAlfredo.Models.Sale
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Nueva Venta";
 }
 <head>
 
@@ -257,8 +257,12 @@
                 options.data = { "cus": $("#customername").val() };
                 options.dataType = "json";
                 options.success = function(data) {
-                    document.getElementById("saleaddress").value = data.CustomerAddress;
-                    document.getElementById("cuitcuil").value = data.CuitCuil;
+                    if (data.CustomerAdress != null) {
+                        document.getElementById("saleaddress").value = data.CustomerAddress;
+                    }
+                    if (data.CuitCuil != null) {
+                        document.getElementById("cuitcuil").value = data.CuitCuil;
+                    }
                 };
                 $.ajax(options);
             });
@@ -459,12 +463,12 @@
                 } else {
                     $('#saleaddress').siblings('span.error').css('visibility', 'hidden');
                 }
-                if ($('#cuitcuil').val().trim() == '') {
-                    $('#cuitcuil').siblings('span.error').css('visibility', 'visible');
-                    isAllValid = false;
-                } else {
-                    $('#cuitcuil').siblings('span.error').css('visibility', 'hidden');
-                }
+                //if ($('#cuitcuil').val().trim() == '') {
+                //    $('#cuitcuil').siblings('span.error').css('visibility', 'visible');
+                //    isAllValid = false;
+                //} else {
+                //    $('#cuitcuil').siblings('span.error').css('visibility', 'hidden');
+                //}
                 if ($('#saletotal').val().trim() == '') {
                     $('#saletotal').siblings('span.error').css('visibility', 'visible');
                     isAllValid = false;

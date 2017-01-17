@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MinimercadoAlfredo.Models.Category>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Rubros";
 }
 <h2 class="text-center">Lista de Rubros</h2>
 <hr style="color:grey;border-color:grey" />
@@ -42,7 +42,7 @@
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Action("Edit","Categories", new { id = item.IdCategory })">Editar</a></li>
+                            <li><a href="@Url.Action("Edit","Categories", new { id = item.IdCategory })" class="dialog-window3">Editar</a></li>
                             <li><a href="@Url.Action("Delete","Categories", new { id = item.IdCategory })" class="dialog-window1">Eliminar</a></li>
                         </ul>
                     </div>                    
