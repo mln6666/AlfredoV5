@@ -146,7 +146,7 @@ namespace MinimercadoAlfredo.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName");
+            ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
             return View();
         }
 
