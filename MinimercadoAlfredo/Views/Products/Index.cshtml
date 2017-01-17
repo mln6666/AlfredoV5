@@ -55,7 +55,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @if (item.Stock >= item.Minimum)
+                @if (item.Stock >= item.Minimum | item.Minimum == null)
                 {
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
@@ -78,18 +78,18 @@
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
-                    <td style="color:red">
-                        @Html.DisplayFor(modelItem => item.ProductDescription)
-                    </td>
-                    <td style="color:red">
-                        @Html.DisplayFor(modelItem => item.ProductNumber)
-                    </td>
-                    <td style="color: red">
-                        @Html.DisplayFor(modelItem => item.Stock)
-                    </td>
-                    <td style="color:red">
-                        @Html.DisplayFor(modelItem => item.ParcialStock)
-                    </td>
+                        <td style="color:red">
+                            @Html.DisplayFor(modelItem => item.ProductDescription)
+                        </td>
+                        <td style="color:red">
+                            @Html.DisplayFor(modelItem => item.ProductNumber)
+                        </td>
+                        <td style="color: red">
+                            @Html.DisplayFor(modelItem => item.Stock)
+                        </td>
+                        <td style="color:red">
+                            @Html.DisplayFor(modelItem => item.ParcialStock)
+                        </td>
                 }
                 <td class="text-center">
                     <div class="btn-group">

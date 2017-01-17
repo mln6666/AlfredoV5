@@ -237,7 +237,7 @@
             var x = this;
             e.preventDefault();
             
-            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3) {
+            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#Stock').val() != '') {
                 bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function (result) {
                     if (result) {
                         x.submit();
