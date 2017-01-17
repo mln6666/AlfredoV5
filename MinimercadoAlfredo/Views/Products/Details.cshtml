@@ -78,9 +78,17 @@
             @Html.DisplayNameFor(model => model.Minimum)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Minimum)
-        </dd>
+        @if (Model.Minimum != null)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Minimum)
+            </dd>
+        }else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
 
         <dt>
             Estado
