@@ -4,47 +4,107 @@
     ViewBag.Title = "Detalles de Compra";
 }
 
-<h2>Details</h2>
+<h3 class="text-center">Detalles de Compra</h3>
+<hr style="color:grey;border-color:grey" />
 
-<div>
-    <h4>Purchase</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Provider.ProviderName)
-        </dt>
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th style="width:110px">
+                N° Compra
+            </th>
+            <th>
+                Proveedor
+            </th>
+            <th style="width:220px">
+                Teléfono
+            </th>
+            <th style="width:170px">
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.IdPurchase)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Provider.ProviderName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Provider.ProviderPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PurchaseDate)
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center">Lista de Productos</h3>
+<hr style="color:grey;border-color:grey" />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <td class="text-left" style="border-radius: 3px">
+                Producto
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                N° Artículo
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Cantidad
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Costo Unitario
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Subtotal
+            </td>
+        </tr>
+</thead>
+    <tbody>
+        @foreach(var item in Model.PurchaseLines)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Cost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr style="color:grey;border-color:grey" />
 
-        <dd>
-            @Html.DisplayFor(model => model.Provider.ProviderName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PurchaseDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PurchaseDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comments)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comments)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PurchaseTotal)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PurchaseTotal)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdPurchase }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <td class="text-left" style="border-radius: 3px">
+                Comentarios
+            </td>
+            <td class="text-left" style="border-radius: 3px; width:200px">
+                Total de Compra
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Comments</td>
+            <td>@Html.DisplayFor(model => model.PurchaseTotal)</td>
+        </tr>
+    </tbody>
+</table>
