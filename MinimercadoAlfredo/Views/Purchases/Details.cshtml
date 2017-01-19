@@ -7,7 +7,7 @@
 <h3 class="text-center">Detalles de Compra</h3>
 <hr style="color:grey;border-color:grey" />
 
-<table class="table table-striped table-bordered" id="tabla">
+<table class="table table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <th style="width:110px">
@@ -91,7 +91,7 @@
 </table>
 <hr style="color:grey;border-color:grey" />
 
-<table class="table table-striped table-bordered" id="tabla">
+<table class="table table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px">
@@ -129,8 +129,16 @@
     </div>
 </div>
 
+@section scripts
+{
 <script>
     $(document).ready(function () {
+        $("#tabla").DataTable({
+            "language": {
+                "url": "/Scripts/DataTables/spanish.json"
+            }
+        });
+
         $("body").on("click", "a.dialog-window", null, function (e) {
             e.preventDefault();
 
@@ -151,3 +159,5 @@
         });
     })
 </script>
+    
+}
