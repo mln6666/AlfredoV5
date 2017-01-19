@@ -1,0 +1,50 @@
+﻿@model MinimercadoAlfredo.Models.Customer
+@{
+    Layout = null;
+}
+
+<h2>Detalles de @Model.CustomerName</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerPhone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CuitCuil)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuitCuil)
+        </dd>
+
+    </dl>
+</div>

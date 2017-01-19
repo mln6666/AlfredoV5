@@ -285,6 +285,20 @@ namespace MinimercadoAlfredo.Controllers
             return View(sale);
         }
 
+        public ActionResult modalCustomer(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customers.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            return View(customer);
+        }
+
         // GET: Sales/Create
         public ActionResult Create()
         {
