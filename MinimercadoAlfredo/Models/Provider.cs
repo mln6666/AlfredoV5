@@ -15,6 +15,8 @@ namespace MinimercadoAlfredo.Models
         [Required(ErrorMessage = "Campo Obligatorio")]
         public string ProviderName { get; set; }
 
+        public string CuitCuil { get; set; }
+
         [Display(Name = "Dirección")]
         public string ProviderAddress { get; set; }
 

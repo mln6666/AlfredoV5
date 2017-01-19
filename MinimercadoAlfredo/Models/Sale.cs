@@ -22,6 +22,10 @@ namespace MinimercadoAlfredo.Models
 
         public string Comments { get; set; }
 
+        [Display(Name = "Subtotal")]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public decimal? SubTotal { get; set; }
+
         [Display(Name = "Total")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? SaleTotal { get; set; }
