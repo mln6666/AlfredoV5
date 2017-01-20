@@ -106,7 +106,7 @@
             var options = {};
             options.url = '@Url.Action("ExisteEmail", "Customers")';
             options.type = "GET";
-            options.data = { "nombre": $("#CustomerEmail").val(), "idcustomer": $("#IdCustomer").val() };
+            options.data = { "nombre": $("#CustomerEmail").val() };
             options.dataType = "json";
             options.success = function (data) {
                 if (data) {
@@ -128,7 +128,7 @@
             var options = {};
             options.url = '@Url.Action("ExisteCuil", "Customers")';
             options.type = "GET";
-            options.data = { "nombre": $("#CuitCuil").val(), "idcustomer": $("#IdCustomer").val() };
+            options.data = { "nombre": $("#CuitCuil").val() };
             options.dataType = "json";
             options.success = function (data) {
                 if (data) {

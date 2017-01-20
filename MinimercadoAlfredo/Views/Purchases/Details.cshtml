@@ -53,6 +53,9 @@
                 Producto
             </td>
             <td class="text-left" style="border-radius: 3px">
+                Marca
+            </td>
+            <td class="text-left" style="border-radius: 3px">
                 N° Artículo
             </td>
             <td class="text-left" style="border-radius: 3px">
@@ -72,6 +75,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Brand)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)

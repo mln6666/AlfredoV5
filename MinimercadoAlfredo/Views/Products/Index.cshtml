@@ -37,14 +37,15 @@
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParcialStock)
-            </th>
+            
 
             <th class="text-center">
                 Opciones
@@ -64,14 +65,15 @@
                         @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.ProductNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Stock)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ParcialStock)
-                    </td>
+                    
                 }
                 else
                 {
@@ -82,14 +84,15 @@
                             @Html.DisplayFor(modelItem => item.ProductDescription)
                         </td>
                         <td style="color:red">
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                        <td style="color:red">
                             @Html.DisplayFor(modelItem => item.ProductNumber)
                         </td>
                         <td style="color: red">
                             @Html.DisplayFor(modelItem => item.Stock)
                         </td>
-                        <td style="color:red">
-                            @Html.DisplayFor(modelItem => item.ParcialStock)
-                        </td>
+                        
                 }
                 <td class="text-center">
                     <div class="btn-group">

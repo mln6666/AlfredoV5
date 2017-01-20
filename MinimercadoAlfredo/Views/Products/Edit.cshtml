@@ -26,6 +26,15 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Brand, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
+                @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                @*<span id="spandescexistente" class="text-danger"></span>*@
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
@@ -169,7 +178,7 @@
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val() };
+                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val(), "brand": $("#Brand").val() };
                 options.dataType = "json";
                 options.success = function (data) {
                     if (data) {
