@@ -28,6 +28,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Brand, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @if (Model.Brand == "[Producto sin Marca]")
+                {
+                    Model.Brand = null;
+                }
                 @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
                 @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
                 @*<span id="spandescexistente" class="text-danger"></span>*@

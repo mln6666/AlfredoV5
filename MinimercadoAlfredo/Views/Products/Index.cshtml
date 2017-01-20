@@ -64,9 +64,18 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Brand)
-                    </td>
+                    if (item.Brand == "[Producto sin Marca]")
+                    {
+                        <td class="text-warning">
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Brand)
+                        </td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductNumber)
                     </td>
@@ -80,18 +89,18 @@
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
-                        <td style="color:red">
-                            @Html.DisplayFor(modelItem => item.ProductDescription)
-                        </td>
-                        <td style="color:red">
-                            @Html.DisplayFor(modelItem => item.Brand)
-                        </td>
-                        <td style="color:red">
-                            @Html.DisplayFor(modelItem => item.ProductNumber)
-                        </td>
-                        <td style="color: red">
-                            @Html.DisplayFor(modelItem => item.Stock)
-                        </td>
+                    <td style="color:red">
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
+                    <td style="color:red">
+                        @Html.DisplayFor(modelItem => item.Brand)
+                    </td>
+                    <td style="color:red">
+                        @Html.DisplayFor(modelItem => item.ProductNumber)
+                    </td>
+                    <td style="color: red">
+                        @Html.DisplayFor(modelItem => item.Stock)
+                    </td>
                         
                 }
                 <td class="text-center">

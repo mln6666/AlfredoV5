@@ -38,6 +38,8 @@ namespace MinimercadoAlfredo.Controllers
 
         public JsonResult ExisteProd(string nombre, int? idproduct, string brand)
         {
+            if (brand == "")
+                brand = "[Producto sin Marca]";
             var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.Brand == brand & a.IdProduct != idproduct);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
@@ -157,6 +159,8 @@ namespace MinimercadoAlfredo.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (product.Brand == null)
+                    product.Brand = "[Producto sin Marca]";
                 product.ParcialStock = product.Stock;
                 db.Products.Add(product);
                 db.SaveChanges();
@@ -224,6 +228,8 @@ namespace MinimercadoAlfredo.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (product.Brand == null)
+                    product.Brand = "[Producto sin Marca]";
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
