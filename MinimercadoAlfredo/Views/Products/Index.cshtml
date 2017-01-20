@@ -1,28 +1,27 @@
 ﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
-
 @{
-    ViewBag.Title = "Productos Activos";
+    ViewBag.Title = "Index";
 }
+
+
 
 <h2 class="text-center">Lista de Productos Activos</h2>
 <hr style="color:grey;border-color:grey" />
 
-
 <div class="row">
     <div class="col-lg-10">
-        <a href="@Url.Action("Create", "Products")" class="btn btn-success">Agregar Producto</a>
-    </div>    
+        <a href="@Url.Action("Create", "Products")" class="btn btn-success chicle">Agregar Producto</a>
+    </div>
     <div class="btn-group col-lg-1">
         <button type="button" class="btn btn-primary dropdown-toggle"
                 data-toggle="dropdown">
             Mostrar <span class="caret"></span>
         </button>
-
         <ul class="dropdown-menu" role="menu">
             <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
             <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
             <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>            
+            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>
         </ul>
     </div>
 </div>
@@ -45,7 +44,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ParcialStock)
             </th>
-
             <th class="text-center">
                 Opciones
             </th>
@@ -78,9 +76,9 @@
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
-                        <td style="color:red">
-                            @Html.DisplayFor(modelItem => item.ProductDescription)
-                        </td>
+                    <td style="color:red">
+                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                    </td>
                         <td style="color:red">
                             @Html.DisplayFor(modelItem => item.ProductNumber)
                         </td>
@@ -94,23 +92,21 @@
                 <td class="text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                data-toggle="dropdown"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
+                                data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
                         </button>
-
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })">Detalles</a></li>
                             <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window1">Desactivar</a></li>
                         </ul>
-                    </div>                    
+                    </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 <text style="color:red">**Los Productos en color rojo tienen Stock por debajo de la mínima</text>
-
 @if (ViewBag.message != null)
 {
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -130,7 +126,6 @@
         </div>
     </div>
 }
-
 <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -140,11 +135,10 @@
             </div>
             <div class="modal-body">
                 <div class="te">Espere...</div>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
-
 
 @section scripts
 {
@@ -153,7 +147,7 @@
 
         $(document).ready(function () {
 
-            
+
 
         ////Grilla automatica//
         $("#tabla").DataTable({
