@@ -36,11 +36,9 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public JsonResult ExisteProd(string nombre, int? idproduct)
+        public JsonResult ExisteProd(string nombre, int? idproduct, string brand)
         {
-
-            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.IdProduct != idproduct);
-
+            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.Brand == brand & a.IdProduct != idproduct);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
@@ -57,7 +55,7 @@ namespace MinimercadoAlfredo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateModal([Bind(Include = "IdProduct,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
+        public ActionResult CreateModal([Bind(Include = "IdProduct,Brand,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -155,7 +153,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
+        public ActionResult Create([Bind(Include = "IdProduct,Brand,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -221,7 +219,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,Brand,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
         {
             if (ModelState.IsValid)
             {

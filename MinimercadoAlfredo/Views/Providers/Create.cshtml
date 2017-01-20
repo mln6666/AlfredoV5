@@ -43,8 +43,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ProviderEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProviderEmail, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ProviderEmail, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidEmail()" } })
                 @Html.ValidationMessageFor(model => model.ProviderEmail, "", new { @class = "text-danger" })
+                <span id="spanemail" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CuitCuil, "CUIT/CUIL", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CuitCuil, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCuil()" } })
+                @Html.ValidationMessageFor(model => model.CuitCuil, "", new { @class = "text-danger" })
+                <span id="spancuil" class="text-danger"></span>
             </div>
         </div>
 
@@ -65,7 +74,9 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script>
-    var IsValidItem = true;
+        var IsValidItem = true;
+        var IsValidItem2 = true;
+        var IsValidItem3 = true;
     function ValidProvider() {
 
         if ($('#ProviderName').val() != '') {
@@ -91,10 +102,54 @@
         }
     }
 
+    function ValidEmail() {
+
+        if ($('#ProviderEmail').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteEmail", "Providers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#ProviderEmail").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spanemail').text('El Email ingresado se encuentra asociado a otro Proveedor');
+                    IsValidItem2 = false;
+                } else {
+                    $('#spanemail').text('');
+                    IsValidItem2 = true;
+                }
+            }
+            $.ajax(options);
+        }
+    }
+
+    function ValidCuil() {
+
+        if ($('#CuitCuil').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteCuil", "Providers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CuitCuil").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spancuil').text('Ya existe un Proveedor con el CUIT/CUIL ingresado');
+                    IsValidItem3 = false;
+                } else {
+                    $('#spancuil').text('');
+                    IsValidItem3 = true;
+                }
+            }
+            $.ajax(options);
+        }
+    }
+
     $('#createProvider').submit(function (e) {
         var x = this;
         e.preventDefault();
-        if (IsValidItem) {
+        if (IsValidItem & IsValidItem2 & IsValidItem3) {
             bootbox.confirm("** Está por agregar un nuevo Proveedor, ¿Desea continuar?", function (result) {
                 if (result) {
                     x.submit();

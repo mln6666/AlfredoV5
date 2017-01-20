@@ -18,6 +18,9 @@
                 @Html.DisplayNameFor(model => model.ProviderName)
             </th>
             <th>
+                CUIT / CUIL
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProviderAddress)
             </th>
             <th>
@@ -36,6 +39,9 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProviderName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CuitCuil)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProviderAddress)

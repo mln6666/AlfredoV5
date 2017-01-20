@@ -34,6 +34,9 @@
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductNumber)
             </th>
             <th>
@@ -54,6 +57,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProductNumber)

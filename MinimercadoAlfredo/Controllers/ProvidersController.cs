@@ -56,6 +56,24 @@ namespace MinimercadoAlfredo.Controllers
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ExisteEmail(string nombre, int? idprovider)
+        {
+
+            var existe = db.Providers.ToList().Exists(a => a.ProviderEmail == nombre & a.IdProvider != idprovider);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ExisteCuil(string nombre, int? idprovider)
+        {
+
+            var existe = db.Providers.ToList().Exists(a => a.CuitCuil == nombre & a.IdProvider != idprovider);
+
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Providers/Create
         public ActionResult Create()
         {
@@ -67,7 +85,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProvider,ProviderName,ProviderAddress,ProviderPhone,ProviderEmail")] Provider provider)
+        public ActionResult Create([Bind(Include = "IdProvider,ProviderName,CuitCuil,ProviderAddress,ProviderPhone,ProviderEmail")] Provider provider)
         {
             if (ModelState.IsValid)
             {
@@ -100,7 +118,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProvider,ProviderName,ProviderAddress,ProviderPhone,ProviderEmail")] Provider provider)
+        public ActionResult Edit([Bind(Include = "IdProvider,ProviderName,CuitCuil,ProviderAddress,ProviderPhone,ProviderEmail")] Provider provider)
         {
             if (ModelState.IsValid)
             {
