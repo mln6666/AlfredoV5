@@ -92,7 +92,7 @@ namespace MinimercadoAlfredo.Controllers
                 db.Providers.Add(provider);
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                
+
             }
 
             return View(provider);
@@ -153,12 +153,13 @@ namespace MinimercadoAlfredo.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-        {            
+        {
             if (db.Purchases.ToList().Exists(p => p.IdProvider == id))
             {
                 return HttpNotFound();
 
-            } else
+            }
+            else
             {
                 Provider provider = db.Providers.Find(id);
                 db.Providers.Remove(provider);

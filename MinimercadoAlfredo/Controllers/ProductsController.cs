@@ -45,7 +45,7 @@ namespace MinimercadoAlfredo.Controllers
 
         public JsonResult ExisteNro(int nombre, int? idproduct)
         {
-            
+
             var existe = db.Products.ToList().Exists(a => a.ProductNumber == nombre & a.IdProduct != idproduct);
 
 
@@ -79,8 +79,8 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Minimum()
         {
             var products = (from p in db.Products
-                        where p.Stock <= p.Minimum
-                        select p);
+                            where p.Stock <= p.Minimum
+                            select p);
 
             return View(products.ToList());
         }
@@ -88,8 +88,8 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult OffProducts(bool? message)
         {
             var products = (from p in db.Products
-                        where p.ProductState == false
-                        select p);
+                            where p.ProductState == false
+                            select p);
 
             if (message != null)
             {
@@ -180,22 +180,23 @@ namespace MinimercadoAlfredo.Controllers
                     prod.ProductState = false;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Index", "Products", new { message = true});
+                    return RedirectToAction("Index", "Products", new { message = true });
                 }
                 else
                 {
                     prod.ProductState = true;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("OffProducts", "Products", new { message = true});
+                    return RedirectToAction("OffProducts", "Products", new { message = true });
                 }
 
-            }else
+            }
+            else
             {
                 return RedirectToAction("Index", "Products", new { message = false });
             }
-            
-            
+
+
         }
 
         // GET: Products/Edit/5
@@ -254,7 +255,7 @@ namespace MinimercadoAlfredo.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Record", "Products", new { message = true});
+            return RedirectToAction("Record", "Products", new { message = true });
         }
 
         protected override void Dispose(bool disposing)
