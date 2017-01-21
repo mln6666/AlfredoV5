@@ -78,9 +78,18 @@
             @Html.DisplayNameFor(model => model.Stock)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
+        @if (Model.Stock != null)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Stock)
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
 
         <dt>
             @Html.DisplayNameFor(model => model.Minimum)
