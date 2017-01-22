@@ -37,7 +37,7 @@
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                @Html.DisplayNameFor(model => model.Trademark)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProductNumber)
@@ -64,16 +64,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
-                    if (item.Brand == "[Producto sin Marca]")
+                    if (item.Trademark == "[Producto sin Marca]")
                     {
                         <td class="text-warning">
-                            @Html.DisplayFor(modelItem => item.Brand)
+                            @Html.DisplayFor(modelItem => item.Trademark)
                         </td>
                     }
                     else
                     {
                         <td>
-                            @Html.DisplayFor(modelItem => item.Brand)
+                            @Html.DisplayFor(modelItem => item.Trademark)
                         </td>
                     }
                     <td>
@@ -93,7 +93,7 @@
                         @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
                     <td style="color:red">
-                        @Html.DisplayFor(modelItem => item.Brand)
+                        @Html.DisplayFor(modelItem => item.Trademark)
                     </td>
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.ProductNumber)

@@ -27,14 +27,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Brand, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Trademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.Brand == "[Producto sin Marca]")
+                @if (Model.Trademark == "[Producto sin Marca]")
                 {
-                    Model.Brand = null;
+                    Model.Trademark = null;
                 }
-                @Html.EditorFor(model => model.Brand, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
-                @Html.ValidationMessageFor(model => model.Brand, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Trademark, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
+                @Html.ValidationMessageFor(model => model.Trademark, "", new { @class = "text-danger" })
                 @*<span id="spandescexistente" class="text-danger"></span>*@
             </div>
         </div>
@@ -183,7 +183,7 @@
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val(), "brand": $("#Brand").val() };
+                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val(), "Trademark": $("#Trademark").val() };
                 options.dataType = "json";
                 options.success = function (data) {
                     if (data) {

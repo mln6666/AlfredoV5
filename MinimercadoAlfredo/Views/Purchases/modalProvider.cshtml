@@ -3,8 +3,8 @@
     Layout = null;
 }
 
-<h2>Detalles de @Model.ProviderName</h2>
-
+@*<h3 class="text-center">Detalles de @Model.ProviderName</h3>
+<hr style="color:grey;border-color:grey" />*@
 <div>
     <dl class="dl-horizontal">
         <dt>
@@ -32,13 +32,24 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProviderEmail)
+            Email
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ProviderEmail)
         </dd>
+        <dt>
+            CUIT / CUIL
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CuitCuil)
+        </dd>
 
     </dl>
+</div>
+<hr style="color:grey;border-color:lightgray" />
+<div class="form-actions no-color text-center">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 </div>
 

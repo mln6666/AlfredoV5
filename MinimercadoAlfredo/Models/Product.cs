@@ -17,7 +17,7 @@ namespace MinimercadoAlfredo.Models
 
         
         [Display(Name = "Marca")]
-        public string Brand { get; set; }
+        public string Trademark { get; set; }
 
         [Required]
         [Display(Name = "Número de Artículo")]
