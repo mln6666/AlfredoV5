@@ -28,10 +28,10 @@
             <th>
                 Email
             </th>
-            <th>
+            <th style="width:90px">
                 Cuit / Cuil
             </th>
-            <th class="text-center">
+            <th class="text-center" style="width:120px">
                 Opciones
             </th>
         </tr>
@@ -63,7 +63,7 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Customers", new { id = item.IdCustomer })">Editar</a></li>
-                            <li><a href="@Url.Action("Details","Customers", new { id = item.IdCustomer })">Detalles</a></li>
+                            @*<li><a href="@Url.Action("Details","Customers", new { id = item.IdCustomer })">Detalles</a></li>*@
                             <li><a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="dialog-window1">Eliminar</a></li>
                         </ul>
                     </div>
