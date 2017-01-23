@@ -1,74 +1,368 @@
-﻿@model MinimercadoAlfredo.Models.Sale
+﻿
+
+
+
+
+
+
+
+
+
+
+
+@model MinimercadoAlfredo.Models.Sale
 
 @{
-    ViewBag.Title = "Editar Venta";
+    ViewBag.Title = "Devoluciones de Venta";
 }
 
-<h2>Edit</h2>
+<h3 class="text-center">Devoluciones de Venta</h3>
+<hr style="color:grey;border-color:grey" />
+@Html.HiddenFor(model => model.IdSale)
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th style="width:110px">
+                N° Venta
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th style="width:220px">
+                Estado de Venta
+            </th>
+            <th style="width:170px">
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
 
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+            <td>
+                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
+                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SaleDate)
+            </td>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Sale</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdSale)
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center">Lista de Productos</h3>
+<hr style="color:grey;border-color:grey" />
+<table class="table table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <td class="text-left" style="border-radius: 3px">
+                Producto
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Marca
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                N° Artículo
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Cantidad
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Descuento
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Precio Mayorista
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Subtotal
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Devolucion
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SaleLines)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Trademark)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0": item.Return.ToString() })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr style="color:grey;border-color:grey" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SaleDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SaleDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SaleDate, "", new { @class = "text-danger" })
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <td class="text-left" style="border-radius: 3px">
+                Comentarios
+            </td>
+            <td class="text-left" style="border-radius: 3px; width:200px">
+                Total de Venta
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Comments</td>
+            <td>@Html.DisplayFor(model => model.SaleTotal)</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-center">
+    @*<a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>*@
+    <input id="guardar" value="Guardar" class="btn btn-success" />
+</div>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Cliente</h4>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SaleTotal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SaleTotal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SaleTotal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdCustomer, "IdCustomer", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdCustomer", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdCustomer, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+            <div class="modal-body">
+                <div class="te">Espere...</div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
+
+            $("body").on("click", "a.dialog-window", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal .te').html(data);
+                        $('#myModal').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+
+//Guardar button click function
+            $('#guardar').click(function() {
+                bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function (result1) {
+                    if (result1) {
+                        var returns = [];
+                        $('#item_Return').each(function () {
+                            returns.push({
+                                Return: $('#item_Return').val().trim()
+                            });
+                        });
+
+                        var data = {
+                            IdSale: $('#IdSale').val().trim(),
+                            SaleLines: returns
+                        }
+
+                        $.ajax({
+                            url: '@Url.Action("AddReturns", "Sales")',
+                            type: "POST",
+                            data: JSON.stringify(data),
+                            dataType: "JSON",
+                            contentType: "application/json",
+                            success: function (d) {
+                                //check is successfully save to database
+                                if (d.status == true) {
+                                    //will send status from server side
+                                    //alert('SAPEEEEEEEEEEEEE.');
+                                    bootbox.alert({
+
+                                        message: "Edición correcta",
+                                        callback: function (result) {
+                                            //clear form
+                                            //orderItems = [];
+                                            //$('#customername').val('');
+                                            //$('#saleaddress').val('');
+                                            //$('#cuitcuil').val('');
+                                            //$('#saledate').val('');
+                                            //$('#comments').val('');
+                                            //$('#salestate').val('0');
+
+                                            //$('#orderItems').empty();
+                                            var url = '@Url.Action("Details","Sales", new { id = Model.IdSale })';
+                                            window.location.href = url;
+                                        }
+                                    });
+
+
+                                } else {
+                                    alert('Failed');
+                                }
+                                $('#submit').val('Save');
+                            },
+                            error: function () {
+                                alert('Error. Please try again.');
+                                $('#submit').val('Save');
+                            }
+                        });
+
+
+                    }
+                });
+
+               
+
+            });
+
+
+
+        })
+    </script>
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*-------------- Edit GENERICO-----------------*@
+
+@*@model MinimercadoAlfredo.Models.Sale
+
+    @{
+        ViewBag.Title = "Editar Venta";
+    }
+
+    <h2>Edit</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Sale</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.IdSale)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SaleDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SaleDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SaleDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SaleTotal, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SaleTotal, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SaleTotal, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IdCustomer, "IdCustomer", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IdCustomer", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdCustomer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@

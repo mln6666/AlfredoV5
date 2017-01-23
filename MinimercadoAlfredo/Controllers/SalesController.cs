@@ -249,6 +249,42 @@ namespace MinimercadoAlfredo.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        [HttpPost]
+        public JsonResult AddReturns(SaleVM O)
+        {
+            bool status = false;
+            
+
+            Sale sale1 = db.Sales.Find(O.IdSale);
+            int count = 0;
+            foreach (var i in O.SaleLines)
+            {
+                sale1.SaleLines.ElementAt(count).Return = i.Return;
+                count++;
+            }
+            db.Entry(sale1).State = EntityState.Modified;
+            db.SaveChanges();
+
+            Sale saledata = sale1;
+               foreach (var item in saledata.SaleLines)
+            {
+                Product prod = new Product();
+                prod = db.Products.Find(item.IdProduct);
+                prod.Stock = prod.Stock - item.LineQuantity + item.Return;
+                prod.ParcialStock = prod.ParcialStock + item.Return;
+
+                db.Entry(prod).State = EntityState.Modified;
+                db.SaveChanges();
+
+            }
+            saledata.SaleState = SaleState.Finalizada;
+            db.Entry(saledata).State = EntityState.Modified;
+            db.SaveChanges();
+            status = true;
+
+
+            return new JsonResult { Data = new { status = status,id=sale1.IdSale } };
+        }
 
         //[HttpPost]
         //public JsonResult CreateSale(SaleVM O)
@@ -341,8 +377,19 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName", sale.IdCustomer);
             return View(sale);
+
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Sale sale = db.Sales.Find(id);
+            //if (sale == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName", sale.IdCustomer);
+            //return View(sale);
         }
 
         // POST: Sales/Edit/5
