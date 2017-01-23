@@ -257,7 +257,7 @@
                 options.data = { "cus": $("#customername").val() };
                 options.dataType = "json";
                 options.success = function(data) {
-                    if (data.CustomerAdress != null) {
+                    if (data.CustomerAddress != null) {
                         document.getElementById("saleaddress").value = data.CustomerAddress;
                     }
                     if (data.CuitCuil != null) {
