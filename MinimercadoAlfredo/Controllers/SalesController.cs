@@ -250,15 +250,22 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddReturns(SaleVM o)
+        public JsonResult AddReturns(SaleVM O)
         {
             bool status = false;
-            
 
-            Sale sale1 = db.Sales.Find(o.IdSale);
+
+            Sale sale1 = db.Sales.Find(O.IdSale);
+            Sale sale2 = sale1;
+            sale1.Comments = O.Comments;
+            sale1.SaleTotal = O.SaleTotal;
             int count = 0;
-            foreach (var i in o.SaleLines)
+            foreach (var i in O.SaleLines)
             {
+                //sale1.SaleLines.ElementAt(count).LineQuantity = i.LineQuantity;
+                sale1.SaleLines.ElementAt(count).LinePrice = i.LinePrice;
+                sale1.SaleLines.ElementAt(count).LineDiscount = i.LineDiscount;
+                sale1.SaleLines.ElementAt(count).LineTotal = i.LineTotal;
                 sale1.SaleLines.ElementAt(count).Return = i.Return;
                 count++;
             }
@@ -266,7 +273,7 @@ namespace MinimercadoAlfredo.Controllers
             db.SaveChanges();
 
             Sale saledata = sale1;
-               foreach (var item in saledata.SaleLines)
+            foreach (var item in saledata.SaleLines)
             {
                 Product prod = new Product();
                 prod = db.Products.Find(item.IdProduct);
@@ -283,8 +290,9 @@ namespace MinimercadoAlfredo.Controllers
             status = true;
 
 
-            return new JsonResult { Data = new { status = status,id=sale1.IdSale } };
+            return new JsonResult { Data = new { status = status, id = sale1.IdSale } };
         }
+
 
         //[HttpPost]
         //public JsonResult CreateSale(SaleVM O)
