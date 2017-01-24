@@ -250,14 +250,14 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddReturns(SaleVM O)
+        public JsonResult AddReturns(SaleVM o)
         {
             bool status = false;
             
 
-            Sale sale1 = db.Sales.Find(O.IdSale);
+            Sale sale1 = db.Sales.Find(o.IdSale);
             int count = 0;
-            foreach (var i in O.SaleLines)
+            foreach (var i in o.SaleLines)
             {
                 sale1.SaleLines.ElementAt(count).Return = i.Return;
                 count++;
