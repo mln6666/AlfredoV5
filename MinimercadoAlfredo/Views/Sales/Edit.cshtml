@@ -89,20 +89,20 @@
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LineQuantity)
-                    @*@Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString()})*@
+                    @*@Html.DisplayFor(modelItem => item.LineQuantity)*@
+                    @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly"})
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString() })
+                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0" ,step = "1",maxlength = "3",oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)" })
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString() })
+                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @id = "item_LinePrice"+@item.IdProduct })
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString() })
+                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly" })
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0": item.Return.ToString() })
+                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0": item.Return.ToString(), @id = "item_Return" + @item.IdProduct })
                 </td>
             </tr>
         }
@@ -154,8 +154,26 @@
 
 @section scripts
 {
+<script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
     <script>
-        $(document).ready(function() {
+        
+
+        //////////////////Start: LineTotal Calculation//////////////
+
+        function totallinea(a) {
+            var b = a.replace(/\D/g, '');
+            var price = parseFloat($('#item_LinePrice'+b).val());
+            var quantity = parseFloat($('#item_LineQuantity'+b).val());
+            var discount = parseFloat($('#item_LineDiscount'+b).val());
+            var total = (price * quantity);
+            total = total - (total * discount / 100);
+            document.getElementById("item_LineTotal"+b).value = total.toFixed(2);
+         
+        }
+
+        ////////////////////End: LineTotal Calculation/////////////
+        $(document).ready(function () {
+
             //$("#tabla").DataTable({
             //    "language": {
             //        "url": "/Scripts/DataTables/spanish.json"
@@ -197,20 +215,20 @@
                         var linediscounts = [];
                         var lineprices = [];
                         var ult = [];
-                        $("input[id='item_Return']").map(function () { returns.push(parseFloat(this.value)) });
-                        $("input[id='item_LineTotal']").map(function () { linetotals.push(parseFloat(this.value)) });
-                        $("input[id='item_LinePrice']").map(function () { lineprices.push(parseFloat(this.value)) });
-                        $("input[id='item_LineDiscount']").map(function () { linediscounts.push(parseFloat(this.value)) });
+                        $("input[name='item.Return']").map(function () { returns.push(parseFloat(this.value)) });
+                        $("input[name='item.LineTotal']").map(function () { linetotals.push(parseFloat(this.value)) });
+                        $("input[name='item.LinePrice']").map(function () { lineprices.push(parseFloat(this.value)) });
+                        $("input[name='item.LineDiscount']").map(function () { linediscounts.push(parseFloat(this.value)) });
         
                         
 
                         for (i = 0; i < returns.length; i++) {
                            
                             ult.push({
-                            LinePrice: lineprices[i],
-                            LineDiscount: linediscounts[i],
-                            LineTotal: linetotals[i],
-                            Return: returns[i]
+                                LinePrice: lineprices[i],
+                                LineDiscount: linediscounts[i],
+                                LineTotal: linetotals[i],
+                                Return: returns[i]
                             });
                         }
                        
