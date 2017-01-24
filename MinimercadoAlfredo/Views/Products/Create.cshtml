@@ -44,8 +44,8 @@
                     <select class="form-control" id="unidad" style="width: 50%;" onchange = "DescExistente()">
                         <option value=""  selected="selected">Seleccione...</option>
                         <option value="kg">kilogramos</option>
-                        <option value="gr">gramos</option>
-                        <option value="L">litro(s)</option>
+                        <option value="g">gramos</option>
+                        <option value="l">litro(s)</option>
                         <option value="ml">mililitros</option>
                     </select>
                     @Html.ValidationMessageFor(model => model.ProductDescription, "", new {@class = "text-danger"})
@@ -163,8 +163,9 @@
         function DescExistente() {
 
             if ($('#ProductDescription').val() != "") {
-                var descripcion = $("#ProductDescription").val() +" "+ $("#cantidad").val() + $("#unidad").val();
+                var descripcion = $("#ProductDescription").val() +" "+ $("#cantidad").val() + " " + $("#unidad").val();
                 console.log("descripcion: ", descripcion);
+                
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
@@ -262,6 +263,8 @@
             if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '') {
                 bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function (result) {
                     if (result) {
+                        var descripcion = $("#ProductDescription").val() + " " + $("#cantidad").val() + " " + $("#unidad").val();
+                        document.getElementById("ProductDescription").value = descripcion;
                         x.submit();
                     }
                 });
