@@ -1,19 +1,7 @@
-﻿
-
-
-
-
-
-
-
-
-
-
-
-@model MinimercadoAlfredo.Models.Sale
+﻿@model MinimercadoAlfredo.Models.Sale
 
 @{
-    ViewBag.Title = "Devoluciones de Venta";
+    ViewBag.Title = "Edición de Venta";
 }
 
 <h3 class="text-center">Devoluciones de Venta</h3>
@@ -102,15 +90,16 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LineQuantity)
+                    @*@Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString()})*@
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString() })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LinePrice)
+                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString() })
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LineTotal)
+                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString() })
                 </td>
                 <td>
                     @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0": item.Return.ToString() })
@@ -134,8 +123,12 @@
     </thead>
     <tbody>
         <tr>
-            <td>@Model.Comments</td>
-            <td>@Html.DisplayFor(model => model.SaleTotal)</td>
+            <td>
+                @Html.TextBoxFor(model => model.Comments, new { @Value = (Model.Comments == null) ? "0" : Model.Comments.ToString() })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.SaleTotal, new { @Value = (Model.SaleTotal == null) ? "0" : Model.SaleTotal.ToString() })
+            </td>
         </tr>
     </tbody>
 </table>
@@ -163,11 +156,11 @@
 {
     <script>
         $(document).ready(function() {
-            $("#tabla").DataTable({
-                "language": {
-                    "url": "/Scripts/DataTables/spanish.json"
-                }
-            });
+            //$("#tabla").DataTable({
+            //    "language": {
+            //        "url": "/Scripts/DataTables/spanish.json"
+            //    }
+            //});
 
             $("body").on("click", "a.dialog-window", null, function(e) {
                 e.preventDefault();
@@ -190,18 +183,43 @@
 
 //Guardar button click function
             $('#guardar').click(function() {
-                bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function (result1) {
+              
+              
+
+                
+               
+
+
+                bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function(result1) {
                     if (result1) {
                         var returns = [];
-                        $('#item_Return').each(function () {
-                            returns.push({
-                                Return: $('#item_Return').val().trim()
+                        var linetotals = [];
+                        var linediscounts = [];
+                        var lineprices = [];
+                        var ult = [];
+                        $("input[id='item_Return']").map(function () { returns.push(parseFloat(this.value)) });
+                        $("input[id='item_LineTotal']").map(function () { linetotals.push(parseFloat(this.value)) });
+                        $("input[id='item_LinePrice']").map(function () { lineprices.push(parseFloat(this.value)) });
+                        $("input[id='item_LineDiscount']").map(function () { linediscounts.push(parseFloat(this.value)) });
+        
+                        
+
+                        for (i = 0; i < returns.length; i++) {
+                           
+                            ult.push({
+                            LinePrice: lineprices[i],
+                            LineDiscount: linediscounts[i],
+                            LineTotal: linetotals[i],
+                            Return: returns[i]
                             });
-                        });
+                        }
+                       
 
                         var data = {
                             IdSale: $('#IdSale').val().trim(),
-                            SaleLines: returns
+                            SaleTotal: $('#SaleTotal').val().trim(),
+                            Comments: $('#Comments').val().trim(),
+                            SaleLines: ult
                         }
 
                         $.ajax({
@@ -210,15 +228,14 @@
                             data: JSON.stringify(data),
                             dataType: "JSON",
                             contentType: "application/json",
-                            success: function (d) {
+                            success: function(d) {
                                 //check is successfully save to database
                                 if (d.status == true) {
                                     //will send status from server side
                                     //alert('SAPEEEEEEEEEEEEE.');
                                     bootbox.alert({
-
                                         message: "Edición correcta",
-                                        callback: function (result) {
+                                        callback: function(result) {
                                             //clear form
                                             //orderItems = [];
                                             //$('#customername').val('');
@@ -229,7 +246,7 @@
                                             //$('#salestate').val('0');
 
                                             //$('#orderItems').empty();
-                                            var url = '@Url.Action("Details","Sales", new { id = Model.IdSale })';
+                                            var url = '@Url.Action("Details", "Sales", new {id = Model.IdSale})';
                                             window.location.href = url;
                                         }
                                     });
@@ -240,7 +257,7 @@
                                 }
                                 $('#submit').val('Save');
                             },
-                            error: function () {
+                            error: function() {
                                 alert('Error. Please try again.');
                                 $('#submit').val('Save');
                             }
@@ -250,10 +267,8 @@
                     }
                 });
 
-               
 
             });
-
 
 
         })

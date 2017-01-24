@@ -256,9 +256,16 @@ namespace MinimercadoAlfredo.Controllers
             
 
             Sale sale1 = db.Sales.Find(O.IdSale);
+            Sale sale2 = sale1;
+            sale1.Comments = O.Comments;
+            sale1.SaleTotal = O.SaleTotal;
             int count = 0;
             foreach (var i in O.SaleLines)
             {
+                //sale1.SaleLines.ElementAt(count).LineQuantity = i.LineQuantity;
+                sale1.SaleLines.ElementAt(count).LinePrice = i.LinePrice;
+                sale1.SaleLines.ElementAt(count).LineDiscount = i.LineDiscount;
+                sale1.SaleLines.ElementAt(count).LineTotal = i.LineTotal;
                 sale1.SaleLines.ElementAt(count).Return = i.Return;
                 count++;
             }
