@@ -266,6 +266,8 @@ namespace MinimercadoAlfredo.Controllers
             Sale sale2 = sale1;
             sale1.Comments = O.Comments;
             sale1.SaleTotal = O.SaleTotal;
+            sale1.LinesTotal = O.LinesTotal;
+            sale1.ReturnsTotal = O.ReturnsTotal;
             int count = 0;
             foreach (var i in O.SaleLines)
             {
@@ -274,6 +276,8 @@ namespace MinimercadoAlfredo.Controllers
                 sale1.SaleLines.ElementAt(count).LineDiscount = i.LineDiscount;
                 sale1.SaleLines.ElementAt(count).LineTotal = i.LineTotal;
                 sale1.SaleLines.ElementAt(count).Return = i.Return;
+                sale1.SaleLines.ElementAt(count).LineTotalReturn = i.LineTotalReturn;
+
                 count++;
             }
             db.Entry(sale1).State = EntityState.Modified;

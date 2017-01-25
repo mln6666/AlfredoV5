@@ -25,6 +25,8 @@ namespace MinimercadoAlfredo.Models
 
         public decimal? Return {get; set; }
 
+        public decimal LineTotalReturn { get; set; }
+
         public int IdSale { get; set; }
 
         public virtual Sale Sale { get; set; }

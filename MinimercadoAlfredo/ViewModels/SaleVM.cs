@@ -22,6 +22,10 @@ namespace MinimercadoAlfredo.ViewModels
 
         public List<SaleLine> SaleLines { get; set; }
 
+        public decimal? ReturnsTotal { get; set; }
+
+        public decimal? LinesTotal { get; set; }
+
         public decimal SaleTotal { get; set; }
 
         public string Comments { get; set; }

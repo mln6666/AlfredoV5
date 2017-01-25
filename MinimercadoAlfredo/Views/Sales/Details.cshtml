@@ -53,12 +53,12 @@
             <td class="text-left" style="border-radius: 3px">
                 Producto
             </td>
-            <td class="text-left" style="border-radius: 3px">
+            @*<td class="text-left" style="border-radius: 3px">
                 Marca
             </td>
             <td class="text-left" style="border-radius: 3px">
                 N° Artículo
-            </td>
+            </td>*@
             <td class="text-left" style="border-radius: 3px">
                 Cantidad
             </td>
@@ -69,10 +69,13 @@
                 Precio Mayorista
             </td>
             <td class="text-left" style="border-radius: 3px">
-                Subtotal
+                Subtotal(+)
             </td>
             <td class="text-left" style="border-radius: 3px">
                 Devolución
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Subtotal Dev(-)
             </td>
         </tr>
     </thead>
@@ -83,12 +86,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Product.Trademark)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.LineQuantity)
                 </td>
@@ -104,8 +107,25 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Return)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineTotalReturn)
+                </td>
             </tr>
         }
+        <tr>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td  style="color:black; font-weight: bolder; background-color:lightgray">
+                @Html.DisplayFor(model => model.LinesTotal)
+            </td>
+            <td></td>
+            <td  style="color:black; font-weight: bolder; background-color:lightgray">
+                @Html.DisplayFor(model => model.ReturnsTotal)
+            </td>
+        </tr>
     </tbody>
 </table>
 <hr style="color:grey;border-color:grey" />
@@ -157,11 +177,11 @@
 {
         <script>
             $(document).ready(function () {
-                $("#tabla").DataTable({
-                    "language": {
-                        "url": "/Scripts/DataTables/spanish.json"
-                    }
-                });
+                //$("#tabla").DataTable({
+                //    "language": {
+                //        "url": "/Scripts/DataTables/spanish.json"
+                //    }
+                //});
 
                 $("body").on("click", "a.dialog-window", null, function (e) {
                     e.preventDefault();

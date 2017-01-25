@@ -52,12 +52,12 @@
             <td class="text-left" style="border-radius: 3px">
                 Producto
             </td>
-            <td class="text-left" style="border-radius: 3px">
+            @*<td class="text-left" style="border-radius: 3px">
                 Marca
             </td>
             <td class="text-left" style="border-radius: 3px">
                 N° Artículo
-            </td>
+            </td>*@
             <td class="text-left" style="border-radius: 3px">
                 Cantidad
             </td>
@@ -68,10 +68,13 @@
                 Precio Mayorista
             </td>
             <td class="text-left" style="border-radius: 3px">
-                Subtotal
+                Subtotal(+)
             </td>
             <td class="text-left" style="border-radius: 3px">
                 Devolucion
+            </td>
+            <td class="text-left" style="border-radius: 3px">
+                Total Dev(-)
             </td>
         </tr>
     </thead>
@@ -82,12 +85,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Product.Trademark)
-                </td>
-                <td>
+                </td>*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)
-                </td>
+                </td>*@
                 <td>
                     @*@Html.DisplayFor(modelItem => item.LineQuantity)*@
                     @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly"})
@@ -100,13 +103,35 @@
                     @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice"+@item.IdProduct })
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly" })
+                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly"})
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0": item.Return.ToString(), @id = "item_Return" + @item.IdProduct })
+                    @Html.TextBoxFor(modelItem => item.Return, new {@Value = (item.Return == null) ? "0" : item.Return.ToString(), @id = "item_Return" + @item.IdProduct, oninput = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @onchange = "totallinea(this.id)" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(modelItem => item.LineTotalReturn, new { @Value = (item.LineTotalReturn == null) ? "0" : item.LineTotalReturn.ToString(), @id = "item_LineTotalReturn" + @item.IdProduct, @readonly = "readonly" })
                 </td>
             </tr>
         }
+        <tr>
+          
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td style="color:black; font-weight: bolder; background-color:lightgray">
+                @Html.TextBoxFor(model => model.LinesTotal, new { @Value = (Model.LinesTotal == null) ? "0" : Model.LinesTotal.ToString(), @readonly = "readonly" })
+            </td>
+            <td>
+            </td>
+            <td style="color:black; font-weight: bolder; background-color:lightgray">
+                @Html.TextBoxFor(model => model.ReturnsTotal, new { @Value = (Model.ReturnsTotal == null) ? "0" : Model.ReturnsTotal.ToString(), @readonly = "readonly" })
+            </td>
+        </tr>
     </tbody>
 </table>
 <hr style="color:grey;border-color:grey" />
@@ -168,13 +193,26 @@
             var b = a.replace(/\D/g, '');
             var price = parseFloat($('#item_LinePrice'+b).val());
             var quantity = parseFloat($('#item_LineQuantity'+b).val());
-            var discount = parseFloat($('#item_LineDiscount'+b).val());
+            var discount = parseFloat($('#item_LineDiscount' + b).val());
+            var ret = parseFloat($('#item_Return' + b).val());
             var total = (price * quantity);
             total = total - (total * discount / 100);
             document.getElementById("item_LineTotal"+b).value = total.toFixed(2);
 
-            var totalgral = 0;
-            $("input[name='item.LineTotal']").map(function () { totalgral = totalgral + (parseFloat(this.value)) });
+            var totaldevlinea = (price * ret);
+            totaldevlinea = totaldevlinea - (totaldevlinea * discount / 100);
+            document.getElementById('item_LineTotalReturn' + b).value = totaldevlinea.toFixed(2);
+
+            var linestotal = 0;
+            $("input[name='item.LineTotal']").map(function () { linestotal = linestotal + (parseFloat(this.value)) });
+            document.getElementById("LinesTotal").value = linestotal.toFixed(2);
+
+            var returnstotal = 0;
+            $("input[name='item.LineTotalReturn']").map(function () { returnstotal = returnstotal + (parseFloat(this.value)) });
+            document.getElementById("ReturnsTotal").value = returnstotal.toFixed(2);
+
+
+            var totalgral = linestotal - returnstotal;
             document.getElementById("SaleTotal").value = totalgral.toFixed(2);
 
         }
@@ -217,7 +255,9 @@
                         var linetotals = [];
                         var linediscounts = [];
                         var lineprices = [];
+                        var linesretotals = [];
                         var ult = [];
+                        $("input[name='item.LineTotalReturn']").map(function () { linesretotals.push(parseFloat(this.value)) });
                         $("input[name='item.Return']").map(function() { returns.push(parseFloat(this.value)) });
                         $("input[name='item.LineTotal']").map(function() { linetotals.push(parseFloat(this.value)) });
                         $("input[name='item.LinePrice']").map(function() { lineprices.push(parseFloat(this.value)) });
@@ -230,7 +270,8 @@
                                 LinePrice: lineprices[i],
                                 LineDiscount: linediscounts[i],
                                 LineTotal: linetotals[i],
-                                Return: returns[i]
+                                Return: returns[i],
+                                LineTotalReturn: linesretotals[i]
                             });
                         }
 
@@ -238,6 +279,8 @@
                             IdSale: $('#IdSale').val().trim(),
                             SaleTotal: $('#SaleTotal').val().trim(),
                             Comments: $('#Comments').val().trim(),
+                            ReturnsTotal: $('#ReturnsTotal').val().trim(),
+                            LinesTotal: $('#LinesTotal').val().trim(),
                             SaleLines: ult
                         }
 
