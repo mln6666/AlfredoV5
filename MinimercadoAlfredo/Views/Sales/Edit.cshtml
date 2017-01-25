@@ -93,10 +93,11 @@
                     @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly"})
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0" ,step = "1",maxlength = "3",oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)" })
+                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0", step = "1", maxlength = "3", oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)" })
+
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @id = "item_LinePrice"+@item.IdProduct })
+                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice"+@item.IdProduct })
                 </td>
                 <td>
                     @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly" })
@@ -127,7 +128,7 @@
                 @Html.TextBoxFor(model => model.Comments, new { @Value = (Model.Comments == null) ? "0" : Model.Comments.ToString() })
             </td>
             <td>
-                @Html.TextBoxFor(model => model.SaleTotal, new { @Value = (Model.SaleTotal == null) ? "0" : Model.SaleTotal.ToString() })
+                @Html.TextBoxFor(model => model.SaleTotal, new { @Value = (Model.SaleTotal == null) ? "0" : Model.SaleTotal.ToString(), @readonly = "readonly" })
             </td>
         </tr>
     </tbody>
@@ -171,11 +172,17 @@
             var total = (price * quantity);
             total = total - (total * discount / 100);
             document.getElementById("item_LineTotal"+b).value = total.toFixed(2);
-         
+
+            var totalgral = 0;
+            $("input[name='item.LineTotal']").map(function () { totalgral = totalgral + (parseFloat(this.value)) });
+            document.getElementById("SaleTotal").value = totalgral.toFixed(2);
+
         }
 
         ////////////////////End: LineTotal Calculation/////////////
-        $(document).ready(function () {
+
+
+        $(document).ready(function() {
 
             //$("#tabla").DataTable({
             //    "language": {
@@ -204,13 +211,6 @@
 
 //Guardar button click function
             $('#guardar').click(function() {
-              
-              
-
-                
-               
-
-
                 bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function(result1) {
                     if (result1) {
                         var returns = [];
@@ -218,15 +218,14 @@
                         var linediscounts = [];
                         var lineprices = [];
                         var ult = [];
-                        $("input[name='item.Return']").map(function () { returns.push(parseFloat(this.value)) });
-                        $("input[name='item.LineTotal']").map(function () { linetotals.push(parseFloat(this.value)) });
-                        $("input[name='item.LinePrice']").map(function () { lineprices.push(parseFloat(this.value)) });
-                        $("input[name='item.LineDiscount']").map(function () { linediscounts.push(parseFloat(this.value)) });
-        
-                        
+                        $("input[name='item.Return']").map(function() { returns.push(parseFloat(this.value)) });
+                        $("input[name='item.LineTotal']").map(function() { linetotals.push(parseFloat(this.value)) });
+                        $("input[name='item.LinePrice']").map(function() { lineprices.push(parseFloat(this.value)) });
+                        $("input[name='item.LineDiscount']").map(function() { linediscounts.push(parseFloat(this.value)) });
+
 
                         for (i = 0; i < returns.length; i++) {
-                           
+
                             ult.push({
                                 LinePrice: lineprices[i],
                                 LineDiscount: linediscounts[i],
@@ -234,7 +233,6 @@
                                 Return: returns[i]
                             });
                         }
-                       
 
                         var data = {
                             IdSale: $('#IdSale').val().trim(),
@@ -274,7 +272,7 @@
 
 
                                 } else {
-                                    alert('Failed');
+                                    alert('No se permite la edición de una venta finalizada.');
                                 }
                                 $('#submit').val('Save');
                             },
@@ -287,12 +285,9 @@
 
                     }
                 });
-
-
             });
 
-
-        })
+        });
     </script>
 }
 

@@ -256,6 +256,13 @@ namespace MinimercadoAlfredo.Controllers
 
 
             Sale sale1 = db.Sales.Find(O.IdSale);
+            if (sale1.SaleState == SaleState.Finalizada)
+            {
+                
+                return new JsonResult { Data = new { status = status } };
+            }
+
+
             Sale sale2 = sale1;
             sale1.Comments = O.Comments;
             sale1.SaleTotal = O.SaleTotal;
