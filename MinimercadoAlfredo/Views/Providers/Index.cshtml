@@ -18,17 +18,12 @@
                 @Html.DisplayNameFor(model => model.ProviderName)
             </th>
             <th>
-                CUIT / CUIL
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.ProviderAddress)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ProviderPhone)
             </th>
-            <th>
-                Email
-            </th>
+
             <th class="text-center">Opciones</th>
         </tr>
     </thead>
@@ -41,29 +36,25 @@
                     @Html.DisplayFor(modelItem => item.ProviderName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CuitCuil)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.ProviderAddress)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ProviderPhone)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProviderEmail)
-                </td>
+
                 <td class="text-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                data-toggle="dropdown"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
+                                data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Providers", new { id = item.IdProvider })">Editar</a></li>
-                            @*<li><a href="@Url.Action("Details","Providers", new { id = item.IdProvider })">Detalles</a></li>*@
+                            <li><a href="@Url.Action("Details","Providers", new { id = item.IdProvider })" class="dialog-window2">Detalles</a></li>
                             <li><a href="@Url.Action("Delete","Providers", new { id = item.IdProvider })" class="dialog-window1">Eliminar</a></li>
                         </ul>
-                    </div>                    
+                    </div>
                 </td>
             </tr>
         }
@@ -105,6 +96,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalles de Proveedor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @section scripts
@@ -137,6 +142,25 @@
                 $.get(url, function (data) {
                     $('#myModal1 .te').html(data);
                     $('#myModal1').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $("body").on("click", "a.dialog-window2", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal2.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal2').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal2 .te').html(data);
+                    $('#myModal2').modal();
                 }).success(function () { $('input:text:visible:first').focus(); });
             }
         });

@@ -134,7 +134,7 @@
                             <option value="0">Seleccionar Producto...</option>
                             @foreach (var item in ViewBag.Products)
                             {
-                                <option value="@item.IdProduct">@item.ProductDescription</option>
+                                <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
                             }
                         </select>
                         <input type="hidden" id="shadow" value="">

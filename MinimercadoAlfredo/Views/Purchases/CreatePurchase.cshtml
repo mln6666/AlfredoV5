@@ -118,7 +118,7 @@
                                 <option value="0">Seleccionar Producto...</option>
                                 @foreach (var item in ViewBag.Products)
                                 {
-                                    <option value="@item.IdProduct">@item.ProductDescription</option>
+                                    <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
                                 }
                             </select>
                             <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
