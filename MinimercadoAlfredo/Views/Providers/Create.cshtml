@@ -9,16 +9,18 @@
 <br />
 
 
-@using (Html.BeginForm("Create", "Providers", null, FormMethod.Post, new { id = "createProvider" })) 
+@using (Html.BeginForm("Create", "Providers", null, FormMethod.Post, new { id = "createProvider" }))
+
+
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.ProviderName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange= "ValidProvider()" } })
+                @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidProvider()" } })
                 @*@Html.ValidationMessageFor(model => model.ProviderName, "", new { @class = "text-danger" })*@
                 <span id="spanprovider" class="text-danger"></span>
             </div>

@@ -151,12 +151,12 @@ textarea {
 
 }
 
-.fade {
--webkit-animation: 3s fade 1;
+.fade2 {
+-webkit-animation: 1s fade2 1;
 
 }
 
-@-webkit-keyframes fade{
+@-webkit-keyframes fade2{
 
    
 	0%, 100% { opacity: 0.9; }
@@ -174,7 +174,7 @@ textarea {
 
 
 
-.fade:hover {
+.fade2:hover {
 	opacity: 1;
 }
 
