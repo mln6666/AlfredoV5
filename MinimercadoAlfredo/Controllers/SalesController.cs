@@ -213,6 +213,7 @@ namespace MinimercadoAlfredo.Controllers
                     sale.SaleAddress = O.SaleAddress;
                     sale.Comments = O.Comments;
                     sale.SaleTotal = O.SaleTotal;
+                sale.LinesTotal = O.SaleTotal;
                     sale.IdCustomer = cusid;
                     
                     db.Sales.Add(sale);

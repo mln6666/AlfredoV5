@@ -26,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr style="background-color: white">
             <td>
                 @Html.DisplayFor(model => model.IdSale)
             </td>
@@ -81,7 +81,7 @@
     <tbody>
         @foreach (var item in Model.SaleLines)
         {
-            <tr>
+            <tr style="background-color: white">
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
@@ -117,21 +117,16 @@
                 </td>
             </tr>
         }
-        <tr>
+        <tr style="background:none">
           
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
+            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+            <td style="border-left:hidden;border-bottom:hidden;"></td>
             <td style="color:black; font-weight: bolder; background-color:lightgray">
                 @Html.TextBoxFor(model => model.LinesTotal, new { @Value = (Model.LinesTotal == null) ? "0" : Model.LinesTotal.ToString(), @readonly = "readonly" })
             </td>
-            <td>
-            </td>
+            <td style="border-bottom:hidden;"></td>
             <td style="color:black; font-weight: bolder; background-color:lightgray">
                 @Html.TextBoxFor(model => model.ReturnsTotal, new { @Value = (Model.ReturnsTotal == null) ? "0" : Model.ReturnsTotal.ToString(), @readonly = "readonly" })
             </td>
@@ -152,7 +147,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr style="background-color: white">
             <td>
                 @Html.TextBoxFor(model => model.Comments, new { @Value = (Model.Comments == null) ? "0" : Model.Comments.ToString() })
             </td>
