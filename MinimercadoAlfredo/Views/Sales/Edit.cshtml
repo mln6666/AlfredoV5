@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Edición de Venta";
 }
-
+<style>input, select, textarea {
+     max-width: inherit;
+     width: 100%;
+}</style>
 <h3 class="text-center">Devoluciones de Venta</h3>
 <hr style="color:grey;border-color:grey" />
 @Html.HiddenFor(model => model.IdSale)
@@ -27,17 +30,17 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td>
+            <td style="color: black">
                 @Html.DisplayFor(model => model.IdSale)
             </td>
             <td>
                 @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
                 @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
             </td>
-            <td>
+            <td style="color: black;font-weight: bold">
                 @Html.DisplayFor(model => model.SaleState)
             </td>
-            <td>
+            <td style="color: black">
                 @Html.DisplayFor(model => model.SaleDate)
             </td>
 
@@ -82,7 +85,7 @@
         @foreach (var item in Model.SaleLines)
         {
             <tr style="background-color: white">
-                <td>
+                <td style="color: black">
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
                 @*<td>
@@ -93,27 +96,27 @@
                 </td>*@
                 <td>
                     @*@Html.DisplayFor(modelItem => item.LineQuantity)*@
-                    @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly"})
+                    @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly", style = "background: none;border:hidden;color: black" })
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0", step = "1", maxlength = "3", oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)" })
+                    @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0", step = "1", maxlength = "3", oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)", style = "color: black" })
                     <span class="text-danger" id="@("spanitem_LineDiscount"+@item.IdProduct)"></span>
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice" + @item.IdProduct })
+                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice" + @item.IdProduct , style = "color: black" } )
                     <span class="text-danger" id="@("spanitem_LinePrice"+@item.IdProduct)"></span>
 
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly"})
+                    @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly",style="background: none;border:hidden;font-weight: bold;color: black"})
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0" : item.Return.ToString(), @id = "item_Return" + @item.IdProduct, oninput = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @onchange = "totallinea(this.id)" })
+                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0" : item.Return.ToString(), @id = "item_Return" + @item.IdProduct, oninput = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @onchange = "totallinea(this.id)", style = "color: black" })
                     <span class="text-danger" id="@("spanitem_Return"+@item.IdProduct)"></span>
 
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LineTotalReturn, new { @Value = (item.LineTotalReturn == null) ? "0" : item.LineTotalReturn.ToString(), @id = "item_LineTotalReturn" + @item.IdProduct, @readonly = "readonly" })
+                    @Html.TextBoxFor(modelItem => item.LineTotalReturn, new { @Value = (item.LineTotalReturn == null) ? "0" : item.LineTotalReturn.ToString(), @id = "item_LineTotalReturn" + @item.IdProduct, @readonly = "readonly", style = "background: none;border:hidden;font-weight: bold;color: black" })
                 </td>
             </tr>
         }
@@ -124,11 +127,11 @@
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-left:hidden;border-bottom:hidden;"></td>
             <td style="color:black; font-weight: bolder; background-color:lightgray">
-                @Html.TextBoxFor(model => model.LinesTotal, new { @Value = (Model.LinesTotal == null) ? "0" : Model.LinesTotal.ToString(), @readonly = "readonly" })
+                @Html.TextBoxFor(model => model.LinesTotal, new { @Value = (Model.LinesTotal == null) ? "0" : Model.LinesTotal.ToString(), @readonly = "readonly", style = "background: none;border:hidden;font-weight: bolder;color: black" })
             </td>
             <td style="border-bottom:hidden;"></td>
             <td style="color:black; font-weight: bolder; background-color:lightgray">
-                @Html.TextBoxFor(model => model.ReturnsTotal, new { @Value = (Model.ReturnsTotal == null) ? "0" : Model.ReturnsTotal.ToString(), @readonly = "readonly" })
+                @Html.TextBoxFor(model => model.ReturnsTotal, new { @Value = (Model.ReturnsTotal == null) ? "0" : Model.ReturnsTotal.ToString(), @readonly = "readonly", style = "background: none;border:hidden;font-weight: bolder;color: black" })
             </td>
         </tr>
     </tbody>
@@ -149,10 +152,10 @@
     <tbody>
         <tr style="background-color: white">
             <td>
-                @Html.TextBoxFor(model => model.Comments, new { @Value = (Model.Comments == null) ? "0" : Model.Comments.ToString() })
+                @Html.TextAreaFor(model => model.Comments, new { @Value = (Model.Comments == null) ? "0" : Model.Comments.ToString(),style="color: black" })
             </td>
             <td>
-                @Html.TextBoxFor(model => model.SaleTotal, new { @Value = (Model.SaleTotal == null) ? "0" : Model.SaleTotal.ToString(), @readonly = "readonly" })
+                @Html.TextBoxFor(model => model.SaleTotal, new { @Value = (Model.SaleTotal == null) ? "0" : Model.SaleTotal.ToString(), @readonly = "readonly",style="background: none;border:hidden;font-weight: bolder;color: black" })
             </td>
         </tr>
     </tbody>
