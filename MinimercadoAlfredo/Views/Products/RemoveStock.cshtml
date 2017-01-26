@@ -1,0 +1,392 @@
+﻿@model MinimercadoAlfredo.Models.Sale
+
+@{
+    ViewBag.Title = "Baja Productos";
+}
+<head>
+
+
+</head>
+@*///////////////////////////*@
+
+
+<h2>Dar de baja Productos</h2>
+
+<div class="details">
+    <legend>
+        Productos a dar de baja
+    </legend>
+    <table>
+        <thead class="thead-inverse">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row" style="background-color: #373a3c; border-radius: 5px">
+                            <div class="col-md-2" align="center">
+                                <label style="color: white; padding-top: 8px">Producto</label>
+                            </div>
+                            <div class="col-md-2" align="center">
+                                <label style="color: white; padding-top: 8px">Stock Actual</label>
+                            </div>
+                            <div class="col-md-2" align="center">
+                                <label style="color: white; padding-top: 8px">#Baja</label>
+                            </div>
+                            <div class="col-md-2" align="center">
+                                <label style="color: white; padding-top: 8px">Stock Futuro</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </thead>
+    </table>
+</div>
+
+
+
+
+<table>
+    <div class="container-fluid">
+        <div class="row" style="padding-top:10px">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2" align="center">
+                        @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
+                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+                            <option value="0">Seleccionar Producto...</option>
+                            @foreach (var item in ViewBag.Products)
+                            {
+                                <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
+                            }
+                        </select>
+                        <input type="hidden" id="shadow" value="">
+                        <span class="error">linedescription required</span>
+                    </div>
+                    <div class="col-md-2" align="center">
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
+                    </div>
+                    <div class="col-md-2" align="center">
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
+                        <span class="error">Required</span>
+
+                    </div>
+                    <div class="col-md-2" align="center">
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockfuturo" value="0" readonly="readonly" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</table>
+<table class="tablecontainer" style="border:none; background-color:dimgrey; ">
+    <div id="orderItems" class="tablecontainer" style="border:none ; padding-top:15px">
+    </div>
+</table>
+
+<div class="col-md-2" align="center">
+    <button type="button" id="add" class="btn btn-success btn-lg " value="Agregar" style="bottom:auto" />Agregar
+    <span class="glyphicon glyphicon-plus"></span>
+
+</div>
+
+<div class="text-right">
+    <button type="button" id="submit" class="btn btn-success btn-lg btn-block " value="Guardar venta" />Guardar
+    <span class="glyphicon glyphicon-floppy-disk"></span></button>
+</div>
+
+}
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section Scripts{
+
+
+
+
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+
+
+    <script>
+
+        /////////////////Start:Select searchable////////////////
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2();
+        });
+        ////////////////End:Select searchable///////////////////
+      
+
+        //////////////////////Start: Autocomplete Product Stock/////////////
+        $(document).ready(function() {
+            $("#linedescription").change(function() {
+
+                var options = {};
+                options.url = '@Url.Action("Getproductstock", "Products")';
+                options.type = "GET";
+                options.data = { "pro": $("#linedescription").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    document.getElementById("stockactual").value = data;
+                    var stockactual = parseFloat($('#stockactual').val());
+                    var baja = parseFloat($('#baja').val());
+                    var stockfuturo = (stockactual - baja);
+                    document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);;
+                };
+                $.ajax(options);
+            });
+        });
+        ///////////////////End: Autocomplete Product Stock////////
+
+        //////////////////Start: stockfuturo Calculation//////////////
+
+            function totalstock() {
+                var stockactual = parseFloat($('#stockactual').val());
+                var baja = parseFloat($('#baja').val());
+                if (stockactual < baja) {
+                    baja = stockactual; document.getElementById("baja").value = stockactual.toFixed(2);
+                    $('#baja').siblings('span.error').css('visibility', 'visible');
+                    $('#baja').siblings('span.error').text('Valor max:'+" "+stockactual);
+                } else { $('#baja').siblings('span.error').css('visibility', 'hidden'); }
+                var stockfuturo = (stockactual - baja);
+                document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);
+            }
+
+        ////////////////////End: stockfuturo Calculation/////////////
+
+        ////Date Picker
+        //$(document).ready(function() {
+        //    $(function() {
+        //        $('#saledata').datepicker({
+        //            dateFormat: 'mm-dd-yy'
+        //        });
+        //    });
+        //});
+
+        $(document).ready(function() {
+            var orderItems = [];
+            var verifproductos = [];
+
+           
+            //Add button click function
+            $('#add').click(function() {
+                //Check validation of order item
+                var isValidItem = true;
+                if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
+                    isValidItem = false;
+                    $('#linedescription').siblings('span.error').text('Requerido');
+                    $('#linedescription').siblings('span.error').css('visibility', 'visible');
+                } else {
+                    $('#linedescription').siblings('span.error').css('visibility', 'hidden');
+                }
+                if ($('#stockactual').val().trim() == '' | $('#stockactual').val().trim() == 0) {
+                    isValidItem = false;
+                    $('#stockactual').siblings('span.error').text('Requerido');
+
+                    $('#stockactual').siblings('span.error').css('visibility', 'visible');
+                } else {
+                    $('#stockactual').siblings('span.error').css('visibility', 'hidden');
+                }
+
+                if ($('#baja').val().trim() == '') {
+                    isValidItem = false;
+                    $('#baja').siblings('span.error').text('Requerido');
+
+                    $('#baja').siblings('span.error').css('visibility', 'visible');
+                } else {
+                    if ($('#baja').val().trim() == '0') {
+                        isValidItem = false;
+                        $('#baja').siblings('span.error').text('Valor min: 1');
+
+                    $('#baja').siblings('span.error').css('visibility', 'visible');}else{
+                    $('#baja').siblings('span.error').css('visibility', 'hidden');}
+                }
+
+                if ($('#stockfuturo').val().trim() == '') {
+                    isValidItem = false;
+                    $('#stockfuturo').siblings('span.error').text('Requerido');
+
+                    $('#stockfuturo').siblings('span.error').css('visibility', 'visible');
+                } else {
+                    $('#stockfuturo').siblings('span.error').css('visibility', 'hidden');
+                }
+                
+
+                if (isValidItem) {
+                    ////////////***********//////////
+                    var historial = verifproductos;
+                    var errorproductos = false;
+                    productoact = parseInt($('#linedescription').val().trim());
+                    $.each(historial, function() {
+                        if (productoact == parseInt(this)) {
+                            errorproductos = true;
+
+                        }
+                    });
+                }
+                if (errorproductos) {
+                    isValidItem = false;
+                    bootbox.alert({
+                        title: "Producto existente",
+                        message: "El producto: - " + $('#shadow').val().trim()+" - ya se encuentra en el listado. ",
+                        backdrop: true
+                    });
+                }
+
+                //Validacion de Stock
+                if (isValidItem) {
+                      
+                            //                    data = data.replace(",",'.');
+
+                            orderItems.push({
+                                IdProduct: $('#linedescription').val().trim(),
+                                LinePrice: $('#stockactual').val().trim(),
+                                LineQuantity: $('#baja').val().trim(),
+                                LineTotal: $('#stockfuturo').val().trim(),
+                                LineDescription: $('#shadow').val().trim()
+                            });
+                            verifproductos.push(
+                                parseInt($('#linedescription').val().trim())
+                            );
+                            
+                            //Clear fields
+                            //$(document).find('#linedescription').select2();
+                            $("#linedescription").val(0).trigger('change');
+                            $('#stockactual,#baja,#stockfuturo').val('0');
+
+                            GeneratedItemsTable();
+                        
+                    };
+                
+
+
+                //Add item to list if valid
+
+                //populate order items
+
+            });
+            //Save button click function
+            $('#submit').click(function() {
+                //validation of order
+                var isAllValid = true;
+                if (orderItems.length == 0) {
+                    $('#orderItems').html('<span style="color:red;">Please add order items</span>');
+                    isAllValid = false;
+                }
+
+                //Save if valid
+                if (isAllValid) {
+                    var data = {
+                        //Sorry forgot to add Description Field
+                        SaleLines: orderItems
+                    }
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        url: '@Url.Action("RemoveStock", "Products")',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function(d) {
+                            //check is successfully save to database
+                            if (d.status == true) {
+                                //will send status from server side
+                                //alert('SAPEEEEEEEEEEEEE.');
+                                bootbox.alert({
+
+                                    message: "Stock actualizado correctamente",
+                                    callback: function (result) {
+                                      
+                                        var url = '@Url.Action("Index")';
+                                        window.location.href = url;
+                                    }
+                                });
+
+
+                            } else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function() {
+                            alert('Error. Please try again.');
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+
+            });
+
+//function for show added items in table
+            function GeneratedItemsTable() {
+                if (orderItems.length > 0) {
+                    var $table = $('<table style="border:none"></table>');
+                    //$table.append('<thead><tr><th>Item</th><th>Quantity</th><th>Rate</th><th>Total</th></tr></thead>');
+                    var $tbody = $('<tbody/>');
+                    $.each(orderItems, function(i, val) {
+                        var $row = $('<div class="col-md-12" align="center" ></div>');
+                        $row.append($('<div class="col-md-5" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
+                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+                        var $remove = $('<a href="#">Eliminar</a>');
+                        $remove.click(function(e) {
+                            e.preventDefault();
+                            orderItems.splice(i, 1);
+                            verifproductos.splice(i, 1);
+                            GeneratedItemsTable();
+                        });
+                        $row.append($('<div class="col-md-1" style="font-weight: bold;border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"></div>').html($remove));
+
+                        $tbody.append($row);
+                    });
+
+                    $table.append($tbody);
+                    $('#orderItems').html($table);
+                } else {
+                    $('#orderItems').html('');
+                }
+            }
+        });
+
+    </script>
+}
+
+<style>
+    /*Adding some css for looks good*/
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+
+    /*css for table*/
+    .container td {
+        vertical-align: top;
+    }
+
+    .tablecontainer table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 1px solid #BFAEAE;
+        border-right: 1px solid #BFAEAE;
+    }
+
+    .tablecontainer th {
+        border-bottom: 2px solid #BFAEAE !important;
+    }
+
+    .tablecontainer th, .tablecontainer td {
+        text-align: left;
+        border-left: 1px solid #BFAEAE;
+        padding: 5px;
+        border-bottom: 1px solid #BFAEAE;
+    }
+
+    .ui-widget {
+        font-size: 12px !important;
+    }
+</style>

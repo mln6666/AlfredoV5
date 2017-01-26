@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MinimercadoAlfredo.Context;
 using MinimercadoAlfredo.Models;
+using MinimercadoAlfredo.ViewModels;
 
 namespace MinimercadoAlfredo.Controllers
 {
@@ -15,6 +16,66 @@ namespace MinimercadoAlfredo.Controllers
     {
         private AlfredoContext db = new AlfredoContext();
 
+
+        public ActionResult RemoveStock()
+        {
+            ViewBag.Products = db.Products.ToList();
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult RemoveStock(SaleVM O)
+        {
+            //CustomerName contiene el id del cliente
+            bool status = false;
+
+                foreach (var i in O.SaleLines)
+                {
+                    Product prod = new Product();
+                    prod = db.Products.Find(i.IdProduct);
+                    prod.ParcialStock = prod.ParcialStock - i.LineQuantity;
+                    prod.Stock = prod.Stock - i.LineQuantity;
+                    db.Entry(prod).State = EntityState.Modified;
+                    db.SaveChanges();
+
+
+                }
+                status = true;
+
+            
+            
+            
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        public JsonResult Getproductstock(string pro)
+        {
+            var cero = 0;
+            if (pro == "0")
+            {
+
+                return Json(cero, JsonRequestBehavior.AllowGet);
+            }
+            AlfredoContext db = new AlfredoContext();
+            //IEnumerable<int> query = (from c in db.Products
+            //                          where c.ProductDescription == pro
+            //                          select c.IdProduct);
+
+
+            //int id = query.ElementAt(0);
+            //Product productdata = db.Products.Find(id);
+
+            var proid = Int32.Parse(pro);
+
+
+            Product productdata = db.Products.ToList().Find(u => u.IdProduct == proid);
+
+
+            var midato = productdata.ParcialStock.ToString();
+
+            return Json(midato, JsonRequestBehavior.AllowGet);
+        }
         // GET: Products
         public ActionResult Index(bool? message)
         {
