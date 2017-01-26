@@ -97,16 +97,20 @@
                 </td>
                 <td>
                     @Html.TextBoxFor(modelItem => item.LineDiscount, new { @Value = (item.LineDiscount == null) ? "0" : item.LineDiscount.ToString(), @id = "item_LineDiscount" + @item.IdProduct, @onchange = "totallinea(this.id)", @onkeypress = "solonumeros()", type = "tel", min = "0", step = "1", maxlength = "3", oninput = "javascript:if (this.value > 100) this.value = 100;totallinea(this.id)" })
-
+                    <span class="text-danger" id="@("spanitem_LineDiscount"+@item.IdProduct)"></span>
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice"+@item.IdProduct })
+                    @Html.TextBoxFor(modelItem => item.LinePrice, new { @Value = (item.LinePrice == null) ? "0" : item.LinePrice.ToString(), @onchange = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", oninput = "totallinea(this.id)", @id = "item_LinePrice" + @item.IdProduct })
+                    <span class="text-danger" id="@("spanitem_LinePrice"+@item.IdProduct)"></span>
+
                 </td>
                 <td>
                     @Html.TextBoxFor(modelItem => item.LineTotal, new { @Value = (item.LineTotal == null) ? "0" : item.LineTotal.ToString(), @id = "item_LineTotal" + @item.IdProduct, @readonly = "readonly"})
                 </td>
                 <td>
-                    @Html.TextBoxFor(modelItem => item.Return, new {@Value = (item.Return == null) ? "0" : item.Return.ToString(), @id = "item_Return" + @item.IdProduct, oninput = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @onchange = "totallinea(this.id)" })
+                    @Html.TextBoxFor(modelItem => item.Return, new { @Value = (item.Return == null) ? "0" : item.Return.ToString(), @id = "item_Return" + @item.IdProduct, oninput = "totallinea(this.id)", @onkeypress = "solonumerosptocoma()", @onchange = "totallinea(this.id)" })
+                    <span class="text-danger" id="@("spanitem_Return"+@item.IdProduct)"></span>
+
                 </td>
                 <td>
                     @Html.TextBoxFor(modelItem => item.LineTotalReturn, new { @Value = (item.LineTotalReturn == null) ? "0" : item.LineTotalReturn.ToString(), @id = "item_LineTotalReturn" + @item.IdProduct, @readonly = "readonly" })
@@ -182,10 +186,23 @@
 @section scripts
 {
     <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
-<script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
 
     <script>
-        
+
+        //function requerido(a) {
+        //    var b = a.replace(/\D/g, '');
+        //    $("input[name='item.LineDiscount']").map(function () {
+        //        if (this.value.trim() == "" || this.value == null) {
+        //            $('#spanitem_LineDiscount' + b).text("Requerido");
+        //            $('#spanitem_LineDiscount' + b).css('visibility', 'visible');
+        //        } 
+        //    });
+        //}
+       
+    
+
+
 
         //////////////////Start: LineTotal Calculation//////////////
 
@@ -248,86 +265,139 @@
 
 
 //Guardar button click function
-            $('#guardar').click(function() {
-                bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function(result1) {
-                    if (result1) {
-                        var returns = [];
-                        var linetotals = [];
-                        var linediscounts = [];
-                        var lineprices = [];
-                        var linesretotals = [];
-                        var ult = [];
-                        $("input[name='item.LineTotalReturn']").map(function () { linesretotals.push(parseFloat(this.value)) });
-                        $("input[name='item.Return']").map(function() { returns.push(parseFloat(this.value)) });
-                        $("input[name='item.LineTotal']").map(function() { linetotals.push(parseFloat(this.value)) });
-                        $("input[name='item.LinePrice']").map(function() { lineprices.push(parseFloat(this.value)) });
-                        $("input[name='item.LineDiscount']").map(function() { linediscounts.push(parseFloat(this.value)) });
+            $('#guardar').click(function () {
+                
+                var required = false;
 
+                $("input[name='item.LineDiscount']").map(function () {
+                    var a = this.id;
+                    
+                    var b = a.replace(/\D/g, '');
+                    if (this.value.trim() == "" || this.value == null) {
+                        $('#spanitem_LineDiscount' + b).text("Requerido");
+                        required = true;
+                    } else { $('#spanitem_LineDiscount' + b).text(""); }
 
-                        for (i = 0; i < returns.length; i++) {
-
-                            ult.push({
-                                LinePrice: lineprices[i],
-                                LineDiscount: linediscounts[i],
-                                LineTotal: linetotals[i],
-                                Return: returns[i],
-                                LineTotalReturn: linesretotals[i]
-                            });
-                        }
-
-                        var data = {
-                            IdSale: $('#IdSale').val().trim(),
-                            SaleTotal: $('#SaleTotal').val().trim(),
-                            Comments: $('#Comments').val().trim(),
-                            ReturnsTotal: $('#ReturnsTotal').val().trim(),
-                            LinesTotal: $('#LinesTotal').val().trim(),
-                            SaleLines: ult
-                        }
-
-                        $.ajax({
-                            url: '@Url.Action("AddReturns", "Sales")',
-                            type: "POST",
-                            data: JSON.stringify(data),
-                            dataType: "JSON",
-                            contentType: "application/json",
-                            success: function(d) {
-                                //check is successfully save to database
-                                if (d.status == true) {
-                                    //will send status from server side
-                                    //alert('SAPEEEEEEEEEEEEE.');
-                                    bootbox.alert({
-                                        message: "Edición correcta",
-                                        callback: function(result) {
-                                            //clear form
-                                            //orderItems = [];
-                                            //$('#customername').val('');
-                                            //$('#saleaddress').val('');
-                                            //$('#cuitcuil').val('');
-                                            //$('#saledate').val('');
-                                            //$('#comments').val('');
-                                            //$('#salestate').val('0');
-
-                                            //$('#orderItems').empty();
-                                            var url = '@Url.Action("Details", "Sales", new {id = Model.IdSale})';
-                                            window.location.href = url;
-                                        }
-                                    });
-
-
-                                } else {
-                                    alert('No se permite la edición de una venta finalizada.');
-                                }
-                                $('#submit').val('Save');
-                            },
-                            error: function() {
-                                alert('Error. Please try again.');
-                                $('#submit').val('Save');
-                            }
-                        });
-
-
-                    }
                 });
+
+                $("input[name='item.LinePrice']").map(function () {
+                    var a = this.id;
+
+                    var b = a.replace(/\D/g, '');
+                    if (this.value.trim() == "" || this.value == null) {
+                        $('#spanitem_LinePrice' + b).text("Requerido");
+                        required = true;
+                    } else { $('#spanitem_LinePrice' + b).text(""); }
+
+                });
+
+                $("input[name='item.Return']").map(function () {
+                    var a = this.id;
+
+                    var b = a.replace(/\D/g, '');
+                    if (this.value.trim() == "" || this.value == null) {
+                        $('#spanitem_Return' + b).text("Requerido");
+                        required = true;
+                    } else { $('#spanitem_Return' + b).text(""); }
+
+                });
+                if (required) {
+
+                    bootbox.alert({
+                        title: "Aviso",
+                        message: "Por favor complete todos los campos requeridos. ",
+                        backdrop: true
+                    });
+
+
+
+                } else {
+                    bootbox.confirm("** Está por confirmar las devoluciones y finalizar la compra, ¿Desea continuar?", function (result1) {
+                        if (result1) {
+                            var returns = [];
+                            var linetotals = [];
+                            var linediscounts = [];
+                            var lineprices = [];
+                            var linesretotals = [];
+                            var ult = [];
+                            $("input[name='item.LineTotalReturn']").map(function () { linesretotals.push(parseFloat(this.value)) });
+                            $("input[name='item.Return']").map(function () { returns.push(parseFloat(this.value)) });
+                            $("input[name='item.LineTotal']").map(function () { linetotals.push(parseFloat(this.value)) });
+                            $("input[name='item.LinePrice']").map(function () { lineprices.push(parseFloat(this.value)) });
+                            $("input[name='item.LineDiscount']").map(function () { linediscounts.push(parseFloat(this.value)) });
+
+
+                            for (i = 0; i < returns.length; i++) {
+
+                                ult.push({
+                                    LinePrice: lineprices[i],
+                                    LineDiscount: linediscounts[i],
+                                    LineTotal: linetotals[i],
+                                    Return: returns[i],
+                                    LineTotalReturn: linesretotals[i]
+                                });
+                            }
+
+                            var data = {
+                                IdSale: $('#IdSale').val().trim(),
+                                SaleTotal: $('#SaleTotal').val().trim(),
+                                Comments: $('#Comments').val().trim(),
+                                ReturnsTotal: $('#ReturnsTotal').val().trim(),
+                                LinesTotal: $('#LinesTotal').val().trim(),
+                                SaleLines: ult
+                            }
+
+                            $.ajax({
+                                url: '@Url.Action("AddReturns", "Sales")',
+                                type: "POST",
+                                data: JSON.stringify(data),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function (d) {
+                                    //check is successfully save to database
+                                    if (d.status == true) {
+                                        //will send status from server side
+                                        //alert('SAPEEEEEEEEEEEEE.');
+                                        bootbox.alert({
+                                            message: "Edición correcta",
+                                            callback: function (result) {
+                                                //clear form
+                                                //orderItems = [];
+                                                //$('#customername').val('');
+                                                //$('#saleaddress').val('');
+                                                //$('#cuitcuil').val('');
+                                                //$('#saledate').val('');
+                                                //$('#comments').val('');
+                                                //$('#salestate').val('0');
+
+                                                //$('#orderItems').empty();
+                                                var url = '@Url.Action("Details", "Sales", new {id = Model.IdSale})';
+                                                window.location.href = url;
+                                            }
+                                        });
+
+
+                                    } else {
+                                        alert('No se permite la edición de una venta finalizada.');
+                                    }
+                                    $('#submit').val('Save');
+                                },
+                                error: function () {
+                                    alert('Error. Please try again.');
+                                    $('#submit').val('Save');
+                                }
+                            });
+
+
+                        }
+                    });
+                };
+
+
+
+
+
+              
             });
 
         });
