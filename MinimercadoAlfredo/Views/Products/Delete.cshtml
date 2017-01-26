@@ -13,14 +13,6 @@
 <div>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.ProductDescription)
         </dt>
 
@@ -28,11 +20,25 @@
             @Html.DisplayFor(model => model.ProductDescription)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>        
+        <dt>
             @Html.DisplayNameFor(model => model.Trademark)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Trademark)
+        </dd>
+        <dt>
+            Nro Artículo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductNumber)
         </dd>
 
         <dt>
@@ -42,15 +48,59 @@
         <dd>
             @Html.DisplayFor(model => model.Cost)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PublicPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PublicPrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WholeSalePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WholeSalePrice)
+        </dd>
+        <dt>
+            Última compra
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadDate)
+        </dd>
+        <dt>
+            Stock
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        @if (Model.ProductState == true)
+        {
+            <dd>
+                <text class="text-success">Activo</text>
+            </dd>
+        }else
+        {
+            <dd>
+                <text class="text-danger">Desactivado</text>
+            </dd>
+        }
 
     </dl>
-    <br />
+    <hr style="color:grey;border-color:lightgray" />
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
             <input type="submit" value="Eliminar" class="btn btn-danger" />
         </div>
     }

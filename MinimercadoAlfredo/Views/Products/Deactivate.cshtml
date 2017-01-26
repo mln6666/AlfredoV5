@@ -54,20 +54,21 @@ else
         <dt>
             Estado
         </dt>
-
-        <dd>
-            @if (Model.ProductState == true)
-            {
-                <p class="text-success">Activo</p>
-            }
-            else
-            {
-                <p class="text-warning">Desactivado</p>
-            }
-        </dd>
-
-
+        @if (Model.ProductState == true)
+        {
+            <dd>
+                <text class="text-success">Activo</text>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <text class="text-danger">Desactivado</text>
+            </dd>
+        }
+        
     </dl>
+    <hr style="color:grey;border-color:lightgray" />
 
     @using (Html.BeginForm(null, null, new { idProd = Model.IdProduct}, FormMethod.Post)) {
 
@@ -75,7 +76,7 @@ else
 
 
         <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
             @if (Model.ProductState == true)
             {
                 <input type="submit" value="Desactivar" class="btn btn-warning" />
