@@ -241,6 +241,11 @@
         Guardar
         <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
+    <button type="button" id="imprimir" class="btn btn-success btn-lg " value="Guardar venta">
+        Guardar e Imprimir
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+
 </div>
 
 
@@ -563,6 +568,109 @@
                 }
 
             });
+
+            //////////////////////////////IMPRIMIR Y GUARDAR
+            //////////////////////////////
+            //////////////////////////////
+            $('#imprimir').click(function() {
+                //validation of order
+                var isAllValid = true;
+                if (orderItems.length == 0) {
+                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
+                    isAllValid = false;
+                }
+ 
+                if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
+                    $('#customername').siblings('span.error').css('visibility', 'visible');
+                    isAllValid = false;
+                } else {
+                    $('#customername').siblings('span.error').css('visibility', 'hidden');
+                }
+  
+                if ($('#saledate').val().trim() == '') {
+                    $('#saledate').siblings('span.error').css('visibility', 'visible');
+                    isAllValid = false;
+                } else {
+                    $('#saledate').siblings('span.error').css('visibility', 'hidden');
+                }
+                if ($('#saletotal').val().trim() == '') {
+                    $('#saletotal').siblings('span.error').css('visibility', 'visible');
+                    isAllValid = false;
+                } else {
+                    $('#saletotal').siblings('span.error').css('visibility', 'hidden');
+                }                
+ 
+        
+                //Save if valid
+                if (isAllValid) {
+                    var data = {
+                        CustomerName: $('#customername').val().trim(),
+                        //Sorry forgot to add Description Field
+                        SaleAddress: $('#saleaddress').val().trim(),
+                        CuitCuil: $('#cuitcuil').val().trim(),
+                        SaleDate: $('#saledate').val().trim(),
+                        SaleTotal: $('#saletotal').val().trim(),
+                        Comments: $('#comments').val().trim(),
+                        SaleState: $('#salestate').val().trim(),
+                        SaleLines: orderItems
+                    }
+ 
+                    $(this).val('Please wait...');
+ 
+                    $.ajax({
+                        url: '@Url.Action("CreateSale", "Sales")',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function(d) {
+                            u = d.miid;
+                            //check is successfully save to database
+                            if (d.status == true) {
+                                //will send status from server side
+                                //alert('SAPEEEEEEEEEEEEE.');
+                                @*bootbox.alert({
+                               
+                                    message: "Venta guardada correctamente",
+                                    callback: function (result) {
+                                        //clear form
+                                        //orderItems = [];
+                                        //$('#customername').val('');
+                                        //$('#saleaddress').val('');
+                                        //$('#cuitcuil').val('');
+                                        //$('#saledate').val('');
+                                        //$('#comments').val('');
+                                        //$('#salestate').val('0');
+ 
+                                        //$('#orderItems').empty();
+                                        var url = '@Url.Action("CreateSale")';
+                                        window.location.href = url;
+                                    }
+                                });*@
+                                var url1 = '@Url.Action("PrintSale","Sales", new { id = ViewBag.nsale})';
+                                window.open(url1);
+ 
+                                var url = '@Url.Action("CreateSale","Sales", new { x = 1 })';
+                                window.location.href = url;
+                        
+                            } else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function() {
+                            alert('Error. Please try again.');
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+ 
+            });
+ 
+            /////////////////////////////
+            //////////////////////////////
+            //////////////////////////////
+
 
 //function for show added items in table
             function GeneratedItemsTable() {

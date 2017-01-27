@@ -16,6 +16,21 @@ namespace MinimercadoAlfredo.Controllers
     {
         private AlfredoContext db = new AlfredoContext();
 
+
+        public ActionResult PrintSale(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sale sale = db.Sales.Find(id);
+            if (sale == null)
+            {
+                return HttpNotFound();
+            }
+            return View(sale);
+        }
+
         // GET: Sales
         public ActionResult Index(bool? message)
         {
