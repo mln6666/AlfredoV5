@@ -97,6 +97,23 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
+        public ActionResult Catalog(bool personal)
+        {
+            var products = (from p in db.Products
+                            where p.ProductState == true
+                            select p);
+
+            if (personal)
+            {
+                ViewBag.personal = true;
+            }else
+            {
+                ViewBag.personal = false;
+            }
+
+            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.ProductDescription)));
+        }
+
         public JsonResult ExisteProd(string nombre, int? idproduct, string Trademark)
         {
             if (Trademark == "")
