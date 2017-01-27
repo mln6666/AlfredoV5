@@ -9,7 +9,7 @@ namespace MinimercadoAlfredo.Models
     public enum SaleState
 
     {
-        [Display(Name = "Venta Pendiente")]
+        [Display(Name = "Venta en curso")]
         Pendiente = 0,
 
         [Display(Name = "Venta Finalizada")]

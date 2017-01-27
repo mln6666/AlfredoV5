@@ -13,13 +13,16 @@ namespace MinimercadoAlfredo.Models
 
         [Display(Name = "Fecha de Venta")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime SaleDate { get; set; }
 
+        [Display(Name = "Dirección")]
         public string SaleAddress { get; set; }
-        
+
+        [Display(Name = "Descuento")]
         public int? Discount { get; set; }
 
+        [Display(Name = "Obs.")]
         public string Comments { get; set; }
 
         [Display(Name = "Total Dev")]

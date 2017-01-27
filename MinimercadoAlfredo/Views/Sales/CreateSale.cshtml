@@ -1,4 +1,7 @@
-﻿@model MinimercadoAlfredo.Models.Sale
+﻿Agregar
+    <span class="glyphicon glyphicon-plus"></span>
+
+@model MinimercadoAlfredo.Models.Sale
 
 @{
     ViewBag.Title = "Nueva Venta";
@@ -10,36 +13,45 @@
 @*///////////////////////////*@
 
 
-<h2>Carga Venta</h2>
+<h2>Nueva Venta</h2>
 <input value="@ViewBag.msg" id="msg" style="display: none"/>
 <div class="details">
+    
+    <div class="row">
+        <div class="col-lg-4">
+            Usted está confeccionando una venta mayorista:
+        </div>
+        <div class="col-lg-8">
+            <select class="form-control text-right" id="salestate" style="width: 40%; height: 35px; font-weight: bold">
+                <option value="0">En curso</option>
+                <option value="1">Finalizada</option>
+            </select>
+        </div>
+    </div>
+    <br/>
     <legend>
-        Datos Generales
+        Detalles Cliente
     </legend>
-    <select class="form-control" id="salestate" style="width:40%; height:35px;">
-        <option value="0">Pendiente</option>
-        <option value="1">Finalizada</option>
-    </select>
     <table>
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-2" align="center">
-                                <label style="color:white;padding-top:8px">IdSale</label>
+                            <div class="col-md-1" align="left">
+                                <label style="color:white;padding-top:8px">Nro.Venta</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color:white;padding-top:8px">CustomerName</label>
+                            <div class="col-md-3" align="left">
+                                <label style="color:white;padding-top:8px">Nombre</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color:white;padding-top:8px">SaleAddress</label>
+                            <div class="col-md-3" align="left">
+                                <label style="color:white;padding-top:8px">Dirección</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color:white;padding-top:8px">CuitCuil</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color:white;padding-top:8px">Cuil</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color:white;padding-top:8px">SaleDate</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color:white;padding-top:8px">Fecha</label>
                             </div>
                         </div>
                     </div>
@@ -54,12 +66,12 @@
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2" align="center">
+                    <div class="col-md-1" align="center">
                         <span>@ViewBag.nsale</span>
 
                     </div>
                     <div class="col-md-2" align="left">
-                        <select class="js-example-basic-single" id="customername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
+                        <select class="js-example-basic-single" id="customername" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
                             <option value="0">Seleccionar Cliente...</option>
                             @foreach (var item in ViewBag.Customers)
                             {
@@ -69,17 +81,17 @@
                         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 170px;height:25px;" id="saleaddress" placeholder="" />
+                    <div class="col-md-4" align="center">
+                        <input type="text" class="panel-info form-control" style="width: 250px; height: 25px;" id="saleaddress" placeholder="" />
                         @*   @Html.EditorFor(m => m.CustomerAddress, new { htmlAttributes = new { @class = "form-control", @id = "customeraddress" } })*@
                         @*<span class="error">customeraddress required</span>*@
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info" style="width: 150px;height:25px;" id="cuitcuil" placeholder="" />
+                        <input type="number" class="panel-info form-control" style="width: 150px;height: 25px;" id="cuitcuil" placeholder="" />
                         <span class="error"></span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="date" class="panel-info" style="width: 150px;height:25px;" id="saledate" placeholder="dd/mm/aaaa" />
+                        <input type="date" class="panel-info form-control" style="width: 200px; height: 25px;" id="saledate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
                         <span class="error">Requerido</span>
                     </div>
 
@@ -90,7 +102,7 @@
 </table>
 <div class="details">
     <legend>
-        Lineas Venta
+       Listado Productos
     </legend>
     <table>
         <thead class="thead-inverse">
@@ -98,20 +110,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineDescription</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color: white; padding-top: 8px">Producto</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LinePrice</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color: white; padding-top: 8px">Precio(M)</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineDiscount</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color: white; padding-top: 8px">Cantidad</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineQuantity</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color: white; padding-top: 8px">Descuento</label>
                             </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineTotal</label>
+                            <div class="col-md-2" align="left">
+                                <label style="color: white; padding-top: 8px">Total</label>
                             </div>
                         </div>
                     </div>
@@ -131,7 +143,7 @@
                 <div class="row">
                     <div class="col-md-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; document.getElementById('linequantity').focus();">
                             <option value="0">Seleccionar Producto...</option>
                             @foreach (var item in ViewBag.Products)
                             {
@@ -142,20 +154,24 @@
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()"  onkeypress="solonumerosptocoma()" />
+                        <input type="text" class="panel-info form-control" style="width: 130px;height:25px;" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="tel" min="0" step="1"class="panel-info" value="0" style="width: 130px;height:25px;" id="linediscount" oninput = "totallinea()" maxlength="3"oninput="javascript:if (this.value > 100) this.value = 100;" onchange = "totallinea();" onkeypress="solonumeros()" />
+                        <input type="number" class="panel-info form-control" value="1" style="width: 130px;height:25px; " id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()"/>
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" onchange = "totallinea()" oninput = "    totallinea()" onkeypress="solonumerosptocoma()" />
+                        <input type="tel" min="0" step="1" class="panel-info form-control" value="0" style="width: 130px;height:25px;" id="linediscount" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros()" />
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" value="0.00" style="width: 130px;height:25px;" id="linetotal" readonly="readonly" />
+                        <input type="text" class="panel-info text-center" value="0.00" style="width: 130px;  border: none; background: none" id="linetotal" readonly="readonly" />
                         <span class="error">Requerido</span>
+                    </div>
+                    <div class="col-md-2" align="center">
+                        <button type="button" id="add" class="btn btn-success btn-sm "  value="Agregar" style="bottom:auto" />Agregar
+                        <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
             </div>
@@ -169,27 +185,22 @@
 
 </table>
 
-<div class="col-md-2" align="center">
-    <button type="button" id="add" class="btn btn-success btn-lg " value="Agregar" style="bottom:auto" />Agregar
-    <span class="glyphicon glyphicon-plus"></span>
-
-</div>
 
 <div class="details">
     <legend>
-        Datos Generales
+        Resumen
     </legend>
     <table>
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="row" style="background-color:#373a3c;border-radius:5px">
+                        <div class="row" style="background-color: #373a3c; border-radius: 5px">
                             <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">SaleTotal</label>
+                                <label style="color:white;padding-top:8px">Observaciones</label>
                             </div>
                             <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">Comments</label>
+                                <label style="color: white; padding-top: 8px">Total Venta</label>
                             </div>
 
                         </div>
@@ -205,13 +216,14 @@
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
+
                     <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" value="0.00" style="width: 60px;height:25px;" id="saletotal" placeholder="" readonly="readonly" />
-                        <span class="error">Requerido</span>
+                        <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
+
                     </div>
                     <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
-                        
+                        <input type="text" class="panel-info" value="0.00" style="width: 60px;height:25px; border: none; background: none;" id="saletotal" placeholder="" readonly="readonly" />
+                        <span class="error">Requerido</span>
                     </div>
 
 
@@ -222,14 +234,14 @@
 </table>
 
 
+<br />
 
-
-<div class="text-right">
-    <button type="button" id="submit" class="btn btn-success btn-lg btn-block " value="Guardar venta" />Guardar
+<div class="text-center">
+    <button type="button" id="submit" class="btn btn-success btn-lg " value="Guardar venta" >Guardar
     <span class="glyphicon glyphicon-floppy-disk"></span></button>
 </div>
 
-}
+
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
