@@ -267,6 +267,10 @@
         $(document).ready(function () {
             if ($('#msg').val()==1) { toastr.success("Venta guardada correctamente."); }
             $(".js-example-basic-single").select2();
+            $(".js-example-basic-single").on("select2:selecting", function (e) {
+                setTimeout(function(){document.getElementById("linequantity").‌​focus();}, 1);
+            });
+
         });
         ////////////////End:Select searchable///////////////////
 
