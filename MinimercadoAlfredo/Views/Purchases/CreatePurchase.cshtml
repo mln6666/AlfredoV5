@@ -20,16 +20,16 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-2" align="center">
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Nº Compra</label>
                             </div>
-                            <div class="col-md-2" align="center">
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Proveedor</label>
                             </div>
                             
-                            <div class="col-md-2" align="center">
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Fecha Compra</label>
                             </div>
                         </div>
@@ -45,12 +45,12 @@
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2" align="center">
+                    <div class="col-sm-4 dataContainer" align="center">
                         <span>@ViewBag.npurchase</span>
 
                     </div>
-                    <div class="col-md-2" align="left">
-                        <select class="js-example-basic-single" id="providername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
+                    <div class="col-lg-4" align="center">
+                        <select class="js-example-basic-single inputForm" id="providername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
                             <option value="0">Seleccionar Proveedor...</option>
                             @foreach (var item in ViewBag.Providers)
                             {
@@ -61,8 +61,8 @@
                         <span class="error">Requerido</span>
                     </div>
                 
-                    <div class="col-md-2" align="center">
-                        <input type="date" class="panel-info" style="width: 150px;height:25px;" id="purchasedate" placeholder="dd/mm/aaaa" />
+                    <div class="col-lg-4" align="center">
+                        <input type="date" class="panel-info form-control inputForm" id="purchasedate" placeholder="dd/mm/aaaa" />
                         <span class="error">Requerido</span>
                     </div>
 
@@ -79,24 +79,28 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineDescription</label>
+
+                            <div class="col-lg-2" align="center">
+                                <label style="color: white; padding-top: 8px">Producto</label>
 
                             </div>
-                            <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LinePrice</label>
-                        </div>
-                        <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LineQuantity</label>
-                        </div>
-                        <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LineTotal</label>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Precio</label>
+                            </div>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Cantidad</label>
+                            </div>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Total</label>
+                            </div>
+                            <div class="col-lg-1" align="center">
+                                <label style="color: white; padding-top: 8px">Acción</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         </thead>
     </table>
@@ -112,7 +116,7 @@
             <div class="col-md-12">
                 <div class="row">
 
-                    <div class="col-md-2" align="center">
+                    <div class="col-lg-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
                         @*<div id="ajaxBeginFormResult">*@
                             <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
@@ -130,19 +134,23 @@
                             <span class="error">Requerido</span>
                         </div>
                
-                <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
+                <div class="col-lg-3" align="center">
+                    <input type="text" class="panel-info form-control inputForm" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
                     <span class="error">Requerido</span>
                 </div>
-                <div class="col-md-2" align="center">
-                    <input type="number" class="panel-info" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
+                <div class="col-lg-3" align="center">
+                    <input type="number" class="panel-info form-control inputForm" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
                     <span class="error">Requerido</span>
                 </div>
-                <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" value="0.00"  id="linetotal" readonly="readonly" style="width: 130px; height: 25px;" />
+                <div class="col-lg-3" align="center">
+                    <input type="text" class="panel-info text-center totalView dataContainer" value="0.00"  id="linetotal" readonly="readonly"/>
                     <span class="error">Requerido</span>
                 </div>
-            </div>
+                <div class="col-lg-1" align="center">
+                        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
+             </div>
         </div>
     </div>
     </div>
@@ -154,11 +162,7 @@
     </div>
 </table>
 
-<div class="col-md-2" align="center">
-    <button type="button" id="add" class="btn btn-success btn-lg " value="Agregar" style="bottom:auto" />Agregar
-    <span class="glyphicon glyphicon-plus"></span>
 
-</div>
 
 <div class="details">
     <legend>
@@ -170,11 +174,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">Total Compra</label>
+                            <div class="col-md-6" align="left">
+                                <label style="color:white;padding-top:8px">Comentarios</label>
                             </div>
                             <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">Comments</label>
+                                <label style="color:white;padding-top:8px">Total Compra</label>
                             </div>
 
                         </div>
@@ -188,32 +192,31 @@
 <table>
     <div class="container-fluid">
         <div class="row" style="padding-top:10px">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-md-6" align="center">
-                        <input readonly="readonly" type="text" value="0.00" class="panel-info" style="width: 60px;height:25px;" id="purchasetotal" placeholder="" />
+                    <div class="col-lg-6" align="left">
+                        <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
+
+                    </div>
+                    <div class="col-lg-6" align="center">
+                        <input readonly="readonly" type="text" value="0.00" class="panel-info text-center totalView dataContainer" id="purchasetotal" placeholder="" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
-                    </div>
-
-
-                </div>
+                   
+                  </div>
             </div>
         </div>
     </div>
 </table>
 
 
-
+<hr/>
 
 <div class="text-right">
     <button type="button" id="submit" class="btn btn-success btn-lg btn-block " value="Guardar venta" />Guardar
     <span class="glyphicon glyphicon-floppy-disk"></span></button>
 </div>
 
-}
 
 
 @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -689,9 +692,9 @@
                     $.each(orderItems, function(i, val) {
                         var $row = $('<div class="col-md-12" align="center" ></div>');
                         $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
                         //CALCULO TOTAL GRAL
