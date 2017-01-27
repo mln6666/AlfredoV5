@@ -688,6 +688,7 @@
     <Content Include="Views\Purchases\modalProvider.cshtml" />
     <Content Include="Views\Sales\modalCustomer.cshtml" />
     <Content Include="Views\Products\RemoveStock.cshtml" />
+    <Content Include="Views\Products\Catalog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

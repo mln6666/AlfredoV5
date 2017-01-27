@@ -55,7 +55,15 @@
                     <li>@Html.ActionLink("Ventas", "Index", "Sales")</li>
                     <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
+                    <li class="dropdown" style="left: auto">
+                        <a style="font-weight: bold" class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Catálogos<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="download">
+                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog","Products", new { personal = true})">Personal</a></li>
+                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog","Products", new { personal = false})">Público</a></li>
+
+                        </ul>
+                    </li>
+                    @*<li>@Html.ActionLink("Usuarios", "Index", "Users")</li>*@
 
                 </ul>
                 @Html.Partial("_LoginPartial")
