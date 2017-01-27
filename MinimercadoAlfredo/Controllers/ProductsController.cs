@@ -96,7 +96,7 @@ namespace MinimercadoAlfredo.Controllers
             }
             return View(products.ToList());
         }
-
+        [HttpGet]
         public ActionResult Catalog(bool personal)
         {
             var products = (from p in db.Products
