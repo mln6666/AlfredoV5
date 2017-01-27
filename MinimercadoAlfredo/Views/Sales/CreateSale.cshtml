@@ -1,34 +1,31 @@
-﻿Agregar
-    <span class="glyphicon glyphicon-plus"></span>
-
-@model MinimercadoAlfredo.Models.Sale
+﻿@model MinimercadoAlfredo.Models.Sale
 
 @{
     ViewBag.Title = "Nueva Venta";
 }
 <head>
 
-    
+
 </head>
 @*///////////////////////////*@
 
 
 <h2>Nueva Venta</h2>
-<input value="@ViewBag.msg" id="msg" style="display: none"/>
+<input value="@ViewBag.msg" id="msg" style="display: none" />
 <div class="details">
-    
+
     <div class="row">
         <div class="col-lg-4">
             Usted está confeccionando una venta mayorista:
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <select class="form-control text-right" id="salestate" style="width: 40%; height: 35px; font-weight: bold">
                 <option value="0">En curso</option>
                 <option value="1">Finalizada</option>
             </select>
         </div>
     </div>
-    <br/>
+    <br />
     <legend>
         Detalles Cliente
     </legend>
@@ -36,21 +33,21 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-1" align="left">
+                            <div class="col-lg-1" align="center">
                                 <label style="color:white;padding-top:8px">Nro.Venta</label>
                             </div>
-                            <div class="col-md-3" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color:white;padding-top:8px">Nombre</label>
                             </div>
-                            <div class="col-md-3" align="left">
+                            <div class="col-lg-3" align="center">
                                 <label style="color:white;padding-top:8px">Dirección</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-3" align="center">
                                 <label style="color:white;padding-top:8px">Cuil</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-3" align="center">
                                 <label style="color:white;padding-top:8px">Fecha</label>
                             </div>
                         </div>
@@ -64,13 +61,13 @@
 <table>
     <div class="container-fluid">
         <div class="row" style="padding-top:10px">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-md-1" align="center">
+                    <div class="col-lg-1 dataContainer" align="center">
                         <span>@ViewBag.nsale</span>
 
                     </div>
-                    <div class="col-md-2" align="left">
+                    <div class="col-lg-2" align="center">
                         <select class="js-example-basic-single" id="customername" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
                             <option value="0">Seleccionar Cliente...</option>
                             @foreach (var item in ViewBag.Customers)
@@ -81,17 +78,17 @@
                         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-4" align="center">
-                        <input type="text" class="panel-info form-control" style="width: 250px; height: 25px;" id="saleaddress" placeholder="" />
+                    <div class="col-lg-3" align="center">
+                        <input type="text" class="panel-info form-control inputForm" id="saleaddress" placeholder="" />
                         @*   @Html.EditorFor(m => m.CustomerAddress, new { htmlAttributes = new { @class = "form-control", @id = "customeraddress" } })*@
                         @*<span class="error">customeraddress required</span>*@
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info form-control" style="width: 150px;height: 25px;" id="cuitcuil" placeholder="" />
+                    <div class="col-lg-3" align="center">
+                        <input type="number" class="panel-info form-control inputForm" id="cuitcuil" placeholder="" />
                         <span class="error"></span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="date" class="panel-info form-control" style="width: 200px; height: 25px;" id="saledate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
+                    <div class="col-lg-3" align="center">
+                        <input type="date" class="panel-info form-control inputForm" id="saledate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
                         <span class="error">Requerido</span>
                     </div>
 
@@ -102,28 +99,31 @@
 </table>
 <div class="details">
     <legend>
-       Listado Productos
+        Listado Productos
     </legend>
     <table>
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color: white; padding-top: 8px">Producto</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color: white; padding-top: 8px">Precio(M)</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color: white; padding-top: 8px">Cantidad</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color: white; padding-top: 8px">Descuento</label>
                             </div>
-                            <div class="col-md-2" align="left">
+                            <div class="col-lg-2" align="center">
                                 <label style="color: white; padding-top: 8px">Total</label>
+                            </div>
+                            <div class="col-lg-2" align="center">
+                                <label style="color: white; padding-top: 8px">Acción</label>
                             </div>
                         </div>
                     </div>
@@ -141,9 +141,9 @@
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2" align="center">
+                    <div class="col-lg-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; document.getElementById('linequantity').focus();">
+                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; document.getElementById('linequantity').focus();">
                             <option value="0">Seleccionar Producto...</option>
                             @foreach (var item in ViewBag.Products)
                             {
@@ -153,24 +153,24 @@
                         <input type="hidden" id="shadow" value="">
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info form-control" style="width: 130px;height:25px;" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                    <div class="col-lg-2" align="center">
+                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info form-control" value="1" style="width: 130px;height:25px; " id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()"/>
+                    <div class="col-lg-2" align="center">
+                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="tel" min="0" step="1" class="panel-info form-control" value="0" style="width: 130px;height:25px;" id="linediscount" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros()" />
+                    <div class="col-lg-2" align="center">
+                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros()" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info text-center" value="0.00" style="width: 130px;  border: none; background: none" id="linetotal" readonly="readonly" />
+                    <div class="col-lg-2" align="center">
+                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-2" align="center">
-                        <button type="button" id="add" class="btn btn-success btn-sm "  value="Agregar" style="bottom:auto" />Agregar
+                    <div class="col-lg-2" align="center">
+                        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
                         <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </div>
@@ -194,12 +194,12 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-6" align="center">
+                            <div class="col-lg-6" align="left">
                                 <label style="color:white;padding-top:8px">Observaciones</label>
                             </div>
-                            <div class="col-md-6" align="center">
+                            <div class="col-lg-6" align="center">
                                 <label style="color: white; padding-top: 8px">Total Venta</label>
                             </div>
 
@@ -217,12 +217,12 @@
             <div class="col-md-12">
                 <div class="row">
 
-                    <div class="col-md-6" align="center">
+                    <div class="col-md-6" align="left">
                         <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
 
                     </div>
                     <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" value="0.00" style="width: 60px;height:25px; border: none; background: none;" id="saletotal" placeholder="" readonly="readonly" />
+                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="saletotal" placeholder="" readonly="readonly" />
                         <span class="error">Requerido</span>
                     </div>
 
@@ -233,12 +233,14 @@
     </div>
 </table>
 
+<hr />
 
-<br />
 
 <div class="text-center">
-    <button type="button" id="submit" class="btn btn-success btn-lg " value="Guardar venta" >Guardar
-    <span class="glyphicon glyphicon-floppy-disk"></span></button>
+    <button type="button" id="submit" class="btn btn-success btn-lg btn-block" value="Guardar venta">
+        Guardar
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
 </div>
 
 
@@ -251,7 +253,7 @@
 
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
-<script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
 
 
     <script>
@@ -309,7 +311,7 @@
         ///////////////////End: Autocomplete Product Price////////
 
         //////////////////Start: LinePrice Calculation//////////////
-       
+
             function totallinea() {
                 var price = parseFloat($('#lineprice').val());
                 var quantity = parseFloat($('#linequantity').val());
@@ -456,7 +458,7 @@
 
 
                 //Add item to list if valid
-              
+
                 //populate order items
 
             });
@@ -499,7 +501,7 @@
                     isAllValid = false;
                 } else {
                     $('#saletotal').siblings('span.error').css('visibility', 'hidden');
-                }                
+                }
 
                 //Save if valid
                 if (isAllValid) {
@@ -529,7 +531,7 @@
                                 //will send status from server side
                                 //alert('SAPEEEEEEEEEEEEE.');
                                 @*bootbox.alert({
-                                    
+
                                     message: "Venta guardada correctamente",
                                     callback: function (result) {
                                         //clear form
@@ -570,12 +572,13 @@
                     var $tbody = $('<tbody/>');
                     $.each(orderItems, function(i, val) {
                         var $row = $('<div class="col-md-12" align="center" ></div>');
-                        $row.append($('<div class="col-md-5" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDiscount));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
-                        var $remove = $('<a href="#">Eliminar</a>');
+                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
+                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
+                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDiscount));
+                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
+                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+
+                        var $remove = $('<div class="col-md-2"><a href="#">Eliminar</a></div>');
 
                         //CALCULO TOTAL GRAL
                         saletotal = 0;

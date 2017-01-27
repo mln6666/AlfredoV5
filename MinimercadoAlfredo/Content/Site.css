@@ -1,5 +1,5 @@
 ﻿body {
-	padding-top: 50px;
+	padding-top: 115px;
 	padding-bottom: 20px;
 }
 
@@ -208,7 +208,7 @@ textarea {
 
 .jumbotron {
     align-content: center;
-	margin-top: 90px;
+	margin-top: 40px;
 	width: 1100px;
 	height: 200px;
 	opacity: 1;
@@ -465,3 +465,28 @@ nav.posicion_nav {
 
 }
 
+.inputForm {
+    
+    height:28px;
+    text-align:center;
+}
+
+
+
+.dataContainer{
+    background-color:beige;
+    /*width:auto;*/
+    font-weight:900;
+    font-family:Arial, Helvetica, sans-serif;
+    border:groove;
+}
+
+.totalView {
+    border:double;
+    background-color:beige;
+
+}
+
+.panel-info:focus{
+    background-color:beige;
+}

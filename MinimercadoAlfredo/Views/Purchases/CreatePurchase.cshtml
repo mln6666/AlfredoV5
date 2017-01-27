@@ -20,16 +20,16 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-2" align="center">
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Nº Compra</label>
                             </div>
-                            <div class="col-md-2" align="center">
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Proveedor</label>
                             </div>
-                            
-                            <div class="col-md-2" align="center">
+
+                            <div class="col-md-4" align="center">
                                 <label style="color:white;padding-top:8px">Fecha Compra</label>
                             </div>
                         </div>
@@ -45,12 +45,12 @@
         <div class="row" style="padding-top:10px">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-2" align="center">
+                    <div class="col-sm-4 dataContainer" align="center">
                         <span>@ViewBag.npurchase</span>
 
                     </div>
-                    <div class="col-md-2" align="left">
-                        <select class="js-example-basic-single" id="providername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
+                    <div class="col-lg-4" align="center">
+                        <select class="js-example-basic-single inputForm" id="providername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
                             <option value="0">Seleccionar Proveedor...</option>
                             @foreach (var item in ViewBag.Providers)
                             {
@@ -60,9 +60,9 @@
                         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
                         <span class="error">Requerido</span>
                     </div>
-                
-                    <div class="col-md-2" align="center">
-                        <input type="date" class="panel-info" style="width: 150px;height:25px;" id="purchasedate" placeholder="dd/mm/aaaa" />
+
+                    <div class="col-lg-4" align="center">
+                        <input type="date" class="panel-info form-control inputForm" id="purchasedate" placeholder="dd/mm/aaaa" />
                         <span class="error">Requerido</span>
                     </div>
 
@@ -79,25 +79,29 @@
         <thead class="thead-inverse">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-lg-12">
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">LineDescription</label>
+
+                            <div class="col-lg-2" align="center">
+                                <label style="color: white; padding-top: 8px">Producto</label>
 
                             </div>
-                            <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LinePrice</label>
-                        </div>
-                        <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LineQuantity</label>
-                        </div>
-                        <div class="col-md-2" align="center">
-                            <label style="color: white; padding-top: 8px">LineTotal</label>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Precio</label>
+                            </div>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Cantidad</label>
+                            </div>
+                            <div class="col-lg-3" align="center">
+                                <label style="color: white; padding-top: 8px">Total</label>
+                            </div>
+                            <div class="col-lg-1" align="center">
+                                <label style="color: white; padding-top: 8px">Acción</label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </thead>
     </table>
 </div>
@@ -112,39 +116,43 @@
             <div class="col-md-12">
                 <div class="row">
 
-                    <div class="col-md-2" align="center">
+                    <div class="col-lg-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
                         @*<div id="ajaxBeginFormResult">*@
-                            <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
-                                <option value="0">Seleccionar Producto...</option>
-                                @foreach (var item in ViewBag.Products)
-                                {
-                                    <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
-                                }
-                            </select>
-                            @*<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
+                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+                            <option value="0">Seleccionar Producto...</option>
+                            @foreach (var item in ViewBag.Products)
+                            {
+                                <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
+                            }
+                        </select>
+                        @*<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
                                 <span class="glyphicon glyphicon-plus text-center"></span>
                             </a>*@
                         @*</div>*@
-                            <input type="hidden" id="shadow" value="">
-                            <span class="error">Requerido</span>
-                        </div>
-               
-                <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
-                    <span class="error">Requerido</span>
-                </div>
-                <div class="col-md-2" align="center">
-                    <input type="number" class="panel-info" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
-                    <span class="error">Requerido</span>
-                </div>
-                <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" value="0.00"  id="linetotal" readonly="readonly" style="width: 130px; height: 25px;" />
-                    <span class="error">Requerido</span>
+                        <input type="hidden" id="shadow" value="">
+                        <span class="error">Requerido</span>
+                    </div>
+
+                    <div class="col-lg-3" align="center">
+                        <input type="text" class="panel-info form-control inputForm" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                        <span class="error">Requerido</span>
+                    </div>
+                    <div class="col-lg-3" align="center">
+                        <input type="number" class="panel-info form-control inputForm" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                        <span class="error">Requerido</span>
+                    </div>
+                    <div class="col-lg-3" align="center">
+                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
+                        <span class="error">Requerido</span>
+                    </div>
+                    <div class="col-lg-1" align="center">
+                        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
 </table>
@@ -154,11 +162,7 @@
     </div>
 </table>
 
-<div class="col-md-2" align="center">
-    <button type="button" id="add" class="btn btn-success btn-lg " value="Agregar" style="bottom:auto" />Agregar
-    <span class="glyphicon glyphicon-plus"></span>
 
-</div>
 
 <div class="details">
     <legend>
@@ -170,11 +174,11 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row" style="background-color:#373a3c;border-radius:5px">
-                            <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">Total Compra</label>
+                            <div class="col-md-6" align="left">
+                                <label style="color:white;padding-top:8px">Comentarios</label>
                             </div>
                             <div class="col-md-6" align="center">
-                                <label style="color:white;padding-top:8px">Comments</label>
+                                <label style="color:white;padding-top:8px">Total Compra</label>
                             </div>
 
                         </div>
@@ -188,16 +192,16 @@
 <table>
     <div class="container-fluid">
         <div class="row" style="padding-top:10px">
-            <div class="col-md-12">
+            <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-md-6" align="center">
-                        <input readonly="readonly" type="text" value="0.00" class="panel-info" style="width: 60px;height:25px;" id="purchasetotal" placeholder="" />
+                    <div class="col-lg-6" align="left">
+                        <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
+
+                    </div>
+                    <div class="col-lg-6" align="center">
+                        <input readonly="readonly" type="text" value="0.00" class="panel-info text-center totalView dataContainer" id="purchasetotal" placeholder="" />
                         <span class="error">Requerido</span>
                     </div>
-                    <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
-                    </div>
-
 
                 </div>
             </div>
@@ -206,158 +210,157 @@
 </table>
 
 
-
+<hr />
 
 <div class="text-right">
     <button type="button" id="submit" class="btn btn-success btn-lg btn-block " value="Guardar venta" />Guardar
     <span class="glyphicon glyphicon-floppy-disk"></span></button>
 </div>
 
-}
 
 
 @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Agregar producto</h4>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Agregar producto</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("CreateModal", "Products", new AjaxOptions
+                    {
+                        InsertionMode = InsertionMode.Replace,
+                        UpdateTargetId = "ajaxBeginFormResult",
+                        OnSuccess = "OnSuccess"
+                    }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownList("idCategory", null, "Seleccione un Rubro", htmlAttributes: new { @class = "form-control input-sm" })
+                                    @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "ProdExistente()",@required="required" } })
+                                    <span id="productoexistente" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "NroExistente()", @required = "required", @type="number" } })
+                                    @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
+                                    <span id="nroexistente" class="text-danger"></span>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.WholeSalePrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.PublicPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.UploadDate, "Fecha de Carga", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required" } })
+                                    @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
+                                    @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="radio col-md-4">
+                                    <label>
+                                        <input name="ProductState" id="optionsRadios1" value="true" checked="" type="radio">
+                                        Activo
+                                    </label>
+                                    <label>    </label>
+                                    <label>
+                                        <input name="ProductState" id="optionsRadios2" value="false" type="radio">
+                                        Desactivado
+                                    </label>
+                                </div>
+                                <div class="col-md-2"></div>
+
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Image, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control input-sm" } })
+                                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                    <input type="submit"  id="botonGuardar" value="Guardar" class="btn btn-success">
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
             </div>
-            <div class="modal-body">
-                @using (Ajax.BeginForm("CreateModal", "Products", new AjaxOptions
-                {
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "ajaxBeginFormResult",
-                    OnSuccess = "OnSuccess"
-                }))
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownList("idCategory", null, "Seleccione un Rubro", htmlAttributes: new { @class = "form-control input-sm" })
-                                @Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "ProdExistente()",@required="required" } })
-                                <span id="productoexistente" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control input-sm", @onchange = "NroExistente()", @required = "required", @type="number" } })
-                                @Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })
-                                <span id="nroexistente" class="text-danger"></span>
-
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
-                                @Html.ValidationMessageFor(model => model.Cost, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.WholeSalePrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
-                                @Html.ValidationMessageFor(model => model.WholeSalePrice, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.PublicPrice, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
-                                @Html.ValidationMessageFor(model => model.PublicPrice, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.UploadDate, "Fecha de Carga", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
-                                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control input-sm", @required = "required", @type = "number" } })
-                                @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="radio col-md-4">
-                                <label>
-                                    <input name="ProductState" id="optionsRadios1" value="true" checked="" type="radio">
-                                    Activo
-                                </label>
-                                <label>    </label>
-                                <label>
-                                    <input name="ProductState" id="optionsRadios2" value="false" type="radio">
-                                    Desactivado
-                                </label>
-                            </div>
-                            <div class="col-md-2"></div>
-
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Image, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control input-sm" } })
-                                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <input type="submit"  id="botonGuardar" value="Guardar" class="btn btn-success">
-                               
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
-<script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
-<script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
 
 
 
@@ -627,7 +630,7 @@
                 //    $('#idsale').siblings('span.error').css('visibility', 'hidden');
                 //}
 
-               
+
 
                 if ($('#purchasetotal').val().trim() == '') {
                     $('#purchasetotal').siblings('span.error').css('visibility', 'visible');
@@ -689,9 +692,9 @@
                     $.each(orderItems, function(i, val) {
                         var $row = $('<div class="col-md-12" align="center" ></div>');
                         $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
-                        $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
+                        $row.append($('<div class="col-md-3" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
                         //CALCULO TOTAL GRAL
