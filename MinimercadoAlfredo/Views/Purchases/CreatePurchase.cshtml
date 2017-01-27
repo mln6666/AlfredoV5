@@ -10,7 +10,7 @@
 </head>
 @*///////////////////////////*@
 
-
+<input value="@ViewBag.msg" id="msg" style="display: none" />
 <h2>Carga Compra</h2>
 <div class="details">
     <legend>
@@ -58,12 +58,12 @@
                             }
                         </select>
                         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
-                        <span class="error">providername required</span>
+                        <span class="error">Requerido</span>
                     </div>
                 
                     <div class="col-md-2" align="center">
                         <input type="date" class="panel-info" style="width: 150px;height:25px;" id="purchasedate" placeholder="dd/mm/aaaa" />
-                        <span class="error">purchasedate required</span>
+                        <span class="error">Requerido</span>
                     </div>
 
                 </div>
@@ -83,6 +83,7 @@
                         <div class="row" style="background-color: #373a3c; border-radius: 5px">
                             <div class="col-md-2" align="center">
                                 <label style="color: white; padding-top: 8px">LineDescription</label>
+
                             </div>
                             <div class="col-md-2" align="center">
                             <label style="color: white; padding-top: 8px">LinePrice</label>
@@ -113,7 +114,7 @@
 
                     <div class="col-md-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <div id="ajaxBeginFormResult">
+                        @*<div id="ajaxBeginFormResult">*@
                             <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
                                 <option value="0">Seleccionar Producto...</option>
                                 @foreach (var item in ViewBag.Products)
@@ -121,25 +122,25 @@
                                     <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
                                 }
                             </select>
-                            <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
+                            @*<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
                                 <span class="glyphicon glyphicon-plus text-center"></span>
-                            </a>
-                        </div>
+                            </a>*@
+                        @*</div>*@
                             <input type="hidden" id="shadow" value="">
-                            <span class="error">linedescription required</span>
+                            <span class="error">Requerido</span>
                         </div>
                
                 <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" style="width: 130px; height: 25px;" id="lineprice" />
-                    <span class="error">lineprice required</span>
+                    <input type="text" class="panel-info" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
+                    <span class="error">Requerido</span>
                 </div>
                 <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" value="1" style="width: 130px; height: 25px;" id="linequantity" />
-                    <span class="error">linequantity required</span>
+                    <input type="number" class="panel-info" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange = "totallinea()" oninput = "totallinea()" onkeypress="solonumerosptocoma()"/>
+                    <span class="error">Requerido</span>
                 </div>
                 <div class="col-md-2" align="center">
-                    <input type="text" class="panel-info" style="width: 130px; height: 25px;" id="linetotal" />
-                    <span class="error">linetotal required</span>
+                    <input type="text" class="panel-info" value="0.00"  id="linetotal" readonly="readonly" style="width: 130px; height: 25px;" />
+                    <span class="error">Requerido</span>
                 </div>
             </div>
         </div>
@@ -190,12 +191,11 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" style="width: 60px;height:25px;" id="purchasetotal" placeholder="" />
-                        <span class="error">total required</span>
+                        <input readonly="readonly" type="text" value="0.00" class="panel-info" style="width: 60px;height:25px;" id="purchasetotal" placeholder="" />
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-6" align="center">
                         <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
-                        <span class="error">comentario required</span>
                     </div>
 
 
@@ -216,7 +216,7 @@
 }
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+@*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -341,7 +341,7 @@
                             <div class="col-md-offset-2 col-md-10">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                                 <input type="submit"  id="botonGuardar" value="Guardar" class="btn btn-success">
-                                @*<input type="reset" value="Vaciar"/>*@
+                               
                             </div>
                         </div>
                     </div>
@@ -351,19 +351,27 @@
 
         </div>
     </div>
-</div>
+</div>*@
 
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
-
+<script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+<script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
 
 
 
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script>
+        function totallinea() {
+            var price = parseFloat($('#lineprice').val());
+            var quantity = parseFloat($('#linequantity').val());
+            var total = (price * quantity);
+            document.getElementById("linetotal").value = total.toFixed(2);
+        }
+
         function NroExistente() {
-            
+
             if ($('#ProductNumber').val() != "") {
 
                 var options = {};
@@ -430,7 +438,8 @@
             //});
         }
         /////////////////Start:Select searchable////////////////
-        $(document).ready(function() {
+        $(document).ready(function () {
+            if ($('#msg').val() == 1) { toastr.success("Compra guardada correctamente."); }
             $(".js-example-basic-single").select2();
         });
         ////////////////End:Select searchable///////////////////
@@ -464,9 +473,10 @@
                 options.dataType = "json";
                 options.success = function(data) {
                     document.getElementById("lineprice").value = data;
-
+                    totallinea();
                 };
                 $.ajax(options);
+
             });
         });
         ///////////////////End: Autocomplete Product Price////////
@@ -507,11 +517,13 @@
 
         $(document).ready(function() {
             var orderItems = [];
+            var verifproductos = [];
+            var totgral = [];
             //Add button click function
             $('#add').click(function() {
                 //Check validation of order item
                 var isValidItem = true;
-                if ($('#linedescription').val().trim() == '') {
+                if ($('#linedescription').val().trim() == '' || $('#linedescription').val().trim() == '0') {
                     isValidItem = false;
                     $('#linedescription').siblings('span.error').css('visibility', 'visible');
                 } else {
@@ -525,12 +537,20 @@
                     $('#lineprice').siblings('span.error').css('visibility', 'hidden');
                 }
 
-              
+
                 if ($('#linequantity').val().trim() == '') {
                     isValidItem = false;
+                    $('#linequantity').siblings('span.error').text('Requerido');
                     $('#linequantity').siblings('span.error').css('visibility', 'visible');
                 } else {
-                    $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                    if ($('#linequantity').val().trim() * 1 == 0) {
+                        isValidItem = false;
+                        $('#linequantity').siblings('span.error').text('Valor min: 1');
+
+                        $('#linequantity').siblings('span.error').css('visibility', 'visible');
+                    } else {
+                        $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                    }
                 }
                 if ($('#linetotal').val().trim() == '') {
                     isValidItem = false;
@@ -538,8 +558,26 @@
                 } else {
                     $('#linetotal').siblings('span.error').css('visibility', 'hidden');
                 }
+                if (isValidItem) {
+                    ////////////***********//////////
+                    var historial = verifproductos;
+                    var errorproductos = false;
+                    productoact = parseInt($('#linedescription').val().trim());
+                    $.each(historial, function () {
+                        if (productoact == parseInt(this)) {
+                            errorproductos = true;
 
-
+                        }
+                    });
+                }
+                if (errorproductos) {
+                    isValidItem = false;
+                    bootbox.alert({
+                        title: "Producto existente",
+                        message: "El producto: - " + $('#shadow').val().trim() + " - ya se encuentra en el listado. ",
+                        backdrop: true
+                    });
+                }
                 //Add item to list if valid
                 if (isValidItem) {
                     orderItems.push({
@@ -549,12 +587,19 @@
                         LineTotal: $('#linetotal').val().trim(),
                         LineDescription: $('#shadow').val().trim()
                     });
-
+                    verifproductos.push(
+                              parseInt($('#linedescription').val().trim())
+                          );
+                    totgral.push(
+                             parseFloat($('#linetotal').val().trim())
+                         );
                     //Clear fields
                     //$('#linedescription').val('').focus();
                     //$(document).find('#linedescription').select2();
                     $("#linedescription").val(0).trigger('change');
-                    $('#lineprice,#linequantity,#linetotal').val('');
+                    $('#lineprice,#linequantity,#linetotal').val('0.00');
+                    $('#linequantity').val('1');
+
 
                 }
                 //populate order items
@@ -566,10 +611,15 @@
                 //validation of order
                 var isAllValid = true;
                 if (orderItems.length == 0) {
-                    $('#orderItems').html('<span style="color:red;">Please add order items</span>');
+                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
                     isAllValid = false;
                 }
-
+                if ($('#providername').val().trim() == '' || $('#providername').val().trim() == '0') {
+                    $('#providername').siblings('span.error').css('visibility', 'visible');
+                    isAllValid = false;
+                } else {
+                    $('#providername').siblings('span.error').css('visibility', 'hidden');
+                }
                 //if ($('#idsale').val().trim() == '') {
                 //    $('#idsale').siblings('span.error').css('visibility', 'visible');
                 //    isAllValid = false;
@@ -577,24 +627,19 @@
                 //    $('#idsale').siblings('span.error').css('visibility', 'hidden');
                 //}
 
-                if ($('#providername').val().trim() == '') {
-                    $('#providername').siblings('span.error').css('visibility', 'visible');
-                    isAllValid = false;
-                } else {
-                    $('#providername').siblings('span.error').css('visibility', 'hidden');
-                }
                
+
                 if ($('#purchasetotal').val().trim() == '') {
                     $('#purchasetotal').siblings('span.error').css('visibility', 'visible');
                     isAllValid = false;
                 } else {
                     $('#purchasetotal').siblings('span.error').css('visibility', 'hidden');
                 }
-                if ($('#comments').val().trim() == '') {
-                    $('#comments').siblings('span.error').css('visibility', 'visible');
+                if ($('#purchasedate').val().trim() == '') {
+                    $('#purchasedate').siblings('span.error').css('visibility', 'visible');
                     isAllValid = false;
                 } else {
-                    $('#comments').siblings('span.error').css('visibility', 'hidden');
+                    $('#purchasedate').siblings('span.error').css('visibility', 'hidden');
                 }
 
                 //Save if valid
@@ -602,7 +647,6 @@
                     var data = {
                         ProviderName: $('#providername').val().trim(),
                         //Sorry forgot to add Description Field
-                       
                         PurchaseDate: $('#purchasedate').val().trim(),
                         PurchaseTotal: $('#purchasetotal').val().trim(),
                         Comments: $('#comments').val().trim(),
@@ -612,7 +656,7 @@
                     $(this).val('Please wait...');
 
                     $.ajax({
-                        url: '/Purchases/CreatePurchase',
+                        url: '@Url.Action("CreatePurchase", "Purchases")',
                         type: "POST",
                         data: JSON.stringify(data),
                         dataType: "JSON",
@@ -620,15 +664,8 @@
                         success: function(d) {
                             //check is successfully save to database
                             if (d.status == true) {
-                                //will send status from server side
-                                alert('SAPEEEEEEEEEEEEE.');
-                                //clear form
-                                orderItems = [];
-                                $('#providername').val('');
-                                $('#purchasedate').val('');
-                                $('#comments').val('');
-
-                                $('#orderItems').empty();
+                                var url = '@Url.Action("CreatePurchase", "Purchases", new { x = 1 })';
+                                window.location.href = url;
                             } else {
                                 alert('Failed');
                             }
@@ -657,12 +694,20 @@
                         $row.append($('<div class="col-md-2" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
+                        //CALCULO TOTAL GRAL
+                        purchasetotal = 0;
+                        $.each(totgral, function () { purchasetotal += parseFloat(this) || 0; });
+                        document.getElementById("purchasetotal").value = purchasetotal.toFixed(2);
 
                         $remove.click(function(e) {
                             e.preventDefault();
+                            verifproductos.splice(i, 1);
+                            totgral.splice(i, 1);
                             orderItems.splice(i, 1);
                             GeneratedItemsTable();
-
+                            purchasetotal = 0;
+                            $.each(totgral, function () { purchasetotal += parseFloat(this) || 0; });
+                            document.getElementById("purchasetotal").value = purchasetotal.toFixed(2);
                         });
                         $row.append($('<div class="col-md-1" style="font-weight: bold;border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"></div>').html($remove));
                         $tbody.append($row);

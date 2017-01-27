@@ -31,7 +31,12 @@
      options.dataType = "json";
      options.success = function (data) {
          document.getElementById("lineprice").value = data;
-
+         var price = parseFloat($('#lineprice').val());
+         var quantity = parseFloat($('#linequantity').val());
+         var discount = parseFloat($('#linediscount').val());
+         var total = (price * quantity);
+         total = total - (total * discount / 100);
+         document.getElementById("linetotal").value = total.toFixed(2);;
      };
      $.ajax(options);
    
@@ -47,7 +52,12 @@
             options.dataType = "json";
             options.success = function (data) {
                 document.getElementById("lineprice").value = data;
-
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);;
             };
             $.ajax(options);
         });

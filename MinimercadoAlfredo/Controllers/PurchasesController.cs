@@ -110,8 +110,15 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult CreatePurchase()
+        public ActionResult CreatePurchase(int? x)
         {
+            if (x != null)
+            {
+                if (x == 1)
+                {
+                    ViewBag.msg = 1;
+                }
+            }
             ViewBag.Providers = db.Providers.ToList();
             ViewBag.Products = db.Products.ToList();
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName");
@@ -163,6 +170,7 @@ namespace MinimercadoAlfredo.Controllers
                     Product prod = new Product();
                     prod = db.Products.Find(i.IdProduct);
                     prod.Stock = prod.Stock + i.LineQuantity;
+                    prod.ParcialStock = prod.ParcialStock + i.LineQuantity;
                     prod.Cost = i.LinePrice;
                     db.Entry(prod).State = EntityState.Modified;
                     db.SaveChanges();
