@@ -174,8 +174,15 @@ namespace MinimercadoAlfredo.Controllers
 
         //Vista de ventas Mayoristas, el precio que se carga por defecto en los productos//
         //es el precio mayorista, aunque se lo puede cambiar en la vista.//
-        public ActionResult CreateSale()
+        public ActionResult CreateSale(int? x)
         {
+            if (x != null)
+            {
+                if (x == 1)
+                {
+                    ViewBag.msg = 1;
+                }
+            }
             ViewBag.Customers = db.Customers.ToList();
             ViewBag.Products = db.Products.ToList();
             var nsale = 0;

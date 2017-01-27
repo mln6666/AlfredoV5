@@ -17,6 +17,9 @@
             <th>
                 Cliente
             </th>
+            <th>
+                Dirección
+            </th>
             <th style="width:220px">
                 Estado de Venta
             </th>
@@ -31,10 +34,19 @@
             <td>
                 @Html.DisplayFor(model => model.IdSale)
             </td>
+
             <td>
-                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
+                @Html.ActionLink((string) Model.Customer.CustomerName, "modalCustomer", new {id = Model.IdCustomer}, new {@class = "dialog-window"})
                 @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
             </td>
+            <td>
+                @if (Model.SaleAddress == "" | Model.SaleAddress == null)
+            {<text>-</text>}
+            else
+            {
+                @Html.DisplayFor(model => model.SaleAddress)}
+        </td>
+
             <td>
                 @Html.DisplayFor(model => model.SaleState)
             </td>
@@ -153,7 +165,13 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td>@Model.Comments</td>
+            <td>
+                @if (Model.Comments == "" | Model.Comments == null)
+            {<text>-</text>}
+            else
+            {
+                    @Html.DisplayFor(model => model.Comments)}
+            </td>
             <td>@Html.DisplayFor(model => model.SaleTotal)</td>
         </tr>
     </tbody>

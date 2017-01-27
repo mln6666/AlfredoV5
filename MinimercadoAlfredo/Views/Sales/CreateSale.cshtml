@@ -11,6 +11,7 @@
 
 
 <h2>Carga Venta</h2>
+<input value="@ViewBag.msg" id="msg" style="display: none"/>
 <div class="details">
     <legend>
         Datos Generales
@@ -66,7 +67,7 @@
                             }
                         </select>
                         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
-                        <span class="error">customername required</span>
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
                         <input type="text" class="panel-info" style="width: 170px;height:25px;" id="saleaddress" placeholder="" />
@@ -75,11 +76,11 @@
                     </div>
                     <div class="col-md-2" align="center">
                         <input type="number" class="panel-info" style="width: 150px;height:25px;" id="cuitcuil" placeholder="" />
-                        <span class="error">cuitcuil required</span>
+                        <span class="error"></span>
                     </div>
                     <div class="col-md-2" align="center">
                         <input type="date" class="panel-info" style="width: 150px;height:25px;" id="saledate" placeholder="dd/mm/aaaa" />
-                        <span class="error">saledate required</span>
+                        <span class="error">Requerido</span>
                     </div>
 
                 </div>
@@ -138,23 +139,23 @@
                             }
                         </select>
                         <input type="hidden" id="shadow" value="">
-                        <span class="error">linedescription required</span>
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" onchange = "totallinea()" onkeypress="solonumerosptocoma()" />
-                        <span class="error">lineprice required</span>
+                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="lineprice" onchange = "totallinea()" oninput = "totallinea()"  onkeypress="solonumerosptocoma()" />
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="tel" min="0" step="1"class="panel-info" value="0" style="width: 130px;height:25px;" id="linediscount" maxlength="3"oninput="javascript:if (this.value > 100) this.value = 100;" onchange = "totallinea();" onkeypress="solonumeros()" />
-                        <span class="error">linediscount required</span>
+                        <input type="tel" min="0" step="1"class="panel-info" value="0" style="width: 130px;height:25px;" id="linediscount" oninput = "totallinea()" maxlength="3"oninput="javascript:if (this.value > 100) this.value = 100;" onchange = "totallinea();" onkeypress="solonumeros()" />
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" onchange = "totallinea()" onkeypress="solonumeros()" />
-                        <span class="error">linequantity required</span>
+                        <input type="number" class="panel-info" value="1" style="width: 130px;height:25px;" id="linequantity" onchange = "totallinea()" oninput = "    totallinea()" onkeypress="solonumerosptocoma()" />
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linetotal" />
-                        <span class="error">linetotal required</span>
+                        <input type="text" class="panel-info" value="0.00" style="width: 130px;height:25px;" id="linetotal" readonly="readonly" />
+                        <span class="error">Requerido</span>
                     </div>
                 </div>
             </div>
@@ -162,8 +163,10 @@
     </div>
 </table>
 <table class="tablecontainer" style="border:none; background-color:dimgrey; ">
-    <div id="orderItems" class="tablecontainer" style="border:none ; padding-top:15px">
+    <div id="orderItems" class="tablecontainer" style="border: none; padding-top: 15px">
     </div>
+    <span class="error"></span>
+
 </table>
 
 <div class="col-md-2" align="center">
@@ -203,8 +206,8 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6" align="center">
-                        <input type="text" class="panel-info" style="width: 60px;height:25px;" id="saletotal" placeholder="" />
-                        <span class="error">total required</span>
+                        <input type="text" class="panel-info" value="0.00" style="width: 60px;height:25px;" id="saletotal" placeholder="" readonly="readonly" />
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-6" align="center">
                         <input type="text" class="panel-info" style="width: 60px;height:25px;" id="comments" placeholder="" />
@@ -242,7 +245,8 @@
     <script>
 
         /////////////////Start:Select searchable////////////////
-        $(document).ready(function() {
+        $(document).ready(function () {
+            if ($('#msg').val()==1) { toastr.success("Venta guardada correctamente."); }
             $(".js-example-basic-single").select2();
         });
         ////////////////End:Select searchable///////////////////
@@ -350,9 +354,17 @@
                 }
                 if ($('#linequantity').val().trim() == '') {
                     isValidItem = false;
+                    $('#linequantity').siblings('span.error').text('Requerido');
                     $('#linequantity').siblings('span.error').css('visibility', 'visible');
                 } else {
-                    $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                    if ($('#linequantity').val().trim() * 1 == 0) {
+                        isValidItem = false;
+                        $('#linequantity').siblings('span.error').text('Valor min: 1');
+
+                        $('#linequantity').siblings('span.error').css('visibility', 'visible');
+                    } else {
+                        $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                    }
                 }
                 if ($('#linetotal').val().trim() == '') {
                     isValidItem = false;
@@ -420,7 +432,8 @@
                             //Clear fields
                             //$(document).find('#linedescription').select2();
                             $("#linedescription").val(0).trigger('change');
-                            $('#lineprice,#linediscount,#linequantity,#linetotal').val('0');
+                            $('#lineprice,#linequantity,#linetotal').val('0.00');
+                            $('#linediscount').val('0');
                             $('#linequantity').val('1');
 
                             GeneratedItemsTable();
@@ -440,7 +453,7 @@
                 //validation of order
                 var isAllValid = true;
                 if (orderItems.length == 0) {
-                    $('#orderItems').html('<span style="color:red;">Please add order items</span>');
+                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
                     isAllValid = false;
                 }
 
@@ -451,7 +464,7 @@
                 //    $('#idsale').siblings('span.error').css('visibility', 'hidden');
                 //}
 
-                if ($('#customername').val().trim() == '') {
+                if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
                     $('#customername').siblings('span.error').css('visibility', 'visible');
                     isAllValid = false;
                 } else {
@@ -463,12 +476,12 @@
                 //} else {
                 //    $('#saleaddress').siblings('span.error').css('visibility', 'hidden');
                 //}
-                //if ($('#cuitcuil').val().trim() == '') {
-                //    $('#cuitcuil').siblings('span.error').css('visibility', 'visible');
-                //    isAllValid = false;
-                //} else {
-                //    $('#cuitcuil').siblings('span.error').css('visibility', 'hidden');
-                //}
+                if ($('#saledate').val().trim() == '') {
+                    $('#saledate').siblings('span.error').css('visibility', 'visible');
+                    isAllValid = false;
+                } else {
+                    $('#saledate').siblings('span.error').css('visibility', 'hidden');
+                }
                 if ($('#saletotal').val().trim() == '') {
                     $('#saletotal').siblings('span.error').css('visibility', 'visible');
                     isAllValid = false;
@@ -503,7 +516,7 @@
                             if (d.status == true) {
                                 //will send status from server side
                                 //alert('SAPEEEEEEEEEEEEE.');
-                                bootbox.alert({
+                                @*bootbox.alert({
                                     
                                     message: "Venta guardada correctamente",
                                     callback: function (result) {
@@ -520,9 +533,9 @@
                                         var url = '@Url.Action("CreateSale")';
                                         window.location.href = url;
                                     }
-                                });
-                                
-
+                                });*@
+                                var url = '@Url.Action("CreateSale","Sales", new { x = 1 })';
+                                window.location.href = url;
                             } else {
                                 alert('Failed');
                             }
@@ -565,6 +578,9 @@
                             verifproductos.splice(i, 1);
                             totgral.splice(i, 1);
                             GeneratedItemsTable();
+                            saletotal = 0;
+                            $.each(totgral, function () { saletotal += parseFloat(this) || 0; });
+                            document.getElementById("saletotal").value = saletotal.toFixed(2);
 
                         });
                         $row.append($('<div class="col-md-1" style="font-weight: bold;border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"></div>').html($remove));

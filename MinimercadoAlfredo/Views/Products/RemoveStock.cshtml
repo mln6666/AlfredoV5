@@ -60,14 +60,14 @@
                             }
                         </select>
                         <input type="hidden" id="shadow" value="">
-                        <span class="error">linedescription required</span>
+                        <span class="error">Requerido</span>
                     </div>
                     <div class="col-md-2" align="center">
                         <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
                     </div>
                     <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
-                        <span class="error">Required</span>
+                        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
+                        <span class="error">Requerido</span>
 
                     </div>
                     <div class="col-md-2" align="center">
@@ -181,7 +181,6 @@
                 if ($('#stockactual').val().trim() == '' | $('#stockactual').val().trim() == 0) {
                     isValidItem = false;
                     $('#stockactual').siblings('span.error').text('Requerido');
-
                     $('#stockactual').siblings('span.error').css('visibility', 'visible');
                 } else {
                     $('#stockactual').siblings('span.error').css('visibility', 'hidden');
@@ -193,7 +192,7 @@
 
                     $('#baja').siblings('span.error').css('visibility', 'visible');
                 } else {
-                    if ($('#baja').val().trim() == '0') {
+                    if ($('#baja').val().trim() * 1==0) {
                         isValidItem = false;
                         $('#baja').siblings('span.error').text('Valor min: 1');
 
