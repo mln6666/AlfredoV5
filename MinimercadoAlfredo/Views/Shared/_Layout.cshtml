@@ -13,11 +13,16 @@
 
     <script type="text/javascript" src='@Url.Content("/../Scripts/jquery-1.12.4.min.js")'></script>
     <script type="text/javascript" src='@Url.Content("/../Scripts/bootstrap.min.js")'></script>
-
+    <style> 
+        @@media print {
+  a[href]:after {
+    content: none !important;
+  }
+}</style>
 
 </head>
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
-    <div class="navbar-fixed-top">
+    <div class="navbar-fixed-top hidden-print">
         <div class="container">
             <div class="navbar-header btn-default chicle">
 
@@ -61,7 +66,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p class="text-center"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ®  <a style="color:black ">@Html.ActionLink("Contacto", "Contact", "Home")</></a> - </p>
+            <p class="text-center hidden-print"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ®  <a class="hidden-print" style="color:black ">@Html.ActionLink("Contacto", "Contact", "Home")</></a> - </p>
         </footer>
     </div>
     @Scripts.Render("~/bundles/lib")
