@@ -316,13 +316,13 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Trademark,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,Trademark,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
         {
             if (ModelState.IsValid)
             {
                 if (product.Trademark == null)
                     product.Trademark = "[Producto sin Marca]";
-                product.UploadDate = DateTime.Now.Date;
+                
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
