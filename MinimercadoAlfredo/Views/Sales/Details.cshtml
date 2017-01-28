@@ -63,29 +63,26 @@
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:120px">
-                N° Artículo
+                N° Art.
             </td>
             <td class="text-left" style="border-radius: 3px;font-weight: bold">
                 Producto
-            </td>
-            <td class="text-left" style="border-radius: 3px;font-weight: bold">
-                Marca
-             </td>
+            </td>            
                 
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:100px">
-                Cantidad
+                Cant.
             </td>
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:100px">
-                Descuento
+                Desc.
             </td>
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:100px">
-                P. Unit.
+                Precio M
             </td>
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:100px">
                 Subtotal(+)
             </td>
             <td class="text-left hidden-print" style="border-radius: 3px;font-weight: bold; width:100px">
-                Devolución
+                Dev.
             </td>
             <td class="text-left hidden-print" style="border-radius: 3px;font-weight: bold; width:130px">
                 Subtotal Dev(-)
@@ -100,11 +97,9 @@
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.Product.Trademark)
-                    </td>
+                
                     
                 <td>
                     @Html.DisplayFor(modelItem => item.LineQuantity)
@@ -135,7 +130,6 @@
             </tr>
         }
         <tr style="background:none">
-            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>

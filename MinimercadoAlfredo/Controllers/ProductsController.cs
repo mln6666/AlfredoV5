@@ -111,7 +111,7 @@ namespace MinimercadoAlfredo.Controllers
                 ViewBag.personal = false;
             }
 
-            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.ProductDescription)));
+            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.Trademark)));
         }
 
         public JsonResult ExisteProd(string nombre, int? idproduct, string Trademark)
