@@ -56,17 +56,19 @@
                     @Html.DisplayFor(modelItem => item.CuitCuil)
                 </td>
                 <td class="text-center">
-                    <div class="btn-group">
+                    <a href="@Url.Action("Edit","Customers", new { id = item.IdCustomer })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="btn btn-primary btn-sm dialog-window1"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    @*<div class="btn-group">
                         <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                                 data-toggle="dropdown">
                             <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Customers", new { id = item.IdCustomer })">Editar</a></li>
-                            @*<li><a href="@Url.Action("Details","Customers", new { id = item.IdCustomer })">Detalles</a></li>*@
+                            <li><a href="@Url.Action("Details","Customers", new { id = item.IdCustomer })">Detalles</a></li>
                             <li><a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="dialog-window1">Eliminar</a></li>
                         </ul>
-                    </div>
+                    </div>*@
 
                 </td>
             </tr>

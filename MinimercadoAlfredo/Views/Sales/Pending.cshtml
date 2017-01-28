@@ -42,7 +42,7 @@
             @Html.DisplayNameFor(model => model.SaleTotal)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SaleState)
+            Estado
         </th>
         <th class="text-center">
             Acciones
@@ -70,7 +70,11 @@
 
             </td>
             <td class="text-center">
-                <button id="@item.IdSale" class="@item.IdSale btn-success" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)">Finalizar</button>
+                <button id="@item.IdSale" class="@item.IdSale btn btn-success btn-sm" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                <a href="@Url.Action("Edit","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                <a href="@Url.Action("Details","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                <a href="@Url.Action("Delete","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm dialog-window"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                @*<button id="@item.IdSale" class="@item.IdSale btn-success" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)">Finalizar</button>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
                             data-toggle="dropdown"><span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp; <span class="caret"></span>
@@ -81,8 +85,7 @@
                         <li><a href="@Url.Action("Details","Sales", new { id = item.IdSale })">Detalles</a></li>
                         <li><a href="@Url.Action("Delete","Sales", new { id = item.IdSale })" class="dialog-window">Eliminar</a></li>
                     </ul>
-                </div>
-                
+                </div>*@                
             </td>
         </tr>
     }
