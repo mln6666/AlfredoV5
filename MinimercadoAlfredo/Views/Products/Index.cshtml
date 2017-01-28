@@ -29,7 +29,7 @@
 <br />
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
-        <tr class="text-center" style="color:white; background-color:#4d77a3">
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
@@ -124,7 +124,7 @@
     </tbody>
 </table>
 
-<text style="color:red">**Los Productos en color rojo tienen Stock por debajo de la mínima</text>
+<text class="text-danger">**Los Productos en color rojo tienen Stock por debajo de la mínima</text>
 
 @if (ViewBag.message != null)
 {

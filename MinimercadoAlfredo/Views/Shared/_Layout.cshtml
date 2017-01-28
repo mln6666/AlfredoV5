@@ -23,46 +23,60 @@
 
 </head>
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
-    <div class="navbar navbar-inverse hidden-print">
+    <div class="navbar navbar-inverse hidden-print" style="margin-bottom: 0px;">
         <div class="container">
             <div class="navbar-btn">
                 @Html.ActionLink("Minimercado Alfredo", "Index", "Home", new { area = "" }, new { @class = "navbar-Trademark" })
             </div>
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav ">
-                    <li class="circle">@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
-                    <li class="dropdown" style="left: auto">
-                        <a style="font-weight: bold" class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Productos<span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="download">
-                            <li style="font-weight: bold;">@Html.ActionLink("Listado", "Index", "Products")</li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Dar de baja", "RemoveStock", "Products")</li>
-
+                    <li class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
+                            Ventas <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
+                            <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
                         </ul>
                     </li>
-                    @*<li class="dropdown" style="left: auto">
-                            <a style="font-weight: bold" class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Listas de Productos<span class="caret"></span></a>
-                            <ul class="dropdown-menu" aria-labelledby="download">
+                    <li class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
+                            Compras <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <li>@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
+                            <li>@Html.ActionLink("Listado", "Index", "Purchases")</li>
+                        </ul>
+                    </li>
+                    
+                   
+                    @*//inicio productos*@
+                    <li class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
+                            Productos <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="font-weight: bold;">@Html.ActionLink("Listado", "Index", "Products")</li>
+                            <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
+                            <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
+                            Catálogos <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
+                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
+                        </ul>
+                    </li>
 
-                                <li>@Html.ActionLink("Lista de Productos Activos", "Index", "Products")</li>
-                                <li>@Html.ActionLink("Lista de Productos Desactivados", "OffProducts", "Products")</li>
-                                <li class="divider"></li>
-                                <li>@Html.ActionLink("Lista de todos los Productos", "Record", "Products")</li>
 
-                            </ul>
-                        </li>*@
-                    <li>@Html.ActionLink("Compras", "Index", "Purchases")</li>
-                    <li>@Html.ActionLink("Ventas", "Index", "Sales")</li>
+
+
+                    @*//fin productos*@
                     <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
-                    <li class="dropdown" style="left: auto">
-                        <a style="font-weight: bold" class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Catálogos<span class="caret"></span></a>
-                        <ul class="dropdown-menu" aria-labelledby="download">
-                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog","Products", new { personal = true})">Personal</a></li>
-                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog","Products", new { personal = false})">Público</a></li>
-
-                        </ul>
-                    </li>
                     @*<li>@Html.ActionLink("Usuarios", "Index", "Users")</li>*@
 
                 </ul>
