@@ -10,91 +10,82 @@
 @*///////////////////////////*@
 
 
-<h2>Dar de baja Productos</h2>
+<h3 class="text-center hidden-print" style="margin-bottom: 5px;">
+    Dar de baja productos
+</h3>
 
-<div class="details">
-    <legend>
-        Productos a dar de baja
-    </legend>
-    <table>
-        <thead class="thead-inverse">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row" style="background-color: #373a3c; border-radius: 5px">
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">Producto</label>
-                            </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">Stock Actual</label>
-                            </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">#Baja</label>
-                            </div>
-                            <div class="col-md-2" align="center">
-                                <label style="color: white; padding-top: 8px">Stock Futuro</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </thead>
-    </table>
-</div>
+<legend style="margin-bottom: 2px;">
+    Productos a dar de baja
+</legend>
+<table id="mytable" class="table table-condensed table-bordered">
+    <thead>
+        <tr class="text-center" style="color:white; background-color:#4d77a3">
+            <th class="text-center">
+                Producto
+            </th>
+            <th class="text-center">
+                Stock Actual
+            </th>
+            <th class="text-center">
+                #Baja
+            </th>
+            <th class="text-center">
+                Stock Posterior
+            </th>
+            <th class="text-center">
+                Acción
+            </th>
+        </tr>
+    </thead>
+    <tbody id="last">
+    <td>
+        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+            <option value="0">Seleccionar Producto...</option>
+            @foreach (var item in ViewBag.Products)
+            {
+                <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
+            }
+        </select>
+        <input type="hidden" id="shadow" value="">
+        <span class="error">Requerido</span>
+    </td>
+    <td>
+        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
 
+    </td>
+    <td>
+        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
+        <span class="error">Requerido</span>
+    </td>
+    <td>
+        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockfuturo" value="0" readonly="readonly" />
 
-
-
-<table>
-    <div class="container-fluid">
-        <div class="row" style="padding-top:10px">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-2" align="center">
-                        @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
-                            <option value="0">Seleccionar Producto...</option>
-                            @foreach (var item in ViewBag.Products)
-                            {
-                                <option value="@item.IdProduct">@item.ProductNumber - @item.ProductDescription</option>
-                            }
-                        </select>
-                        <input type="hidden" id="shadow" value="">
-                        <span class="error">Requerido</span>
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
-                        <span class="error">Requerido</span>
-
-                    </div>
-                    <div class="col-md-2" align="center">
-                        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockfuturo" value="0" readonly="readonly" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </td>
+    <td>
+        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
+        <span class="glyphicon glyphicon-plus"></span>
+    </td>
+  
+    </tbody>
 </table>
-<table class="tablecontainer" style="border:none; background-color:dimgrey; ">
-    <div id="orderItems" class="tablecontainer" style="border:none ; padding-top:15px">
+<div>
+    <div id="orderItems">
     </div>
-</table>
+    <span class="error"></span>
 
-<div class="col-md-2" align="center">
-    <button type="button" id="add" class="btn btn-success btn-lg " value="Agregar" style="bottom:auto" />Agregar
-    <span class="glyphicon glyphicon-plus"></span>
+</div>
+<hr />
+
+<div class="text-center">
+    <button type="button" id="submit" class="btn btn-success btn-md" value="Guardar compra">
+        Guardar
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+
 
 </div>
 
-<div class="text-right">
-    <button type="button" id="submit" class="btn btn-success btn-lg btn-block " value="Guardar venta" />Guardar
-    <span class="glyphicon glyphicon-floppy-disk"></span></button>
-</div>
 
-}
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts{
@@ -153,14 +144,7 @@
 
         ////////////////////End: stockfuturo Calculation/////////////
 
-        ////Date Picker
-        //$(document).ready(function() {
-        //    $(function() {
-        //        $('#saledata').datepicker({
-        //            dateFormat: 'mm-dd-yy'
-        //        });
-        //    });
-        //});
+       
 
         $(document).ready(function() {
             var orderItems = [];
@@ -268,7 +252,7 @@
                 //validation of order
                 var isAllValid = true;
                 if (orderItems.length == 0) {
-                    $('#orderItems').html('<span style="color:red;">Please add order items</span>');
+                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
                     isAllValid = false;
                 }
 
@@ -319,16 +303,16 @@
 
 //function for show added items in table
             function GeneratedItemsTable() {
+                $('.elim').remove();
+
                 if (orderItems.length > 0) {
-                    var $table = $('<table style="border:none"></table>');
-                    //$table.append('<thead><tr><th>Item</th><th>Quantity</th><th>Rate</th><th>Total</th></tr></thead>');
-                    var $tbody = $('<tbody/>');
+                    $('#orderItems').html('<span style="color:red;"></span>');
                     $.each(orderItems, function(i, val) {
-                        var $row = $('<div class="col-md-12" align="center" ></div>');
-                        $row.append($('<div class="col-md-5" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineDescription));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LinePrice));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineQuantity));
-                        $row.append($('<div class="col-md-1" style="font-weight: bold; border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"  ></div>').html(val.LineTotal));
+                        var $row = $('<tr class="elim"  style="background-color: white"></tr>');
+                        $row.append($('<td></td>').html(val.LineDescription));
+                        $row.append($('<td></td>').html(val.LinePrice));
+                        $row.append($('<td></td>').html(val.LineQuantity));
+                        $row.append($('<td></td>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
                         $remove.click(function(e) {
                             e.preventDefault();
@@ -336,13 +320,10 @@
                             verifproductos.splice(i, 1);
                             GeneratedItemsTable();
                         });
-                        $row.append($('<div class="col-md-1" style="font-weight: bold;border-style: outset;border-color:#CEECF5;border-width:2px;background-color:#F2F3A6;border-radius: 4px;"></div>').html($remove));
-
-                        $tbody.append($row);
+                        $row.append($('<td></td>').append($remove));
+                        $('#mytable > tbody:last').append($row);
                     });
-
-                    $table.append($tbody);
-                    $('#orderItems').html($table);
+                   
                 } else {
                     $('#orderItems').html('');
                 }
