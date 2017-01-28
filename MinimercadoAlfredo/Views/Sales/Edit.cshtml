@@ -10,7 +10,7 @@
 <h3 class="text-center">Devoluciones de Venta</h3>
 <hr style="color:grey;border-color:grey" />
 @Html.HiddenFor(model => model.IdSale)
-<table class="table table-striped table-bordered">
+<table class="table table-condensed   table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <th style="width:110px">
@@ -49,33 +49,30 @@
 </table>
 <h3 class="text-center">Lista de Productos</h3>
 <hr style="color:grey;border-color:grey" />
-<table class="table table-striped table-bordered" id="tabla">
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px; width:120px">
-                N° Artículo
+                N° Art.
             </td>
             <td class="text-left" style="border-radius: 3px">
                 Producto
             </td>
-            <td class="text-left" style="border-radius: 3px">
-                Marca
-            </td>
-            
+                        
             <td class="text-left" style="border-radius: 3px; width:100px">
-                Cantidad
+                Cant.
             </td>
             <td class="text-left" style="border-radius: 3px; width:100px">
-                Descuento
+                Desc.
             </td>
-            <td class="text-left" style="border-radius: 3px; width:130px">
-                Precio Mayorista
+            <td class="text-left" style="border-radius: 3px; width:100px">
+                Precio M
             </td>
             <td class="text-left" style="border-radius: 3px; width:100px">
                 Subtotal(+)
             </td>
             <td class="text-left" style="border-radius: 3px; width:100px">
-                Devolucion
+                Dev
             </td>
             <td class="text-left" style="border-radius: 3px; width:100px">
                 Total Dev(-)
@@ -91,12 +88,9 @@
                     @Html.DisplayFor(modelItem => item.Product.ProductNumber)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Trademark)
-                </td>
-                
+                                
                 <td>
                     @*@Html.DisplayFor(modelItem => item.LineQuantity)*@
                     @Html.TextBoxFor(modelItem => item.LineQuantity, new {@Value = (item.LineQuantity == null) ? "0" : item.LineQuantity.ToString(), @id = "item_LineQuantity" + @item.IdProduct ,@readonly="readonly", style = "background: none;border:hidden;color: black" })
@@ -128,7 +122,6 @@
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
-            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
             <td style="border-left:hidden;border-bottom:hidden;"></td>
             <td style="color:black; font-weight: bolder; background-color:lightgray">
                 @Html.TextBoxFor(model => model.LinesTotal, new { @Value = (Model.LinesTotal == null) ? "0" : Model.LinesTotal.ToString(), @readonly = "readonly", style = "background: none;border:hidden;font-weight: bolder;color: black" })
@@ -142,7 +135,7 @@
 </table>
 <hr style="color:grey;border-color:grey" />
 
-<table class="table table-striped table-bordered">
+<table class="table table-condensed   table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px">

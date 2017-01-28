@@ -13,24 +13,24 @@
 
     <script type="text/javascript" src='@Url.Content("/../Scripts/jquery-1.12.4.min.js")'></script>
     <script type="text/javascript" src='@Url.Content("/../Scripts/bootstrap.min.js")'></script>
-    <style> 
+    <style>
         @@media print {
-  a[href]:after {
-    content: none !important;
-  }
-}</style>
+            a[href]:after {
+                content: none !important;
+            }
+        }
+    </style>
 
 </head>
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
-    <div class="navbar-fixed-top hidden-print">
+    <div class="navbar navbar-inverse hidden-print">
         <div class="container">
-            <div class="navbar-header btn-default chicle">
-
+            <div class="navbar-btn">
                 @Html.ActionLink("Minimercado Alfredo", "Index", "Home", new { area = "" }, new { @class = "navbar-Trademark" })
             </div>
-            <nav class="navbar-inverse circle posicion_nav">
+            <div class="navbar-collapse">
                 <ul class="nav navbar-nav ">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li class="circle">@Html.ActionLink("Inicio", "Index", "Home")</li>
                     <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
                     <li class="dropdown" style="left: auto">
                         <a style="font-weight: bold" class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Productos<span class="caret"></span></a>
@@ -67,7 +67,7 @@
 
                 </ul>
                 @Html.Partial("_LoginPartial")
-            </nav>
+            </div>
         </div>
     </div>
     <div class="container body-content">

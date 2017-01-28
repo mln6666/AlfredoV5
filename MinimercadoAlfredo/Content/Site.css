@@ -1,6 +1,6 @@
 ﻿body {
-	padding-top: 115px;
-	padding-bottom: 20px;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -208,7 +208,7 @@ textarea {
 
 .jumbotron {
     align-content: center;
-	margin-top: 40px;
+	margin-top: 0px;
 	width: 1100px;
 	height: 200px;
 	opacity: 1;
@@ -351,12 +351,12 @@ nav.fill ul li a:hover:after {
 }
 
 /* Circle */
-nav.circle ul li a {
+circle ul li a {
   position: relative;
   overflow: hidden;
   z-index: 1;
 }
-nav.circle ul li a:after {
+circle ul li a:after {
   display: block;
   position: absolute;
   margin: 0;
@@ -371,7 +371,7 @@ nav.circle ul li a:after {
   border-radius: 50%;
   background: transparent;
 }
-nav.circle ul li a:hover:after {
+circle ul li a:hover:after {
   -webkit-animation: circle 1s ease-in forwards;
 }
 
@@ -490,3 +490,11 @@ nav.posicion_nav {
 .panel-info:focus{
     background-color:beige;
 }
+
+.navbar-inverse .navbar-nav > li > a:hover {
+background: -webkit-linear-gradient(top, rgba(59,103,158,1) 41%,rgba(43,136,217,1) 90%,rgba(125,185,232,1) 100%); /* Chrome10-25,Safari5.1-6 */
+border-radius: 12px;
+
+}
+
+

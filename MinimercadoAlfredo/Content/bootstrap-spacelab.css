@@ -4519,6 +4519,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   color: #3399f3;
   background-color: transparent;
 }
+
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
@@ -4609,6 +4611,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-nav > li > a {
   color: #dddddd;
+  
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -6768,10 +6771,10 @@ button.close {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .navbar-inverse {
-  background-image: -webkit-linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
-  background-image: -o-linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#6d94bf), color-stop(50%, #446e9b), to(#3e648d));
-  background-image: linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
+  background-image: -webkit-linear-gradient(#6d94bf, #446e9b 50%, #0c1d2f);
+  background-image: -o-linear-gradient(#6d94bf, #446e9b 50%, #0c1d2f);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#6d94bf), color-stop(50%, #446e9b), to(#0c1d2f));
+  background-image: linear-gradient(#6d94bf, #446e9b 50%, #0c1d2f);
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff6d94bf', endColorstr='#ff3e648d', GradientType=0);
   -webkit-filter: none;
