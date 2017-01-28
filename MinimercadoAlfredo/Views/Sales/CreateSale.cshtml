@@ -79,12 +79,12 @@
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-lg-3" align="center">
-                        <input type="text" class="panel-info form-control inputForm" id="saleaddress" placeholder="" />
+                        <input type="text" class="panel-info form-control inputForm" id="saleaddress" onFocus="this.select()" placeholder="" />
                         @*   @Html.EditorFor(m => m.CustomerAddress, new { htmlAttributes = new { @class = "form-control", @id = "customeraddress" } })*@
                         @*<span class="error">customeraddress required</span>*@
                     </div>
                     <div class="col-lg-3" align="center">
-                        <input type="number" class="panel-info form-control inputForm" id="cuitcuil" placeholder="" />
+                        <input type="number" class="panel-info form-control inputForm" onFocus="this.select()" id="cuitcuil" placeholder="" />
                         <span class="error"></span>
                     </div>
                     <div class="col-lg-3" align="center">
@@ -143,7 +143,7 @@
                 <div class="row">
                     <div class="col-lg-2" align="center">
                         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
-                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; document.getElementById('linequantity').focus();">
+                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; fquantity();">
                             <option value="0">Seleccionar Producto...</option>
                             @foreach (var item in ViewBag.Products)
                             {
@@ -154,15 +154,15 @@
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-lg-2" align="center">
-                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()"onkeypress="solonumerosptocoma()" />
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-lg-2" align="center">
-                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-lg-2" align="center">
-                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros()" />
+                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros()" />
                         <span class="error">Requerido</span>
                     </div>
                     <div class="col-lg-2" align="center">
@@ -218,7 +218,7 @@
                 <div class="row">
 
                     <div class="col-md-6" align="left">
-                        <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
+                        <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" onFocus="this.select()" placeholder=""></textarea>
 
                     </div>
                     <div class="col-md-6" align="center">
@@ -262,14 +262,12 @@
 
 
     <script>
-
+        function fquantity() { setTimeout(function () { $("#linequantity").focus(); }, 1); }
         /////////////////Start:Select searchable////////////////
         $(document).ready(function () {
             if ($('#msg').val()==1) { toastr.success("Venta guardada correctamente."); }
             $(".js-example-basic-single").select2();
-            $(".js-example-basic-single").on("select2:selecting", function (e) {
-                setTimeout(function(){document.getElementById("linequantity").‌​focus();}, 1);
-            });
+            
 
         });
         ////////////////End:Select searchable///////////////////
@@ -315,7 +313,9 @@
                     document.getElementById("linetotal").value = total.toFixed(2);;
                 };
                 $.ajax(options);
+                
             });
+           
         });
         ///////////////////End: Autocomplete Product Price////////
 
