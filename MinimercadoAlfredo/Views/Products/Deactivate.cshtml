@@ -70,22 +70,32 @@ else
     </dl>
     <hr style="color:grey;border-color:lightgray" />
 
-    @using (Html.BeginForm(null, null, new { idProd = Model.IdProduct}, FormMethod.Post)) {
-
-        @Html.AntiForgeryToken()
-
-
-        <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-            @if (Model.ProductState == true)
+    <div class="form-actions no-color text-center">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+        @if (ViewBag.all != null)
+        {
+            if (Model.ProductState == true)
             {
-                <input type="submit" value="Desactivar" class="btn btn-warning" />
+                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct, all = true})" class="btn btn-warning">Desactivar</a>
             }
             else
             {
-                <input type="submit" value="Activar" class="btn btn-success" />
+                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct, all = true})" class="btn btn-success">Activar</a>
             }
-        </div>
-    }
+        }
+        else
+        {
+            if (Model.ProductState == true)
+            {
+                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct})" class="btn btn-warning">Desactivar</a>
+            }
+            else
+            {
+                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct})" class="btn btn-success">Activar</a>
+            }
+        }
+    </div>
+
+    
 </div>
 

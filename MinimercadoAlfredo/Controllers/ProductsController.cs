@@ -179,20 +179,30 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult Record(bool? message)
+        public ActionResult Record(bool? message, bool? msgDeactivate)
         {
             var products = db.Products.Include(p => p.Category);
 
             if (message != null)
-            {
                 ViewBag.message = "El Producto se ha eliminado correctamente.";
+
+            if (msgDeactivate != null)
+            {
+                if (msgDeactivate == true)
+                {
+                    ViewBag.msgDeactivate = "El Producto se ha Activado correctamente";
+                }
+                else
+                {
+                    ViewBag.msgDeactivate = "El Producto se ha Desactivado correctamente";
+                }
             }
 
             return View(products.ToList());
         }
 
         //GET
-        public ActionResult Deactivate(int? id)
+        public ActionResult Deactivate(int? id, bool? all)
         {
             if (id == null)
             {
@@ -203,6 +213,8 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+            if (all == true)
+                ViewBag.all = true;
             return View(product);
         }
 
@@ -249,35 +261,36 @@ namespace MinimercadoAlfredo.Controllers
             return View(product);
         }
 
-        [HttpPost, ActionName("Deactivate")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeactivateConfirmation(int? idProd)
+        
+        public ActionResult DeactivateConfirmation(int? id, bool? all)
         {
             Product prod = new Product();
-            prod = db.Products.Find(idProd);
-            if (ModelState.IsValid)
+            prod = db.Products.Find(id);
+
+            prod.ProductState = !prod.ProductState;
+            db.Entry(prod).State = EntityState.Modified;
+            db.SaveChanges();
+            if (all != null)
             {
                 if (prod.ProductState)
                 {
-                    prod.ProductState = false;
-                    db.Entry(prod).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index", "Products", new { message = true });
+                    return RedirectToAction("Record", "Products", new { msgDeactivate = true });
+                }else
+                {
+                    return RedirectToAction("Record", "Products", new { msgDeactivate = false });
+                }
+
+            } else
+            {
+                if (prod.ProductState)
+                {
+                    return RedirectToAction("OffProducts", "Products", new { message = true });
                 }
                 else
                 {
-                    prod.ProductState = true;
-                    db.Entry(prod).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("OffProducts", "Products", new { message = true });
+                    return RedirectToAction("Index", "Products", new { message = true });
                 }
-
             }
-            else
-            {
-                return RedirectToAction("Index", "Products", new { message = false });
-            }
-
 
         }
 

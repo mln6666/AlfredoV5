@@ -95,11 +95,11 @@
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })">Detalles</a></li>
                             @if (item.ProductState == false)
                             {
-                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window2">Activar</a></li>
+                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct, all = true })" class="dialog-window2">Activar</a></li>
                             }
                             else
                             {
-                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window2">Desactivar</a></li>
+                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct, all = true })" class="dialog-window2">Desactivar</a></li>
                             }
                             <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
 
@@ -123,6 +123,26 @@
                 </div>
                 <div class="modal-body">
                     <p>@ViewBag.message</p>
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ViewBag.msgDeactivate != null)
+{
+    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
+                </div>
+                <div class="modal-body">
+                    <p>@ViewBag.msgDeactivate</p>
                 </div>
                 <div class="modal-footer text-center">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
@@ -165,6 +185,7 @@
 {
     <script>
         $('#myModal').modal('show')
+        $('#myModal3').modal('show')
 
     $(document).ready(function () {
 
