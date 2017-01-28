@@ -419,6 +419,13 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+
+            if (sale.SaleState == SaleState.Finalizada)
+            {
+                ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
+                return View("Delete", sale);
+            }
+
             return View(sale);
 
             //if (id == null)

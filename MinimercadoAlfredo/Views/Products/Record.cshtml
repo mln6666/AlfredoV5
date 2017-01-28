@@ -37,10 +37,10 @@
                 @Html.DisplayNameFor(model => model.Trademark)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductNumber)
+                Nro Artículo
             </th>
             <th>
-                Último costo de adquisición
+                Costo
             </th>            
             <th>
                 Estado
@@ -93,14 +93,18 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })">Detalles</a></li>
-                            <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
                             @if (item.ProductState == false)
+                            {
+                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window2">Activar</a></li>
+                            }
+                            else
                             {
                                 <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="dialog-window2">Desactivar</a></li>
                             }
+                            <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
+
                         </ul>
                     </div>                    
-                    
                 </td>
             </tr>
         }
