@@ -1,11 +1,11 @@
 ﻿@model MinimercadoAlfredo.Models.Product
 
 @{
-    ViewBag.Title = "Detalle de Producto";
+    Layout = null;
 }
 
-<h2 class="text-center">Detalles de Producto</h2>
-<hr style="color:grey;border-color:grey" />
+@*<h2 class="text-center">Detalle de Producto</h2>
+<hr style="color:grey;border-color:grey" />*@
 
 <div>
     
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductNumber)
+            Nro Artículo
         </dt>
 
         <dd>
@@ -51,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.WholeSalePrice)
+            Precio Mayorista
         </dt>
 
         <dd>
@@ -59,7 +59,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PublicPrice)
+            Precio Minorista
         </dt>
 
         <dd>
@@ -75,7 +75,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ParcialStock)
+            Stock
         </dt>
 
         @if (Model.Stock != null)
@@ -111,29 +111,36 @@
             Estado
         </dt>
 
-        <dd>
-            @if (Model.ProductState == true)
-            {
-                <text>Activo</text>
-            }
-            else
-            {
-                <text>Desactivado</text>
-            }
-        </dd>
+        @if (Model.ProductState == true)
+        {
+            <dd>
+                <text class="text-success">Activo</text>
+            </dd>
+        }
+        else
+        {
+            <dd>
+                <text class="text-warning">Desactivado</text>
+            </dd>
+        }
 
-        <dt>
+        @*<dt>
             Imagen
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Image)
-        </dd>
+        </dd>*@
 
     </dl>
 </div>
-<p>
+<hr style="color:grey;border-color:lightgray" />
+<div class="form-actions no-color text-center">
+    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdProduct }, new { @class = "btn btn-success" })
+</div>
+@*<p>
     <a href="@Url.Action("Index","Products")" class="btn btn-primary">Volver</a>
     @Html.ActionLink("Editar", "Edit", new { id = Model.IdProduct }, new {@class = "btn btn-success" })
     
-</p>
+</p>*@

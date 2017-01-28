@@ -37,10 +37,10 @@
                 @Html.DisplayNameFor(model => model.Trademark)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductNumber)
+                Nro Artículo
             </th>
             <th>
-                Último costo de adquisición
+                Costo
             </th>            
 
             <th class="text-center">
@@ -70,7 +70,7 @@
 
                 <td class="text-center">
                     <a href="@Url.Action("Edit","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                    <a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                    <a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window3"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
                     <a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window2"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
                     <a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window1"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     @*<div class="btn-group">
@@ -140,6 +140,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts
 {
@@ -189,6 +203,25 @@
                 $.get(url, function (data) {
                     $('#myModal2 .te').html(data);
                     $('#myModal2').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $("body").on("click", "a.dialog-window3", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal3.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal3').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal3 .te').html(data);
+                    $('#myModal3').modal();
                 }).success(function () { $('input:text:visible:first').focus(); });
             }
         });

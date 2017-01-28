@@ -92,7 +92,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
-                            <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })">Detalles</a></li>
+                            <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
                             @if (item.ProductState == false)
                             {
                                 <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct, all = true })" class="dialog-window2">Activar</a></li>
@@ -180,6 +180,20 @@
     </div>
 </div>
 
+<div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts
 {
@@ -230,6 +244,25 @@
                 $.get(url, function (data) {
                     $('#myModal2 .te').html(data);
                     $('#myModal2').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $("body").on("click", "a.dialog-window4", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal4.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal4').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal4 .te').html(data);
+                    $('#myModal4').modal();
                 }).success(function () { $('input:text:visible:first').focus(); });
             }
         });
