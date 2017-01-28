@@ -8,7 +8,7 @@
 <h3 class="text-center hidden-print">Detalles de Venta</h3>
 <hr style="color:grey;border-color:grey" />
 
-<table class="table table-striped table-bordered">
+<table class="table table-condensed   table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <th style="width:110px">
@@ -59,7 +59,7 @@
 </table>
 <h3 class="text-center hidden-print">Lista de Productos</h3>
 <hr style="color:grey;border-color:grey" />
-<table class="table table-striped table-bordered" id="tabla">
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px;font-weight: bold; width:120px">
@@ -150,7 +150,7 @@
 </table>
 <hr style="color:grey;border-color:grey" />
 
-<table class="table table-striped table-bordered">
+<table class="table table-condensed   table-striped table-bordered">
     <thead>
         <tr class="text-right" style="color:white; background-color:#4d77a3">
             <td class="text-left" style="border-radius: 3px;font-weight: bold">
@@ -201,7 +201,7 @@
             <div class="modal-body" id="modalDiv">
                 <div class="text-center">Nota de pedido</div>
                 <hr style="color:grey; border-color: grey; margin: 5px;" />
-                <table class="table table-striped table-bordered table-condensed">
+                <table class="table table-condensed   table-striped table-bordered table-condensed">
                     <thead>
                         <tr class="text-center" style="color:white; background-color:#4d77a3">
                             <th style="width:110px">
@@ -242,18 +242,21 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="table table-striped table-bordered table-condensed" id="tabla">
+                <table class="table table-condensed   table-striped table-bordered table-condensed" id="tabla">
                     <thead>
                         <tr class="text-center" style="color:white; background-color:#4d77a3">
                             <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Nº Art.
+                            </td>
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
                                 Producto
                             </td>
-                          
+
                             <td class="text-left" style="border-radius: 3px;font-weight: bold">
-                                Cantidad
+                                Cant.
                             </td>
                             <td class="text-left" style="border-radius: 3px;font-weight: bold">
-                                Descuento
+                                Desc.
                             </td>
                             <td class="text-left" style="border-radius: 3px;font-weight: bold">
                                 P. Unit.
@@ -268,7 +271,10 @@
                         {
                             <tr style="background-color: white">
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                                    @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.LineQuantity)
@@ -285,7 +291,7 @@
                             </tr>
                         }
                         <tr style="background:none">
-
+                            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
                             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
                             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
                             <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
@@ -297,7 +303,7 @@
                     </tbody>
                 </table>
 
-                <table class="table table-striped table-bordered table-condensed">
+                <table class="table table-condensed   table-striped table-bordered table-condensed">
                     <thead>
                         <tr class="text-right" style="color:white; background-color:#4d77a3">
                             <td class="text-left" style="border-radius: 3px;font-weight: bold">
