@@ -504,7 +504,7 @@ namespace MinimercadoAlfredo.Controllers
             if (view == 1) { return RedirectToAction("Pending", new { message = true }); }
             if (view == 2) { return RedirectToAction("Finalized", new { message = true }); }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { message = true});
         }
 
         protected override void Dispose(bool disposing)
