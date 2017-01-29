@@ -9,7 +9,7 @@
 </head>
 @*///////////////////////////*@
 
-
+<input value="@ViewBag.msg" id="msg" style="display: none" />
 <h3 class="text-center hidden-print" style="margin-bottom: 5px;">
     <span style="display: inline-block">Nueva Venta:&nbsp;&nbsp;</span><span>
         <select class="form-control text-right" id="salestate" style="width: 40%; height: 35px; font-weight: bold; display: inline-block">
@@ -233,9 +233,6 @@
 
                
             }
-
-           
-        
         if (event.keyCode == 107) {
             var select2 = $("#linedescription").data('select2');
             if (select2.isOpen() == false) {
@@ -251,6 +248,7 @@
 
             $("#imprimir").click();
         }
+       
 
     });
 
