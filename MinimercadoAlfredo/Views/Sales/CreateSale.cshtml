@@ -87,13 +87,13 @@
                 Producto
             </th>
             <th class="text-center">
-                Precio(M)
+                Precio (M)
             </th>
             <th class="text-center">
                 Cantidad
             </th>
             <th class="text-center">
-                Descuento
+                Descuento (%)
             </th>
             <th class="text-center">
                 Total
@@ -393,9 +393,9 @@
 
                             orderItems.push({
                                 IdProduct: $('#linedescription').val().trim(),
-                                LinePrice: $('#lineprice').val().trim(),
-                                LineDiscount: $('#linediscount').val().trim(),
+                                LinePrice: $('#lineprice').val().trim(),                                
                                 LineQuantity: $('#linequantity').val().trim(),
+                                LineDiscount: $('#linediscount').val().trim(),
                                 LineTotal: $('#linetotal').val().trim(),
                                 LineDescription: $('#shadow').val().trim()
                             });
@@ -585,8 +585,8 @@
                     var $row = $('<tr class="elim"  style="background-color: white"></tr>');
                     $row.append($('<td></td>').html(val.LineDescription));
                     $row.append($('<td></td>').html(val.LinePrice));
-                    $row.append($('<td></td>').html(val.LineDiscount));
                     $row.append($('<td></td>').html(val.LineQuantity));
+                    $row.append($('<td></td>').html(val.LineDiscount));                    
                     $row.append($('<td></td>').html(val.LineTotal));
                     var $remove = $('<a href="#">Eliminar</a>');
                     //CALCULO TOTAL GRAL
