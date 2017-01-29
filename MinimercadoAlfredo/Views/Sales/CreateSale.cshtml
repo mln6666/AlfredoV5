@@ -116,15 +116,15 @@
         <span class="error">Requerido</span>
     </td>
     <td>
-        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma();" onkeyup="enterToSave()" />
+        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
         <span class="error">Requerido</span>
     </td>
     <td>
-        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma();" onkeyup="enterToSave()" />
+        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
         <span class="error">Requerido</span>
     </td>
     <td>
-        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros();" onkeyup="enterToSave()" />
+        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
         <span class="error">Requerido</span>
     </td>
     <td>
@@ -209,21 +209,56 @@
 
 
     <script>
-        function fquantity() { setTimeout(function () { $("#linequantity").focus(); }, 1); }
-        /////////////////Start:Select searchable////////////////
-        $(document).ready(function () {
-            if ($('#msg').val()==1) { toastr.success("Venta guardada correctamente."); }
-            $(".js-example-basic-single").select2();
+        function fquantity() { setTimeout(function() { $("#linequantity").focus(); }, 1); }
 
+/////////////////Start:Select searchable////////////////
+        $(document).ready(function() {
+            if ($('#msg').val() == 1) {
+                toastr.success("Venta guardada correctamente.");
+            }
+            $(".js-example-basic-single").select2();
+            if (event.keyCode == 45) {
+
+                $("#select2-customername-container").click();
+            }
 
         });
         ////////////////End:Select searchable///////////////////
+        $(document).keydown(function() {
+            if (event.keyCode == 109) {
+                var select2 = $("#customername").data('select2');
+                if (select2.isOpen() == false) {
+                    select2.open();
+                }else{select2.close();}
 
+               
+            }
+
+           
+        
+        if (event.keyCode == 107) {
+            var select2 = $("#linedescription").data('select2');
+            if (select2.isOpen() == false) {
+                select2.open();
+            } else { select2.close(); }
+           
+        }
+        if (event.keyCode == 36) {
+
+            $("#submit").click();
+        }
+        if (event.keyCode == 35) {
+
+            $("#imprimir").click();
+        }
+
+    });
 
         ////////////////Start:Enter to save a productLine///////////////////
         function enterToSave() {
 
             if (event.keyCode == 13) {
+
                 $("#add").click();
             }
         };

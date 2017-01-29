@@ -690,6 +690,7 @@
     <Content Include="Views\Products\RemoveStock.cshtml" />
     <Content Include="Views\Products\Catalog.cshtml" />
     <Content Include="Views\Sales\PrintSale.cshtml" />
+    <Content Include="Views\Products\AddStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

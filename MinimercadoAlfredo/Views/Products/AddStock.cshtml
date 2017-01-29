@@ -11,11 +11,11 @@
 
 
 <h3 class="text-center hidden-print" style="margin-bottom: 5px;">
-    Baja productos
+    Alta productos
 </h3>
 
 <legend style="margin-bottom: 2px;">
-    Productos a dar de baja
+    Productos a dar de alta
 </legend>
 <table id="mytable" class="table table-condensed   table-condensed table-bordered">
     <thead>
@@ -27,7 +27,7 @@
                 Stock Actual
             </th>
             <th class="text-center">
-                #Baja
+                #Alta
             </th>
             <th class="text-center">
                 Stock Posterior
@@ -65,7 +65,7 @@
         <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
         <span class="glyphicon glyphicon-plus"></span>
     </td>
-  
+
     </tbody>
 </table>
 <div>
@@ -105,7 +105,7 @@
             $(".js-example-basic-single").select2();
         });
         ////////////////End:Select searchable///////////////////
-      
+
 
         //////////////////////Start: Autocomplete Product Stock/////////////
         $(document).ready(function() {
@@ -120,7 +120,7 @@
                     document.getElementById("stockactual").value = data;
                     var stockactual = parseFloat($('#stockactual').val());
                     var baja = parseFloat($('#baja').val());
-                    var stockfuturo = (stockactual - baja);
+                    var stockfuturo = (stockactual + baja);
                     document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);;
                 };
                 $.ajax(options);
@@ -133,24 +133,20 @@
             function totalstock() {
                 var stockactual = parseFloat($('#stockactual').val());
                 var baja = parseFloat($('#baja').val());
-                if (stockactual < baja) {
-                    baja = stockactual; document.getElementById("baja").value = stockactual.toFixed(2);
-                    $('#baja').siblings('span.error').css('visibility', 'visible');
-                    $('#baja').siblings('span.error').text('Valor max:'+" "+stockactual);
-                } else { $('#baja').siblings('span.error').css('visibility', 'hidden'); }
-                var stockfuturo = (stockactual - baja);
+               
+                var stockfuturo = (stockactual + baja);
                 document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);
             }
 
         ////////////////////End: stockfuturo Calculation/////////////
 
-       
+
 
         $(document).ready(function() {
             var orderItems = [];
             var verifproductos = [];
 
-           
+
             //Add button click function
             $('#add').click(function() {
                 //Check validation of order item
@@ -192,7 +188,7 @@
                 } else {
                     $('#stockfuturo').siblings('span.error').css('visibility', 'hidden');
                 }
-                
+
 
                 if (isValidItem) {
                     ////////////***********//////////
@@ -217,7 +213,7 @@
 
                 //Validacion de Stock
                 if (isValidItem) {
-                      
+
                             //                    data = data.replace(",",'.');
 
                             orderItems.push({
@@ -230,16 +226,16 @@
                             verifproductos.push(
                                 parseInt($('#linedescription').val().trim())
                             );
-                            
+
                             //Clear fields
                             //$(document).find('#linedescription').select2();
                             $("#linedescription").val(0).trigger('change');
                             $('#stockactual,#baja,#stockfuturo').val('0');
 
                             GeneratedItemsTable();
-                        
+
                     };
-                
+
 
 
                 //Add item to list if valid
@@ -266,7 +262,7 @@
                     $(this).val('Please wait...');
 
                     $.ajax({
-                        url: '@Url.Action("RemoveStock", "Products")',
+                        url: '@Url.Action("AddStock", "Products")',
                         type: "POST",
                         data: JSON.stringify(data),
                         dataType: "JSON",
@@ -280,7 +276,7 @@
 
                                     message: "Stock actualizado correctamente",
                                     callback: function (result) {
-                                      
+
                                         var url = '@Url.Action("Index")';
                                         window.location.href = url;
                                     }
@@ -323,7 +319,7 @@
                         $row.append($('<td></td>').append($remove));
                         $('#mytable > tbody:last').append($row);
                     });
-                   
+
                 } else {
                     $('#orderItems').html('');
                 }
