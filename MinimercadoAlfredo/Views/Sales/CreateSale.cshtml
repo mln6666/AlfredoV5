@@ -462,7 +462,7 @@
                 //validation of order
                 var isAllValid = true;
                 if (orderItems.length == 0) {
-                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
+                    $('#orderItems').html('<span class="text-danger">Por favor, agregue productos.</span>');
                     isAllValid = false;
                 }
 
@@ -536,7 +536,7 @@
                 //validation of order
                 var isAllValid = true;
                 if (orderItems.length == 0) {
-                    $('#orderItems').html('<span style="color:red;">Por favor, agregue productos.</span>');
+                    $('#orderItems').html('<span class="text-danger">Por favor, agregue productos.</span>');
                     isAllValid = false;
                 }
 
@@ -613,7 +613,7 @@
             function GeneratedItemsTable() {
                 $('.elim').remove();
                 if (orderItems.length > 0) {
-                    $('#orderItems').html('<span style="color:red;"></span>');
+                    $('#orderItems').html('<span class="text-danger"></span>');
                 $.each(orderItems, function (i, val) {
                     var $row = $('<tr class="elim"  style="background-color: white"></tr>');
                     $row.append($('<td></td>').html(val.LineDescription));
@@ -656,7 +656,7 @@
     span.error {
         display: block;
         visibility: hidden;
-        color: red;
+        color: #b94a48;
         font-size: 90%;
     }
 
