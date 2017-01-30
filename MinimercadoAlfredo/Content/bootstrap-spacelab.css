@@ -2600,6 +2600,7 @@ fieldset[disabled] .form-control {
 }
 textarea.form-control {
   height: auto;
+  width:500px;
 }
 input[type="search"] {
   -webkit-appearance: none;

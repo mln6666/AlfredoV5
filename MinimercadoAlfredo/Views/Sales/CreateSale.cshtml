@@ -5,7 +5,7 @@
 }
 <head>
 
-
+    <link href="/Content/site.css" rel="stylesheet">
 </head>
 @*///////////////////////////*@
 
@@ -34,8 +34,10 @@
 </legend>
 <table class="table table-condensed   table-condensed table-bordered">
 
-    <thead>
-        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+    <thead class="tableStyle">
+
+
+            <tr class="text-center" ">
             <th class="text-center">
                 N° Venta
             </th>
@@ -54,9 +56,11 @@
         </tr>
     </thead>
     <tbody>
+
     <td class="text-center">
-        <span>@ViewBag.nsale</span>
+        <div class="dataContainer">@ViewBag.nsale</div>
     </td>
+
     <td class="text-center">
         <select class="js-example-basic-single" id="customername" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
             <option value="0">Seleccionar Cliente...</option>
@@ -89,8 +93,8 @@
     Listado Productos
 </legend>
 <table id="mytable" class="table table-condensed   table-condensed table-bordered">
-    <thead>
-        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+    <thead class="tableStyle">
+        <tr class="text-center" >
             <th class="text-center">
                 Producto
             </th>
@@ -140,7 +144,7 @@
         <span class="error">Requerido</span>
     </td>
     <td>
-        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom: auto" />Agregar
+        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto" />Agregar
         <span class="glyphicon glyphicon-plus"></span>
     </td>
 
@@ -162,8 +166,8 @@
 </legend>
 <table class="table table-condensed   table-striped table-bordered table-condensed">
 
-    <thead>
-        <tr class="text-right" style="color:black;font-weight: bold; background-color:lightsteelblue">
+    <thead class="tableStyle">
+        <tr class="text-right" >
             <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 Observaciones
             </td>
@@ -175,7 +179,7 @@
     <tbody>
         <tr>
             <td>
-                <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" onFocus="this.select()" placeholder=""></textarea>
+                <textarea type="text" style="width: 300px;" class="panel-info form-control sizeComment" id="comments" onFocus="this.select()" placeholder=""></textarea>
 
             </td>
             <td>
@@ -192,16 +196,23 @@
 
 
 <div class="text-center">
-    <button type="button" id="submit" class="btn btn-success btn-md" value="Guardar venta">
+    <button type="button" id="submit" class="btn btn-success btn-md chicle" value="Guardar venta">
         Guardar
         <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
-    <button type="button" id="imprimir" class="btn btn-success btn-md " value="Guardar venta">
+    <button type="button" id="imprimir" class="btn btn-success btn-md chicle" value="Guardar venta">
         Guardar e Imprimir
         <span class="glyphicon glyphicon-floppy-disk"></span>
     </button>
 
 </div>
+
+
+
+
+
+
+
 
 
 

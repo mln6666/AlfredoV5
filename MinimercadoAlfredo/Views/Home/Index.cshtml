@@ -6,11 +6,11 @@
     <link href="~/Content/Site.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="full" background="~/Content/Images/4238051-background.jpg">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="text-center jumbotron sombra_externa sombra_fija sombra_radial fade2" style="background-color: #eeeeee; margin-top: 15px;">
+                <div class="text-center jumbotron sombra_externa sombra_fija sombra_radial fade2"">
                     <h3><b>¡Bienvenido al Sistema Minimercado Alfredo!</b></h3>
                     <h4>Sistema de Administración de Productos de Mercado</h4>
                 </div>
@@ -22,9 +22,9 @@
 
                     <div class="col-md-4">
                         <div class="thumbnail sombra_externa chicle sizeElements">
-                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px" src='@Url.Content("~/Content/Images/cesta.jpg")'>
+                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/cesta.jpg")'>
                             <div class="caption">
-                                <a type="button" class="btn btn-block btn-lg btn btn-primary" href="@Url.Action("Index", "Products")">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Products")">
                                     Productos
                                 </a>
 
@@ -38,11 +38,11 @@
                     <div class="col-md-4">
                         <div class="thumbnail sombra_externa chicle sizeElements">
 
-                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px" src='@Url.Content("~/Content/Images/compras.jpg")'>
+                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/compras.jpg")'>
 
 
                             <div class="caption">
-                                <a type="button" class="btn btn-block btn-lg btn btn-primary" href="@Url.Action("Index", "Purchases")">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Purchases")">
                                     Compras
                                 </a>
 
@@ -54,9 +54,9 @@
                     </div>
                     <div class="col-md-4">
                         <div class="thumbnail sombra_externa chicle sizeElements">
-                            <img alt="Bootstrap Thumbnail Second" style="width: 300px; height: 180px" src='@Url.Content("~/Content/Images/ventas2.jpg")'>
+                            <img alt="Bootstrap Thumbnail Second" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/ventas2.jpg")'>
                             <div class="caption">
-                                <a type="button" class="btn btn-block btn-lg btn btn-primary" href="@Url.Action("Index", "Sales")">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Sales")">
                                     Ventas
                                 </a>
 
