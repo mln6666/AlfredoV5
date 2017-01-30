@@ -13,7 +13,7 @@ namespace MinimercadoAlfredo.Models
 
         [Display(Name = "Fecha de Compra")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime PurchaseDate { get; set; }
 
         [Display(Name = "Comentarios")]
