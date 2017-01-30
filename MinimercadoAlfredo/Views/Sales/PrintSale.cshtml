@@ -3,7 +3,14 @@
 @{
     ViewBag.Title = "Imprimir";
 }
-<input value="@ViewBag.msg" id="msg" style="display: none" />
+@if (TempData["mimsg"] != null)
+{
+    {
+        <input id="msg" style="display: none" value="@TempData["mimsg"]" />
+
+    }
+
+}
 <div class="modal-body" id="modalDiv">
     <div class="text-center">Nota de pedido</div>
     <hr style="color: grey; border-color: grey; margin: 5px;"/>
@@ -155,7 +162,9 @@
         }
 
         $(document).ready(function() {
-            toastr.success("Venta guardada correctamente.");
+            if ($('#msg').val() == 1) {
+                toastr.success("Venta guardada correctamente.");
+            }
         });
     </script>
 }

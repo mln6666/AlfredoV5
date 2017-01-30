@@ -58,7 +58,10 @@
                     @Html.DisplayFor(modelItem => item.IdSale)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SaleDate)
+                    <div class="hidden">@Html.DisplayFor(modelItem => item.SaleDate)</div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.SaleDate.Day)/@Html.DisplayFor(modelItem => item.SaleDate.Month)/@Html.DisplayFor(modelItem => item.SaleDate.Year)
+                    </div>
                 </td>
                 <td width="350px">
                     @Html.DisplayFor(modelItem => item.Customer.CustomerName)
@@ -161,9 +164,8 @@
 
         ////Grilla automatica//
         $("#tabla").DataTable({
+            order: [[1, "desc"]],
             "language": { "url": "/Scripts/DataTables/spanish.json" }
-        }, {
-            order: [[1, "desc"]]
         });
         $('.dropdown-toggle').dropdown();
 

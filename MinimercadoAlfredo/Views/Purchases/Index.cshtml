@@ -15,6 +15,9 @@
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
             <th>
+                N° Compra
+            </th>
+            <th>
                 Fecha de Compra
             </th>
             <th>
@@ -34,7 +37,13 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    @Html.DisplayFor(modelItem => item.IdPurchase)
+                </td>
+                <td>
+                    <div class="hidden">@Html.DisplayFor(modelItem => item.PurchaseDate)</div>
+                    <div>
+                        @Html.DisplayFor(modelItem => item.PurchaseDate.Day)/@Html.DisplayFor(modelItem => item.PurchaseDate.Month)/@Html.DisplayFor(modelItem => item.PurchaseDate.Year)
+                    </div>
                 </td>
                 <td width="250px">
                     @Html.DisplayFor(modelItem => item.Provider.ProviderName)
@@ -93,14 +102,9 @@
 
             ////Grilla automatica//
             $("#tabla").DataTable({
+                order: [[1, "desc"]],
                 "language": { "url": "/Scripts/DataTables/spanish.json" }
-            }, {
-                order: [[0, "desc"]]
             });
-
-            //$("#tabla").DataTable({
-            //        "order": [[0, "desc"]]
-            //    });
             
             $('.dropdown-toggle').dropdown();
             

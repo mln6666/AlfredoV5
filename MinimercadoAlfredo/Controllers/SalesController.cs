@@ -17,19 +17,7 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
 
-        public ActionResult PrintSale(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sale sale = db.Sales.Find(id);
-            if (sale == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sale);
-        }
+      
 
         // GET: Sales
         public ActionResult Index(bool? message)
@@ -187,6 +175,33 @@ namespace MinimercadoAlfredo.Controllers
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult PrintSale(int? id, int? x)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sale sale = db.Sales.Find(id);
+            if (sale == null)
+            {
+                return HttpNotFound();
+            }
+            var a = id;
+            if (x != null)
+            {
+                if (x == 1)
+                {
+                    TempData["mimsg"] = 1;
+                    return RedirectToAction("PrintSale", new { id = a });
+
+                }
+
+            }
+
+
+            return View(sale);
+        }
         //Vista de ventas Mayoristas, el precio que se carga por defecto en los productos//
         //es el precio mayorista, aunque se lo puede cambiar en la vista.//
         public ActionResult CreateSale(int? x)
@@ -195,8 +210,11 @@ namespace MinimercadoAlfredo.Controllers
             {
                 if (x == 1)
                 {
-                    ViewBag.msg = 1;
+                    TempData["mimsg"] = 1;
+                    return RedirectToAction("CreateSale");
+
                 }
+
             }
             ViewBag.Customers = db.Customers.ToList();
             ViewBag.Products = db.Products.ToList();
