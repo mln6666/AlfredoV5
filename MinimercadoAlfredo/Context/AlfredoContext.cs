@@ -34,5 +34,7 @@ namespace MinimercadoAlfredo.Context
 
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.PurchaseLine> PurchaseLines { get; set; }
+
+        public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Trademark> Trademarks { get; set; }
     }
 }

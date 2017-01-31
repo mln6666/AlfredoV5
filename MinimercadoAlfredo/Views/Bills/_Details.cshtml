@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
 }
 @{
+    Layout = null;
 }
 
     <div class="text-center">Nota de pedido</div>
@@ -36,54 +37,8 @@
                     @Html.DisplayFor(model => model.Customer.CustomerName)
                 </td>
                 <td>
-                    @if (TempData["mimsg"] != null)
-                    {
-                        {
 
-
-#line default
-#line hidden
-
-#line 4 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-                            __o = TempData["mimsg"];
-
-
-#line default
-#line hidden
-
-#line 5 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-
-
-                        }
-
-                    }
-
-#line default
-#line hidden
-
-#line 6 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-                    __o = Html.DisplayNameFor(model => model.SaleDate);
-
-
-#line default
-#line hidden
-
-#line 7 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-                    __o = Html.DisplayFor(model => model.IdBill);
-
-
-#line default
-#line hidden
-
-#line 8 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-                    __o = Html.DisplayFor(model => model.Customer.CustomerName);
-
-
-#line default
-#line hidden
-
-#line 9 "C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\Views\Bills\Details.cshtml"
-                    if (Model.SaleAddress == "" | Model.SaleAddress == null)
+                    @if (Model.SaleAddress == "" | Model.SaleAddress == null)
                     {<text>-</text>}
             else
             {
@@ -125,10 +80,10 @@
             {
                 <tr style="background-color: white">
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                        @Html.DisplayFor(modelItem => item.Product.IdProduct)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                        @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.LineQuantity)

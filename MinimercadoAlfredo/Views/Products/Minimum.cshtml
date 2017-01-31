@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trademark)
+                @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
             <th>
                 Nro Artículo
@@ -60,10 +60,10 @@
                     @Html.DisplayFor(modelItem => item.ProductDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Trademark)
+                    @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                    @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Cost)

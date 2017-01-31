@@ -85,10 +85,10 @@
             <tr style="background-color: white">
                 @*<td style="color: black">*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
                                 
                 <td>

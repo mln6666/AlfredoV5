@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Trademark>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TrademarkName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrademarkDescription)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrademarkName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrademarkDescription)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdTrademark }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdTrademark }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdTrademark })
+        </td>
+    </tr>
+}
+
+</table>

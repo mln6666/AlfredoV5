@@ -72,8 +72,8 @@ else
                 }
 
                 <tr>
-                    <td>@Html.DisplayFor(modelItem => item.ProductNumber)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Trademark) - @Html.DisplayFor(modelItem => item.ProductDescription)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdProduct)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.ProductDescription)</td>
                     
                     @if (ViewBag.personal)
                     {

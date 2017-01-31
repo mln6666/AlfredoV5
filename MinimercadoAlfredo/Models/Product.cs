@@ -16,12 +16,12 @@ namespace MinimercadoAlfredo.Models
         public string ProductDescription { get; set; }
 
         
-        [Display(Name = "Marca")]
-        public string Trademark { get; set; }
+        //[Display(Name = "Marca")]
+        //public string Trademark { get; set; }
 
-        [Required]
-        [Display(Name = "Número de Artículo")]
-        public int ProductNumber { get; set; }
+        //[Required]
+        //[Display(Name = "Número de Artículo")]
+        //public int ProductNumber { get; set; }
 
         [Display(Name = "Costo")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
@@ -54,6 +54,11 @@ namespace MinimercadoAlfredo.Models
         public int idCategory { get; set; } //Clave Foránea de Category
 
         public virtual Category Category { get; set; }
+
+        public int? IdTrademark { get; set; } //Clave Foránea de Category
+
+        public virtual Trademark Trademark { get; set; }
+
 
         public virtual ICollection<PurchaseLine> PurchaseLines { get; set; }
 

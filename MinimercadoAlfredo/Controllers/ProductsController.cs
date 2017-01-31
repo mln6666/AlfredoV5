@@ -142,31 +142,31 @@ namespace MinimercadoAlfredo.Controllers
                 ViewBag.personal = false;
             }
 
-            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.Trademark)));
+            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.IdTrademark)));
         }
 
-        public JsonResult ExisteProd(string nombre, int? idproduct, string Trademark)
+        public JsonResult ExisteProd(string nombre, int? idproduct, int Trademark)
         {
-            if (Trademark == "")
-                Trademark = "[Producto sin Marca]";
-            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.Trademark == Trademark & a.IdProduct != idproduct);
+            //if (Trademark == "")
+            //    Trademark = "[Producto sin Marca]";
+            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.IdTrademark == Trademark & a.IdTrademark != idproduct);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ExisteNro(int nombre, int? idproduct)
-        {
+        //public JsonResult ExisteNro(int nombre, int? idproduct)
+        //{
 
-            var existe = db.Products.ToList().Exists(a => a.ProductNumber == nombre & a.IdProduct != idproduct);
+        //    var existe = db.Products.ToList().Exists(a => a.ProductNumber == nombre & a.IdProduct != idproduct);
 
 
-            return Json(existe, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(existe, JsonRequestBehavior.AllowGet);
+        //}
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateModal([Bind(Include = "IdProduct,Trademark,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
+        public ActionResult CreateModal([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,UploadDate,Stock,Minimum,ProductState,Image,idCategory")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -177,6 +177,8 @@ namespace MinimercadoAlfredo.Controllers
             }
 
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
+
             return RedirectToAction("_NewProduct");
         }
 
@@ -268,6 +270,8 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Create()
         {
             ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
+            ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
+
             return View();
         }
 
@@ -276,12 +280,12 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,Trademark,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
+        public ActionResult Create([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
         {
             if (ModelState.IsValid)
             {
-                if (product.Trademark == null)
-                    product.Trademark = "[Producto sin Marca]";
+                //if (product.Trademark == null)
+                //    product.Trademark = "[Producto sin Marca]";
                 product.UploadDate = DateTime.Now.Date;
                 product.ParcialStock = product.Stock;
                 db.Products.Add(product);
@@ -290,6 +294,8 @@ namespace MinimercadoAlfredo.Controllers
             }
 
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
+
             return View(product);
         }
 
@@ -339,6 +345,8 @@ namespace MinimercadoAlfredo.Controllers
                 return HttpNotFound();
             }
             ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName", product.idCategory);
+            ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName", product.IdTrademark);
+
             return View(product);
         }
 
@@ -347,18 +355,20 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,Trademark,ProductDescription,ProductNumber,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
         {
             if (ModelState.IsValid)
             {
-                if (product.Trademark == null)
-                    product.Trademark = "[Producto sin Marca]";
+                //if (product.Trademark == null)
+                //    product.Trademark = "[Producto sin Marca]";
                 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
+
             return View(product);
         }
 

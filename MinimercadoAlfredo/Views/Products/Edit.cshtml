@@ -30,15 +30,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Trademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @if (Model.Trademark == "[Producto sin Marca]")
-                {
-                    Model.Trademark = null;
-                }
-                @Html.EditorFor(model => model.Trademark, new { htmlAttributes = new { @class = "form-control", @onchange = "DescExistente()" } })
-                @Html.ValidationMessageFor(model => model.Trademark, "", new { @class = "text-danger" })
-                @*<span id="spandescexistente" class="text-danger"></span>*@
+                @Html.DropDownList("IdTrademark", null, "Seleccione un Marca", htmlAttributes: new { @class = "form-control" })
+                @*@Html.ValidationMessageFor(model => model.idCategory, "", new { @class = "text-danger" })*@
+                <span id="spantrademark" class="text-danger"></span>
             </div>
         </div>
 
@@ -51,14 +47,7 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ProductNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductNumber, new { htmlAttributes = new { @class = "form-control", @onchange = "ProdExistente()" } })
-                @*@Html.ValidationMessageFor(model => model.ProductNumber, "", new { @class = "text-danger" })*@
-                <span id="spanprodexistente" class="text-danger"></span>
-            </div>
-        </div>
+     
 
         <div class="form-group">
             @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -184,7 +173,7 @@
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val(), "Trademark": $("#Trademark").val() };
+                options.data = { "nombre": $("#ProductDescription").val(), "idproduct": $("#IdProduct").val(), "Trademark": $("#IdTrademark").val() };
                 options.dataType = "json";
                 options.success = function (data) {
                     if (data) {
@@ -205,7 +194,7 @@
 
         }
 
-        function ProdExistente() {
+        @*function ProdExistente() {
 
             if ($('#ProductNumber').val() != "") {
 
@@ -233,7 +222,7 @@
 
             }
 
-        }
+        }*@
 
         function ValidCost() {
 
