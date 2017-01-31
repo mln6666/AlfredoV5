@@ -37,7 +37,7 @@
     <thead class="tableStyle">
 
 
-            <tr class="text-center" ">
+            <tr class="text-center">
             <th class="text-center">
                 N° Venta
             </th>
@@ -433,14 +433,31 @@
                         var parcialstock = parseFloat(data);
                         var cantidad = ($('#linequantity').val().trim());
                         var faltante = parseFloat($('#linequantity').val().trim()) - parcialstock;
+
                         if (parcialstock < cantidad) {
-                            bootbox.alert({
-                                title: "No hay suficiente stock",
-                               message: "Producto: " + $('#shadow').val().trim()+"<br/>Stock disponible: "+parcialstock+"<br/>Stock solicitado: "+cantidad+"<br/>Stock faltante: "+faltante,
-                                backdrop: true
-                            });
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "7000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
+                            toastr["warning"]($('#shadow').val().trim() + "<br/># Disponible: " + parcialstock + "<br/># Solicitada: " + cantidad + "<br/># Faltante: " + faltante, "Fuera de Stock")
+
+                          
+                         
                         }
-                        else {
+                       
                             //                    data = data.replace(",",'.');
 
                             orderItems.push({
@@ -465,7 +482,42 @@
                             $('#linequantity').val('1');
 
                             GeneratedItemsTable();
-                        }
+                       
+
+                        ////NO PERMITIR AGREGAR PRODUCTOS SIN STOCK
+                        //if (parcialstock < cantidad) {
+                        //    bootbox.alert({
+                        //        title: "No hay suficiente stock",
+                        //       message: "Producto: " + $('#shadow').val().trim()+"<br/>Stock disponible: "+parcialstock+"<br/>Stock solicitado: "+cantidad+"<br/>Stock faltante: "+faltante,
+                        //        backdrop: true
+                        //    });
+                        //}
+                        //else {
+                        //    //                    data = data.replace(",",'.');
+
+                        //    orderItems.push({
+                        //        IdProduct: $('#linedescription').val().trim(),
+                        //        LinePrice: $('#lineprice').val().trim(),                                
+                        //        LineQuantity: $('#linequantity').val().trim(),
+                        //        LineDiscount: $('#linediscount').val().trim(),
+                        //        LineTotal: $('#linetotal').val().trim(),
+                        //        LineDescription: $('#shadow').val().trim()
+                        //    });
+                        //    verifproductos.push(
+                        //        parseInt($('#linedescription').val().trim())
+                        //    );
+                        //    totgral.push(
+                        //       parseFloat($('#linetotal').val().trim())
+                        //   );
+                        //    //Clear fields
+                        //    //$(document).find('#linedescription').select2();
+                        //    $("#linedescription").val(0).trigger('change');
+                        //    $('#lineprice,#linequantity,#linetotal').val('0.00');
+                        //    $('#linediscount').val('0');
+                        //    $('#linequantity').val('1');
+
+                        //    GeneratedItemsTable();
+                        //}
                     };
                     $.ajax(options);
                 }
