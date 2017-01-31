@@ -6,10 +6,10 @@ using System.Web;
 
 namespace MinimercadoAlfredo.Models
 {
-    public class SaleLine
+    public class BillLine
     {
         [Key]
-        public int IdSaleLine { get; set; }
+        public int IdBillLine { get; set; }
 
         public int IdProduct { get; set; } //Clave Foránea Producto
 
@@ -23,13 +23,13 @@ namespace MinimercadoAlfredo.Models
 
         public decimal LineTotal { get; set; }
 
-        public decimal? Return {get; set; }
+        public decimal? Return { get; set; }
 
         public decimal LineTotalReturn { get; set; }
 
-        public int IdSale { get; set; }
+        public int IdBill { get; set; }
 
-        public virtual Sale Sale { get; set; }
+        public virtual Bill Bill { get; set; }
 
 
 

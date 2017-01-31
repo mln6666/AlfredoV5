@@ -26,5 +26,7 @@ namespace MinimercadoAlfredo.Models
         public string CuitCuil { get; set; }
 
         public virtual ICollection<Sale> Sales { get; set; }
+
+        public virtual ICollection<Bill> Bills { get; set; }
     }
 }

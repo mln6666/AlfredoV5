@@ -24,10 +24,14 @@ namespace MinimercadoAlfredo.Context
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Provider> Providers { get; set; }
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Sale> Sales { get; set; }
+        public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Bill> Bills { get; set; }
+
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Purchase> Purchases { get; set; }
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.SaleLine> SaleLines { get; set; }
+        public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.BillLine> BillLines { get; set; }
+
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.PurchaseLine> PurchaseLines { get; set; }
     }

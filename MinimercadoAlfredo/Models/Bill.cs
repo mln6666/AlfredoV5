@@ -6,10 +6,10 @@ using System.Web;
 
 namespace MinimercadoAlfredo.Models
 {
-    public class Sale
+    public class Bill
     {
         [Key]
-        public int IdSale { get; set; }
+        public int IdBill { get; set; }
 
         [Display(Name = "Fecha de Venta")]
         [DataType(DataType.Date)]
@@ -25,32 +25,26 @@ namespace MinimercadoAlfredo.Models
         [Display(Name = "Obs.")]
         public string Comments { get; set; }
 
-        [Display(Name = "Total Dev")]
+        [Display(Name = "Subtotal")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
-        public decimal? ReturnsTotal { get; set; }
+        public decimal? SubTotal { get; set; }
 
         [Display(Name = "Total Lineas")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? LinesTotal { get; set; }
 
-        [Display(Name = "Subtotal")]
-        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
-        public decimal? SubTotal { get; set; }
-
         [Display(Name = "Total")]
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? SaleTotal { get; set; }
 
-        public int IdCustomer { get; set; } //Clave Foránea de Cliente (Customer)
+        public int? IdCustomer { get; set; } //Clave Foránea de Cliente (Customer)
 
         public virtual Customer Customer { get; set; }
 
-        public int? IdBill { get; set; } //Clave Foránea de Cliente (Customer)
+        public virtual ICollection<BillLine> BillLines { get; set; }
 
-        public virtual Bill Bill { get; set; }
+       
+        
 
-        public virtual ICollection<SaleLine> SaleLines { get; set; }
-
-        public virtual SaleState SaleState { get; set; }
-}
+    }
 }
