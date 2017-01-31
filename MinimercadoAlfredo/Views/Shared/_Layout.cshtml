@@ -19,6 +19,65 @@
                 content: none !important;
             }
         }
+
+        .full {
+             -webkit-background-size: cover;
+             -moz-background-size: cover;
+             background-size: cover;
+             -o-background-size: cover;
+             height: 100%;
+         }
+
+        body {
+            color: #151515 !important;
+        }
+        .dropdown-submenu {
+            position: relative;
+        }
+
+        .dropdown-submenu > .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover > .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu > a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover > a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left > .dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
     </style>
 
 </head>
@@ -36,6 +95,7 @@
                         </a>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
+                            <li class="divider"></li>
                             <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
                         </ul>
                     </li>
@@ -45,40 +105,40 @@
                         </a>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <li>@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
+                            <li class="divider"></li>
                             <li>@Html.ActionLink("Listado", "Index", "Purchases")</li>
                         </ul>
                     </li>
-                    
-                   
-                    @*//inicio productos*@
                     <li class="dropdown">
                         <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
                             Productos <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                            <li style="font-weight: bold;">@Html.ActionLink("Nuevo", "Create", "Products")</li>
+                            <li class="divider"></li>
                             <li style="font-weight: bold;">@Html.ActionLink("Listado", "Index", "Products")</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@>Catálogos</a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
+                                    <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
+                                </ul>
+                            </li>
+                            <li class="divider"></li>
                             <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                            <li class="divider"></li>
                             <li style="font-weight: bold;">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
+                            <li class="divider"></li>
+                            <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="/page.html">
-                            Catálogos <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
-                            <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
-                        </ul>
-                    </li>
-
-
-
-
-                    @*//fin productos*@
                     <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
                     @*<li>@Html.ActionLink("Usuarios", "Index", "Users")</li>*@
+
+                    
 
                 </ul>
                 @Html.Partial("_LoginPartial")
