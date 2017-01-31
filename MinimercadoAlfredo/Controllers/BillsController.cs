@@ -23,7 +23,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         // GET: Bills/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult _Details(int? id)
         {
             if (id == null)
             {
@@ -34,6 +34,31 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
+            return View(bill);
+        }
+        public ActionResult Details(int? id, int? x)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Bill bill = db.Bills.Find(id);
+            if (bill == null)
+            {
+                return HttpNotFound();
+            }
+            var a = id;
+            if (x != null)
+            {
+                if (x == 1)
+                {
+                    TempData["mimsg"] = 1;
+                    return RedirectToAction("Details", new { id = a });
+
+                }
+
+            }
+
             return View(bill);
         }
 

@@ -699,9 +699,10 @@
     <Content Include="Views\Products\AddStock.cshtml" />
     <Content Include="Views\Bills\Create.cshtml" />
     <Content Include="Views\Bills\Delete.cshtml" />
-    <Content Include="Views\Bills\Details.cshtml" />
+    <Content Include="Views\Bills\_Details.cshtml" />
     <Content Include="Views\Bills\Edit.cshtml" />
     <Content Include="Views\Bills\Index.cshtml" />
+    <Content Include="Views\Bills\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

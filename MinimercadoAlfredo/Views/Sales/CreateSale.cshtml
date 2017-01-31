@@ -607,7 +607,7 @@
                             //check is successfully save to database
                             if (d.status == true) {
 
-                                var url1 = '@Url.Action("PrintSale","Sales", new { id = ViewBag.nsale,x=1})';
+                                var url1 = '@Url.Action("Details","Bills", new { id = ViewBag.nsale,x=1})';
                                 window.open(url1);
 
                                 var url = '@Url.Action("CreateSale","Sales", new { x = 1 })';
