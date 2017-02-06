@@ -40,48 +40,55 @@ else
     </thead>
     <tbody>
         @{
-            var Rubro = Model.First().Category;
-
-            <tr style="color:white; background-color:gray; border:hidden">
-                
-                <td style="border:hidden"></td>
-                <td style="border:hidden; font-size:large">@Rubro.CategoryName</td>
-                @if (ViewBag.personal)
-                {
-                    <td style="border:hidden"></td>
-                }
-                <td style="border:hidden"></td>
-            </tr>
-
-            foreach (var item in Model)
+            if (ViewBag.Products != 0)
             {
-                if (item.Category != Rubro)
-                {
-                    Rubro = item.Category;
+                var rubro = Model.First().Category;
 
-                    <tr style="color:white; background-color:grey; border:hidden">
-                        
-                        <td style="border:hidden"></td>
-                        <td style="border:hidden; font-size:large">@item.Category.CategoryName</td>
-                        @if (ViewBag.personal)
-                        {
-                            <td style="border:hidden"></td>
-                        }
-                        <td style="border:hidden"></td>
-                    </tr>
-                }
+                <tr style="color:white; background-color:gray; border:hidden">
 
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.IdProduct)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.ProductDescription)</td>
-                    
+                    <td style="border: hidden"></td>
+                    <td style="border: hidden; font-size: large">@rubro.CategoryName</td>
                     @if (ViewBag.personal)
                     {
-                        <td>@Html.DisplayFor(modelItem => item.Cost)</td>
+                        <td style="border: hidden"></td>
                     }
-                    <td>@Html.DisplayFor(modelItem => item.WholeSalePrice)</td>
+                    <td style="border: hidden"></td>
                 </tr>
+
+                foreach (var item in Model)
+                {
+                    if (item.Category != rubro)
+                    {
+                        rubro = item.Category;
+
+                        <tr style="color:white; background-color:grey; border:hidden">
+
+                            <td style="border:hidden"></td>
+                            <td style="border:hidden; font-size:large">@item.Category.CategoryName</td>
+                            @if (ViewBag.personal)
+                        {
+                                <td style="border:hidden"></td>
+                            }
+                            <td style="border:hidden"></td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.IdProduct)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.ProductDescription)</td>
+
+                        @if (ViewBag.personal)
+                    {
+                            <td>@Html.DisplayFor(modelItem => item.Cost)</td>
+                        }
+                        <td>@Html.DisplayFor(modelItem => item.WholeSalePrice)</td>
+                    </tr>
+                }
             }
+
+
+
+
         }
 
 

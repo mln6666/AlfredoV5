@@ -131,8 +131,8 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Catalog(bool personal)
         {
             var products = (from p in db.Products
-                            where p.ProductState == true
-                            select p);
+                where p.ProductState == true
+                select p);
 
             if (personal)
             {
@@ -142,7 +142,8 @@ namespace MinimercadoAlfredo.Controllers
                 ViewBag.personal = false;
             }
 
-            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName,p.IdTrademark)));
+            ViewBag.Products = db.Products.Count();
+            return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName, p.IdTrademark)));
         }
 
         public JsonResult ExisteProd(string nombre, int? idproduct, int Trademark)

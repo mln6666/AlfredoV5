@@ -238,6 +238,7 @@
     <Compile Include="Models\UserView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CatalogVM.cs" />
     <Compile Include="ViewModels\PurchaseVM.cs" />
     <Compile Include="ViewModels\SaleVM.cs" />
   </ItemGroup>
