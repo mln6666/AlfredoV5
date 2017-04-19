@@ -213,30 +213,30 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult Record(bool? message, bool? msgDeactivate)
+        public ActionResult Record(bool? message)
         {
             var products = db.Products.Include(p => p.Category);
 
             if (message != null)
                 ViewBag.message = "El Producto se ha eliminado correctamente.";
 
-            if (msgDeactivate != null)
-            {
-                if (msgDeactivate == true)
-                {
-                    ViewBag.msgDeactivate = "El Producto se ha Activado correctamente";
-                }
-                else
-                {
-                    ViewBag.msgDeactivate = "El Producto se ha Desactivado correctamente";
-                }
-            }
+            //if (msgDeactivate != null)
+            //{
+            //    if (msgDeactivate == true)
+            //    {
+            //        ViewBag.msgDeactivate = "El Producto se ha Activado correctamente";
+            //    }
+            //    else
+            //    {
+            //        ViewBag.msgDeactivate = "El Producto se ha Desactivado correctamente";
+            //    }
+            //}
 
             return View(products.ToList());
         }
 
         //GET
-        public ActionResult Deactivate(int? id, bool? all)
+        public ActionResult Deactivate(int? id, bool? all, bool? off)
         {
             if (id == null)
             {
@@ -249,6 +249,10 @@ namespace MinimercadoAlfredo.Controllers
             }
             if (all == true)
                 ViewBag.all = true;
+
+            if (off == true)
+                ViewBag.off = true;
+
             return View(product);
         }
 
@@ -291,6 +295,7 @@ namespace MinimercadoAlfredo.Controllers
                 product.ParcialStock = product.Stock;
                 db.Products.Add(product);
                 db.SaveChanges();
+                TempData["message"] = 1;
                 return RedirectToAction("Index");
             }
 
@@ -301,7 +306,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         
-        public ActionResult DeactivateConfirmation(int? id, bool? all)
+        public ActionResult DeactivateConfirmation(int? id, bool? all, bool? off)
         {
             Product prod = new Product();
             prod = db.Products.Find(id);
@@ -309,25 +314,25 @@ namespace MinimercadoAlfredo.Controllers
             prod.ProductState = !prod.ProductState;
             db.Entry(prod).State = EntityState.Modified;
             db.SaveChanges();
+
+            if (prod.ProductState)
+                TempData["deactivate"] = 1;
+            else
+                TempData["deactivate"] = 2;
+
             if (all != null)
             {
-                if (prod.ProductState)
-                {
-                    return RedirectToAction("Record", "Products", new { msgDeactivate = true });
-                }else
-                {
-                    return RedirectToAction("Record", "Products", new { msgDeactivate = false });
-                }
-
-            } else
+                return RedirectToAction("Record", "Products");
+            }
+            else
             {
-                if (prod.ProductState)
+                if (off != null)
                 {
-                    return RedirectToAction("OffProducts", "Products", new { message = true });
+                    return RedirectToAction("OffProducts", "Products");
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Products", new { message = true });
+                    return RedirectToAction("Index", "Products");
                 }
             }
 

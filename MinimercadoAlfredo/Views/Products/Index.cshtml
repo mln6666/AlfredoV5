@@ -4,6 +4,24 @@
     ViewBag.Title = "Productos Activos";
 }
 
+@if (TempData["message"] != null)
+{
+    {
+        <input id="message" style="display: none" value="@TempData["message"]" />
+
+    }
+
+}
+
+@if (TempData["deactivate"] != null)
+{
+    {
+        <input id="deactivate" style="display: none" value="@TempData["deactivate"]" />
+
+    }
+
+}
+
 <h2 class="text-center">Lista de Productos Activos</h2>
 <hr style="color:grey;border-color:grey" />
 
@@ -47,7 +65,7 @@
             </th>
             
 
-            <th class="text-center" style="width:120px">
+            <th class="text-center" style="width:130px">
                 Opciones
             </th>
         </tr>
@@ -173,56 +191,60 @@
     <script>
         $('#myModal').modal('show')
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
+            if ($('#message').val() == 1)
+                toastr.success("Producto agregado correctamente.");
+
+            if ($('#deactivate').val() == 2)
+                toastr.success("Producto desactivado correctamente.");
             
 
-        ////Grilla automatica//
-        $("#tabla").DataTable({
-            "language": {
-                "url": "/Scripts/DataTables/spanish.json"
-            }
-        });
 
-        $("body").on("click", "a.dialog-window1", null, function (e) {
-            e.preventDefault();
+            ////Grilla automatica//
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
 
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal1.modal-title').html(title);
+            $("body").on("click", "a.dialog-window1", null, function(e) {
+                e.preventDefault();
 
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal1').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal1 .te').html(data);
-                    $('#myModal1').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal1.modal-title').html(title);
 
-        $("body").on("click", "a.dialog-window2", null, function (e) {
-            e.preventDefault();
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal1').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal1 .te').html(data);
+                        $('#myModal1').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
 
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal2.modal-title').html(title);
+            $("body").on("click", "a.dialog-window2", null, function(e) {
+                e.preventDefault();
 
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal2').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal2 .te').html(data);
-                    $('#myModal2').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal2.modal-title').html(title);
 
-        $('.dropdown-toggle').dropdown();
-    })
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal2').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal2 .te').html(data);
+                        $('#myModal2').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $('.dropdown-toggle').dropdown();
+        })
     </script>
 }

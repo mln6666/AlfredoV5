@@ -1,0 +1,47 @@
+﻿@model MinimercadoAlfredo.Models.Sale
+@{
+    ViewBag.Title = "Editar Venta";
+}
+
+<h2 class="text-center">Editar Venta</h2>
+<hr style="color: grey; border-color: grey"/>
+@Html.HiddenFor(model => model.IdSale)
+
+<table class="table table-condensed   table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th style="width:110px">
+                N° Venta
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th style="width:220px">
+                Estado de Venta
+            </th>
+            <th style="width:170px">
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white">
+            <td style="color: black">
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+            <td>
+                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
+                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
+            </td>
+            <td style="color: black;font-weight: bold">
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td style="color: black">
+                @Html.DisplayFor(model => model.SaleDate)
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+

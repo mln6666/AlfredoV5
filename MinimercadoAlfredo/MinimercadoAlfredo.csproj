@@ -690,17 +690,7 @@
     <Content Include="Views\Purchases\Create.cshtml" />
     <Content Include="Views\Products\Minimum.cshtml" />
     <Content Include="Views\Sales\CreateSale.cshtml" />
-    <Content Include="Views\SaleLines\Create.cshtml" />
-    <Content Include="Views\SaleLines\Delete.cshtml" />
-    <Content Include="Views\SaleLines\Details.cshtml" />
-    <Content Include="Views\SaleLines\Edit.cshtml" />
-    <Content Include="Views\SaleLines\Index.cshtml" />
     <Content Include="Views\Purchases\CreatePurchase.cshtml" />
-    <Content Include="Views\PurchaseLines\Create.cshtml" />
-    <Content Include="Views\PurchaseLines\Delete.cshtml" />
-    <Content Include="Views\PurchaseLines\Details.cshtml" />
-    <Content Include="Views\PurchaseLines\Edit.cshtml" />
-    <Content Include="Views\PurchaseLines\Index.cshtml" />
     <Content Include="Views\Sales\Pending.cshtml" />
     <Content Include="Views\Sales\Finalized.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />

@@ -37,19 +37,19 @@ else
             @Html.DisplayFor(model => model.ProductDescription)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Trademark)
+            Marca
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Trademark)
+            @Html.DisplayNameFor(model => model.Trademark)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Cost)
+            Costo
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Cost)
+            @Html.DisplayNameFor(model => model.Cost)
         </dd>
 
         <dt>
@@ -75,7 +75,7 @@ else
         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
         @if (ViewBag.all != null)
         {
-            if (Model.ProductState == true)
+            if (Model.ProductState)
             {
                 <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct, all = true})" class="btn btn-warning">Desactivar</a>
             }
@@ -86,13 +86,13 @@ else
         }
         else
         {
-            if (Model.ProductState == true)
+            if (Model.ProductState)
             {
                 <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct})" class="btn btn-warning">Desactivar</a>
             }
             else
             {
-                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct})" class="btn btn-success">Activar</a>
+                <a href="@Url.Action("DeactivateConfirmation", "Products", new { id = Model.IdProduct, off = true})" class="btn btn-success">Activar</a>
             }
         }
     </div>

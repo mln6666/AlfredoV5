@@ -4,6 +4,15 @@
     ViewBag.Title = "Todos los Productos";
 }
 
+@if (TempData["deactivate"] != null)
+{
+    {
+        <input id="deactivate" style="display: none" value="@TempData["deactivate"]" />
+
+    }
+
+}
+
 <h2 class="text-center">Lista de Todos los Productos</h2>
 <hr style="color:grey;border-color:grey" />
 
@@ -201,7 +210,15 @@
         $('#myModal').modal('show')
         $('#myModal3').modal('show')
 
-    $(document).ready(function () {
+        $(document).ready(function () {
+
+            if ($('#deactivate').val() == 1) {
+                toastr.success("Producto activado correctamente");
+            } else {
+                if ($('#deactivate').val() == 2) {
+                    toastr.success("Producto desactivado correctamente");
+                }
+            }
 
         ////Grilla automatica//
         $("#tabla").DataTable({
