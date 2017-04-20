@@ -13,6 +13,11 @@
 
 }
 
+@if (TempData["delete"] != null)
+{
+    <input id="delete" style="display: none" value="@TempData["delete"]"/>
+}
+
 <h2 class="text-center">Lista de Todos los Productos</h2>
 <hr style="color:grey;border-color:grey" />
 
@@ -141,7 +146,7 @@
     </div>
 }
 
-@if (ViewBag.msgDeactivate != null)
+@*@if (ViewBag.msgDeactivate != null)
 {
     <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -159,7 +164,7 @@
             </div>
         </div>
     </div>
-}
+}*@
 
 <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -218,6 +223,10 @@
                 if ($('#deactivate').val() == 2) {
                     toastr.success("Producto desactivado correctamente");
                 }
+            }
+
+            if ($('#delete').val() == 1) {
+                toastr.success("El producto ha sido eliminado exitosamente.");
             }
 
         ////Grilla automatica//

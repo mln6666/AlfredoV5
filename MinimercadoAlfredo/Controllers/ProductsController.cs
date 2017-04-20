@@ -401,7 +401,8 @@ namespace MinimercadoAlfredo.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            return RedirectToAction("Record", "Products", new { message = true });
+            TempData["delete"] = 1;
+            return RedirectToAction("Record", "Products");
         }
 
         protected override void Dispose(bool disposing)
