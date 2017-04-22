@@ -217,7 +217,12 @@ namespace MinimercadoAlfredo.Controllers
 
             }
             ViewBag.Customers = db.Customers.ToList();
-            ViewBag.Products = db.Products.ToList();
+            
+            var products = (from p in db.Products
+                        where p.ProductState
+                        select p);
+
+            ViewBag.Products = products;
             var nsale = 0;
             if (db.Sales != null & db.Sales.Count() != 0)
             {

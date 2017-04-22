@@ -111,7 +111,7 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Index(bool? message)
         {
             var products = (from p in db.Products
-                            where p.ProductState == true
+                            where p.ProductState
                             select p);
 
             if (message != null)
@@ -202,7 +202,7 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult OffProducts(bool? message)
         {
             var products = (from p in db.Products
-                            where p.ProductState == false
+                            where !p.ProductState
                             select p);
 
             if (message != null)
@@ -361,7 +361,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
+        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product, int direction)
         {
             if (ModelState.IsValid)
             {
@@ -370,7 +370,18 @@ namespace MinimercadoAlfredo.Controllers
                 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                TempData["edit"] = 1;
+                switch (direction)
+                {
+                    case 1:
+                        return RedirectToAction("Index");
+                    case 2:
+                        return RedirectToAction("Minimum");
+                    case 3:
+                        return RedirectToAction("OffProducts");
+                    case 4:
+                        return RedirectToAction("Record");
+                }
             }
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
             ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);

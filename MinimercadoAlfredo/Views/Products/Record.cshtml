@@ -105,7 +105,7 @@
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
+                            <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct, direction = 4 })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
                             @if (item.ProductState == false)
                             {
