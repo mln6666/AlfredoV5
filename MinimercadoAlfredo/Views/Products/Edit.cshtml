@@ -268,14 +268,14 @@
             e.preventDefault();
 
             if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '') {
-                bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function (result) {
+                bootbox.confirm("** Está por modificar el producto, ¿Desea continuar?", function (result) {
                     if (result) {
                         x.submit();
                     }
                 });
             } else {
                 if ($('#idCategory').val() == '') {
-                    $('#spancategory').text('Debe seleccionar un Rubro')
+                    $('#spancategory').text('Debe seleccionar un Rubro');
                 }
             }
         })
