@@ -171,34 +171,18 @@
 
         $(document).ready(function () {
 
-            switch ($('#message').val()) {
-                case 2:
-                    toastr.success("Producto activado correctamente");
-                    break;
-                case 3:
-                    toastr.success("Producto desactivado correctamente");
-                    break;
-                case 4:
-                    toastr.success("El producto ha sido modificado exitosamente");
-                    break;
-                case 5:
-                    toastr.success("El producto ha sido eliminado exitosamente");
-                    break;
-                
-            default:
-            }
+            if ($('#message').val() == 2)
+                toastr.success("Producto activado correctamente");
+            
+            if ($('#message').val() == 3)
+                toastr.success("Producto desactivado correctamente");
+            
+            if ($('#message').val() == 4)
+                toastr.success("El producto ha sido modificado exitosamente");
 
-            //if ($('#message').val() == 2) {
-            //    toastr.success("Producto activado correctamente");
-            //} else {
-            //    if ($('#message').val() == 3) {
-            //        toastr.success("Producto desactivado correctamente");
-            //    }
-            //}
-
-            //if ($('#delete').val() == 5) {
-            //    toastr.success("El producto ha sido eliminado exitosamente.");
-            //}
+            if ($('#message').val() == 5)
+                toastr.success("El producto ha sido eliminado exitosamente");
+           
 
         ////Grilla automatica//
         $("#tabla").DataTable({
