@@ -221,25 +221,25 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         //GET
-        public ActionResult Deactivate(int? id, bool? all, bool? off)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            if (all == true)
-                ViewBag.all = true;
+        //public ActionResult Deactivate(int? id, bool? all, bool? off)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Product product = db.Products.Find(id);
+        //    if (product == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    if (all == true)
+        //        ViewBag.all = true;
 
-            if (off == true)
-                ViewBag.off = true;
+        //    if (off == true)
+        //        ViewBag.off = true;
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
@@ -254,6 +254,21 @@ namespace MinimercadoAlfredo.Controllers
                 return HttpNotFound();
             }
             return View(product);
+        }
+
+        [HttpPost]
+        public JsonResult Deactivate(int? id)
+        {
+            var status = false;
+            Product prod = new Product();
+            prod = db.Products.Find(id);
+
+            prod.ProductState = !prod.ProductState;
+            db.Entry(prod).State = EntityState.Modified;
+            db.SaveChanges();
+            status = true;
+            return Json(status, JsonRequestBehavior.AllowGet);
+
         }
 
         // GET: Products/Create
@@ -292,37 +307,37 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         
-        public ActionResult DeactivateConfirmation(int? id, bool? all, bool? off)
-        {
-            Product prod = new Product();
-            prod = db.Products.Find(id);
+        //public ActionResult DeactivateConfirmation(int? id, bool? all, bool? off)
+        //{
+        //    Product prod = new Product();
+        //    prod = db.Products.Find(id);
 
-            prod.ProductState = !prod.ProductState;
-            db.Entry(prod).State = EntityState.Modified;
-            db.SaveChanges();
+        //    prod.ProductState = !prod.ProductState;
+        //    db.Entry(prod).State = EntityState.Modified;
+        //    db.SaveChanges();
 
-            if (prod.ProductState)
-                TempData["message"] = 2;
-            else
-                TempData["message"] = 3;
+        //    if (prod.ProductState)
+        //        TempData["message"] = 2;
+        //    else
+        //        TempData["message"] = 3;
 
-            if (all != null)
-            {
-                return RedirectToAction("Record", "Products");
-            }
-            else
-            {
-                if (off != null)
-                {
-                    return RedirectToAction("OffProducts", "Products");
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Products");
-                }
-            }
+        //    if (all != null)
+        //    {
+        //        return RedirectToAction("Record", "Products");
+        //    }
+        //    else
+        //    {
+        //        if (off != null)
+        //        {
+        //            return RedirectToAction("OffProducts", "Products");
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "Products");
+        //        }
+        //    }
 
-        }
+        //}
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)

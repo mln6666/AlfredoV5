@@ -75,16 +75,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Cost)
                 </td>
-                @if (item.ProductState == true)
+                @if (item.ProductState)
                 {
-                    <td width="125px">
-                        <text style="color:green">Activo</text>
+                    <td class="text-success" width="125px">
+                        <text id="@item.ProductState + @item.IdProduct">Activo</text>
                     </td>
                 }
                 else
                 {
-                    <td width="125px">
-                        <text style="color:red">Desactivado</text>
+                    <td class="text-danger" width="125px">
+                        <text id="@item.ProductState + @item.IdProduct">Desactivado</text>
                     </td>
                 }
 
@@ -98,13 +98,13 @@
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
-                            @if (item.ProductState == false)
+                            @if (item.ProductState)
                             {
-                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct, all = true })" class="dialog-window2">Activar</a></li>
+                                <li><a id="@("deac" + @item.IdProduct)" onclick="deac(@item.IdProduct, @item.ProductState)">Desactivar</a></li>
                             }
                             else
                             {
-                                <li><a href="@Url.Action("Deactivate","Products", new { id = item.IdProduct, all = true })" class="dialog-window2">Desactivar</a></li>
+                                <li><a id="@("ac" + @item.IdProduct)" onclick="ac(@item.IdProduct, @item.ProductState)">Activar</a></li>
                             }
                             <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
 
@@ -166,89 +166,134 @@
 @section scripts
 {
     <script>
-        $('#myModal').modal('show')
-        $('#myModal3').modal('show')
+        $('#myModal').modal('show');
+        $('#myModal3').modal('show');
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            if ($('#message').val() == 2)
-                toastr.success("Producto activado correctamente");
-            
-            if ($('#message').val() == 3)
-                toastr.success("Producto desactivado correctamente");
-            
             if ($('#message').val() == 4)
                 toastr.success("El producto ha sido modificado exitosamente");
 
             if ($('#message').val() == 5)
                 toastr.success("El producto ha sido eliminado exitosamente");
-           
 
-        ////Grilla automatica//
-        $("#tabla").DataTable({
-            "language": {
-                "url": "/Scripts/DataTables/spanish.json"
-            }
+
+            ////Grilla automatica//
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
+
+            $("body").on("click", "a.dialog-window1", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal1.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal1').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal1 .te').html(data);
+                        $('#myModal1').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window2", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal2.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal2').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal2 .te').html(data);
+                        $('#myModal2').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window4", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal4.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal4').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal4 .te').html(data);
+                        $('#myModal4').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $('.dropdown-toggle').dropdown();
         });
 
-        $("body").on("click", "a.dialog-window1", null, function (e) {
-            e.preventDefault();
+        function deac(x, y) {
 
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal1.modal-title').html(title);
+            bootbox.confirm("¿Está seguro de Desactivar el Producto? Recuerde que para poder venderlo éste debe estar Activo", function (result) {
+                if (result) {
+                    var options = {};
+                    options.url = '@Url.Action("Deactivate", "Products")';
+                    options.type = "POST";
+                    options.data = { "id": x };
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        if (data) {
 
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal1').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal1 .te').html(data);
-                    $('#myModal1').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
+                            toastr.success("Producto Desactivado exitosamente");
+                            //var id = y + x;
+                            //$('#')
 
-        $("body").on("click", "a.dialog-window2", null, function (e) {
-            e.preventDefault();
 
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal2.modal-title').html(title);
+                        }
 
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal2').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal2 .te').html(data);
-                    $('#myModal2').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
+                    };
+                    $.ajax(options);
+                }
+            });
 
-        $("body").on("click", "a.dialog-window4", null, function (e) {
-            e.preventDefault();
 
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal4.modal-title').html(title);
+        }
 
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal4').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal4 .te').html(data);
-                    $('#myModal4').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
+        function ac(x, y) {
 
-        $('.dropdown-toggle').dropdown();
-    })
+            bootbox.confirm("¿Está seguro de Activar el Producto? Al activarlo lo podrá volver a vender con normalidad", function (result) {
+                if (result) {
+                    var options = {};
+                    options.url = '@Url.Action("Deactivate", "Products")';
+                    options.type = "POST";
+                    options.data = { "id": x };
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        if (data) {
+
+                            toastr.success("Producto Activado exitosamente");
+                            //var id = y + x;
+                            //$('#')
+
+
+                        }
+
+                    };
+                    $.ajax(options);
+                }
+            });
+
+
+        }
     </script>
 }
