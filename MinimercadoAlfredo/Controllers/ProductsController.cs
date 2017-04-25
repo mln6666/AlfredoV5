@@ -213,24 +213,9 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult Record(bool? message)
+        public ActionResult Record()
         {
             var products = db.Products.Include(p => p.Category);
-
-            if (message != null)
-                ViewBag.message = "El Producto se ha eliminado correctamente.";
-
-            //if (msgDeactivate != null)
-            //{
-            //    if (msgDeactivate == true)
-            //    {
-            //        ViewBag.msgDeactivate = "El Producto se ha Activado correctamente";
-            //    }
-            //    else
-            //    {
-            //        ViewBag.msgDeactivate = "El Producto se ha Desactivado correctamente";
-            //    }
-            //}
 
             return View(products.ToList());
         }
@@ -317,9 +302,9 @@ namespace MinimercadoAlfredo.Controllers
             db.SaveChanges();
 
             if (prod.ProductState)
-                TempData["deactivate"] = 1;
+                TempData["message"] = 2;
             else
-                TempData["deactivate"] = 2;
+                TempData["message"] = 3;
 
             if (all != null)
             {
@@ -362,7 +347,7 @@ namespace MinimercadoAlfredo.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product, int direction)
+        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -371,18 +356,8 @@ namespace MinimercadoAlfredo.Controllers
                 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
-                TempData["edit"] = 1;
-                switch (direction)
-                {
-                    case 1:
-                        return RedirectToAction("Index");
-                    case 2:
-                        return RedirectToAction("Minimum");
-                    case 3:
-                        return RedirectToAction("OffProducts");
-                    case 4:
-                        return RedirectToAction("Record");
-                }
+                TempData["message"] = 4;
+                return RedirectToAction("Index");
             }
             ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
             ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
@@ -413,7 +388,7 @@ namespace MinimercadoAlfredo.Controllers
             Product product = db.Products.Find(id);
             db.Products.Remove(product);
             db.SaveChanges();
-            TempData["delete"] = 1;
+            TempData["message"] = 5;
             return RedirectToAction("Record", "Products");
         }
 

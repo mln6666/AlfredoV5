@@ -4,18 +4,9 @@
     ViewBag.Title = "Todos los Productos";
 }
 
-@if (TempData["deactivate"] != null)
+@if (TempData["message"] != null)
 {
-    {
-        <input id="deactivate" style="display: none" value="@TempData["deactivate"]" />
-
-    }
-
-}
-
-@if (TempData["delete"] != null)
-{
-    <input id="delete" style="display: none" value="@TempData["delete"]"/>
+    <input id="message" style="display: none" value="@TempData["message"]"/>
 }
 
 <h2 class="text-center">Lista de Todos los Productos</h2>
@@ -105,7 +96,7 @@
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct, direction = 4 })">Editar</a></li>
+                            <li><a href="@Url.Action("Edit","Products", new { id = item.IdProduct })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
                             @if (item.ProductState == false)
                             {
@@ -126,45 +117,8 @@
 
 </table>
 
-@if (ViewBag.message != null)
-{
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@ViewBag.message</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
-@*@if (ViewBag.msgDeactivate != null)
-{
-    <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@ViewBag.msgDeactivate</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}*@
+
 
 <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -217,17 +171,34 @@
 
         $(document).ready(function () {
 
-            if ($('#deactivate').val() == 1) {
-                toastr.success("Producto activado correctamente");
-            } else {
-                if ($('#deactivate').val() == 2) {
+            switch ($('#message').val()) {
+                case 2:
+                    toastr.success("Producto activado correctamente");
+                    break;
+                case 3:
                     toastr.success("Producto desactivado correctamente");
-                }
+                    break;
+                case 4:
+                    toastr.success("El producto ha sido modificado exitosamente");
+                    break;
+                case 5:
+                    toastr.success("El producto ha sido eliminado exitosamente");
+                    break;
+                
+            default:
             }
 
-            if ($('#delete').val() == 1) {
-                toastr.success("El producto ha sido eliminado exitosamente.");
-            }
+            //if ($('#message').val() == 2) {
+            //    toastr.success("Producto activado correctamente");
+            //} else {
+            //    if ($('#message').val() == 3) {
+            //        toastr.success("Producto desactivado correctamente");
+            //    }
+            //}
+
+            //if ($('#delete').val() == 5) {
+            //    toastr.success("El producto ha sido eliminado exitosamente.");
+            //}
 
         ////Grilla automatica//
         $("#tabla").DataTable({

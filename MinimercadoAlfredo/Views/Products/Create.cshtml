@@ -37,7 +37,7 @@
             @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div>
-                    <select class="js-example-basic-single" id="IdTrademark" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                    <select class="js-example-basic-single" id="trademarks" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
                         <option value="0">Seleccionar Marca...</option>
                         @foreach (var item in ViewBag.Trademarks)
                         {
@@ -164,6 +164,7 @@
         var validcost3 = true;
         var IsValidItem = true;
         var IsValidItem2 = true;
+
         function DescExistente() {
 
             if ($('#ProductDescription').val() != "") {
@@ -173,7 +174,7 @@
                 options.type = "GET";
                 options.data = { "nombre": $("#ProductDescription").val(), "Trademark": $("#IdTrademark").val() };
                 options.dataType = "json";
-                options.success = function (data) {
+                options.success = function(data) {
                     if (data) {
                         $('#spandescexistente').text("Producto existente");
                         IsValidItem = false;
@@ -219,6 +220,14 @@
 
         }*@
 
+        function Marca() {
+            if ($('#trademarks').val() == 0) {
+                $('#spantrademark').text("Debe seleccionar una Marca");
+            } else {
+                $('#spantrademark').text("");
+            }
+        }
+
         function ValidCost() {
 
             var cost = parseInt($('#Cost').val());
@@ -261,9 +270,10 @@
             var x = this;
             e.preventDefault();
 
-            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '' & $('#IdTrademark').val() != 0) {
-                bootbox.confirm("** Está por agregar un nuevo producto, ¿Desea continuar?", function(result) {
+            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '' & $('#trademarks').val() != 0) {
+                bootbox.confirm("Está por agregar un nuevo producto, ¿Desea continuar?", function(result) {
                     if (result) {
+                        //x.IdTrademark = $('#trademarks').val();
                         x.submit();
                     }
                 });
@@ -272,7 +282,7 @@
                     $('#spancategory').text('Debe seleccionar un Rubro');
                 }
 
-                if ($('#IdTrademark').val() == 0) {
+                if ($('#trademarks').val() == 0) {
                     $('#spantrademark').text('Debe seleccionar una Marca');
                 }
             }

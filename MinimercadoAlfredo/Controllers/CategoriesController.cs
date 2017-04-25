@@ -16,13 +16,8 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Categories
-        public ActionResult Index(bool? message)
+        public ActionResult Index()
         {
-            if (message != null)
-            {
-                ViewBag.message = "El Rubro se ha eliminado correctamente.";
-            }
-
             return View(db.Categories.ToList());
         }
 
@@ -110,6 +105,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = 2;
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -149,7 +145,8 @@ namespace MinimercadoAlfredo.Controllers
             }
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index", "Categories", new { message = true});
+            TempData["message"] = 1;
+            return RedirectToAction("Index", "Categories");
         }
 
         protected override void Dispose(bool disposing)

@@ -7,6 +7,11 @@
     <link href="/Content/Site.css" rel="stylesheet">
 </head>
 
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
 <h2 class="text-center">Lista de Rubros</h2>
 <hr style="color:grey;border-color:grey" />
 <div>
@@ -55,25 +60,7 @@
         }
     </tbody>
 </table>
-@if (ViewBag.message != null)
-{
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@ViewBag.message</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
+
 <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -120,6 +107,14 @@
         $('#myModal').modal('show')
 
         $(document).ready(function () {
+            if ($('#message').val() == 1) {
+                toastr.success("El Rubro ha sido eliminado exitosamente.");
+            } else {
+                if ($('#message').val() == 2) {
+                    toastr.success("El Rubro ha sido modificado exitosamente.");
+                }
+            }
+
             $('.dropdown-toggle').dropdown();
 
         ////Grilla automatica//
