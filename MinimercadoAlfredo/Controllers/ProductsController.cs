@@ -276,6 +276,7 @@ namespace MinimercadoAlfredo.Controllers
         {
             ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
             ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
+            ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
 
             return View();
         }
