@@ -77,14 +77,14 @@
                 </td>
                 @if (item.ProductState)
                 {
-                    <td class="text-success" width="125px">
-                        <text id="@item.ProductState + @item.IdProduct">Activo</text>
+                    <td width="125px" id="@("state" + @item.IdProduct)">
+                        <text class="text-success">Activo</text>
                     </td>
                 }
                 else
                 {
-                    <td class="text-danger" width="125px">
-                        <text id="@item.ProductState + @item.IdProduct">Desactivado</text>
+                    <td width="125px" id="@("state" + @item.IdProduct)">
+                        <text class="text-danger">Desactivado</text>
                     </td>
                 }
 
@@ -100,11 +100,11 @@
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
                             @if (item.ProductState)
                             {
-                                <li><a id="@("deac" + @item.IdProduct)" onclick="deac(@item.IdProduct, @item.ProductState)">Desactivar</a></li>
+                                <li><a id="@("deac" + @item.IdProduct)" class="hvr-glow" onclick="deac(@item.IdProduct)">Desactivar</a></li>
                             }
                             else
                             {
-                                <li><a id="@("ac" + @item.IdProduct)" onclick="ac(@item.IdProduct, @item.ProductState)">Activar</a></li>
+                                <li><a id="@("ac" + @item.IdProduct)" class="hvr-glow" onclick="ac(@item.IdProduct)">Activar</a></li>
                             }
                             <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
 
@@ -134,19 +134,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center">Activar Producto</h4>
-            </div>
-            <div class="modal-body">
-                <div class="te">Espere...</div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -242,10 +229,22 @@
             $('.dropdown-toggle').dropdown();
         });
 
-        function deac(x, y) {
-
-            bootbox.confirm("¿Está seguro de Desactivar el Producto? Recuerde que para poder venderlo éste debe estar Activo", function (result) {
-                if (result) {
+        function deac(x) {
+            bootbox.confirm({
+                title: "¿Está seguro de Desactivar este Producto?",
+                message: "Recuerde que para vender un Producto, éste debe estar Activo",
+                buttons: {
+                    confirm: {
+                        label: "Desactivar",
+                        className: "btn-warning"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
                     var options = {};
                     options.url = '@Url.Action("Deactivate", "Products")';
                     options.type = "POST";
@@ -255,43 +254,60 @@
                         if (data) {
 
                             toastr.success("Producto Desactivado exitosamente");
-                            //var id = y + x;
-                            //$('#')
 
-
+                            $('#state' + x).html('<text class="text-danger">Desactivado</text>');
+                            $('#deac' + x).replaceWith('<a id="ac' + x + '" onclick="ac(' + x + ')">Activar</a>');
                         }
 
                     };
                     $.ajax(options);
                 }
+                }
             });
+
+            
 
 
         }
 
-        function ac(x, y) {
+        function ac(x) {
 
-            bootbox.confirm("¿Está seguro de Activar el Producto? Al activarlo lo podrá volver a vender con normalidad", function (result) {
-                if (result) {
-                    var options = {};
-                    options.url = '@Url.Action("Deactivate", "Products")';
-                    options.type = "POST";
-                    options.data = { "id": x };
-                    options.dataType = "json";
-                    options.success = function (data) {
-                        if (data) {
+            bootbox.confirm({
+                title: "¿Está seguro de Activar este Producto?",
+                message: "Al Activar este Producto, podrá volver a venderlo con normalidad",
+                buttons: {
+                    confirm: {
+                        label: "Activar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        var options = {};
+                        options.url = '@Url.Action("Deactivate", "Products")';
+                        options.type = "POST";
+                        options.data = { "id": x };
+                        options.dataType = "json";
+                        options.success = function (data) {
+                            if (data) {
 
-                            toastr.success("Producto Activado exitosamente");
-                            //var id = y + x;
-                            //$('#')
+                                toastr.success("Producto Activado exitosamente");
 
+                                $('#state' + x).html('<text class="text-success">Activo</text>');
+                                $('#ac' + x).replaceWith('<a id="deac' + x + '" onclick="deac(' + x + ')">Desactivar</a>');
+                            }
 
-                        }
-
-                    };
-                    $.ajax(options);
+                        };
+                        $.ajax(options);
+                    }
                 }
             });
+
+            
 
 
         }

@@ -112,8 +112,7 @@
                         <input name="ProductState" id="optionsRadios1" value="true" type="radio">
                         Activo
                     </label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <label>
+                    <label style="margin-left: 12%">
                         <input name="ProductState" id="optionsRadios2" value="false" checked="" type="radio">
                         Desactivado
                     </label>
@@ -150,7 +149,8 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
-                <input type="submit" value="Guardar" id="botonGuardar" class="btn btn-success" />
+                
+                <button type="submit" value="Guardar" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
             </div>
         </div>
     </div>

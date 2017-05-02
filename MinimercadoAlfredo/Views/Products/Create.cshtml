@@ -37,13 +37,14 @@
             @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div>
-                    <select class="js-example-basic-single" id="trademarks" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                    <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
                         <option value="0">Seleccionar Marca...</option>
                         @foreach (var item in ViewBag.Trademarks)
                         {
                             <option value="@item.IdTrademark">@item.TrademarkName</option>
                         }
                     </select>
+                    <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></a>
                 </div>
                 <span id="spantrademark" class="text-danger"></span>
             </div>
@@ -92,14 +93,6 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.UploadDate, "Fecha de Carga", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UploadDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UploadDate, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="radio col-md-4">
@@ -107,8 +100,8 @@
                     <input name="ProductState" id="optionsRadios1" value="true" checked="" type="radio">
                     Activo
                 </label>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <label>
+                
+                <label style="margin-left: 12%">
                     <input name="ProductState" id="optionsRadios2" value="false" type="radio">
                     Desactivado
                 </label>
@@ -131,31 +124,116 @@
                 @Html.EditorFor(model => model.Minimum, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
             </div>
-        </div>        
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.Image, "Imagen", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
-                <input type="submit" value="Guardar" id="botonGuardar" class="btn btn-success" />
+
+                <button type="submit" value="Guardar" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
             </div>
         </div>
     </div>
 }
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Agregar Marca</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="myModaliii" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nueva Marca</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("Create1", "Trademarks", new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "ajaxBeginFormResult",
+                    OnSuccess = "OnSuccess"
+                }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Trademark.TrademarkName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Trademark.TrademarkName, new { htmlAttributes = new { @class = "form-control", @onchange = "MarcaExist()" } })
+                                @Html.ValidationMessageFor(model => model.Trademark.TrademarkName, "", new { @class = "text-danger" })
+                                <span class="text-danger" id="spantrademarkname"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Trademark.TrademarkDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Trademark.TrademarkDescription, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Trademark.TrademarkName, "", new { @class = "text-danger" })
+                                <span class="text-danger" id="spantrademarkdescription"></span>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <input type="submit" value="Guardar" class="btn btn-success">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        function MarcaExist() {
+                            if ($('#TradermarkName').val() != "") {
+                                var options = {};
+                                options.url = '@Url.Action("ExisteMarca", "Trademarks")';
+                                options.type = "GET";
+                                options.data = { "nombre": $('#TrademarkName').val() };
+                                options.dataType = "json";
+                                options.success = function(data) {
+                                    if (data) {
+                                        $('#spantrademarkname').text("Marca Existente");
+                                    } else {
+                                        $('#spantrademarkname').text("");
+                                    }
+                                };
+                                $.ajax(options);
+                            } else {
+                                $('#spantrademarkname').text("Debe completar este campo");
+                            }
+        }
+                    </script>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>*@
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts {
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        $(document).ready(function() {
+
+        $(document).ready(function () {
             $(".js-example-basic-single").select2();
         });
 
@@ -219,6 +297,7 @@
             }
 
         }*@
+       
 
         function Marca() {
             if ($('#trademarks').val() == 0) {
@@ -271,10 +350,23 @@
             e.preventDefault();
 
             if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '' & $('#trademarks').val() != 0) {
-                bootbox.confirm("Está por agregar un nuevo producto, ¿Desea continuar?", function(result) {
-                    if (result) {
-                        //x.IdTrademark = $('#trademarks').val();
-                        x.submit();
+                bootbox.confirm({
+                    title: "Confirmación",
+                    message: "Usted está por agregar un nuevo porducto",
+                    buttons: {
+                        confirm: {
+                            label: 'Agregar',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Cancelar',
+                            className: 'btn-primary'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result) {
+                            x.submit();
+                        }
                     }
                 });
             } else {

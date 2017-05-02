@@ -102,19 +102,7 @@
     </div>
 </div>
 
-@*<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center">Activar Producto</h4>
-            </div>
-            <div class="modal-body">
-                <div class="te">Espere...</div>
-            </div>
-        </div>
-    </div>
-</div>*@
+
 
 <div class="modal fade" id="myModal3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -208,25 +196,37 @@
 
         function deac(x) {
 
-            bootbox.confirm("¿Está seguro de Activar el Producto? Al Activarlo usted lo podrá volver a vender con normalidad.", function (result) {
-                if (result) {
-                    var options = {};
-                    options.url = '@Url.Action("Deactivate", "Products")';
-                    options.type = "POST";
-                    options.data = { "id": x };
-                    options.dataType = "json";
-                    options.success = function (data) {
-                        if (data) {
+            bootbox.confirm({
+                title: "¿Está seguro de Activar este Producto?",
+                message: "Al Activar este Producto, podrá volver a venderlo con normalidad",
+                buttons: {
+                    confirm: {
+                        label: "Activar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        var options = {};
+                        options.url = '@Url.Action("Deactivate", "Products")';
+                        options.type = "POST";
+                        options.data = { "id": x };
+                        options.dataType = "json";
+                        options.success = function(data) {
+                            if (data) {
+                                toastr.success("Producto Activado exitosamente");
+                                $('#deac' + x).closest('tr').remove();
+                            }
 
-                            toastr.success("Producto Activado exitosamente");
-                            $('#deac' + x).closest('tr').remove();
-
-                        }
-
-                    };
-                    $.ajax(options);
+                        };
+                        $.ajax(options);
                 }
-            });
+            }
+        });
 
 
         }

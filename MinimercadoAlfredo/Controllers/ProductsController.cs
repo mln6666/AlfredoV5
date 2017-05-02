@@ -190,6 +190,7 @@ namespace MinimercadoAlfredo.Controllers
             ViewBag.idultimoprod = lista.LastOrDefault().IdProduct;
             return View();
         }
+
         public ActionResult Minimum()
         {
             var products = (from p in db.Products
@@ -220,26 +221,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        //GET
-        //public ActionResult Deactivate(int? id, bool? all, bool? off)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Product product = db.Products.Find(id);
-        //    if (product == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    if (all == true)
-        //        ViewBag.all = true;
-
-        //    if (off == true)
-        //        ViewBag.off = true;
-
-        //    return View(product);
-        //}
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)

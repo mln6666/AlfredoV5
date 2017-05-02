@@ -194,27 +194,39 @@
 
         function deac(x) {
 
-            bootbox.confirm("¿Está seguro de Desactivar el Producto? Recuerde que para poder venderlo éste debe estar Activo", function (result) {
-                if (result) {
-                    var options = {};
-                    options.url = '@Url.Action("Deactivate", "Products")';
-                    options.type = "POST";
-                    options.data = { "id": x };
-                    options.dataType = "json";
-                    options.success = function (data) {
-                        if (data) {
+            bootbox.confirm({
+                title: "¿Está seguro de Desactivar este Producto?",
+                message: "Recuerde que para vender un Producto, éste debe estar Activo",
+                buttons: {
+                    confirm: {
+                        label: "Desactivar",
+                        className: "btn-warning"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function(result) {
+                    if (result) {
+                        var options = {};
+                        options.url = '@Url.Action("Deactivate", "Products")';
+                        options.type = "POST";
+                        options.data = { "id": x };
+                        options.dataType = "json";
+                        options.success = function(data) {
+                            if (data) {
+                                toastr.success("Producto desactivado exitosamente");
+                                $('#deac' + x).closest('tr').remove();
+                            }
 
-                            toastr.success("Producto desactivado exitosamente");
-                            $('#deac' + x).closest('tr').remove();
-
-                        }
-
-                    };
-                    $.ajax(options);
+                        };
+                        $.ajax(options);
                 }
-            });
+            }
+        });
 
-            
-        }
+
+    }
     </script>
 }

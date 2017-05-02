@@ -42,6 +42,22 @@ namespace MinimercadoAlfredo.Controllers
             return View();
         }
 
+        public JsonResult ExisteMarca(string nombre)
+        {
+            var existe = db.Trademarks.ToList().Exists(t => t.TrademarkName == nombre);
+
+            return Json(existe, JsonRequestBehavior.AllowGet);
+        }
+        
+        //public void NewTrademark([Bind(Include = "IdTrademark,TrademarkName,TrademarkDescription")] Trademark trademark)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Trademarks.Add(trademark);
+        //        db.SaveChanges();
+        //    }
+        //}
+
         // POST: Trademarks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

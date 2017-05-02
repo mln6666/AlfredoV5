@@ -152,9 +152,24 @@
         var x = this;
         e.preventDefault();
         if (IsValidItem & IsValidItem2 & IsValidItem3) {
-            bootbox.confirm("** Está por agregar un nuevo Proveedor, ¿Desea continuar?", function (result) {
-                if (result) {
-                    x.submit();
+            bootbox.confirm({
+                title: "Confirmación",
+                message: "Está por agregar un nuevo Proveedor",
+                buttons: {
+                    confirm: {
+                        label: "Confirmar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+
+                },
+                callback: function (result) {
+                    if (result) {
+                        x.submit();
+                    }
                 }
             });
         }

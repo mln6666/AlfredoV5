@@ -33,8 +33,9 @@
         <br />
 
         <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <input type="submit" value="Guardar cambios" class="btn btn-success" />
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            @*<input type="submit" value="Guardar cambios" class="btn btn-success"/>*@
+            <button type="submit" class="btn btn-success">Guardar cambios &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
         </div>
 
     </div>
@@ -63,9 +64,24 @@
                 }
                 else {
                     $('#spancategoryname').text("");
-                    bootbox.confirm("** Está por editar un rubro, ¿Desea continuar?", function (result) {
-                        if (result) {
-                            x.submit();
+                    bootbox.confirm({
+                        title: "Confirmación",
+                        message: "Está por modificar un Rubro",
+                        buttons: {
+                            confirm: {
+                                label: "Confirmar",
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                x.submit();
+                            }
                         }
                     });
                 }
