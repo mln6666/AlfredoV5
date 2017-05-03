@@ -107,6 +107,7 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
+
         // GET: Products
         public ActionResult Index(bool? message)
         {

@@ -685,7 +685,6 @@
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Record.cshtml" />
-    <Content Include="Views\Products\Deactivate.cshtml" />
     <Content Include="Views\Products\OffProducts.cshtml" />
     <Content Include="Views\Purchases\Create.cshtml" />
     <Content Include="Views\Products\Minimum.cshtml" />
@@ -716,6 +715,7 @@
     <Content Include="Views\Trademarks\Details.cshtml" />
     <Content Include="Views\Trademarks\Edit.cshtml" />
     <Content Include="Views\Trademarks\Index.cshtml" />
+    <Content Include="Views\Sales\EditS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -453,6 +453,29 @@ namespace MinimercadoAlfredo.Controllers
             return View(sale);
         }
 
+        //GET
+        public ActionResult EditS(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Sale sale = db.Sales.Find(id);
+            if (sale == null)
+            {
+                return HttpNotFound();
+            }
+
+            if (sale.SaleState == SaleState.Finalizada)
+            {
+                ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
+                return View("Delete", sale);
+            }
+
+            ViewBag.Products = db.Products.ToList().FindAll(p => p.ProductState);
+            return View(sale);
+        }
+
         // GET: Sales/Edit/5
         public ActionResult Edit(int? id)
         {
