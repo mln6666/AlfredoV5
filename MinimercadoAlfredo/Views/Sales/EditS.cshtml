@@ -353,7 +353,7 @@
             $("input[name='productprice']").map(function () { orderItemsProdPrice.push(parseFloat(this.value)) });
             $("input[name='productdiscount']").map(function () { orderItemsProdDisc.push(parseFloat(this.value)) });
 
-            for (i = 0; i < orderItemsidescriptions.length; i++) {
+            for (i = 0; i < orderItemsProdDesc.length; i++) {
 
                 orderItems.push({
                     ProductId: orderItemsProdId[i],
