@@ -95,6 +95,13 @@ namespace MinimercadoAlfredo.Controllers
             return Json(customerdata3, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult Getproductdescription(int pro)
+        {
+            var productdesc = db.Products.ToList().Find(p => p.IdProduct == pro).ProductDescription;
+
+            return Json(productdesc, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Getproductdata(string pro)
         {
             var cero = 0;

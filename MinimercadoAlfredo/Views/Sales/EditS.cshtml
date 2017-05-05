@@ -60,19 +60,19 @@
         <table id="nueva" class="table table-condensed table-striped table-bordered">
             <thead>
             <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                <td>
+                <td style="width: 30%">
                     Producto
                 </td>
-                <td>
+                <td style="width: 15%">
                     Cantidad
                 </td>
-                <td>
+                <td style="width: 15%">
                     Precio
                 </td>
-                <td>
+                <td style="width: 15%">
                     Descuento (%)
                 </td>
-                <td>
+                <td style="width: 20%">
                     Subtotal
                 </td>
             </tr>
@@ -80,7 +80,7 @@
             <tbody id="nueva">
             <tr>
                 <td>
-                    <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)">
+                    <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 90%">
                         <option value="0">Seleccionar Producto...</option>
                         @foreach (var item in ViewBag.Products)
                         {
@@ -102,21 +102,24 @@
                 <td>
                     <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly"/>
                 </td>
-                <td>
+                <td class="text-center">
                     <button type="button" id="add" class="btn btn-success btn-sm" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
                 </td>
             </tr>
             </tbody>
         </table>
-        <span id="spanproducto" class="text-danger"></span>
-        <span id="spanquantity" class="text-danger"></span>
-        <span id="spanprice" class="text-danger"></span>
-        <span id="spandiscount" class="text-danger"></span>
+        <span id="spanproducto" style="color:red"></span>
+        <span id="spanquantity" style="color:red"></span>
+        <span id="spanprice" style="color:red"></span>
+        <span id="spandiscount" style="color:red"></span>
     </div>
 </div>
 <table class="table table-condensed table-striped table-bordered">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td>
+            Nro Artículo
+        </td>
         <td>
             Producto
         </td>
@@ -191,7 +194,7 @@
             $("#mostrar").toggle("slow");
         });
 
-        //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
+        //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
 
         function addproduct(x) {
             if (x == 0) {
@@ -214,24 +217,23 @@
                     var discount = parseFloat($('#linediscount').val());
                     var total = (price * quantity);
                     total = total - (total * discount / 100);
-                    document.getElementById("linetotal").value = total.toFixed(2);;
+
+                    if (total > 0) {
+                        document.getElementById("linetotal").value = total.toFixed(2);
+                    }
+
                 };
                 $.ajax(options);
             }
         }
 
+        //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
+
         function totallinea() {
             var isAllValid = true;
-            if ($('#linequantity').val() == 0) {
-                isAllValid = false;
-                $('#spanquantity').text("La cantidad debe ser mayor a cero");
-                document.getElementById("linetotal").value = "0.00";
-
-            } else {
-                $('#spanquantity').text("");
-            }
 
             if ($('#linedescription').val() != 0) {
+
                 if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
                     isAllValid = false;
                     $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%");
@@ -239,17 +241,28 @@
                 } else {
                     $('#spanprice').text("");
                 }
+
+                if ($('#linequantity').val() < 1) {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    document.getElementById("linetotal").value = "0.00";
+
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("El descuento no puede superar el 100%");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spandiscount').text("");
+                }
+
             } else {
                 isAllValid = false;
             }
 
-            if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
-                isAllValid = false;
-                $('#spandiscount').text("El descuento no puede superar el 100%");
-                document.getElementById("linetotal").value = "0.00";
-            } else {
-                $('#spandiscount').text("");
-            }
 
             if (isAllValid) {
                 var price = parseFloat($('#lineprice').val());
@@ -271,31 +284,137 @@
             } else {
                 $('#spanproducto').text("");
 
+                if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                } else {
+                    $('#spanquantity').text("");
+                }
+
                 if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
                     isAllValid = false;
                     $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%");
                 } else {
                     $('#spanprice').text("");
                 }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("El descuento no puede superar el 100%");
+                } else {
+                    $('#spandiscount').text("");
+                }
             }
 
-            if ($('#linequantity').val() == 0 | $('#linequantity').val().trim() == '') {
-                isAllValid = false;
-                $('#spanquantity').text("La cantidad debe ser mayor a cero");
-            } else {
-                $('#spanquantity').text("");
+            if (isAllValid) {
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdescription", "Sales")';
+                options.type = "GET";
+                options.data = { "pro": $('#linedescription').val() };
+                options.dataType = "json";
+                options.success = function (data) {
+
+                    renewlist();
+                    orderItems.push({
+                        ProductId: $('#linedescription').val().trim(),
+                        ProductDescription: data,
+                        ProductQuantity: $('#linequantity').val().trim(),
+                        ProductPrice: $('#lineprice').val().trim(),
+                        ProductDiscount: $('#linediscount').val().trim(),
+                        ProductSubtotal: ($('#lineprice').val().trim() * $('#linequantity').val().trim()) - (($('#lineprice').val().trim() * $('#linequantity').val().trim()) * ($('#linediscount').val().trim() / 100))
+                    });
+
+                };
+                $.ajax(options);
+
+                newproduct();
+
+                $('#linedescription').val(0);
+                $('#linequantity').val('1');
+                $('#lineprice').val('');
+                $('#linediscount').val('0');
+                $('#linetotal').val('0.00');
             }
-            
+
         });
+
+        function renewlist() {
+            orderItems = [];
+            orderItemsProdId = [];
+            orderItemsProdDesc = [];
+            orderItemsProdQuantity = [];
+            orderItemsProdPrice = [];
+            orderItemsProdDisc = [];
+
+            $("p[name='productid']").map(function () { orderItemsProdId.push(this.value) });
+            $("p[name='productdescription']").map(function () { orderItemsProdDesc.push(this.value) });
+            $("input[name='productquantity']").map(function () { orderItemsProdQuantity.push(parseFloat(this.value)) });
+            $("input[name='productprice']").map(function () { orderItemsProdPrice.push(parseFloat(this.value)) });
+            $("input[name='productdiscount']").map(function () { orderItemsProdDisc.push(parseFloat(this.value)) });
+
+            for (i = 0; i < orderItemsidescriptions.length; i++) {
+
+                orderItems.push({
+                    ProductId: orderItemsProdId[i],
+                    ProductDescription: orderItemsProdDesc[i],
+                    ProductQuantity: orderItemsProdQuantity[i],
+                    ProductPrice: orderItemsProdPrice[i],
+                    ProductDiscount: orderItemsProdDisc[i],
+                    ProductSubtotal: (orderItemsProdPrice[i] * orderItemsProdQuantity[i]) - ((orderItemsProdPrice[i] * orderItemsProdQuantity[i]) * (orderItemsProdDisc[i]/100))
+
+                });
+            }
+        }
+
+        //FUNCIÓN PARA ELIMINAR LÍNEA CON EL PRODUCTO EN LA TABLA DE PRODUCTOS VENDIDOS (SE ELIMINA LA TABLA COMPLETAMENTE Y SE LA VUELVE A GENERAR SIN EL ELEMENTO ELIMINADO)
+
+        function newproduct() {
+            $('.elimi').remove();
+            if (orderItems.length > 0) {
+                $('#orderItems').html('<span style="color: red"></span>');
+                $.each(orderItems, function(i, val) {
+                    var $row = $('<tr class="elimi"></tr>');
+
+                    $row.append($('<td ><p id="productid" name="productid" rows="1" class="panel-info" value="' + val.ProductId + ' ">' + val.ProductId + '</p></td>'));
+                    $row.append($('<td ><p id="productdescription" name="productdescription" rows="1" class="panel-info" value="' + val.ProductDescription + ' ">' + val.ProductDescription + '</p></td>'));
+                    $row.append($('<td ><input type="number" id="productquantity" name="productquantity" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductQuantity + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valquantity()" /><span style="color: red"></span></td>'));
+                    $row.append($('<td ><input type="number" id="productprice" name="productprice" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductPrice + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valprice()" /><span style="color: red"></span></td>'));
+                    $row.append($('<td ><input type="number" id="productdiscount" name="productdiscount" maxlength="3" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductDiscount + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valdiscount()" /><span style="color: red"></span></td>'));
+                    $row.append($('<td ><p id="productsubtotal" name="productsubtotal" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductSubtotal + '" ></p></td>'));
+
+                    var $remove = $('<a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;"  onclick="borrarfila(this)"><span class="glyphicon glyphicon-remove"></span></a>');
+
+                    $remove.click(function(e) {
+                        e.preventDefault();
+
+                        orderItems.splice(i, 1);
+                        renewlist();
+                        newproduct();
+                        //calclinea();
+                        //calcgral();
+                    });
+
+                    $row.append($('<td></td>').append($remove));
+                    $('#productTable > tbody:last').append($row);
+                    //calclinea();
+                    //calcgral();
+                });
+            } else {
+                $('#orderItems').html('');
+            }
+        }
 
         function arraysedit() {
             items = [];
+            itemid = [];
             itemproduct = [];
             itemquantity = [];
             itemprice = [];
             itemdiscount = [];
             //itemsubtotal = [];
 
+            $("p[name='productid']").map(function () { itemid.push(this.value) });
             $("p[name='productdescription']").map(function () { itemproduct.push(this.value) });
             $("input[name='productquantity']").map(function () { itemquantity.push(this.value) });
             $("input[name='productprice']").map(function () { itemprice.push(this.value) });
@@ -304,11 +423,12 @@
 
             for (i = 0; i < itemproduct.length; i++) {
                 items.push({
+                    ProductId: itemid[i],
                     ProductDescription: itemproduct[i],
                     ProductQuantity: itemquantity[i],
                     ProductPrice: itemprice[i],
                     ProductDiscount: itemdiscount[i],
-                    ProductSubtotal: itemquantity[i] * itemprice[i]
+                    ProductSubtotal: (itemquantity[i] * itemprice[i]) - ((itemquantity[i] * itemprice[i])*(itemdiscount[i]/100))
                     });
             }
         }

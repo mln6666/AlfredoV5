@@ -288,39 +288,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(product);
         }
 
-        
-        //public ActionResult DeactivateConfirmation(int? id, bool? all, bool? off)
-        //{
-        //    Product prod = new Product();
-        //    prod = db.Products.Find(id);
-
-        //    prod.ProductState = !prod.ProductState;
-        //    db.Entry(prod).State = EntityState.Modified;
-        //    db.SaveChanges();
-
-        //    if (prod.ProductState)
-        //        TempData["message"] = 2;
-        //    else
-        //        TempData["message"] = 3;
-
-        //    if (all != null)
-        //    {
-        //        return RedirectToAction("Record", "Products");
-        //    }
-        //    else
-        //    {
-        //        if (off != null)
-        //        {
-        //            return RedirectToAction("OffProducts", "Products");
-        //        }
-        //        else
-        //        {
-        //            return RedirectToAction("Index", "Products");
-        //        }
-        //    }
-
-        //}
-
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
