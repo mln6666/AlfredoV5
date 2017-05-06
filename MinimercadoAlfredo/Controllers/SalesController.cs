@@ -461,7 +461,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         //GET
-        public ActionResult EditS(int? id)
+        public ActionResult EditSales(int? id)
         {
             if (id == null)
             {

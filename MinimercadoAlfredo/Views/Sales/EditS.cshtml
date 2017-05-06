@@ -139,7 +139,34 @@
     </thead>
 </table>
 <table id="productTable">
-    <tbody></tbody>
+    <tbody>
+    @*@foreach (var item in Model.SaleLines)
+    {
+        <tr>
+            <td>
+                <p id="itemid" name="productid">@item.IdProduct</p>
+            </td>
+            <td>
+                <p id="itemproduct" name="productdescription">@item.Product.ProductDescription</p>
+            </td>
+            <td>
+                <input type="number" value="@item.LineQuantity" name="productquantity" oninput="calclinea()" />
+            </td>
+            <td>
+                <input type="number" value ="@item.LinePrice" name="productprice" oninput="calclinea()" />
+            </td>
+            <td>
+                <input type="number" value="@item.LineDiscount" name="productdiscount" oninput="calclinea()" />
+            </td>
+            <td>
+                <input type="text" value="@item.LineTotal"/>
+            </td>
+            <td style="width: 2%">
+                <a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;" id="@item.IdProduct" onclick="borrarfilaing(this)"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
+        </tr>
+    }*@
+    </tbody>
 </table>
 <table class="table table-condensed table-striped table-bordered">
     <thead>
@@ -353,7 +380,12 @@
             $("input[name='productprice']").map(function () { orderItemsProdPrice.push(parseFloat(this.value)) });
             $("input[name='productdiscount']").map(function () { orderItemsProdDisc.push(parseFloat(this.value)) });
 
+            var total = 0;
+
             for (i = 0; i < orderItemsProdDesc.length; i++) {
+
+                total = orderItemsProdPrice[i] * orderItemsProdQuantity[i];
+                total = total - (total * orderItemsProdDesc[i] / 100);
 
                 orderItems.push({
                     ProductId: orderItemsProdId[i],
@@ -361,9 +393,9 @@
                     ProductQuantity: orderItemsProdQuantity[i],
                     ProductPrice: orderItemsProdPrice[i],
                     ProductDiscount: orderItemsProdDisc[i],
-                    ProductSubtotal: (orderItemsProdPrice[i] * orderItemsProdQuantity[i]) - ((orderItemsProdPrice[i] * orderItemsProdQuantity[i]) * (orderItemsProdDisc[i]/100))
+                    ProductSubtotal: total
 
-                });
+            });
             }
         }
 
@@ -381,7 +413,7 @@
                     $row.append($('<td ><input type="number" id="productquantity" name="productquantity" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductQuantity + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valquantity()" /><span style="color: red"></span></td>'));
                     $row.append($('<td ><input type="number" id="productprice" name="productprice" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductPrice + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valprice()" /><span style="color: red"></span></td>'));
                     $row.append($('<td ><input type="number" id="productdiscount" name="productdiscount" maxlength="3" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductDiscount + '" onkeyup="maxvalue(this); calclinea(); calcgral()" oninput="maxvalue(this); calclinea(); calcgral()" onkeypress="solonumerosptocoma(); valdiscount()" /><span style="color: red"></span></td>'));
-                    $row.append($('<td ><p id="productsubtotal" name="productsubtotal" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductSubtotal + '" ></p></td>'));
+                    $row.append($('<td ><input id="productsubtotal" name="productsubtotal" maxlength="10" rows="1" class="panel-info form-control-sm inputForm" value="' + val.ProductSubtotal + '" /></td>'));
 
                     var $remove = $('<a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;"  onclick="borrarfila(this)"><span class="glyphicon glyphicon-remove"></span></a>');
 
@@ -398,11 +430,17 @@
                     $row.append($('<td></td>').append($remove));
                     $('#productTable > tbody:last').append($row);
                     //calclinea();
-                    //calcgral();
+                    calcgral();
                 });
             } else {
                 $('#orderItems').html('');
             }
+        }
+
+        function calcgral() {
+            var totgral = 0;
+
+            $.each()
         }
 
         function arraysedit() {

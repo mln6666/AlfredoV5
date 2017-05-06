@@ -1,0 +1,380 @@
+﻿@model MinimercadoAlfredo.Models.Sale
+@{
+    ViewBag.Title = "Editar Venta";
+}
+
+<h2 class="text-center">Editar Venta</h2>
+<hr style="color:grey;border-color:grey" />
+@Html.HiddenFor(model => model.IdSale)
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <th style="width: 110px">
+                N° Venta
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th style="width: 220px">
+                Estado de Venta
+            </th>
+            <th style="width: 170px">
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white">
+            <td style="color: black">
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+            <td>
+                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
+                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
+            </td>
+            <td style="color: black; font-weight: bold">
+                @*@Html.DisplayFor(model => model.SaleState)*@
+                <select class="js-example-basic-single inputForm">
+                    <option value="0">Pendiente</option>
+                    <option value="1">Finalizada</option>
+                </select>
+            </td>
+            <td style="color: black">
+                <input id="Date" name="Date" type="text" readonly="readonly" class="form-control" value="@Model.SaleDate.ToString("dd/MM/yyyy")" style="text-align: center" />
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center">Lista de Productos</h3>
+<hr style="color: grey; border-color: grey" />
+<div>
+    <button id="mostrar" class="hidden-print btn btn-primary btn-sm hvr-bubble-right">Agregar Producto &nbsp;&nbsp;</button>
+    <br />
+    <div id="nuevalinea" style="display: none">
+        <div>
+            <button id="ocultar" class="hidden-print btn btn-sm btn-primary hvr-bubble-left positionOcultar">&nbsp;&nbsp; Ocultar</button>
+
+        </div>
+        <table id="nueva" class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                    <td style="width: 30%">
+                        Producto
+                    </td>
+                    <td style="width: 15%">
+                        Cantidad
+                    </td>
+                    <td style="width: 15%">
+                        Precio
+                    </td>
+                    <td style="width: 15%">
+                        Descuento (%)
+                    </td>
+                    <td style="width: 20%">
+                        Subtotal
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="nueva">
+                <tr>
+                    <td>
+                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 90%">
+                            <option value="0">Seleccionar Producto...</option>
+                            @foreach (var item in ViewBag.Products)
+                            {
+                                <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                            }
+                        </select>
+                        <input type="hidden" id="shadow" value="">
+                    </td>
+                    <td>
+                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+
+                    </td>
+                    <td>
+                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+                    </td>
+                    <td>
+                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
+                    </td>
+                    <td>
+                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
+                    </td>
+                    <td class="text-center">
+                        <button type="button" id="add" class="btn btn-success btn-sm" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <span id="spanproducto" style="color:red"></span>
+        <span id="spanquantity" style="color:red"></span>
+        <span id="spanprice" style="color:red"></span>
+        <span id="spandiscount" style="color:red"></span>
+    </div>
+</div>
+<table class="table table-condensed table-striped table-bordered" id="productTable">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <td>
+                Nro Artículo
+            </td>
+            <td>
+                Producto
+            </td>
+            <td>
+                Cantidad
+            </td>
+            <td>
+                Precio
+            </td>
+            <td>
+                Descuento (%)
+            </td>
+            <td>
+                Subtotal
+            </td>
+        </tr>
+    </thead>
+
+    <tbody id="insert">
+        @foreach (var item in Model.SaleLines)
+            {
+                <tr>
+                    <td>
+                        <p id="@("itemid" + @item.IdProduct)" name="productid">@item.IdProduct</p>
+                    </td>
+                    <td>
+                        <p id="@("itemdesc" + @item.IdProduct)" name="productdescription">@item.Product.ProductDescription</p>
+                    </td>
+                    <td>
+                        <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" oninput="calclinea()" />
+                    </td>
+                    <td>
+                        <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value ="@item.LinePrice" oninput="calclinea()" />
+                    </td>
+                    <td>
+                        <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" value="@item.LineDiscount" oninput="calclinea()" />
+                    </td>
+                    <td>
+                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" value="@item.LineTotal"/>
+                    </td>
+                    <td style="width: 2%">
+                        <a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;" id="@("elim" + @item.IdProduct)" onclick="borrarfilaing(this)"><span class="glyphicon glyphicon-remove"></span></a>
+                    </td>
+                </tr>
+            }
+    </tbody>
+</table>
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <td>
+                Comentarios
+            </td>
+            <td style="width: 25%">
+                Total
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.TextAreaFor(model => model.Comments, new { @class = "panel-info form-control inputForm" })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.SaleTotal, new { @readonly = "readonly", @class = "totalView" })
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr style="color: grey" />
+<div style="width: 100%; display: flex">
+    <div style="width: 25%; text-align: left">
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-hand-left " aria-hidden="true"></span>&nbsp; Volver</a>
+    </div>
+    <div style="width: 50%; text-align: center">
+        <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
+            Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </div>
+    <div style="width: 25%"></div>
+</div>
+
+@section scripts{
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script>
+        $(document).ready(function() {
+            $('#Date').datepicker();
+        });
+
+        $("#mostrar").click(function () {
+            $("#mostrar").hide();
+            $("#nuevalinea").toggle("slow");
+
+        });
+        $("#ocultar").click(function () {
+            $("#nuevalinea").toggle("slow");
+            $("#mostrar").toggle("slow");
+        });
+
+        //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
+
+        function addproduct(x) {
+            if (x == 0) {
+                $('#spanproducto').text("Es necesario completar el campo Producto");
+
+                document.getElementById("lineprice").value = "0.00";
+                document.getElementById("linetotal").value = "0.00";
+            } else {
+                $('#spanproducto').text("");
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdata", "Sales")';
+                options.type = "GET";
+                options.data = { "pro": $("#linedescription").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    document.getElementById("lineprice").value = data;
+                    var price = parseFloat($('#lineprice').val());
+                    var quantity = parseFloat($('#linequantity').val());
+                    var discount = parseFloat($('#linediscount').val());
+                    var total = (price * quantity);
+                    total = total - (total * discount / 100);
+
+                    if (total > 0) {
+                        document.getElementById("linetotal").value = total.toFixed(2);
+                    }
+
+                };
+                $.ajax(options);
+            }
+        }
+
+        //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
+
+        function totallinea() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() != 0) {
+
+                if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spanprice').text("");
+                }
+
+                if ($('#linequantity').val() < 1) {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    document.getElementById("linetotal").value = "0.00";
+
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("El descuento no puede superar el 100%");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spandiscount').text("");
+                }
+
+            } else {
+                isAllValid = false;
+            }
+
+
+            if (isAllValid) {
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);;
+            }
+        }
+
+        //BOTÖN PÄRA AGREGAR UN NUEVO PRODUCTO
+        $('#add').click(function() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() == 0) {
+                isAllValid = false;
+                $('#spanproducto').text("Es necesario completar el campo Producto");
+            } else {
+                $('#spanproducto').text("");
+
+                if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%");
+                } else {
+                    $('#spanprice').text("");
+                }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("El descuento no puede superar el 100%");
+                } else {
+                    $('#spandiscount').text("");
+                }
+            }
+
+            if (isAllValid) {
+                
+                $('#insert').append('<tr id="inserttd"></tr>');
+                var idproduct = $('#linedescription').val();
+                document.getElementById('inserttd').id = "inserttd" + idproduct;
+
+                $('#inserttd' + idproduct).append('<td><p id="inserthtml"></p></td>');
+                document.getElementById('inserthtml').id = "itemid" + idproduct;
+                $('#itemid' + idproduct).append(idproduct);
+
+                $('#inserttd' + idproduct).append('<td><p id="inserthtml"></p></td>');
+                document.getElementById('inserthtml').id = "itemdesc" + idproduct;
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdescription", "Sales")';
+                options.type = "GET";
+                options.data = { "pro": $('#linedescription').val() };
+                options.dataType = "json";
+                options.success = function (data) {
+
+                    $('#itemdesc' + idproduct).append(data);
+
+                };
+                $.ajax(options);
+
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
+                document.getElementById('inserthtml').id = "itemquantity" + idproduct;
+                $('#itemquantity' + idproduct).val($('#linequantity').val());
+
+
+                $('#linedescription').val(0);
+                $('#linequantity').val('1');
+                $('#lineprice').val('');
+                $('#linediscount').val('0');
+                $('#linetotal').val('0.00');
+            }
+
+        });
+        
+
+        //FUNCIÓN PARA ELIMINAR LÍNEA CON EL PRODUCTO EN LA TABLA DE PRODUCTOS VENDIDOS (SE ELIMINA LA TABLA COMPLETAMENTE Y SE LA VUELVE A GENERAR SIN EL ELEMENTO ELIMINADO)
+
+        
+
+    </script>
+}
