@@ -143,10 +143,10 @@
             {
                 <tr>
                     <td>
-                        <p id="@("itemid" + @item.IdProduct)" name="productid">@item.IdProduct</p>
+                        <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly"/>
                     </td>
                     <td>
-                        <p id="@("itemdesc" + @item.IdProduct)" name="productdescription">@item.Product.ProductDescription</p>
+                        <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" />
                     </td>
                     <td>
                         <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" oninput="calclinea()" />
@@ -158,7 +158,7 @@
                         <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" value="@item.LineDiscount" oninput="calclinea()" />
                     </td>
                     <td>
-                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" value="@item.LineTotal"/>
+                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" value="@item.LineTotal" readonly="readonly" />
                     </td>
                     <td style="width: 2%">
                         <a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;" id="@("elim" + @item.IdProduct)" onclick="borrarfilaing(this)"><span class="glyphicon glyphicon-remove"></span></a>
@@ -330,6 +330,15 @@
                 } else {
                     $('#spandiscount').text("");
                 }
+
+                var exist = prodexist($('#linedescription').val());
+                console.log(exist);
+                if (exist) {
+                    $('#spanproducto').text("");
+                } else {
+                    $('#spanproducto').text("El Producto que intenta agregar ya existe en la Lista de Productos");
+                    isAllValid = false;
+                }
             }
 
             if (isAllValid) {
@@ -338,11 +347,11 @@
                 var idproduct = $('#linedescription').val();
                 document.getElementById('inserttd').id = "inserttd" + idproduct;
 
-                $('#inserttd' + idproduct).append('<td><p id="inserthtml"></p></td>');
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
                 document.getElementById('inserthtml').id = "itemid" + idproduct;
                 $('#itemid' + idproduct).append(idproduct);
 
-                $('#inserttd' + idproduct).append('<td><p id="inserthtml"></p></td>');
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
                 document.getElementById('inserthtml').id = "itemdesc" + idproduct;
 
                 var options = {};
@@ -361,6 +370,17 @@
                 document.getElementById('inserthtml').id = "itemquantity" + idproduct;
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
+                document.getElementById('inserthtml').id = "itemprice" + idproduct;
+                $('#itemprice' + idproduct).val($('#lineprice').val());
+
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
+                document.getElementById('inserthtml').id = "itemdiscount" + idproduct;
+                $('#itemdiscount' + idproduct).val($('#linediscount').val());
+
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" type="text" class="panel-info" readonly="readonly" /></td>');
+                document.getElementById('inserthtml').id = "itemsubtotal" + idproduct;
+                document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
 
                 $('#linedescription').val(0);
                 $('#linequantity').val('1');
@@ -371,8 +391,22 @@
 
         });
         
+        //FUNCIÓN PARA VALIDAR SI EL PRODUCTO INGRESADO YA EXISTE EN LA LISTA DE PRODUCTOS
 
-        //FUNCIÓN PARA ELIMINAR LÍNEA CON EL PRODUCTO EN LA TABLA DE PRODUCTOS VENDIDOS (SE ELIMINA LA TABLA COMPLETAMENTE Y SE LA VUELVE A GENERAR SIN EL ELEMENTO ELIMINADO)
+        function prodexist(id) {
+            var products = [];
+
+            $('input[name="productid"]').map(function () { products.push(this.value) });
+
+            for (var i = 0; i < products.length; i++) {
+                console.log(products[i]);
+                if (products[i] == id) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         
 
