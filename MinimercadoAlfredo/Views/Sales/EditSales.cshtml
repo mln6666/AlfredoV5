@@ -149,19 +149,19 @@
                         <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" />
                     </td>
                     <td>
-                        <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" oninput="calclinea()" />
+                        <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" />
                     </td>
                     <td>
-                        <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value ="@item.LinePrice" oninput="calclinea()" />
+                        <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value ="@item.LinePrice" />
                     </td>
                     <td>
-                        <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" value="@item.LineDiscount" oninput="calclinea()" />
+                        <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" maxlength="3" value="@item.LineDiscount" />
                     </td>
                     <td>
-                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" value="@item.LineTotal" readonly="readonly" />
+                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="number" value="@item.LineTotal" readonly="readonly" />
                     </td>
                     <td style="width: 2%">
-                        <a style="color:red; width: 37px; text-align: center;vertical-align: -webkit-baseline-middle;" id="@("elim" + @item.IdProduct)" onclick="borrarfilaing(this)"><span class="glyphicon glyphicon-remove"></span></a>
+                        <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
                     </td>
                 </tr>
             }
@@ -184,7 +184,8 @@
                 @Html.TextAreaFor(model => model.Comments, new { @class = "panel-info form-control inputForm" })
             </td>
             <td>
-                @Html.TextBoxFor(model => model.SaleTotal, new { @readonly = "readonly", @class = "totalView" })
+                <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.SaleTotal" readonly="readonly" />
+                @*@Html.TextBoxFor(model => model.SaleTotal, new {@readonly = "readonly", @class = "totalView", @id = "totalgral"})*@
             </td>
         </tr>
     </tbody>
@@ -296,7 +297,7 @@
                 var discount = parseFloat($('#linediscount').val());
                 var total = (price * quantity);
                 total = total - (total * discount / 100);
-                document.getElementById("linetotal").value = total.toFixed(2);;
+                document.getElementById("linetotal").value = total.toFixed(2);
             }
         }
 
@@ -332,7 +333,7 @@
                 }
 
                 var exist = prodexist($('#linedescription').val());
-                console.log(exist);
+
                 if (exist) {
                     $('#spanproducto').text("");
                 } else {
@@ -342,14 +343,16 @@
             }
 
             if (isAllValid) {
-                
+
+                //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
+
                 $('#insert').append('<tr id="inserttd"></tr>');
                 var idproduct = $('#linedescription').val();
                 document.getElementById('inserttd').id = "inserttd" + idproduct;
 
                 $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
                 document.getElementById('inserthtml').id = "itemid" + idproduct;
-                $('#itemid' + idproduct).append(idproduct);
+                $('#itemid' + idproduct).val(idproduct);
 
                 $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
                 document.getElementById('inserthtml').id = "itemdesc" + idproduct;
@@ -361,7 +364,7 @@
                 options.dataType = "json";
                 options.success = function (data) {
 
-                    $('#itemdesc' + idproduct).append(data);
+                    $('#itemdesc' + idproduct).val(data);
 
                 };
                 $.ajax(options);
@@ -378,9 +381,11 @@
                 document.getElementById('inserthtml').id = "itemdiscount" + idproduct;
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" type="text" class="panel-info" readonly="readonly" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="inserthtml" name="productsubtotal" type="text" class="panel-info" readonly="readonly" /></td>');
                 document.getElementById('inserthtml').id = "itemsubtotal" + idproduct;
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
+
+                $('#inserttd' + idproduct).append('<td><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
 
                 $('#linedescription').val(0);
                 $('#linequantity').val('1');
@@ -389,8 +394,10 @@
                 $('#linetotal').val('0.00');
             }
 
+            calcgral();
+
         });
-        
+
         //FUNCIÓN PARA VALIDAR SI EL PRODUCTO INGRESADO YA EXISTE EN LA LISTA DE PRODUCTOS
 
         function prodexist(id) {
@@ -399,7 +406,6 @@
             $('input[name="productid"]').map(function () { products.push(this.value) });
 
             for (var i = 0; i < products.length; i++) {
-                console.log(products[i]);
                 if (products[i] == id) {
                     return false;
                 }
@@ -408,7 +414,27 @@
             return true;
         }
 
-        
+        //BOTÓN PARA ELIMINAR UN PRODUCTO DE LA LISTA DE PRODUCTOS
+
+        function deleteProduct(id) {
+            $('#elim' + id).closest('tr').remove();
+            calcgral();
+        }
+
+        function calcgral() {
+            var subtotals = [];
+            var total = 0;
+
+            $('input[name="productsubtotal"]').map(function () { subtotals.push(parseFloat(this.value)) });
+
+            for (var i = 0; i < subtotals.length; i++) {
+                total += subtotals[i];
+            }
+            console.log(total);
+            document.getElementById("totalgral").value = total.toFixed(2);
+        }
+
+
 
     </script>
 }
