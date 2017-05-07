@@ -715,7 +715,6 @@
     <Content Include="Views\Trademarks\Details.cshtml" />
     <Content Include="Views\Trademarks\Edit.cshtml" />
     <Content Include="Views\Trademarks\Index.cshtml" />
-    <Content Include="Views\Sales\EditS.cshtml" />
     <Content Include="Views\Sales\EditSales.cshtml" />
   </ItemGroup>
   <ItemGroup>

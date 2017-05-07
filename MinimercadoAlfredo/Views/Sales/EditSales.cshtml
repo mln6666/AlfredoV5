@@ -143,13 +143,13 @@
     {
         <tr>
             <td>
-                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly"/>
+                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" />
             </td>
             <td>
                 <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly"/>
             </td>
             <td>
-                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);"/>
             </td>
             <td>
                 <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
@@ -336,7 +336,6 @@
                 }
 
                 var exist = prodexist($('#linedescription').val());
-                console.log(exist);
                 if (exist) {
                     $('#spanproducto').text("");
                 } else {
@@ -369,13 +368,13 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td><input id="itemquantity'+idproduct+'" name="productquantity" type="number" min="0" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemquantity' + idproduct + '" name="productquantity" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="itemprice'+idproduct+'" name="productprice" type="number" min="1" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemprice' + idproduct + '" name="productprice" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="itemdiscount'+idproduct+'" name="productdiscount" type="number" min="0" max="100" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemdiscount' + idproduct + '" name="productdiscount" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
                 $('#inserttd' + idproduct).append('<td><input id="itemsubtotal'+idproduct+'" name="productsubtotal" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
@@ -432,6 +431,8 @@
             document.getElementById("totalgral").value = total.toFixed(2);
         }
 
+        //FUNCIÓN PARA CÁLCULO AUTOMÁTICO DE LOS SUBTOTALES DE LA TABLA DE PRODUCTOS
+
         function CalcSubtotal(idproduct) {
             var subtotal = $('#itemquantity'+ idproduct).val() * $('#itemprice' + idproduct).val();
             subtotal = subtotal - (subtotal * $('#itemdiscount' + idproduct).val() / 100 );
@@ -440,6 +441,60 @@
 
             calcgral();
         }
+
+        //VALIDACIONES DE LÍNEAS DE TABLA DE PRODUCTOS
+
+        function ValidLine(idproduct) {
+
+            if ($('#itemquantity' + idproduct).val() == 0) {
+                $('#itemquantity' + idproduct).css("border-color","red");
+                $('#spanquantitytable').text('Error, la cantidad vendida de un producto no puede ser cero');
+
+            } else {
+                $('#itemquantity' + idproduct).css("border-color","");
+                $('#spanquantitytable').text('');
+            }
+
+            if ($('#itemprice' + idproduct).val() == 0) {
+                $('#itemprice' + idproduct).css("border-color", "red");
+                $('#spanpricetable').text('Error, el precio no puede ser cero, se recomienda realizar un descuento del 100%');
+            } else {
+                $('#itemprice' + idproduct).css("border-color", "");
+                $('#spanpricetable').text('');
+            }
+
+            if ($('#itemdiscount' + idproduct).val() > 100) {
+                $('#itemdiscount' + idproduct).css("border-color", "red");
+                $('#spandiscounttable').text('Error, el descuento no puede superar el 100%');
+            } else {
+                $('#itemdiscount' + idproduct).css("border-color", "");
+                $('#spandiscounttable').text('');
+            }
+        }
+
+        $('#guardar').click(function() {
+            if ($('#spanquantitytable').val() == '' & $('#spanpricetable').val() == '' & $('#spandiscounttable').val() == '') {
+                var saleproducts = [];
+                var productids = [];
+                var productdescriptions = [];
+                var productquantities = [];
+                var productprices = [];
+                var productdiscounts = [];
+                var productsubtotals = [];
+                
+                $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
+                $('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
+                $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
+                $('input[name="productprice"]').map(function () { productprices.push(parseFloat(this.value)) });
+                $('input[name="productdiscount"]').map(function () { productdiscounts.push(parseFloat(this.value)) });
+                $('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
+
+                var product;
+                for (var i = 0; i < productids.length; i++) {
+                    
+                }
+            }
+        });
 
     </script>
 }
