@@ -90,14 +90,14 @@
                         <input type="hidden" id="shadow" value="">
                     </td>
                     <td>
-                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
 
                     </td>
                     <td>
-                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+                        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
                     </td>
                     <td>
-                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
+                        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros()" />
                     </td>
                     <td>
                         <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
@@ -116,57 +116,60 @@
 </div>
 <table class="table table-condensed table-striped table-bordered" id="productTable">
     <thead>
-        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-            <td>
-                Nro Artículo
-            </td>
-            <td>
-                Producto
-            </td>
-            <td>
-                Cantidad
-            </td>
-            <td>
-                Precio
-            </td>
-            <td>
-                Descuento (%)
-            </td>
-            <td>
-                Subtotal
-            </td>
-        </tr>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td>
+            Nro Artículo
+        </td>
+        <td>
+            Producto
+        </td>
+        <td>
+            Cantidad
+        </td>
+        <td>
+            Precio
+        </td>
+        <td>
+            Descuento (%)
+        </td>
+        <td>
+            Subtotal
+        </td>
+    </tr>
     </thead>
 
     <tbody id="insert">
-        @foreach (var item in Model.SaleLines)
-            {
-                <tr>
-                    <td>
-                        <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly"/>
-                    </td>
-                    <td>
-                        <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" />
-                    </td>
-                    <td>
-                        <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" />
-                    </td>
-                    <td>
-                        <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value ="@item.LinePrice" />
-                    </td>
-                    <td>
-                        <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" maxlength="3" value="@item.LineDiscount" />
-                    </td>
-                    <td>
-                        <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="number" value="@item.LineTotal" readonly="readonly" />
-                    </td>
-                    <td style="width: 2%">
-                        <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
-                    </td>
-                </tr>
-            }
+    @foreach (var item in Model.SaleLines)
+    {
+        <tr>
+            <td>
+                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly"/>
+            </td>
+            <td>
+                <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly"/>
+            </td>
+            <td>
+                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            </td>
+            <td>
+                <input id="@("itemprice" + @item.IdProduct)" name="productprice" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+            </td>
+            <td>
+                <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+            </td>
+            <td>
+                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="number" class="panel-info text-center totalView dataContainer" value="@item.LineTotal" readonly="readonly"/>
+            </td>
+            <td style="width: 2%">
+                <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    }
     </tbody>
 </table>
+<span id="spanquantitytable" style="color: red"></span>
+<span id="spanpricetable" style="color: red"></span>
+<span id="spandiscounttable" style="color: red"></span>
 <table class="table table-condensed table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
@@ -333,7 +336,7 @@
                 }
 
                 var exist = prodexist($('#linedescription').val());
-
+                console.log(exist);
                 if (exist) {
                     $('#spanproducto').text("");
                 } else {
@@ -346,16 +349,13 @@
 
                 //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
 
-                $('#insert').append('<tr id="inserttd"></tr>');
                 var idproduct = $('#linedescription').val();
-                document.getElementById('inserttd').id = "inserttd" + idproduct;
+                $('#insert').append('<tr id="inserttd'+idproduct+'"></tr>');
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
-                document.getElementById('inserthtml').id = "itemid" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" class="panel-info" readonly="readonly" /></td>');
                 $('#itemid' + idproduct).val(idproduct);
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" class="panel-info" readonly="readonly" /></td>');
-                document.getElementById('inserthtml').id = "itemdesc" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemdesc'+idproduct+'" name="productdescription" class="panel-info" readonly="readonly" /></td>');
 
                 var options = {};
                 options.url = '@Url.Action("Getproductdescription", "Sales")';
@@ -369,20 +369,16 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
-                document.getElementById('inserthtml').id = "itemquantity" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemquantity'+idproduct+'" name="productquantity" type="number" min="0" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
-                document.getElementById('inserthtml').id = "itemprice" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemprice'+idproduct+'" name="productprice" type="number" min="1" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" /></td>');
-                document.getElementById('inserthtml').id = "itemdiscount" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemdiscount'+idproduct+'" name="productdiscount" type="number" min="0" max="100" onchange="CalcSubtotal('+idproduct+')" oninput="CalcSubtotal('+idproduct+')" onfocus="CalcSubtotal('+idproduct+')" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="inserthtml" name="productsubtotal" type="text" class="panel-info" readonly="readonly" /></td>');
-                document.getElementById('inserthtml').id = "itemsubtotal" + idproduct;
+                $('#inserttd' + idproduct).append('<td><input id="itemsubtotal'+idproduct+'" name="productsubtotal" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
 
                 $('#inserttd' + idproduct).append('<td><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
@@ -421,6 +417,8 @@
             calcgral();
         }
 
+        //FUNCIÓN PARA CALCULAR EL TOTAL GENERAL DE VENTA
+
         function calcgral() {
             var subtotals = [];
             var total = 0;
@@ -430,11 +428,18 @@
             for (var i = 0; i < subtotals.length; i++) {
                 total += subtotals[i];
             }
-            console.log(total);
+            
             document.getElementById("totalgral").value = total.toFixed(2);
         }
 
+        function CalcSubtotal(idproduct) {
+            var subtotal = $('#itemquantity'+ idproduct).val() * $('#itemprice' + idproduct).val();
+            subtotal = subtotal - (subtotal * $('#itemdiscount' + idproduct).val() / 100 );
 
+            document.getElementById('itemsubtotal' + idproduct).value = subtotal.toFixed(2);
+
+            calcgral();
+        }
 
     </script>
 }
