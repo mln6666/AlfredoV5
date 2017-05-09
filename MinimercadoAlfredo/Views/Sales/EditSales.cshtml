@@ -151,10 +151,10 @@
     {
         <tr>
             <td>
-                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" />
+                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent"/>
             </td>
             <td>
-                <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly"/>
+                <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
             </td>
             <td>
                 <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);"/>
@@ -363,10 +363,10 @@
                 var idproduct = $('#linedescription').val();
                 $('#insert').append('<tr id="inserttd'+idproduct+'"></tr>');
 
-                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" class="panel-info" readonly="readonly" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" readonly="readonly" style="border: none; background-color: transparent" /></td>');
                 $('#itemid' + idproduct).val(idproduct);
 
-                $('#inserttd' + idproduct).append('<td><input id="itemdesc'+idproduct+'" name="productdescription" class="panel-info" readonly="readonly" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemdesc'+idproduct+'" name="productdescription" readonly="readonly" style="border: none; background-color: transparent" /></td>');
 
                 var options = {};
                 options.url = '@Url.Action("Getproductdescription", "Sales")';
