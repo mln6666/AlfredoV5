@@ -478,9 +478,57 @@ namespace MinimercadoAlfredo.Controllers
                 ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
                 return View("Delete", sale);
             }
-
+            
+            ViewBag.Customers = db.Customers.ToList();
             ViewBag.Products = db.Products.ToList().FindAll(p => p.ProductState);
             return View(sale);
+        }
+
+        [HttpPost]
+        public JsonResult EditSales(EditSaleVM s)
+        {
+            Sale sale = db.Sales.Find(s.IdSale);
+
+            if (ModelState.IsValid)
+            {
+                sale.IdCustomer = s.SaleCustomer;
+                sale.SaleAddress = db.Customers.Find(s.SaleCustomer).CustomerAddress;
+                sale.Bill.IdBill = sale.Bill.IdBill;
+                if (s.SaleState == 0)
+                {
+                    sale.SaleState = SaleState.Pendiente;
+                }
+                else
+                {
+                    sale.SaleState = SaleState.Finalizada;
+                }
+                sale.SaleDate = sale.SaleDate;
+                sale.Comments = s.SaleComments;
+                sale.SaleLines.Clear();
+
+                foreach (var item in s.SaleLines)
+                {
+                    var saleline = new SaleLine
+                    {
+                        IdProduct = item.IdProduct,
+                        LineQuantity = item.LineQuantity,
+                        LinePrice = item.LinePrice,
+                        LineDiscount = item.LineDiscount,
+                        LineTotal = item.LineTotal
+                    };
+
+                    sale.SaleLines.Add(saleline);
+                    db.SaveChanges();
+                }
+
+                return new JsonResult { Data = new { status = true }};
+            }
+            else
+            {
+                return new JsonResult { Data = new { status = false } };
+            }
+
+            
         }
 
         // GET: Sales/Edit/5

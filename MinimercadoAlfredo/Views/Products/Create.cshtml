@@ -44,7 +44,7 @@
                             <option value="@item.IdTrademark">@item.TrademarkName</option>
                         }
                     </select>
-                    <a class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></a>
+                    <button id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></button>
                 </div>
                 <span id="spantrademark" class="text-danger"></span>
             </div>
@@ -343,6 +343,10 @@
                 }
             }
         }
+
+        $('#addtrademark').click(function() {
+
+        });
 
 
         $('#createProd').submit(function(e) {

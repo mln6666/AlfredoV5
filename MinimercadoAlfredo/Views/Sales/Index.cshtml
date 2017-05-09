@@ -74,11 +74,12 @@
                 <td class="text-center">
                     @if (item.SaleState == MinimercadoAlfredo.Models.SaleState.Pendiente)
                     {
-                        <a href="@Url.Action("Edit","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a href="@Url.Action("EditSales","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     }
                     else
                     {
-                        <a href="@Url.Action("Edit","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm dialog-window2"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <button id="finalized" type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                        @*<a href="@Url.Action("Edit","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm dialog-window2"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>*@
                     }
 
                     <a href="@Url.Action("Details","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
@@ -167,53 +168,64 @@
     <script>
         $('#myModal1').modal('show')
 
-    $(document).ready(function () {
+        $(document).ready(function() {
 
-        ////Grilla automatica//
-        $("#tabla").DataTable({
-            order: [[1, "desc"]],
-            "language": { "url": "/Scripts/DataTables/spanish.json" }
+            ////Grilla automatica//
+            $("#tabla").DataTable({
+                order: [[1, "desc"]],
+                "language": { "url": "/Scripts/DataTables/spanish.json" }
+            });
+            $('.dropdown-toggle').dropdown();
+
+            $("body").on("click", "a.dialog-window2", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal2.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal2').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal2 .te').html(data);
+                        $('#myModal2').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal .modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal .te').html(data);
+                        $('#myModal').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
         });
-        $('.dropdown-toggle').dropdown();
 
-        $("body").on("click", "a.dialog-window2", null, function (e) {
-            e.preventDefault();
-
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal2.modal-title').html(title);
-
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal2').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal2 .te').html(data);
-                    $('#myModal2').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
+        $('#finalized').click(function() {
+            bootbox.info({
+                title: "Imposible realizar esta operación",
+                message: "Solo es posible modificar ventas pendientes",
+                buttons: {
+                    cancel: {
+                        label: 'Aceptar',
+                        className: 'btn-primary'
+                    }
+                }
+            });
         });
-
-        $("body").on("click", "a.dialog-window", null, function (e) {
-            e.preventDefault();
-
-            var $link = $(this); // Reference to <a/> link
-            var title = $link.text(); //this is title to fetch in htnl
-            $('#myModal .modal-title').html(title);
-
-            var url = $(this).attr('href');
-            if (url.indexOf('#') == 0) {
-                $('#myModal').modal('show');
-            }
-            else {
-                $.get(url, function (data) {
-                    $('#myModal .te').html(data);
-                    $('#myModal').modal();
-                }).success(function () { $('input:text:visible:first').focus(); });
-            }
-        });
-    })
     
     </script>
 }

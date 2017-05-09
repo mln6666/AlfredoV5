@@ -30,12 +30,20 @@
                 @Html.DisplayFor(model => model.IdSale)
             </td>
             <td>
-                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
-                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
+                <select class="js-example-basic-single inputForm" id="customerid">
+                    <option value="@Model.Customer.IdCustomer">@Model.Customer.CustomerName</option>
+                    @foreach (var item in ViewBag.Customers)
+                    {
+                        if (item.IdCustomer != Model.Customer.IdCustomer)
+                        {
+                            <option value="@item.IdCustomer">@item.CustomerName</option>
+                        }
+                    }
+                </select>
+
             </td>
             <td style="color: black; font-weight: bold">
-                @*@Html.DisplayFor(model => model.SaleState)*@
-                <select class="js-example-basic-single inputForm">
+                <select class="inputForm" id="salestate">
                     <option value="0">Pendiente</option>
                     <option value="1">Finalizada</option>
                 </select>
@@ -184,7 +192,7 @@
     <tbody>
         <tr>
             <td>
-                @Html.TextAreaFor(model => model.Comments, new { @class = "panel-info form-control inputForm" })
+                <input type="text" id="salecomments" value="@Model.Comments"/>
             </td>
             <td>
                 <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.SaleTotal" readonly="readonly" />
@@ -206,12 +214,16 @@
     <div style="width: 25%"></div>
 </div>
 
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section scripts{
+<script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
     <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
     <script>
         $(document).ready(function() {
-            $('#Date').datepicker();
+            //$('#Date').datepicker();
+
+            $(".js-example-basic-single").select2();
         });
 
         $("#mostrar").click(function () {
@@ -491,8 +503,43 @@
 
                 var product;
                 for (var i = 0; i < productids.length; i++) {
-                    
+                    product = {
+                        ProductId: productids[i],
+                        ProductDescription: productdescriptions[i],
+                        ProductQuantity: productquantities[i],
+                        ProductPrice: productprices[i],
+                        ProductDiscount: productdiscounts[i],
+                        ProductSubtotal: productsubtotals[i]
+                    }
+
+                    saleproducts.push(product);
                 }
+
+                var sale = {
+                    IdSale: @Model.IdSale,
+                    SaleState: parseInt($('#salestate').val()),
+                    @*SaleDate: @Model.SaleDate,*@
+                    SaleCustomer: $('#customerid').val(),
+                    SaleLines: saleproducts,
+                    SaleComments: $('#salecomments').val(),
+                    SaleTotal: $('#totalgral').val()
+
+                }
+
+                $.ajax({
+                    url: '@Url.Action("EditSales","Sales")',
+                    type: "POST",
+                    data: JSON.stringify(sale),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function(d) {
+                        if (d.status) {
+                            var url = '@Url.Action("Index", "Sales")';
+                            window.location.href = url;
+                        }
+                    }
+                });
+
             }
         });
 
