@@ -95,7 +95,7 @@
                                 <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
                             }
                         </select>
-                        <input type="hidden" id="shadow" value="">
+                        
                     </td>
                     <td>
                         <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
@@ -393,7 +393,7 @@
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
 
                 $('#inserttd' + idproduct).append('<td><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
-
+                
                 $('#linedescription').val(0);
                 $('#linequantity').val('1');
                 $('#lineprice').val('');

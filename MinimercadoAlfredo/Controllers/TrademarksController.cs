@@ -48,15 +48,30 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
-        
-        //public void NewTrademark([Bind(Include = "IdTrademark,TrademarkName,TrademarkDescription")] Trademark trademark)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Trademarks.Add(trademark);
-        //        db.SaveChanges();
-        //    }
-        //}
+
+        public JsonResult ExistTrademark(string trademark)
+        {
+            var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == trademark);
+
+            return Json(exist, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AddTrademark(string newtrademark)
+        {
+            var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == newtrademark);
+            
+            if (!exist)
+            {
+                Trademark trademark = new Trademark
+                {
+                    TrademarkName = newtrademark
+                };
+                db.Trademarks.Add(trademark);
+                db.SaveChanges();
+            }
+            return new JsonResult { Data = new { exist = exist, x = db.Trademarks.ToList().Last().IdTrademark }};
+        }
 
         // POST: Trademarks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 

@@ -4,63 +4,487 @@
     ViewBag.Title = "Editar Compra";
 }
 
-<h2>Edit</h2>
+<h2 class="text-center">Editar Venta</h2>
+<hr style="color:grey;border-color:grey" />
+@Html.HiddenFor(model => model.IdPurchase)
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <th style="width: 110px">
+                N° Venta
+            </th>
+            <th>
+                Proveedor
+            </th>
+            
+            <th>
+                Fecha de Compra
+            </th>
 
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white">
+            <td style="color: black">
+                @Html.DisplayFor(model => model.IdPurchase)
+            </td>
+            <td>
+                <select class="js-example-basic-single inputForm" id="customerid">
+                    <option value="@Model.IdProvider">@Model.Provider.ProviderName</option>
+                    @foreach (var item in ViewBag.Providers)
+                    {
+                        if (item.IdProvider != Model.IdProvider)
+                        {
+                            <option value="@item.IdProvider">@item.ProviderName</option>
+                        }
+                    }
+                </select>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Purchase</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IdPurchase)
+            </td>
+            
+            <td style="color: black">
+                <input id="Date" name="Date" type="date" readonly="readonly" class="form-control" value="@Model.PurchaseDate.ToString("dd/MM/yyyy")" style="text-align: center" />
+            </td>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PurchaseTotal, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseTotal, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PurchaseTotal, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdProvider, "IdProvider", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IdProvider", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IdProvider, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center">Lista de Productos</h3>
+<hr style="color: grey; border-color: grey" />
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button id="mostrar" class="hidden-print btn btn-primary btn-sm hvr-bubble-right">Agregar Producto &nbsp;&nbsp;</button>
+    <br />
+    <div id="nuevalinea" style="display: none">
+        <div>
+            <button id="ocultar" class="hidden-print btn btn-sm btn-primary hvr-bubble-left positionOcultar">&nbsp;&nbsp; Ocultar</button>
+
+        </div>
+        <table id="nueva" class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                    <td style="width: 30%">
+                        Producto
+                    </td>
+                    <td style="width: 15%">
+                        Cantidad
+                    </td>
+                    <td style="width: 15%">
+                        Costo
+                    </td>
+                    <td style="width: 20%">
+                        Subtotal
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="nueva">
+                <tr>
+                    <td>
+                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 90%">
+                            <option value="0">Seleccionar Producto...</option>
+                            @foreach (var item in ViewBag.Products)
+                            {
+                                <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                            }
+                        </select>
+                        
+                    </td>
+                    <td>
+                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+
+                    </td>
+                    <td>
+                        <input type="text" class="panel-info form-control inputForm" id="linecost" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                    </td>
+                    <td>
+                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
+                    </td>
+                    <td class="text-center">
+                        <button type="button" id="add" class="btn btn-success btn-sm" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <span id="spanproducto" style="color:red"></span>
+        <span id="spanquantity" style="color:red"></span>
+        <span id="spancost" style="color:red"></span>
+    </div>
+</div>
+<table class="table table-condensed table-striped table-bordered" id="productTable">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <td>
+                Nro Artículo
+            </td>
+            <td>
+                Producto
+            </td>
+            <td>
+                Cantidad
+            </td>
+            <td>
+                Costo
+            </td>
+            <td>
+                Subtotal
+            </td>
+        </tr>
+    </thead>
+
+    <tbody id="insert">
+        @foreach (var item in Model.PurchaseLines)
+        {
+            <tr>
+                <td>
+                    <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent" />
+                </td>
+                <td>
+                    <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent" />
+                </td>
+                <td>
+                    <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" />
+                </td>
+                <td>
+                    <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+                </td>
+               
+                <td>
+                    <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="number" class="panel-info text-center totalView dataContainer" value="@item.LineTotal" readonly="readonly" />
+                </td>
+                <td style="width: 2%">
+                    <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<span id="spanquantitytable" style="color: red"></span>
+<span id="spancosttable" style="color: red"></span>
+<span id="spandiscounttable" style="color: red"></span>
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <td>
+                Comentarios
+            </td>
+            <td style="width: 25%">
+                Total
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input type="text" id="purchasecomments" value="@Model.Comments" />
+            </td>
+            <td>
+                <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.PurchaseTotal" readonly="readonly" />
+                @*@Html.TextBoxFor(model => model.SaleTotal, new {@readonly = "readonly", @class = "totalView", @id = "totalgral"})*@
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr style="color: grey" />
+<div style="width: 100%; display: flex">
+    <div style="width: 25%; text-align: left">
+        <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-hand-left " aria-hidden="true"></span>&nbsp; Volver</a>
+    </div>
+    <div style="width: 50%; text-align: center">
+        <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
+            Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </div>
+    <div style="width: 25%"></div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section scripts{
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script>
+        $(document).ready(function() {
+            //$('#Date').datepicker();
+
+            $(".js-example-basic-single").select2();
+        });
+
+        $("#mostrar").click(function () {
+            $("#mostrar").hide();
+            $("#nuevalinea").toggle("slow");
+
+        });
+        $("#ocultar").click(function () {
+            $("#nuevalinea").toggle("slow");
+            $("#mostrar").toggle("slow");
+        });
+
+        //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
+
+        function addproduct(x) {
+            if (x == 0) {
+                $('#spanproducto').text("Es necesario completar el campo Producto");
+
+                document.getElementById("linecost").value = "0.00";
+                document.getElementById("linetotal").value = "0.00";
+            } else {
+                $('#spanproducto').text("");
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdata", "Purchases")';
+                options.type = "GET";
+                options.data = { "pro": $("#linedescription").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    document.getElementById("linecost").value = data;
+                    var cost = parseFloat($('#linecost').val());
+                    var quantity = parseFloat($('#linequantity').val());
+                    var total = (cost * quantity);
+                    document.getElementById("linetotal").value = total.toFixed(2);
+
+                };
+                $.ajax(options);
+            }
+        }
+
+        //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
+
+        function totallinea() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() != 0) {
+
+                if ($('#linecost').val() == 0 | $('#linecost').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spancost').text("No se puede comprar un Producto por $0.00, para realizar esta operación se recomienda realizar un alta de Productos en masa");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spancost').text("");
+                }
+
+                if ($('#linequantity').val() < 1) {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    document.getElementById("linetotal").value = "0.00";
+
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+            } else {
+                isAllValid = false;
+            }
+
+
+            if (isAllValid) {
+                var cost = parseFloat($('#linecost').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var total = (cost * quantity);
+                document.getElementById("linetotal").value = total.toFixed(2);
+            }
+        }
+
+        //BOTÖN PÄRA AGREGAR UN NUEVO PRODUCTO
+        $('#add').click(function() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() == 0) {
+                isAllValid = false;
+                $('#spanproducto').text("Es necesario completar el campo Producto");
+            } else {
+                $('#spanproducto').text("");
+
+                if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#linecost').val() == 0 | $('#linecost').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spancost').text("No se puede comprar un Producto por $0.00, para realizar esta operación se recomienda realizar un alta de Productos en masa");
+                } else {
+                    $('#spancost').text("");
+                }
+
+                var exist = prodexist($('#linedescription').val());
+                if (exist) {
+                    $('#spanproducto').text("");
+                } else {
+                    $('#spanproducto').text("El Producto que intenta agregar ya existe en la Lista de Productos");
+                    isAllValid = false;
+                }
+            }
+
+            if (isAllValid) {
+
+                //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
+
+                var idproduct = $('#linedescription').val();
+                $('#insert').append('<tr id="inserttd'+idproduct+'"></tr>');
+
+                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" readonly="readonly" style="border: none; background-color: transparent" /></td>');
+                $('#itemid' + idproduct).val(idproduct);
+
+                $('#inserttd' + idproduct).append('<td><input id="itemdesc'+idproduct+'" name="productdescription" readonly="readonly" style="border: none; background-color: transparent" /></td>');
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdescription", "Sales")';
+                options.type = "GET";
+                options.data = { "pro": $('#linedescription').val() };
+                options.dataType = "json";
+                options.success = function (data) {
+
+                    $('#itemdesc' + idproduct).val(data);
+
+                };
+                $.ajax(options);
+
+                $('#inserttd' + idproduct).append('<td><input id="itemquantity' + idproduct + '" name="productquantity" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#itemquantity' + idproduct).val($('#linequantity').val());
+
+                $('#inserttd' + idproduct).append('<td><input id="itemcost' + idproduct + '" name="productcost" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#itemcost' + idproduct).val($('#linecost').val());
+
+                $('#inserttd' + idproduct).append('<td><input id="itemsubtotal'+idproduct+'" name="productsubtotal" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
+                document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
+
+                $('#inserttd' + idproduct).append('<td><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
+
+                $('#linedescription').val(0);
+                $('#linequantity').val('1');
+                $('#linecost').val('');
+                $('#linetotal').val('0.00');
+            }
+
+            calcgral();
+
+        });
+
+        //FUNCIÓN PARA VALIDAR SI EL PRODUCTO INGRESADO YA EXISTE EN LA LISTA DE PRODUCTOS
+
+        function prodexist(id) {
+            var products = [];
+
+            $('input[name="productid"]').map(function () { products.push(this.value) });
+
+            for (var i = 0; i < products.length; i++) {
+                if (products[i] == id) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        //BOTÓN PARA ELIMINAR UN PRODUCTO DE LA LISTA DE PRODUCTOS
+
+        function deleteProduct(id) {
+            $('#elim' + id).closest('tr').remove();
+            calcgral();
+        }
+
+        //FUNCIÓN PARA CALCULAR EL TOTAL GENERAL DE VENTA
+
+        function calcgral() {
+            var subtotals = [];
+            var total = 0;
+
+            $('input[name="productsubtotal"]').map(function () { subtotals.push(parseFloat(this.value)) });
+
+            for (var i = 0; i < subtotals.length; i++) {
+                total += subtotals[i];
+            }
+
+            document.getElementById("totalgral").value = total.toFixed(2);
+        }
+
+        //FUNCIÓN PARA CÁLCULO AUTOMÁTICO DE LOS SUBTOTALES DE LA TABLA DE PRODUCTOS
+
+        function CalcSubtotal(idproduct) {
+            var subtotal = $('#itemquantity'+ idproduct).val() * $('#itemcost' + idproduct).val();
+
+            document.getElementById('itemsubtotal' + idproduct).value = subtotal.toFixed(2);
+
+            calcgral();
+        }
+
+        //VALIDACIONES DE LÍNEAS DE TABLA DE PRODUCTOS
+
+        function ValidLine(idproduct) {
+
+            if ($('#itemquantity' + idproduct).val() == 0) {
+                $('#itemquantity' + idproduct).css("border-color","red");
+                $('#spanquantitytable').text('Error, la cantidad comprada de un producto no puede ser cero');
+
+            } else {
+                $('#itemquantity' + idproduct).css("border-color","");
+                $('#spanquantitytable').text('');
+            }
+
+            if ($('#itemcost' + idproduct).val() == 0) {
+                $('#itemcost' + idproduct).css("border-color", "red");
+                $('#spancosttable').text('Error, el costo no puede ser cero, se recomienda realizar un alta de Productos en masa');
+            } else {
+                $('#itemcost' + idproduct).css("border-color", "");
+                $('#spancosttable').text('');
+            }
+        }
+
+        $('#guardar').click(function() {
+            if ($('#spanquantitytable').val() == '' & $('#spancosttable').val() == '') {
+                var purchaseproducts = [];
+                var productids = [];
+                var productdescriptions = [];
+                var productquantities = [];
+                var productcosts = [];
+                var productsubtotals = [];
+
+                $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
+                $('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
+                $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
+                $('input[name="productcost"]').map(function () { productcosts.push(parseFloat(this.value)) });
+                $('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
+
+                var product;
+                for (var i = 0; i < productids.length; i++) {
+                    product = {
+                        ProductId: productids[i],
+                        ProductDescription: productdescriptions[i],
+                        ProductQuantity: productquantities[i],
+                        ProductCost: productcosts[i],
+                        ProductSubtotal: productsubtotals[i]
+                    }
+
+                    purchaseproducts.push(product);
+                }
+
+                var purchase = {
+                    IdPurchase: @Model.IdPurchase,
+                    @*SaleDate: @Model.SaleDate,*@
+                    SaleCustomer: $('#customerid').val(),
+                    SaleLines: purchaseproducts,
+                    SaleComments: $('#purchasecomments').val(),
+                    SaleTotal: $('#totalgral').val()
+
+                }
+
+                $.ajax({
+                    url: '@Url.Action("EditPurchases","Purchases")',
+                    type: "POST",
+                    data: JSON.stringify(purchase),
+                    dataType: "JSON",
+                    contentType: "application/json",
+                    success: function(d) {
+                        if (d.status) {
+                            var url = '@Url.Action("Index", "Purchases")';
+                            window.location.href = url;
+                        }
+                    }
+                });
+
+            }
+        });
+
+    </script>
 }

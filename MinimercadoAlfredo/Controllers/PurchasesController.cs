@@ -110,6 +110,7 @@ namespace MinimercadoAlfredo.Controllers
 
             return Json(midato, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult CreatePurchase(int? x)
         {
             if (x != null)
@@ -200,7 +201,8 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdProvider = new SelectList(db.Providers, "IdProvider", "ProviderName", purchase.IdProvider);
+            ViewBag.Providers = db.Providers.ToList().OrderBy(p => p.ProviderName);
+            ViewBag.Products = db.Products.ToList();
             return View(purchase);
         }
 

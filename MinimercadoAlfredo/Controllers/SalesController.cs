@@ -479,7 +479,7 @@ namespace MinimercadoAlfredo.Controllers
                 return View("Delete", sale);
             }
             
-            ViewBag.Customers = db.Customers.ToList();
+            ViewBag.Customers = db.Customers.ToList().OrderBy(c => c.CustomerName);
             ViewBag.Products = db.Products.ToList().FindAll(p => p.ProductState);
             return View(sale);
         }

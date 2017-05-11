@@ -45,6 +45,12 @@
                         }
                     </select>
                     <button id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></button>
+                    <div id="showtrademark" style="display: none; margin-top: 1%">
+                        <input type="text" id="newtrademark" placeholder="Ingrese nueva marca"/>
+                        <button id="addconfirmation" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok text-center"></span></button>
+                        <button id="hiddentrademark" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove text-center"></span></button>
+                    </div>
+                    <span id="spannewtrademark" style="color:red"></span>
                 </div>
                 <span id="spantrademark" class="text-danger"></span>
             </div>
@@ -150,82 +156,7 @@
     </div>
 </div>
 
-@*<div class="modal fade" id="myModaliii" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Nueva Marca</h4>
-            </div>
-            <div class="modal-body">
-                @using (Ajax.BeginForm("Create1", "Trademarks", new AjaxOptions
-                {
-                    InsertionMode = InsertionMode.Replace,
-                    UpdateTargetId = "ajaxBeginFormResult",
-                    OnSuccess = "OnSuccess"
-                }))
-                {
-                    @Html.AntiForgeryToken()
 
-                    <div class="form-horizontal">
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Trademark.TrademarkName, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Trademark.TrademarkName, new { htmlAttributes = new { @class = "form-control", @onchange = "MarcaExist()" } })
-                                @Html.ValidationMessageFor(model => model.Trademark.TrademarkName, "", new { @class = "text-danger" })
-                                <span class="text-danger" id="spantrademarkname"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Trademark.TrademarkDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Trademark.TrademarkDescription, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Trademark.TrademarkName, "", new { @class = "text-danger" })
-                                <span class="text-danger" id="spantrademarkdescription"></span>
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                <input type="submit" value="Guardar" class="btn btn-success">
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <script>
-                        function MarcaExist() {
-                            if ($('#TradermarkName').val() != "") {
-                                var options = {};
-                                options.url = '@Url.Action("ExisteMarca", "Trademarks")';
-                                options.type = "GET";
-                                options.data = { "nombre": $('#TrademarkName').val() };
-                                options.dataType = "json";
-                                options.success = function(data) {
-                                    if (data) {
-                                        $('#spantrademarkname').text("Marca Existente");
-                                    } else {
-                                        $('#spantrademarkname').text("");
-                                    }
-                                };
-                                $.ajax(options);
-                            } else {
-                                $('#spantrademarkname').text("Debe completar este campo");
-                            }
-        }
-                    </script>
-                }
-
-            </div>
-
-        </div>
-    </div>
-</div>*@
 
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section Scripts {
@@ -297,7 +228,7 @@
             }
 
         }*@
-       
+
 
         function Marca() {
             if ($('#trademarks').val() == 0) {
@@ -344,10 +275,58 @@
             }
         }
 
-        $('#addtrademark').click(function() {
+        //BOTONES PARA AGREGAR NUEVA MARCA
 
+        $('#addtrademark').click(function () {
+            $('#addtrademark').hide('slow');
+            $('#showtrademark').toggle('slow');
         });
 
+        $('#hiddentrademark').click(function() {
+            $('#showtrademark').toggle('slow');
+            $('#addtrademark').toggle('slow');
+        });
+
+        $('#addconfirmation').click(function() {
+            if ($('#newtrademark').val() != "") {
+
+                $('#spannewtrademark').text("");
+
+                var options = {};
+                options.url = '@Url.Action("ExistTrademark", "Trademarks")';
+                options.type = "GET";
+                options.data = { "trademark": $("#newtrademark").val() };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data) {
+                        $('#spannewtrademark').text("La marca que está intentando ingresar ya existe");
+                    } else {
+                        var options2 = {};
+                        options2.url = '@Url.Action("AddTrademark", "Trademarks")';
+                        options2.type = "POST";
+                        options2.data = { "newtrademark": $("#newtrademark").val() };
+                        options2.dataType = "JSON";
+                        options2.success = function(data2) {
+                            if (!data2.exist) {
+                                toastr.success("La Marca ha sido registrada exitosamente");
+                            } else {
+                                toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente");
+                            }
+                            $('#newtrademark').val('');
+                        };
+                        $.ajax(options2);
+
+                        //$('select[name="IdTrademark"]').append('<option value="' + data2.x + '">' + $('#newtrademark').val() + '</option>');
+                        //$('#IdTrademark').trigger('change');
+                    }
+                };
+                $.ajax(options);
+            } else {
+                $('#spannewtrademark').text("Debe ingresar el nombre de la Marca");
+            }
+        });
+
+        //BOTON PARA GUARDAR EL NUEVO PRODUCTO A LA BASE DE DATOS
 
         $('#createProd').submit(function(e) {
             var x = this;
