@@ -239,6 +239,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CatalogVM.cs" />
+    <Compile Include="ViewModels\CreateProductVM.cs" />
     <Compile Include="ViewModels\EditSaleVM.cs" />
     <Compile Include="ViewModels\PurchaseVM.cs" />
     <Compile Include="ViewModels\SaleVM.cs" />
@@ -717,6 +718,7 @@
     <Content Include="Views\Trademarks\Edit.cshtml" />
     <Content Include="Views\Trademarks\Index.cshtml" />
     <Content Include="Views\Sales\EditSales.cshtml" />
+    <Content Include="Views\Products\CreateProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

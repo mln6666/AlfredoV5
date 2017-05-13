@@ -518,8 +518,10 @@ namespace MinimercadoAlfredo.Controllers
                     };
 
                     sale.SaleLines.Add(saleline);
-                    db.SaveChanges();
                 }
+
+                db.Entry(sale).State = EntityState.Modified;
+                db.SaveChanges();
 
                 return new JsonResult { Data = new { status = true }};
             }

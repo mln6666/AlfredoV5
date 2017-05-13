@@ -14,7 +14,7 @@
 
 <div class="row">
     <div class="col-lg-10">
-        <a href="@Url.Action("Create", "Products")" class="btn btn-success chicle">Agregar Producto</a>
+        <a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success chicle">Agregar Producto</a>
     </div>    
     <div class="btn-group col-lg-1">
         <button type="button" class="btn btn-primary dropdown-toggle"
@@ -110,7 +110,7 @@
     </tbody>
 </table>
 
-<text class="text-danger">**Los Productos en color rojo tienen Stock por debajo de la mínima</text>
+<p style="color:red">**Los Productos en color rojo tienen Stock por debajo de la mínima</p>
 
 
 <div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

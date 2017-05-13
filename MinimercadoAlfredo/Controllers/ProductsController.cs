@@ -116,16 +116,8 @@ namespace MinimercadoAlfredo.Controllers
                             select p);
 
             if (message != null)
-            {
-                if (message == true)
-                {
-                    ViewBag.message = "El Producto ha sido desactivado correctamente.";
-                }
-                else
-                {
-                    ViewBag.message = "Ha ocurrido un error, intente nuevamente.";
-                }
-            }
+                TempData["message"] = 1;
+
             return View(products.ToList());
         }
         [HttpGet]
@@ -253,40 +245,74 @@ namespace MinimercadoAlfredo.Controllers
 
         }
 
-        // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult CreateProduct(bool? message)
         {
-            ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
-            ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
+            if (message != null)
+                TempData["message"] = 1;
+
             ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
+            ViewBag.Categories = db.Categories.ToList().OrderBy(c => c.CategoryName);
 
             return View();
         }
 
+        [HttpPost]
+        public JsonResult CreateProduct(CreateProductVM product)
+        {
+            Product prod = new Product();
+            prod.idCategory = Int32.Parse(product.ProductCategory);
+            prod.IdTrademark = Int32.Parse(product.ProductTrademark);
+            prod.ProductDescription = product.ProductDescription;
+            prod.Cost = product.ProductCost;
+            prod.WholeSalePrice = product.ProductWholeSalePrice;
+            prod.PublicPrice = product.ProductPublicPrice;
+            prod.UploadDate = DateTime.Today;
+            prod.ProductState = product.ProductState;
+            prod.ParcialStock = product.ProductStock;
+            prod.Stock = product.ProductStock;
+            prod.Minimum = product.ProductMinimum;
+
+            db.Products.Add(prod);
+            db.SaveChanges();
+
+            TempData["message"] = 6;
+            return new JsonResult { Data = new { status = true}};
+        }
+
+        // GET: Products/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
+        //    ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
+        //    ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
+
+        //    return View();
+        //}
+
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                //if (product.Trademark == null)
-                //    product.Trademark = "[Producto sin Marca]";
-                product.UploadDate = DateTime.Now.Date;
-                product.ParcialStock = product.Stock;
-                db.Products.Add(product);
-                db.SaveChanges();
-                TempData["message"] = 1;
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //if (product.Trademark == null)
+        //        //    product.Trademark = "[Producto sin Marca]";
+        //        product.UploadDate = DateTime.Now.Date;
+        //        product.ParcialStock = product.Stock;
+        //        db.Products.Add(product);
+        //        db.SaveChanges();
+        //        TempData["message"] = 1;
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
-            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
+        //    ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+        //    ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
