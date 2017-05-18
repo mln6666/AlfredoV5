@@ -20,21 +20,7 @@ namespace MinimercadoAlfredo.Controllers
         {
             return View(db.Trademarks.ToList());
         }
-
-        // GET: Trademarks/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Trademark trademark = db.Trademarks.Find(id);
-            if (trademark == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trademark);
-        }
+        
 
         // GET: Trademarks/Create
         public ActionResult Create()

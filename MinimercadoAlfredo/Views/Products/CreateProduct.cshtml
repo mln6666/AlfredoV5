@@ -32,7 +32,7 @@
         @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
             <div>
-                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca(this.value)" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
                     <option value="0">Seleccione una Marca...</option>
                     @foreach (var item in ViewBag.Trademarks)
                     {
@@ -40,25 +40,27 @@
                     }
                 </select>
                 <button id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></button>
-                <div id="showtrademark" style="display: none; margin-top: 1%">
-                    <input type="text" id="newtrademark" placeholder="Ingrese nueva marca" style="width: 280px" onchange="inputtrademark()" oninput="inputtrademark()"/>
-                    <button id="addconfirmation" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok text-center"></span></button>
-                    <button id="hiddentrademark" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove text-center"></span></button>
-                    <span id="spannewtrademark" style="color: red"></span>
-                </div>
                 
+                <span id="spantrademark" style="color:red"></span>
             </div>
-            <span id="spantrademark" style="color:red"></span>
+            
         </div>
     </div>
 
-
+    <div id="showtrademark" class="form-group" style="display: none">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <input type="text" id="newtrademark" placeholder="Ingrese nueva marca" style="width: 280px" onchange="inputtrademark()" oninput="inputtrademark()"/>
+            <button id="addconfirmation" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok text-center"></span></button>
+            <button id="hiddentrademark" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove text-center"></span></button>
+            <span id="spannewtrademark" style="color: red"></span>
+        </div>
+    </div>
 
 
     <div class="form-group">
         @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.ProductDescription, new {htmlAttributes = new {@id = "ProductDescription" , @class = "form-control", @onchange = "DescExistente()"}})*@
             <input type="text" id="ProductDescription" placeholder="Ingrese la descripción del producto" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
             <span id="spandescexistente" style="color:red"></span>
         </div>
@@ -71,8 +73,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.Cost, new {htmlAttributes = new {@class = "form-control", @onchange = "ValidCost()", @required = "required"}})*@
-            @*@Html.ValidationMessageFor(model => model.Cost, "", new {@class = "text-danger"})*@
             <input type="number" id="ProductCost" maxlength="9" step="any" placeholder="Ingrese el costo del Producto" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()"/>
             <span id="spanvalidcost" class="text-center" style="color:red"></span>
         </div>
@@ -81,7 +81,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.WholeSalePrice, new {htmlAttributes = new {@class = "form-control", @onchange = "ValidCost()"}})*@
             <input type="number" id="ProductWholeSalePrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio mayorista del Producto" onchange="ValidCost()" oninput="ValidCost()"/>
             <span id="spanwholesaleprice" style="color:red"></span>
             <span id="spanvalidcost2" class="text-center" style="color:red"></span>
@@ -91,7 +90,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.PublicPrice, new {htmlAttributes = new {@class = "form-control", @onchange = "ValidCost()"}})*@
             <input type="number" id="ProductPublicPrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio minorista del Producto" onchange="ValidCost()" oninput="ValidCost()"/>
             <span id="spanpublicprice" style="color:red"></span>
             <span id="spanvalidcost3" class="text-center" style="color:red"></span>
@@ -102,12 +100,12 @@
         @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="radio col-md-4">
             <label>
-                <input name="ProductState" id="optionsRadios1" value="true" checked="" type="radio">
+                <input name="ProductState" id="optionsRadios1" checked type="radio">
                 Activo
             </label>
 
             <label style="margin-left: 12%">
-                <input name="ProductState" id="optionsRadios2" value="false" type="radio">
+                <input name="ProductState" id="optionsRadios2" type="radio">
                 Desactivado
             </label>
         </div>
@@ -118,7 +116,6 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Stock, htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            @*@Html.EditorFor(model => model.Stock, new {htmlAttributes = new {@class = "form-control"}})*@
             <input type="number" id="productStock" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock actual del producto" />
         </div>
     </div>
@@ -139,12 +136,10 @@
         </div>
     </div>
 </div>
-
 <link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
 @section scripts{
     <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
     <script>
-
         $(document).ready(function() {
             if ($('#message').val() == 1)
                 toastr.success("Producto agregado exitosamente");
@@ -152,11 +147,11 @@
             $(".js-example-basic-single").select2();
         });
 
-        var validcost = true;
-        var optionstate = true
-        var IsValidItem = true;
-        var IsValidItem2 = true;
-        var IsValidItem3 = true;
+        var validcost;
+        var optionstate;
+        var IsValidItem;
+        var IsValidItem2;
+        var IsValidItem3;
 
         function category() {
             IsValidItem2 = true;
@@ -184,9 +179,7 @@
                     if (data) {
                         $('#spandescexistente').text("Producto existente");
                         IsValidItem = false;
-                    } else {
-                        $('#spandescexistente').text("");
-                    };
+                    }
 
                 };
                 $.ajax(options);
@@ -198,13 +191,12 @@
 
         }
 
-        function Marca(value) {
+        function Marca() {
             IsValidItem3 = true;
-            if (value == 0) {
+            $('#spantrademark').text("");
+            if ($('#IdTrademark').val() == 0) {
                 $('#spantrademark').text("Debe seleccionar una Marca");
                 IsValidItem3 = false;
-            } else {
-                $('#spantrademark').text("");
             }
         }
 
@@ -216,6 +208,8 @@
             var publicPrice = parseFloat($('#ProductPublicPrice').val());
 
             $('#spanvalidcost').text('');
+            $('#spanvalidcost2').text('');
+            $('#spanvalidcost3').text('');
 
             if ($('#ProductCost').val() != '') {
 
@@ -223,8 +217,6 @@
                     if (cost > wholeSalePrice) {
                         $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
                         validcost = false;
-                    } else {
-                        $('#spanvalidcost').text('');
                     }
                 }
 
@@ -232,8 +224,6 @@
                     if (publicPrice < cost) {
                         $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
                         validcost = false;
-                    } else {
-                        $('#spanvalidcost3').text('');
                     }
                 }
 
@@ -246,8 +236,6 @@
                 if (publicPrice < wholeSalePrice) {
                     $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
                     validcost = false;
-                } else {
-                    $('#spanvalidcost2').text('');
                 }
             }
         }
@@ -294,6 +282,9 @@
                         options2.success = function(data2) {
                             if (!data2.exist) {
                                 toastr.success("La Marca ha sido registrada exitosamente");
+
+                                $('#showtrademark').toggle('slow');
+                                $('#addtrademark').toggle('slow');
                             } else {
                                 toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente");
                             }
@@ -315,8 +306,8 @@
 
         $('#botonGuardar').click(function() {
             category();
-            DescExistente();
             Marca();
+            DescExistente();
             ValidCost();
 
             if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
@@ -337,6 +328,12 @@
                     callback: function(result) {
                         if (result) {
 
+                            if ($('#optionsRadios1').is(':checked')) {
+                                optionstate = true;
+                            } else {
+                                optionstate = false;
+                            }
+
                             var product = {
                                 ProductDescription: $('#ProductDescription').val(),
                                 ProductCategory: $('#IdCategory').val(),
@@ -344,7 +341,7 @@
                                 ProductCost: parseFloat($('#ProductCost').val()),
                                 ProductWholeSalePrice: parseFloat($('#ProductWholeSalePrice').val()),
                                 ProductPublicPrice: parseFloat($('#ProductPublicPrice').val()),
-                                ProductState: true,
+                                ProductState: optionstate,
                                 ProductStock: parseFloat($('#productStock').val()),
                                 ProductMinimum: parseFloat($('#productMinimum').val())
                             }

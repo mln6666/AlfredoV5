@@ -4,6 +4,11 @@
     ViewBag.Title = "Nuevo Producto";
 }
 
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
 <h2 class="text-center">Agregar Producto</h2>
 <hr style="color:grey;border-color:grey" />
 <br />
@@ -44,7 +49,7 @@
                             <option value="@item.IdTrademark">@item.TrademarkName</option>
                         }
                     </select>
-                    <button id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></button>
+                    <a id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></a>
                     <div id="showtrademark" style="display: none; margin-top: 1%">
                         <input type="text" id="newtrademark" placeholder="Ingrese nueva marca"/>
                         <button id="addconfirmation" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok text-center"></span></button>
@@ -165,19 +170,24 @@
     <script>
 
         $(document).ready(function () {
+            if ($('#message').val() == 1)
+                toastr.success("Producto agregado exitosamente");
+
             $(".js-example-basic-single").select2();
         });
 
-        var validcost = true;
-        var validcost2 = true;
-        var validcost3 = true;
-        var IsValidItem = true;
-        var IsValidItem2 = true;
+        var validcost;
+        var optionstate;
+        var IsValidItem;
+        var IsValidItem2;
+        var IsValidItem3;
 
         function DescExistente() {
 
-            if ($('#ProductDescription').val() != "") {
+            IsValidItem = true;
 
+            if ($('#ProductDescription').val() != "") {
+                $('#spandescexistente').text("");
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
@@ -189,50 +199,23 @@
                         IsValidItem = false;
                     } else {
                         $('#spandescexistente').text("");
-                        IsValidItem = true;
                     };
 
                 };
                 $.ajax(options);
 
             } else {
+                $('#spandescexistente').text("Debe ingresar la descripción del Producto");
                 IsValidItem = false;
             }
 
         }
 
-        @*function ProdExistente() {
-
-            if ($('#ProductNumber').val() != "") {
-
-                var options = {};
-                options.url = '@Url.Action("ExisteNro", "Products")';
-                options.type = "GET";
-                options.data = { "nombre": $("#ProductNumber").val() };
-                options.dataType = "json";
-                options.success = function (data) {
-                    if (data) {
-                        $('#spanprodexistente').text("Nro de Artículo existente");
-                        IsValidItem2 = false;
-                    } else {
-                        $('#spanprodexistente').text("");
-                        IsValidItem2 = true;
-                    };
-
-
-                };
-                $.ajax(options);
-
-            } else {
-                IsValidItem2 = false;
-            }
-
-        }*@
-
-
-        function Marca() {
-            if ($('#trademarks').val() == 0) {
+        function Marca(value) {
+            IsValidItem2 = true;
+            if (value == 0) {
                 $('#spantrademark').text("Debe seleccionar una Marca");
+                IsValidItem2 = false;
             } else {
                 $('#spantrademark').text("");
             }
@@ -240,37 +223,44 @@
 
         function ValidCost() {
 
-            var cost = parseInt($('#Cost').val());
-            var wholeSalePrice = parseInt($('#WholeSalePrice').val());
-            var publicPrice = parseInt($('#PublicPrice').val());
+            validcost = true;
+            var cost = parseFloat($('#ProductCost').val());
+            var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
+            var publicPrice = parseFloat($('#ProductPublicPrice').val());
 
-            if ($('#Cost').val() != '' & $('#WholeSalePrice').val() != '') {
-                if (cost > wholeSalePrice) {
-                    $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
-                    validcost = false;
-                } else {
-                    $('#spanvalidcost').text('');
-                    validcost = true;
+            $('#spanvalidcost').text('');
+
+            if ($('#ProductCost').val() != '') {
+
+                if ($('#ProductWholeSalePrice').val() != '') {
+                    if (cost > wholeSalePrice) {
+                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
+                        validcost = false;
+                    } else {
+                        $('#spanvalidcost').text('');
+                    }
                 }
+
+                if ($('#ProductPublicPrice').val() != '') {
+                    if (publicPrice < cost) {
+                        $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                        validcost = false;
+                    } else {
+                        $('#spanvalidcost3').text('');
+                    }
+                }
+
+            } else {
+                $('#spanvalidcost').text('El costo de un producto es obligatorio');
+                validcost = false;
             }
 
-            if ($('#PublicPrice').val() != '' & $('#WholeSalePrice').val() != '') {
+            if ($('#ProductPublicPrice').val() != '' & $('#ProductWholeSalePrice').val() != '') {
                 if (publicPrice < wholeSalePrice) {
                     $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
-                    validcost2 = false;
+                    validcost = false;
                 } else {
                     $('#spanvalidcost2').text('');
-                    validcost2 = true;
-                }
-            }
-
-            if ($('#PublicPrice').val() != '' & $('#Cost').val() != '') {
-                if (publicPrice < cost) {
-                    $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
-                    validcost3 = false;
-                } else {
-                    $('#spanvalidcost3').text('');
-                    validcost3 = true;
                 }
             }
         }
@@ -278,19 +268,27 @@
         //BOTONES PARA AGREGAR NUEVA MARCA
 
         $('#addtrademark').click(function () {
+            $('#spantrademark').text('');
             $('#addtrademark').hide('slow');
             $('#showtrademark').toggle('slow');
         });
 
-        $('#hiddentrademark').click(function() {
+        $('#hiddentrademark').click(function () {
             $('#showtrademark').toggle('slow');
             $('#addtrademark').toggle('slow');
         });
 
-        $('#addconfirmation').click(function() {
-            if ($('#newtrademark').val() != "") {
-
+        function inputtrademark() {
+            if ($('#newtrademark').val() == '') {
+                $('#spannewtrademark').text("Ingrese el nombre de la nueva Marca");
+            } else {
                 $('#spannewtrademark').text("");
+            }
+        }
+
+        $('#addconfirmation').click(function() {
+
+            if ($('#newtrademark').val() != "") {
 
                 var options = {};
                 options.url = '@Url.Action("ExistTrademark", "Trademarks")';
@@ -322,7 +320,7 @@
                 };
                 $.ajax(options);
             } else {
-                $('#spannewtrademark').text("Debe ingresar el nombre de la Marca");
+                inputtrademark();
             }
         });
 
@@ -332,7 +330,10 @@
             var x = this;
             e.preventDefault();
 
-            if (IsValidItem & IsValidItem2 & validcost & validcost2 & validcost3 & $('#idCategory').val() != '' & $('#trademarks').val() != 0) {
+            Marca();
+            ValidCost();
+
+            if (IsValidItem & IsValidItem2 & validcost & $('#idCategory').val() != '') {
                 bootbox.confirm({
                     title: "Confirmación",
                     message: "Usted está por agregar un nuevo producto",
