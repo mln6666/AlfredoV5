@@ -24,7 +24,7 @@
                     <option value="@item.IdCategory">@item.CategoryName</option>
                 }
             </select>
-            <span id="spancategory" style="color:red"></span>
+            <span id="spancategory" style="color: red"></span>
         </div>
     </div>
 
@@ -154,12 +154,11 @@
         var IsValidItem3;
 
         function category() {
+            $('#spancategory').text('');
             IsValidItem2 = true;
             if ($('#IdCategory').val() == '' | $('#IdCategory').val() == null) {
                 $('#spancategory').text('Debe seleccionar un Rubro');
                 IsValidItem2 = false;
-            } else {
-                $('#spancategory').text('');
             }
         }
 
