@@ -151,7 +151,7 @@
     {
         <tr>
             <td class="text-center">
-                <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center"/>
+                <input id="@("itemid" + @item.IdProduct)" type="text" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center"/>
             </td>
             <td>
                 <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
@@ -166,7 +166,7 @@
                 <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" style="text-align: center; width: 90%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
             </td>
             <td>
-                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" style="text-align: center" type="number" class="panel-info totalView dataContainer" value="@item.LineTotal" readonly="readonly"/>
+                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" style="text-align: center" type="text" class="panel-info totalView dataContainer" value="@item.LineTotal" readonly="readonly"/>
             </td>
             <td style="width: 2%">
                 <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
