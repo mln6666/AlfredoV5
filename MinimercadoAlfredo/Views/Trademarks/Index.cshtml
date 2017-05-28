@@ -8,7 +8,7 @@
 <hr style="color:grey;border-color:grey" />
 
 <div>
-    <a href="@Url.Action("Create", "Trademarks")" class="btn btn-success">Agregar Marca</a>
+    <a href="@Url.Action("Create", "Trademarks")" class="btn btn-success dialog-window1">Agregar Marca</a>
 </div>
 <br/>
 <table id="tabla" class="table table-condensed   table-striped table-bordered">
@@ -37,8 +37,8 @@
                 @Html.DisplayFor(modelItem => item.TrademarkDescription)
             </td>
             <td class="text-center">
-                <a href="@Url.Action("Edit", "Trademarks", new {id = item.IdTrademark})" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                <a href="@Url.Action("Delete", "Trademarks", new {id = item.IdTrademark})" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                <a href="@Url.Action("Edit", "Trademarks", new {id = item.IdTrademark})" class="btn btn-primary btn-sm dialog-window2" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                <a href="@Url.Action("Delete", "Trademarks", new {id = item.IdTrademark})" class="btn btn-danger btn-sm" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 
             </td>
         </tr>
@@ -46,6 +46,34 @@
     </tbody>
 
 </table>
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 4%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Agregar Marca</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 4%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Editar Marca</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script>
@@ -56,6 +84,44 @@
                 }
 
             });
-        })
+        });
+
+        $("body").on("click", "a.dialog-window1", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal1.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal1').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal1 .te').html(data);
+                    $('#myModal1').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+        $("body").on("click", "a.dialog-window2", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal2.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal2').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal2 .te').html(data);
+                    $('#myModal2').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
     </script>
 }

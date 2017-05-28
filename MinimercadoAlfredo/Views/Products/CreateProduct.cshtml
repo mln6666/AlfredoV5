@@ -39,7 +39,7 @@
                         <option value="@item.IdTrademark">@item.TrademarkName</option>
                     }
                 </select>
-                <button id="addtrademark" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-plus text-center"></span></button>
+                <button id="addtrademark" class="btn btn-success btn-xs" title="Agregar marca"><span class="glyphicon glyphicon-plus text-center"></span></button>
                 
                 <span id="spantrademark" style="color:red"></span>
             </div>
@@ -51,8 +51,8 @@
         <div class="col-md-2"></div>
         <div class="col-md-10">
             <input type="text" id="newtrademark" placeholder="Ingrese nueva marca" style="width: 280px" onchange="inputtrademark()" oninput="inputtrademark()"/>
-            <button id="addconfirmation" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok text-center"></span></button>
-            <button id="hiddentrademark" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove text-center"></span></button>
+            <button id="addconfirmation" class="btn btn-success btn-xs" title="Agregar"><span class="glyphicon glyphicon-ok text-center"></span></button>
+            <button id="hiddentrademark" class="btn btn-danger btn-xs" title="Cancelar"><span class="glyphicon glyphicon-remove text-center"></span></button>
             <span id="spannewtrademark" style="color: red"></span>
         </div>
     </div>
@@ -61,7 +61,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="text" id="ProductDescription" placeholder="Ingrese la descripción del producto" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
+            <input type="text" id="ProductDescription" class="" placeholder="Ingrese la descripción del producto" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
             <span id="spandescexistente" style="color:red"></span>
         </div>
 
