@@ -96,21 +96,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(category);
         }
 
-        //GET
-        public JsonResult CheckCategory(int dato)
-        {
-
-            var category = db.Categories.Find(dato);
-            var status = false;
-            //var name = category.CategoryName;
-            if (category.Products.Count() != 0)
-            {
-                status = true;
-            }
-
-            return Json(status, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult DeleteCategory(int dato)
         {
@@ -135,13 +120,6 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
-            if (category.Products.Count() != 0)
-            {
-                ViewBag.errorcategory = "Acción no permitida! Rubro con productos relacionados.";
-            }
-
-
-
             return View(category);
         }
 

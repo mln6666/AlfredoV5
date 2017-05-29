@@ -108,21 +108,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(trademark);
         }
 
-        //GET
-        public JsonResult CheckTrademark(int dato)
-        {
-
-            var trademark = db.Trademarks.Find(dato);
-            var status = false;
-            //var name = trademark.TrademarkName;
-            if (trademark.Products.Count() != 0)
-            {
-                status = true;
-            }
-
-            return Json(status, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
         public JsonResult DeleteTrademark(int dato)
         {
