@@ -147,13 +147,16 @@
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p class="text-center hidden-print"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ®  <a class="hidden-print" style="color:black ">@Html.ActionLink("Contacto", "Contact", "Home")</></a> - </p>
-        </footer>
-    </div>
+<div class="container body-content">
+
+    @RenderBody()
+    <hr/>
+    <footer>
+        +++++++++++
+        <p class="text-center hidden-print"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ® <a class="hidden-print" style="color: black">@Html.ActionLink("Contacto", "Contact", "Home")</></a> -
+        </p>
+    </footer>
+</div>
     @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
