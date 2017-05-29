@@ -265,7 +265,7 @@
             if ($('#newtrademark').val() != "") {
 
                 var options = {};
-                options.url = '@Url.Action("ExistTrademark", "Trademarks")';
+                options.url = '@Url.Action("ExisteMarca", "Trademarks")';
                 options.type = "GET";
                 options.data = { "trademark": $("#newtrademark").val() };
                 options.dataType = "json";

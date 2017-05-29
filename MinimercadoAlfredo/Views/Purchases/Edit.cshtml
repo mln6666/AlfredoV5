@@ -135,7 +135,7 @@
         {
             <tr>
                 <td>
-                    <input id="@("itemid" + @item.IdProduct)" type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent" />
+                    <input id="@("itemid" + @item.IdProduct)" type="text" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; text-align: center" />
                 </td>
                 <td>
                     <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent" />
@@ -148,7 +148,7 @@
                 </td>
                
                 <td>
-                    <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="number" class="panel-info text-center totalView dataContainer" value="@item.LineTotal" readonly="readonly" />
+                    <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" class="panel-info text-center totalView dataContainer" value="@item.LineTotal" readonly="readonly" />
                 </td>
                 <td style="width: 2%">
                     <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -323,7 +323,7 @@
                 var idproduct = $('#linedescription').val();
                 $('#insert').append('<tr id="inserttd'+idproduct+'"></tr>');
 
-                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" readonly="readonly" style="border: none; background-color: transparent" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemid'+idproduct+'" name="productid" readonly="readonly" style="border: none; background-color: transparent; text-align: center" /></td>');
                 $('#itemid' + idproduct).val(idproduct);
 
                 $('#inserttd' + idproduct).append('<td><input id="itemdesc'+idproduct+'" name="productdescription" readonly="readonly" style="border: none; background-color: transparent" /></td>');

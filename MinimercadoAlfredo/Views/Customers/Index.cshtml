@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.CuitCuil)
                 </td>
                 <td class="text-center">
-                    <a href="@Url.Action("Edit","Customers", new { id = item.IdCustomer })" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a href="@Url.Action("Edit", "Customers", new {id = item.IdCustomer})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     <a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     
                 </td>

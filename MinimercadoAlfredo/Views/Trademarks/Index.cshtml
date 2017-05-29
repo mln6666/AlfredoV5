@@ -38,8 +38,7 @@
             </td>
             <td class="text-center">
                 <a href="@Url.Action("Edit", "Trademarks", new {id = item.IdTrademark})" class="btn btn-primary btn-sm dialog-window2" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                <a href="@Url.Action("Delete", "Trademarks", new {id = item.IdTrademark})" class="btn btn-danger btn-sm" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-
+                <a id="@("del" + item.IdTrademark)" class="btn btn-danger btn-sm" onclick="del(@item.IdTrademark)" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
             </td>
         </tr>
     }
@@ -123,5 +122,68 @@
                 }).success(function () { $('input:text:visible:first').focus(); });
             }
         });
+
+        function del(trademark) {
+            var options = {};
+            options.url = '@Url.Action("CheckTrademark", "Trademarks")';
+            options.type = "GET";
+            options.data = { "dato": trademark };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    bootbox.alert({
+                        message: "Solo es posible eliminar marcas sin productos asociados",
+                        buttons: {
+                            ok: {
+                                label: "Aceptar",
+                                className: "btn-primary"
+                            }
+                        }
+                    });
+                } else {
+                    bootbox.confirm({
+                        title: "Eliminar marca",
+                        message: "Esta seguro de eliminar esta marca?",
+                        buttons: {
+                            confirm: {
+                                label: "Eliminar",
+                                className: "btn-danger"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+                        },
+                        callback: function(result) {
+                            if (result) {
+                                
+                                var options2 = {};
+                                options2.url = '@Url.Action("DeleteTrademark", "Trademarks")';
+                                options2.type = "POST";
+                                options2.data = { "dato": trademark };
+                                options2.dataType = "json";
+                                options2.success = function (data) {
+                                    if (data) {
+                                        toastr.success("Marca eliminada exitosamente");
+
+                                        $('#del' + trademark).closest('tr').remove();
+
+                                    }
+
+
+                                };
+                                $.ajax(options2);
+
+                            }
+                        }
+                    });
+                    
+                }
+
+
+            };
+            $.ajax(options);
+        }
+        
     </script>
 }

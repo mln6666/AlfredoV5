@@ -16,16 +16,16 @@
         @Html.HiddenFor(model => model.IdCategory)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
                 <span id="spancategoryname" style="color:red"></span>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CategoryDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-4" })
-            <div class="col-md-8">
+            @Html.LabelFor(model => model.CategoryDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
                 @Html.EditorFor(model => model.CategoryDescription, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CategoryDescription, "", new { @class = "text-danger" })
             </div>

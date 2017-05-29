@@ -4,7 +4,7 @@
     Layout= null;
 }
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Trademarks", null, FormMethod.Post, new { id = "editarmarca" }))
 {
     @Html.AntiForgeryToken()
     
@@ -16,7 +16,7 @@
             @Html.LabelFor(model => model.TrademarkName, htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.EditorFor(model => model.TrademarkName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TrademarkName, "", new { @class = "text-danger" })
+                <span id="spantrademark" style="color: red"></span>
             </div>
         </div>
 
@@ -34,3 +34,52 @@
         </div>
     </div>
 }
+
+<script>
+    $('#editarmarca').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        var options = {};
+        options.url = '@Url.Action("ExisteMarca", "Trademarks")';
+        options.type = "GET";
+        options.data = { "nombre": $("#TrademarkName").val(), "trademark": $("#IdTrademark").val() };
+        options.dataType = "json";
+        options.success = function (data) {
+            if (data) {
+                $('#spantrademark').text("*Marca existente !");
+
+            } else {
+                if ($('#TrademarkName').val().trim() == '') {
+
+                    $('#spantrademark').text("* Campo requerido !");
+                }
+                else {
+                    $('#spantrademark').text("");
+                    bootbox.confirm({
+                        title: "Confirmación",
+                        message: "Está por editar una Marca",
+                        buttons: {
+                            confirm: {
+                                label: "Confirmar",
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                x.submit();
+                            }
+                        }
+                    });
+                }
+            }
+
+
+        };
+        $.ajax(options);
+    });
+</script>

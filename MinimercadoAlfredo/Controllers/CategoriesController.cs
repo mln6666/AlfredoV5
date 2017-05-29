@@ -96,6 +96,33 @@ namespace MinimercadoAlfredo.Controllers
             return View(category);
         }
 
+        //GET
+        public JsonResult CheckCategory(int dato)
+        {
+
+            var category = db.Categories.Find(dato);
+            var status = false;
+            //var name = category.CategoryName;
+            if (category.Products.Count() != 0)
+            {
+                status = true;
+            }
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteCategory(int dato)
+        {
+            var status = false;
+            Category category = db.Categories.Find(dato);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            status = true;
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {

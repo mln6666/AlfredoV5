@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using MinimercadoAlfredo.Context;
 using MinimercadoAlfredo.Models;
 
@@ -28,19 +29,19 @@ namespace MinimercadoAlfredo.Controllers
             return View();
         }
 
-        public JsonResult ExisteMarca(string nombre)
+        public JsonResult ExisteMarca(string nombre, int? trademark)
         {
-            var existe = db.Trademarks.ToList().Exists(t => t.TrademarkName == nombre);
+            var existe = db.Trademarks.ToList().Exists(t => t.TrademarkName == nombre & t.IdTrademark != trademark);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ExistTrademark(string trademark)
-        {
-            var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == trademark);
+        //public JsonResult ExistTrademark(string trademark)
+        //{
+        //    var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == trademark);
 
-            return Json(exist, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(exist, JsonRequestBehavior.AllowGet);
+        //}
 
         [HttpPost]
         public JsonResult AddTrademark(string newtrademark)
@@ -105,6 +106,33 @@ namespace MinimercadoAlfredo.Controllers
                 return RedirectToAction("Index");
             }
             return View(trademark);
+        }
+
+        //GET
+        public JsonResult CheckTrademark(int dato)
+        {
+
+            var trademark = db.Trademarks.Find(dato);
+            var status = false;
+            //var name = trademark.TrademarkName;
+            if (trademark.Products.Count() != 0)
+            {
+                status = true;
+            }
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult DeleteTrademark(int dato)
+        {
+            var status = false;
+            Trademark trademark = db.Trademarks.Find(dato);
+            db.Trademarks.Remove(trademark);
+            db.SaveChanges();
+            status = true;
+
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
 
         // GET: Trademarks/Delete/5
