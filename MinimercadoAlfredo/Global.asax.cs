@@ -31,7 +31,7 @@ namespace MinimercadoAlfredo
         {
             AlfredoContext db = new AlfredoContext();
             ApplicationDbContext dc = new ApplicationDbContext();
-            if (dc.Users == null | dc.Users.Count() == 0)
+            if (dc.Users == null/* | dc.Users.Count() == 0*/)
             {
                 CreateRoles(dc);
                 CreateSuperuser(dc);

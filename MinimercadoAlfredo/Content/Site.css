@@ -1,4 +1,13 @@
-﻿body {
+﻿    .sinborde{border: none!important}
+    
+.fina {
+    height: initial!important;
+    padding-top: 2px!important;
+    padding-bottom: 2px!important;
+}
+
+
+body {
     padding-top: 0px;
     padding-bottom: 0px;
 }
