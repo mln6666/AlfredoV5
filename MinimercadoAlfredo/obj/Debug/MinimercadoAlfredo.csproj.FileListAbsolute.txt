@@ -911,3 +911,4 @@ E:\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
 E:\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\WebActivatorEx.dll
 C:\Proyectos\github\AlfredoV5\MinimercadoAlfredo\bin\WebActivatorEx.dll
+C:\Users\Kai\ProyectosGit\AlfredoV5\MinimercadoAlfredo\bin\WebActivatorEx.dll

@@ -29,9 +29,6 @@
 <hr style="margin-top: 10px;
     margin-bottom: 10px;" />
 
-<legend style="margin-bottom: 2px;">
-    Detalles Cliente
-</legend>
 <table class="table table-condensed   table-condensed table-bordered">
 
     <thead class="tableStyle">
@@ -70,29 +67,25 @@
             }
         </select>
         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     <td class="text-center">
         <input type="text" class="panel-info form-control inputForm" id="saleaddress" onFocus="this.select()" placeholder="" />
     </td>
     <td class="text-center">
         <input type="number" class="panel-info form-control inputForm" onFocus="this.select()" id="cuitcuil" placeholder="" />
-        <span class="error"></span>
+        <span class="text-danger"></span>
     </td>
     <td class="text-center">
         <input type="date" class="panel-info form-control inputForm" id="saledate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     </tbody>
 
 </table>
 
 
-
-<legend style="margin-bottom: 2px;">
-    Listado Productos
-</legend>
-<table id="mytable" class="table table-condensed   table-condensed table-bordered">
+<table id="mytable" class="table table-condensed   table-condensed table-bordered sinborde">
     <thead class="tableStyle">
         <tr class="text-center" >
             <th class="text-center">
@@ -125,29 +118,39 @@
             }
         </select>
         <input type="hidden" id="shadow" value="">
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     <td>
         <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     <td>
         <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     <td>
         <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
     <td>
-        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
-        <span class="error">Requerido</span>
+        <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="font-weight: bold" />
+        <span class="text-danger"></span>
     </td>
     <td>
         <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto" />Agregar
         <span class="glyphicon glyphicon-plus"></span>
     </td>
-
+    <tr id="trtot">
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <th class="text-center">TOTAL</th>
+        <td class="ftot">
+            <input type="text" class="panel-info form-control text-center fina" value="0.00" id="saletotal" placeholder="" readonly="readonly" style="font-weight: bold; border: none" />
+            <span id="spansaletotal" class="text-danger" style="display: block"></span>
+        </td>
+        <td class="sinborde"></td>
+    </tr>
     </tbody>
 
 
@@ -161,9 +164,6 @@
 
 </div>
 
-<legend style="margin-bottom: 2px;">
-    Resumen
-</legend>
 <table class="table table-condensed   table-striped table-bordered table-condensed">
 
     <thead class="tableStyle">
@@ -171,9 +171,9 @@
             <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 Observaciones
             </td>
-            <td class="text-center" style="border-radius: 3px; width: 200px; font-weight: bold">
+            @*<td class="text-center" style="border-radius: 3px; width: 200px; font-weight: bold">
                 Total
-            </td>
+            </td>*@
         </tr>
     </thead>
     <tbody>
@@ -182,10 +182,10 @@
                 <textarea type="text" style="width: 300px;" class="panel-info form-control sizeComment" id="comments" onFocus="this.select()" placeholder=""></textarea>
 
             </td>
-            <td>
+            @*<td>
                 <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="saletotal" placeholder="" readonly="readonly" />
                 <span class="error">Requerido</span>
-            </td>
+            </td>*@
         </tr>
 
     </tbody>
@@ -356,49 +356,48 @@
                 var isValidItem = true;
                 if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
                     isValidItem = false;
-                    $('#linedescription').siblings('span.error').css('visibility', 'visible');
+                    $('#linedescription').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linedescription').siblings('span.error').css('visibility', 'hidden');
+                    $('#linedescription').siblings('span.text-danger').html('');
                 }
 
                 if ($('#lineprice').val().trim() == '') {
                     isValidItem = false;
-                    $('#lineprice').siblings('span.error').css('visibility', 'visible');
+                    $('#lineprice').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#lineprice').siblings('span.error').css('visibility', 'hidden');
+                    $('#lineprice').siblings('span.text-danger').html('');
                 }
 
                 if ($('#linediscount').val().trim() == '') {
                     isValidItem = false;
-                    $('#linediscount').siblings('span.error').css('visibility', 'visible');
+                    $('#linediscount').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linediscount').siblings('span.error').css('visibility', 'hidden');
+                    $('#linediscount').siblings('span.text-danger').html('');
                 }
                 if ($('#linediscount').val().trim() == '') {
                     isValidItem = false;
-                    $('#linediscount').siblings('span.error').css('visibility', 'visible');
+                    $('#linediscount').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linediscount').siblings('span.error').css('visibility', 'hidden');
+                    $('#linediscount').siblings('span.text-danger').html('');
                 }
                 if ($('#linequantity').val().trim() == '') {
                     isValidItem = false;
-                    $('#linequantity').siblings('span.error').text('Requerido');
-                    $('#linequantity').siblings('span.error').css('visibility', 'visible');
+                    $('#linequantity').siblings('span.text-danger').html('Requerido.');
                 } else {
                     if ($('#linequantity').val().trim() * 1 == 0) {
                         isValidItem = false;
-                        $('#linequantity').siblings('span.error').text('Valor min: 1');
+                        $('#linequantity').siblings('span.text-danger').html('Valor min: 1');
 
-                        $('#linequantity').siblings('span.error').css('visibility', 'visible');
+                      
                     } else {
-                        $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                        $('#linequantity').siblings('span.text-danger').html('');
                     }
                 }
                 if ($('#linetotal').val().trim() == '') {
                     isValidItem = false;
-                    $('#linetotal').siblings('span.error').css('visibility', 'visible');
+                    $('#linetotal').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linetotal').siblings('span.error').css('visibility', 'hidden');
+                    $('#linetotal').siblings('span.text-danger').html('');
                 }
 
                 if (isValidItem) {
@@ -539,23 +538,23 @@
 
 
                 if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
-                    $('#customername').siblings('span.error').css('visibility', 'visible');
+                    $('#customername').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#customername').siblings('span.error').css('visibility', 'hidden');
+                    $('#customername').siblings('span.text-danger').html('');
                 }
 
                 if ($('#saledate').val().trim() == '') {
-                    $('#saledate').siblings('span.error').css('visibility', 'visible');
+                    $('#saledate').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#saledate').siblings('span.error').css('visibility', 'hidden');
+                    $('#saledate').siblings('span.text-danger').html('');
                 }
                 if ($('#saletotal').val().trim() == '') {
-                    $('#saletotal').siblings('span.error').css('visibility', 'visible');
+                    $('#saletotal').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#saletotal').siblings('span.error').css('visibility', 'hidden');
+                    $('#saletotal').siblings('span.text-danger').html('');
                 }
 
                 //Save if valid
@@ -612,23 +611,23 @@
                 }
 
                 if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
-                    $('#customername').siblings('span.error').css('visibility', 'visible');
+                    $('#customername').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#customername').siblings('span.error').css('visibility', 'hidden');
+                    $('#customername').siblings('span.text-danger').html('');
                 }
 
                 if ($('#saledate').val().trim() == '') {
-                    $('#saledate').siblings('span.error').css('visibility', 'visible');
+                    $('#saledate').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#saledate').siblings('span.error').css('visibility', 'hidden');
+                    $('#saledate').siblings('span.text-danger').html('');
                 }
                 if ($('#saletotal').val().trim() == '') {
-                    $('#saletotal').siblings('span.error').css('visibility', 'visible');
+                    $('#saletotal').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#saletotal').siblings('span.error').css('visibility', 'hidden');
+                    $('#saletotal').siblings('span.text-danger').html('');
                 }
 
 
@@ -710,7 +709,7 @@
 
                     });
                     $row.append($('<td></td>').append($remove));
-                    $('#mytable > tbody:last').append($row);
+                    $('#trtot').before($row);
                 });
             } else {
                 $('#orderItems').html('');
