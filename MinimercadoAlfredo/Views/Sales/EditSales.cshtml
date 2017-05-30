@@ -15,6 +15,12 @@
             <th>
                 Cliente
             </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                CUIT/CUIL
+            </th>
             <th style="width: 220px">
                 Estado de Venta
             </th>
@@ -30,7 +36,7 @@
                 @Html.DisplayFor(model => model.IdSale)
             </td>
             <td>
-                <select class="js-example-basic-single inputForm" id="customerid" style="width: 350px">
+                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)">
                     <option value="@Model.IdCustomer">@Model.Customer.CustomerName</option>
                     @foreach (var item in ViewBag.Customers)
                     {
@@ -41,6 +47,12 @@
                     }
                 </select>
 
+            </td>
+            <td>
+                <input type="text" id="customeraddress" value="@Model.SaleAddress" readonly="readonly" style="border-color: transparent" />
+            </td>
+            <td style="width: 13%">
+                <input type="text" id="customercuil" value="@Model.Customer.CuitCuil" readonly="readonly" style="border-color: transparent" width="100%" />
             </td>
             <td style="color: black; font-weight: bold">
                 <select class="inputForm" id="salestate">
@@ -235,6 +247,25 @@
             $("#nuevalinea").toggle("slow");
             $("#mostrar").toggle("slow");
         });
+
+        //CARGA AUTOMÁTICA DE DIRECCIÓN Y CUIL/CUIT DE CLIENTE
+
+        function changecust(idcustomer) {
+            var options = {};
+            options.url = '@Url.Action("Getcustomerdata", "Sales")';
+            options.type = "GET";
+            options.data = { "cus": idcustomer };
+            options.dataType = "json";
+            options.success = function(data) {
+                if (data.CustomerAddress != null) {
+                    $('#customeraddress').val(data.CustomerAddress);
+                }
+                if (data.CuitCuil != null) {
+                    $('#customercuil').val(data.CuitCuil);
+                }
+            };
+            $.ajax(options);
+        }
 
         //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
 
