@@ -36,13 +36,6 @@ namespace MinimercadoAlfredo.Controllers
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult ExistTrademark(string trademark)
-        //{
-        //    var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == trademark);
-
-        //    return Json(exist, JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpPost]
         public JsonResult AddTrademark(string newtrademark)
         {
@@ -118,32 +111,6 @@ namespace MinimercadoAlfredo.Controllers
             status = true;
 
             return Json(status, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Trademarks/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Trademark trademark = db.Trademarks.Find(id);
-            if (trademark == null)
-            {
-                return HttpNotFound();
-            }
-            return View(trademark);
-        }
-
-        // POST: Trademarks/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Trademark trademark = db.Trademarks.Find(id);
-            db.Trademarks.Remove(trademark);
-            db.SaveChanges();
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

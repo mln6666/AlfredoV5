@@ -46,16 +46,6 @@ namespace MinimercadoAlfredo.Controllers
         {
             if (ModelState.IsValid)
             {
-                //IEnumerable<int> query = (from c in db.Categories
-                //                          where c.CategoryName == category.CategoryName
-                //                          select c.IdCategory);
-
-                //if (query.Count() != 0)
-                //{
-                //    ViewBag.RubroExistente = "Rubro Existente.";
-                //    return View("Index", db.Categories.ToList());
-                //}
-
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,37 +96,6 @@ namespace MinimercadoAlfredo.Controllers
             status = true;
 
             return Json(status, JsonRequestBehavior.AllowGet);
-        }
-
-        // GET: Categories/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Category category = db.Categories.Find(id);
-            if (category.Products.Count() != 0)
-            {
-                return HttpNotFound();
-            }
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            TempData["message"] = 1;
-            return RedirectToAction("Index", "Categories");
         }
 
         protected override void Dispose(bool disposing)
