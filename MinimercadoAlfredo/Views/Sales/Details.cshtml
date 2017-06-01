@@ -30,13 +30,12 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(model => model.IdSale)
             </td>
 
             <td>
                 @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
-                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
             </td>
             <td>
                 @if (Model.SaleAddress == "" | Model.SaleAddress == null)
@@ -356,7 +355,7 @@
     </div>
 </div>
 
-                    @*<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -368,7 +367,7 @@
             </div>
         </div>
     </div>
-</div>*@
+</div>
 
 @section scripts
 {<script src="@Url.Content("~/Scripts/printThis.js")"></script>
@@ -384,14 +383,15 @@
 
             });
         }
-        $(document).ready(function () {
+
+        $(document).ready(function() {
             //$("#tabla").DataTable({
             //    "language": {
             //        "url": "/Scripts/DataTables/spanish.json"
             //    }
             //});
 
-            $("body").on("click", "a.dialog-window2", null, function (e) {
+            $("body").on("click", "a.dialog-window2", null, function(e) {
                 e.preventDefault();
 
                 var $link = $(this); // Reference to <a/> link
@@ -401,33 +401,31 @@
                 var url = $(this).attr('href');
                 if (url.indexOf('#') == 0) {
                     $('#myModal2').modal('show');
-                }
-                else {
-                    $.get(url, function (data) {
+                } else {
+                    $.get(url, function(data) {
                         $('#myModal2 .te').html(data);
                         $('#myModal2').modal();
-                    }).success(function () { $('input:text:visible:first').focus(); });
+                    }).success(function() { $('input:text:visible:first').focus(); });
                 }
             });
 
-            //$("body").on("click", "a.dialog-window", null, function (e) {
-            //    e.preventDefault();
+            $("body").on("click", "a.dialog-window", null, function(e) {
+                e.preventDefault();
 
-            //    var $link = $(this); // Reference to <a/> link
-            //    var title = $link.text(); //this is title to fetch in htnl
-            //    $('#myModal.modal-title').html(title);
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal.modal-title').html(title);
 
-            //    var url = $(this).attr('href');
-            //    if (url.indexOf('#') == 0) {
-            //        $('#myModal').modal('show');
-            //    }
-            //    else {
-            //        $.get(url, function (data) {
-            //            $('#myModal .te').html(data);
-            //            $('#myModal').modal();
-            //        }).success(function () { $('input:text:visible:first').focus(); });
-            //    }
-            //});
-        })
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal .te').html(data);
+                        $('#myModal').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+        });
     </script>
 }

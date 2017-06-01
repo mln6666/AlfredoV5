@@ -236,6 +236,8 @@
             //$('#Date').datepicker();
 
             $(".js-example-basic-single").select2();
+
+            changecust(@Model.IdCustomer);
         });
 
         $("#mostrar").click(function () {
@@ -523,24 +525,24 @@
                 var productquantities = [];
                 var productprices = [];
                 var productdiscounts = [];
-                var productsubtotals = [];
+                //var productsubtotals = [];
                 
                 $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
-                $('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
+                //$('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
                 $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
                 $('input[name="productprice"]').map(function () { productprices.push(parseFloat(this.value)) });
                 $('input[name="productdiscount"]').map(function () { productdiscounts.push(parseFloat(this.value)) });
-                $('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
+                //$('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
 
                 var product;
                 for (var i = 0; i < productids.length; i++) {
                     product = {
-                        ProductId: productids[i],
-                        ProductDescription: productdescriptions[i],
-                        ProductQuantity: productquantities[i],
-                        ProductPrice: productprices[i],
-                        ProductDiscount: productdiscounts[i],
-                        ProductSubtotal: productsubtotals[i]
+                        IdProduct: productids[i],
+                        //ProductDescription: productdescriptions[i],
+                        LineQuantity: productquantities[i],
+                        LinePrice: productprices[i],
+                        LineDiscount: productdiscounts[i],
+                        LineTotal: (productquantities[i]*productprices[i]) - (productquantities[i]*productprices[i]*productdiscounts[i]/100)
                     }
 
                     saleproducts.push(product);
