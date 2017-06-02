@@ -485,47 +485,49 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditSales(EditSaleVM sale)
+        public JsonResult EditSales(Sale sale)
         {
             Sale s = db.Sales.Find(sale.IdSale);
+            List<int> list = new List<int>();
+
+            foreach (var item in s.SaleLines)
+            {
+                list.Add(item.IdSaleLine);
+            }
+
+            foreach (var elim in list)
+            {
+                SaleLine eline = new SaleLine();
+                eline = db.SaleLines.Find(elim);
+                db.SaleLines.Remove(eline);
+                db.SaveChanges();
+            }
 
             if (ModelState.IsValid)
             {
-                s.IdCustomer = sale.SaleCustomer;
-                s.SaleAddress = db.Customers.Find(sale.SaleCustomer).CustomerAddress;
-                s.Bill.IdBill = s.Bill.IdBill;
-                if (sale.SaleState == 0)
-                {
-                    s.SaleState = SaleState.Pendiente;
-                }
-                else
-                {
-                    s.SaleState = SaleState.Finalizada;
-                }
-                s.SaleDate = s.SaleDate;
-                s.Comments = sale.SaleComments;
-                s.SaleLines.Clear();
-
-                foreach (var item in sale.SaleLines)
-                {
-                    var saleline = new SaleLine
-                    {
-                        IdSaleLine = db.SaleLines.Count() + 1,
-                        IdSale = sale.IdSale,
-                        IdProduct = item.IdProduct,
-                        Product = db.Products.Find(item.IdProduct),
-                        LineQuantity = item.LineQuantity,
-                        LinePrice = item.LinePrice,
-                        LineDiscount = item.LineDiscount,
-                        LineTotal = item.LineTotal
-                    };
-
-                    s.SaleLines.Add(saleline);
-                    db.SaveChanges();
-                }
-
+                s.IdCustomer = sale.IdCustomer;
+                s.SaleState = sale.SaleState;
+                s.SaleTotal = sale.SaleTotal;
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
+
+                foreach (var i in sale.SaleLines)
+                {
+                    SaleLine sl = new SaleLine
+                    {
+                        IdSale = i.IdSale,
+                        IdProduct = i.IdProduct,
+                        LinePrice = i.LinePrice,
+                        LineQuantity = i.LineQuantity,
+                        LineDiscount = i.LineDiscount,
+                        LineTotal = i.LineTotal,
+                        LineTotalReturn = i.LineTotal
+                        
+                    };
+
+                    db.SaleLines.Add(sl);
+                    db.SaveChanges();
+                }
 
                 return new JsonResult { Data = new { status = true }};
             }

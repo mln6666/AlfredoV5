@@ -521,7 +521,7 @@
             if ($('#spanquantitytable').val() == '' & $('#spanpricetable').val() == '' & $('#spandiscounttable').val() == '') {
                 var saleproducts = [];
                 var productids = [];
-                var productdescriptions = [];
+                //var productdescriptions = [];
                 var productquantities = [];
                 var productprices = [];
                 var productdiscounts = [];
@@ -552,9 +552,9 @@
                     IdSale: @Model.IdSale,
                     SaleState: parseInt($('#salestate').val()),
                     @*SaleDate: @Model.SaleDate,*@
-                    SaleCustomer: $('#customerid').val(),
+                    IdCustomer: $('#customerid').val(),
                     SaleLines: saleproducts,
-                    SaleComments: $('#salecomments').val(),
+                    Comments: $('#salecomments').val(),
                     SaleTotal: $('#totalgral').val()
 
                 }

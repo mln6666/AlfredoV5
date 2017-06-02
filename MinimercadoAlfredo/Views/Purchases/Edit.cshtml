@@ -29,7 +29,7 @@
                 @Html.DisplayFor(model => model.IdPurchase)
             </td>
             <td>
-                <select class="js-example-basic-single inputForm" id="customerid">
+                <select class="js-example-basic-single inputForm" id="providerid">
                     <option value="@Model.IdProvider">@Model.Provider.ProviderName</option>
                     @foreach (var item in ViewBag.Providers)
                     {
@@ -435,25 +435,25 @@
             if ($('#spanquantitytable').val() == '' & $('#spancosttable').val() == '') {
                 var purchaseproducts = [];
                 var productids = [];
-                var productdescriptions = [];
+                //var productdescriptions = [];
                 var productquantities = [];
                 var productcosts = [];
-                var productsubtotals = [];
+                //var productsubtotals = [];
 
                 $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
-                $('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
+                //$('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
                 $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
                 $('input[name="productcost"]').map(function () { productcosts.push(parseFloat(this.value)) });
-                $('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
+                //$('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
 
                 var product;
                 for (var i = 0; i < productids.length; i++) {
                     product = {
-                        ProductId: productids[i],
-                        ProductDescription: productdescriptions[i],
-                        ProductQuantity: productquantities[i],
-                        ProductCost: productcosts[i],
-                        ProductSubtotal: productsubtotals[i]
+                        IdProduct: productids[i],
+                        //ProductDescription: productdescriptions[i],
+                        LineQuantity: productquantities[i],
+                        LinePrice: productcosts[i],
+                        LineTotal: (productquantities[i]*productcosts)
                     }
 
                     purchaseproducts.push(product);
@@ -461,11 +461,11 @@
 
                 var purchase = {
                     IdPurchase: @Model.IdPurchase,
-                    @*SaleDate: @Model.SaleDate,*@
-                    SaleCustomer: $('#customerid').val(),
-                    SaleLines: purchaseproducts,
-                    SaleComments: $('#purchasecomments').val(),
-                    SaleTotal: $('#totalgral').val()
+                    @*PurchaseDate: @Model.PurchaseDate,*@
+                    IdProvider: $('#providerid').val(),
+                    PurchaseLines: purchaseproducts,
+                    Comments: $('#purchasecomments').val(),
+                    PurchaseTotal: $('#totalgral').val()
 
                 }
 
@@ -477,7 +477,7 @@
                     contentType: "application/json",
                     success: function(d) {
                         if (d.status) {
-                            var url = '@Url.Action("Index", "Purchases")';
+                            var url = '@Url.Action("Index", "Purchases", new { message = 2})';
                             window.location.href = url;
                         }
                     }

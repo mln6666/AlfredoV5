@@ -17,13 +17,17 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Purchases
-        public ActionResult Index(bool? message)
+        public ActionResult Index(int? message)
         {
             var purchases = db.Purchases.Include(p => p.Provider);
 
             if (message != null)
             {
-                ViewBag.message = "La Compra ha sido eliminada correctamente.";
+                if (message == 2)
+                {
+                    TempData["message"] = 2;
+                }
+                    
             }
 
             return View(purchases.ToList().OrderByDescending(p => p.PurchaseDate));
@@ -186,6 +190,57 @@ namespace MinimercadoAlfredo.Controllers
                 status = false;
             }
             return new JsonResult { Data = new { status = status } };
+        }
+
+        [HttpPost]
+        public JsonResult EditPurchases(Purchase purchase)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in db.PurchaseLines)
+                {
+                    if (item.IdPurchase == purchase.IdPurchase)
+                    {
+                        db.PurchaseLines.Remove(db.PurchaseLines.Find(item.IdPurchaseLine));
+                    }
+                }
+
+                db.Purchases.Remove(purchase);
+
+                Purchase p = new Purchase
+                {
+                    IdPurchase = purchase.IdPurchase,
+                    IdProvider = purchase.IdProvider,
+                    PurchaseDate = DateTime.Today,
+                    Comments = purchase.Comments,
+                    PurchaseTotal = purchase.PurchaseTotal
+
+                };
+
+                foreach (var item in purchase.PurchaseLines)
+                {
+                    PurchaseLine line = new PurchaseLine
+                    {
+                        IdPurchase = purchase.IdPurchase,
+                        IdProduct = item.IdProduct,
+                        LinePrice = item.LinePrice,
+                        LineQuantity = item.LineQuantity,
+                        LineTotal = item.LineTotal,
+
+                    };
+
+                    p.PurchaseLines.Add(line);
+                }
+                db.Purchases.Add(p);
+                db.SaveChanges();
+
+                return new JsonResult {Data = new {status = true}};
+            }
+            else
+            {
+                return new JsonResult { Data = new { status = false } };
+            }
+            
         }
 
 

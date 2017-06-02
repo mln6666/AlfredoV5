@@ -4,6 +4,11 @@
     ViewBag.Title = "Compras";
 }
 
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
 <h2 class="text-center">Lista de Compras</h2>
 <hr style="color:grey;border-color:grey" />
 
@@ -86,18 +91,20 @@
 @section scripts
 {
     <script>
-        $('#myModal').modal('show')
+        $('#myModal').modal('show');
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             ////Grilla automatica//
             $("#tabla").DataTable({
                 order: [[1, "desc"]],
                 "language": { "url": "/Scripts/DataTables/spanish.json" }
             });
-            
+
             $('.dropdown-toggle').dropdown();
-            
-        })
+
+            if ($('#message').val() == 2)
+                toastr.success("Compra modificada exitosamente");
+        });
     </script>    
 }
