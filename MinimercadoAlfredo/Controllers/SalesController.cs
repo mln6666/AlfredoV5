@@ -490,7 +490,7 @@ namespace MinimercadoAlfredo.Controllers
             Sale s = db.Sales.Find(sale.IdSale);
             List<int> list = new List<int>();
 
-            foreach (var item in s.SaleLines)
+            foreach (var item in s.SaleLines.ToList())
             {
                 list.Add(item.IdSaleLine);
             }
@@ -513,17 +513,17 @@ namespace MinimercadoAlfredo.Controllers
 
                 foreach (var i in sale.SaleLines)
                 {
-                    SaleLine sl = new SaleLine
-                    {
-                        IdSale = i.IdSale,
-                        IdProduct = i.IdProduct,
-                        LinePrice = i.LinePrice,
-                        LineQuantity = i.LineQuantity,
-                        LineDiscount = i.LineDiscount,
-                        LineTotal = i.LineTotal,
-                        LineTotalReturn = i.LineTotal
+                    var sl = new SaleLine();
+
+                    sl.IdSale = s.IdSale;
+                    sl.IdProduct = i.IdProduct;
+                    sl.LinePrice = i.LinePrice;
+                    sl.LineQuantity = i.LineQuantity;
+                    sl.LineDiscount = i.LineDiscount;
+                    sl.LineTotal = i.LineTotal;
+                    sl.LineTotalReturn = i.LineTotal;
                         
-                    };
+                  
 
                     db.SaleLines.Add(sl);
                     db.SaveChanges();
