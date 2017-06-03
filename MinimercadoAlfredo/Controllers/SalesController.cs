@@ -505,7 +505,10 @@ namespace MinimercadoAlfredo.Controllers
 
                 Product product = db.Products.Find(eline.IdProduct);
                 product.ParcialStock = product.ParcialStock + eline.LineQuantity;
-                product.Stock = product.Stock + eline.LineQuantity;
+                if (sale.SaleState == SaleState.Finalizada)
+                {
+                    product.Stock = product.Stock + eline.LineQuantity;
+                }
                 
                 db.Entry(product).State = EntityState.Modified;
 
@@ -539,7 +542,7 @@ namespace MinimercadoAlfredo.Controllers
                         product.ParcialStock = product.ParcialStock - i.LineQuantity;
                         if (sale.SaleState == SaleState.Finalizada)
                         {
-                            product.Stock = product.ParcialStock;
+                            product.Stock = product.Stock - i.LineQuantity;
                         }
                         db.Entry(product).State = EntityState.Modified;
 
