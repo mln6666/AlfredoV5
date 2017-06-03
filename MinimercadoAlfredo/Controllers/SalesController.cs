@@ -20,13 +20,16 @@ namespace MinimercadoAlfredo.Controllers
       
 
         // GET: Sales
-        public ActionResult Index(bool? message)
+        public ActionResult Index(int? message)
         {
             var sales = db.Sales.Include(s => s.Customer);
 
             if (message != null)
             {
-                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+                if (message == 2)
+                {
+                    TempData["message"] = 2;
+                }
             }
 
             return View(sales.ToList());
@@ -499,6 +502,13 @@ namespace MinimercadoAlfredo.Controllers
             {
                 SaleLine eline = new SaleLine();
                 eline = db.SaleLines.Find(elim);
+
+                Product product = db.Products.Find(eline.IdProduct);
+                product.ParcialStock = product.ParcialStock + eline.LineQuantity;
+                product.Stock = product.Stock + eline.LineQuantity;
+                
+                db.Entry(product).State = EntityState.Modified;
+
                 db.SaleLines.Remove(eline);
                 db.SaveChanges();
             }
@@ -511,22 +521,31 @@ namespace MinimercadoAlfredo.Controllers
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
 
-                foreach (var i in sale.SaleLines)
+                if (sale.SaleLines != null)
                 {
-                    var sl = new SaleLine();
+                    foreach (var i in sale.SaleLines)
+                    {
+                        var sl = new SaleLine();
 
-                    sl.IdSale = s.IdSale;
-                    sl.IdProduct = i.IdProduct;
-                    sl.LinePrice = i.LinePrice;
-                    sl.LineQuantity = i.LineQuantity;
-                    sl.LineDiscount = i.LineDiscount;
-                    sl.LineTotal = i.LineTotal;
-                    sl.LineTotalReturn = i.LineTotal;
-                        
-                  
+                        sl.IdSale = s.IdSale;
+                        sl.IdProduct = i.IdProduct;
+                        sl.LinePrice = i.LinePrice;
+                        sl.LineQuantity = i.LineQuantity;
+                        sl.LineDiscount = i.LineDiscount;
+                        sl.LineTotal = i.LineTotal;
+                        sl.LineTotalReturn = i.LineTotal;
 
-                    db.SaleLines.Add(sl);
-                    db.SaveChanges();
+                        Product product = db.Products.Find(i.IdProduct);
+                        product.ParcialStock = product.ParcialStock - i.LineQuantity;
+                        if (sale.SaleState == SaleState.Finalizada)
+                        {
+                            product.Stock = product.ParcialStock;
+                        }
+                        db.Entry(product).State = EntityState.Modified;
+
+                        db.SaleLines.Add(sl);
+                        db.SaveChanges();
+                    }
                 }
 
                 return new JsonResult { Data = new { status = true }};
