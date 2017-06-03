@@ -26,15 +26,12 @@ namespace MinimercadoAlfredo.Controllers
 
             if (message != null)
             {
-                if (message == 2)
-                {
-                    TempData["message"] = 2;
-                }
+                TempData["message"] = message;
             }
 
             return View(sales.ToList());
         }
-        public ActionResult Pending(bool? message)
+        public ActionResult Pending(int? message)
         {
             var sales = (from s in db.Sales
                             where s.SaleState == SaleState.Pendiente
@@ -42,12 +39,12 @@ namespace MinimercadoAlfredo.Controllers
 
             if (message != null)
             {
-                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+                TempData["message"] = message;
             }
 
             return View(sales);
         }
-        public ActionResult Finalized(bool? message)
+        public ActionResult Finalized(int? message)
         {
             var sales = (from s in db.Sales
                          where s.SaleState == SaleState.Finalizada
@@ -55,7 +52,7 @@ namespace MinimercadoAlfredo.Controllers
 
             if (message != null)
             {
-                ViewBag.message = "La Venta ha sido eliminada correctamente.";
+                TempData["message"] = message;
             }
 
             return View(sales);
@@ -500,8 +497,7 @@ namespace MinimercadoAlfredo.Controllers
 
             foreach (var elim in list)
             {
-                SaleLine eline = new SaleLine();
-                eline = db.SaleLines.Find(elim);
+                SaleLine eline = db.SaleLines.Find(elim);
 
                 Product product = db.Products.Find(eline.IdProduct);
                 product.ParcialStock = product.ParcialStock + eline.LineQuantity;
@@ -521,6 +517,8 @@ namespace MinimercadoAlfredo.Controllers
                 s.IdCustomer = sale.IdCustomer;
                 s.SaleState = sale.SaleState;
                 s.SaleTotal = sale.SaleTotal;
+                s.Comments = sale.Comments;
+                
                 db.Entry(s).State = EntityState.Modified;
                 db.SaveChanges();
 
@@ -654,9 +652,9 @@ namespace MinimercadoAlfredo.Controllers
 
             db.Sales.Remove(sale);
             db.SaveChanges();
-            if (view == 0) { return RedirectToAction("Index", new { message = true }); }
-            if (view == 1) { return RedirectToAction("Pending", new { message = true }); }
-            if (view == 2) { return RedirectToAction("Finalized", new { message = true }); }
+            if (view == 0) { return RedirectToAction("Index", new { message = 3 }); }
+            if (view == 1) { return RedirectToAction("Pending", new { message = 3 }); }
+            if (view == 2) { return RedirectToAction("Finalized", new { message = 3 }); }
 
             return RedirectToAction("Index", new { message = true});
         }

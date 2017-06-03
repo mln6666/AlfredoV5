@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar Compra";
 }
 
-<h2 class="text-center">Editar Venta</h2>
+<h2 class="text-center">Editar Compra</h2>
 <hr style="color:grey;border-color:grey" />
 @Html.HiddenFor(model => model.IdPurchase)
 <table class="table table-condensed table-striped table-bordered">
@@ -453,7 +453,7 @@
                         //ProductDescription: productdescriptions[i],
                         LineQuantity: productquantities[i],
                         LinePrice: productcosts[i],
-                        LineTotal: (productquantities[i]*productcosts)
+                        LineTotal: (productquantities[i]*productcosts[i])
                     }
 
                     purchaseproducts.push(product);

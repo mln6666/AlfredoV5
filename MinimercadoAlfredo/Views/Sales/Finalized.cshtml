@@ -4,10 +4,13 @@
 @{
     ViewBag.Title = "Ventas Finalizadas";
 }
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
 
 <h2 class="text-center">Lista de Ventas Finalizadas</h2>
 <hr style="color:grey;border-color:grey" />
-
 
 <div class="row">
     <div class="col-lg-10">
@@ -93,31 +96,10 @@
     </tbody>
 </table>
 
-@if (ViewBag.message != null)
-{
-    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@ViewBag.message</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-
 
 @section scripts
 {
     <script>
-        $('#myModal1').modal('show')
 
         $(document).ready(function() {
 
@@ -128,7 +110,14 @@
             });
             $('.dropdown-toggle').dropdown();
 
-        });
+            if ($('#message').val() == 2) {
+                toastr.success("Venta modificada exitosamente");
+            };
+            if ($('#message').val() == 3) {
+                toastr.success("Venta eliminada exitosamente");
+            };
+
+    });
 
         function finalized() {
             bootbox.alert({

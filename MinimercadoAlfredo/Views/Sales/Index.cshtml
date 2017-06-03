@@ -110,7 +110,6 @@
 @section scripts
 {
     <script>
-        $('#myModal1').modal('show');
 
         $(document).ready(function() {
 
@@ -124,6 +123,9 @@
 
             if ($('#message').val() == 2) {
                 toastr.success("Venta modificada exitosamente");
+            };
+            if ($('#message').val() == 3) {
+                toastr.success("Venta eliminada exitosamente");
             };
         });
 

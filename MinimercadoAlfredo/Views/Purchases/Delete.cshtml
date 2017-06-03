@@ -4,7 +4,8 @@
     ViewBag.Title = "Eliminar Compra";
 }
 
-<h3 class="text-center text-danger">¿Está seguro de eliminar la siguiente Compra?</h3>
+<h3 class="text-center" style="color:red">¿Está seguro de eliminar la siguiente Compra?</h3>
+<h4>AVISO IMPORTANTE: Los costos que usted haya actualizado con esta compra NO volverán a su valor anterior una vez completada la eliminación. Asegúrese luego que los productos incluidos en esta compra poseen el costo deseado.</h4>
 <hr style="color:grey;border-color:grey" />
 
 <table class="table table-condensed   table-striped table-bordered">
@@ -45,42 +46,43 @@
     </tbody>
 </table>
 <h3 class="text-center">Lista de Productos</h3>
-<hr style="color:grey;border-color:grey" />
+<hr style="color:grey; border-color: grey; margin-top: 0" />
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
-        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-            <td class="text-left" style="border-radius: 3px">
-                Producto
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Marca
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                N° Artículo
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Cantidad
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Costo Unitario
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Subtotal
-            </td>
-        </tr>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td class="text-left" style="border-radius: 3px">
+            N° Artículo
+        </td>
+        <td class="text-left" style="border-radius: 3px">
+            Producto
+        </td>
+        <td class="text-left" style="border-radius: 3px">
+            Marca
+        </td>
+
+        <td class="text-left" style="border-radius: 3px">
+            Cantidad
+        </td>
+        <td class="text-left" style="border-radius: 3px">
+            Costo Unitario
+        </td>
+        <td class="text-left" style="border-radius: 3px">
+            Subtotal
+        </td>
+    </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.PurchaseLines)
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LineQuantity)
@@ -122,7 +124,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color text-center">
+        <div class="form-actions no-color text-center" style="margin-top: 3%">
             <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
             
             <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>

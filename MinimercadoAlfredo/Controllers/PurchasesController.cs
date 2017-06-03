@@ -23,11 +23,8 @@ namespace MinimercadoAlfredo.Controllers
 
             if (message != null)
             {
-                if (message == 2)
-                {
-                    TempData["message"] = 2;
-                }
-                    
+                TempData["message"] = message;
+
             }
 
             return View(purchases.ToList().OrderByDescending(p => p.PurchaseDate));
@@ -195,52 +192,61 @@ namespace MinimercadoAlfredo.Controllers
         [HttpPost]
         public JsonResult EditPurchases(Purchase purchase)
         {
-            if (ModelState.IsValid)
+            Purchase p = db.Purchases.Find(purchase.IdPurchase);
+            List<int> list = new List<int>();
+
+            foreach (var item in p.PurchaseLines.ToList())
             {
-                foreach (var item in db.PurchaseLines)
-                {
-                    if (item.IdPurchase == purchase.IdPurchase)
-                    {
-                        db.PurchaseLines.Remove(db.PurchaseLines.Find(item.IdPurchaseLine));
-                    }
-                }
+                list.Add(item.IdPurchaseLine);
+            }
 
-                db.Purchases.Remove(purchase);
+            foreach (var elim in list)
+            {
+                PurchaseLine eline = db.PurchaseLines.Find(elim);
 
-                Purchase p = new Purchase
-                {
-                    IdPurchase = purchase.IdPurchase,
-                    IdProvider = purchase.IdProvider,
-                    PurchaseDate = DateTime.Today,
-                    Comments = purchase.Comments,
-                    PurchaseTotal = purchase.PurchaseTotal
+                Product product = new Product(); 
+                product = db.Products.Find(eline.IdProduct);
+                product.ParcialStock = product.ParcialStock - eline.LineQuantity;
+                product.Stock = product.Stock - eline.LineQuantity;
 
-                };
+                db.Entry(product).State = EntityState.Modified;
 
-                foreach (var item in purchase.PurchaseLines)
-                {
-                    PurchaseLine line = new PurchaseLine
-                    {
-                        IdPurchase = purchase.IdPurchase,
-                        IdProduct = item.IdProduct,
-                        LinePrice = item.LinePrice,
-                        LineQuantity = item.LineQuantity,
-                        LineTotal = item.LineTotal,
-
-                    };
-
-                    p.PurchaseLines.Add(line);
-                }
-                db.Purchases.Add(p);
+                db.PurchaseLines.Remove(eline);
                 db.SaveChanges();
+            }
 
-                return new JsonResult {Data = new {status = true}};
-            }
-            else
+            p.IdProvider = purchase.IdProvider;
+            p.PurchaseTotal = purchase.PurchaseTotal;
+            p.Comments = purchase.Comments;
+
+            db.Entry(p).State = EntityState.Modified;
+            db.SaveChanges();
+
+            if (purchase.PurchaseLines != null)
             {
-                return new JsonResult { Data = new { status = false } };
+                foreach (var i in purchase.PurchaseLines)
+                {
+                    var pl = new PurchaseLine();
+
+                    pl.IdPurchase = p.IdPurchase;
+                    pl.IdProduct = i.IdProduct;
+                    pl.LinePrice = i.LinePrice;
+                    pl.LineQuantity = i.LineQuantity;
+                    pl.LineTotal = i.LineTotal;
+
+                    Product product = db.Products.Find(i.IdProduct);
+                    product.ParcialStock = product.ParcialStock + i.LineQuantity;
+                    product.Stock = product.Stock + i.LineQuantity;
+
+                    db.Entry(product).State = EntityState.Modified;
+
+                    db.PurchaseLines.Add(pl);
+                    db.SaveChanges();
+                }
             }
-            
+
+            return new JsonResult { Data = new { status = true } };
+
         }
 
 
@@ -300,9 +306,30 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Purchase purchase = db.Purchases.Find(id);
+            List<int> list = new List<int>();
+
+            foreach (var item in purchase.PurchaseLines.ToList())
+            {
+                list.Add(item.IdPurchaseLine);
+            }
+
+            foreach (var elim in list)
+            {
+                PurchaseLine pl = db.PurchaseLines.Find(elim);
+
+                Product product = db.Products.Find(pl.IdProduct);
+                product.ParcialStock = product.ParcialStock - pl.LineQuantity;
+                product.Stock = product.Stock - pl.LineQuantity;
+
+                db.Entry(product).State = EntityState.Modified;
+
+                db.PurchaseLines.Remove(pl);
+                db.SaveChanges();
+            }
+
             db.Purchases.Remove(purchase);
             db.SaveChanges();
-            return RedirectToAction("Index", "Purchases", new { message = true });
+            return RedirectToAction("Index", "Purchases", new { message = 3 });
         }
 
         protected override void Dispose(bool disposing)

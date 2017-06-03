@@ -1,55 +1,56 @@
 ﻿@model MinimercadoAlfredo.Models.Sale
 @{
-    Layout = null;
+    ViewBag.Title = "Eliminar Venta";
 }
 
 
-<h3>¿Está seguro que desea eliminar la siguiente venta?</h3>
+<h3 class="text-center" style="color:red">¿Está seguro que desea eliminar la siguiente venta?</h3>
 <div>
 
-    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
+    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar" style="margin-top: 3%">
         <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
-                <th class="text-left" style="border-radius: 3px">
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" style="border-radius: 3px">
 
-                    Nº Venta
-                </th>
-                <th class="text-left" style="border-radius: 3px">
+                Nº Venta
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Estado Venta
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Cliente
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Dirección
+            </th>
+            <th class="text-left" style="border-radius: 3px;">
+                Cuit/Cuil
+            </th>
 
-                    Estado Venta
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Cliente
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Dirección
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Cuit/Cuil
-                </th>
-
-            </tr>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.IdSale)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.SaleState)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.Customer.CustomerName)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.SaleAddress)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.Customer.CuitCuil)
-                </td>
-            </tr>
+        <tr>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.Customer.CustomerName)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleAddress)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.Customer.CuitCuil)
+            </td>
+        </tr>
         </tbody>
     </table>
+    <h3 class="text-center">Lista de Productos</h3>
+    <hr style="color:grey; border-color: grey; margin-top: 0" />
     <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
         <thead>
             <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
@@ -67,7 +68,7 @@
                     Precio Unitario
                 </th>
                 <th class="text-left" style="border-radius: 3px;">
-                    Total
+                    Subtotal
                 </th>
 
             </tr>
@@ -91,11 +92,6 @@
                     <td class="text-left">
                         @Html.DisplayFor(modelItem => item.LineTotal)
                     </td>
-                    @*<td class="text-left">
-                            @Html.ActionLink("Editar", "Edit", new { id = item.IdPresentacionPlan }) |
-                            @Html.ActionLink("Detalles", "Details", new { id = item.IdPresentacionPlan }) |
-                            @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPresentacionPlan })
-                        </td>*@
                 </tr>
             }
         </tbody>
@@ -133,8 +129,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-            @*<input type="submit" value="Eliminar" class="btn btn-danger"/>*@
+            <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
             <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         </div>
     }
