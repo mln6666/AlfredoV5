@@ -243,10 +243,10 @@ namespace MinimercadoAlfredo.Controllers
 
         }
 
-        public ActionResult CreateProduct(bool? message)
+        public ActionResult CreateProduct(int? message)
         {
             if (message != null)
-                TempData["message"] = 1;
+                TempData["message"] = message;
 
             ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
             ViewBag.Categories = db.Categories.ToList().OrderBy(c => c.CategoryName);
