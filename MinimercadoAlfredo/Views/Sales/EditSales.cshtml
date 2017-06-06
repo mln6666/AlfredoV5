@@ -168,24 +168,34 @@
             <td>
                 <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
             </td>
-            <td>
+            <td class="text-center">
                 <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" style="text-align: center" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td>
-                <input id="@("itemprice" + @item.IdProduct)" name="productprice" style="text-align: center" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+            <td class="text-center">
+                <input id="@("itemprice" + @item.IdProduct)" name="productprice" style="text-align: center" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td>
-                <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" style="text-align: center; width: 90%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+            <td class="text-center">
+                <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" style="text-align: center; width: 90%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td>
+            <td class="text-center">
                 <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" style="text-align: center" type="text" class="panel-info totalView dataContainer" value="@item.LineTotal" readonly="readonly"/>
             </td>
-            <td style="width: 2%">
+            <td class="text-center" style="width: 2%">
                 <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
     }
     </tbody>
+    <tr>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <th style="border-color: transparent; text-align: center">TOTAL</th>
+        <td class="text-center" style="text-align: center">
+            <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.SaleTotal" readonly="readonly" />
+        </td>
+    </tr>
 </table>
 <span id="spanquantitytable" style="color: red"></span>
 <span id="spanpricetable" style="color: red"></span>
@@ -196,19 +206,12 @@
             <td>
                 Comentarios
             </td>
-            <td style="width: 25%">
-                Total
-            </td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
                 <input type="text" id="salecomments" value="@Model.Comments"/>
-            </td>
-            <td>
-                <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.SaleTotal" readonly="readonly" />
-                @*@Html.TextBoxFor(model => model.SaleTotal, new {@readonly = "readonly", @class = "totalView", @id = "totalgral"})*@
             </td>
         </tr>
     </tbody>
@@ -406,19 +409,19 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td><input id="itemquantity' + idproduct + '" name="productquantity" style="text-align: center" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" style="text-align: center" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="itemprice' + idproduct + '" name="productprice" style="text-align: center" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" style="text-align: center" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="itemdiscount' + idproduct + '" name="productdiscount" style="text-align: center; width: 90%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" style="text-align: center; width: 90%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
-                $('#inserttd' + idproduct).append('<td><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
 
-                $('#inserttd' + idproduct).append('<td><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
                 
                 $('#linedescription').val(0).trigger('change');
                 $('#linequantity').val('1');

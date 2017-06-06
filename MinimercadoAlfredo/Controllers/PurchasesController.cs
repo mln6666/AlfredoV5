@@ -59,6 +59,20 @@ namespace MinimercadoAlfredo.Controllers
             return View(provider);
         }
 
+        public JsonResult Getproviderdata(string prov)
+        {
+            var provid = Int32.Parse(prov);
+            AlfredoContext db = new AlfredoContext();
+            var providerdata = db.Providers.ToList().Find(u => u.IdProvider == provid).ProviderAddress;
+
+            if (providerdata == null)
+            {
+                providerdata = String.Empty;
+            }
+
+            return Json(providerdata, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: Purchases/Create
         public ActionResult Create()
         {
