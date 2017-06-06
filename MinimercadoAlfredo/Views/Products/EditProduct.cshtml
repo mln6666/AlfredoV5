@@ -1,7 +1,287 @@
-﻿@model MinimercadoAlfredo.Models.Product
+﻿@using MinimercadoAlfredo.Models
+@model MinimercadoAlfredo.Models.Product
 @{
     ViewBag.Title = "EditProduct";
 }
 
-<h2>EditProduct</h2>
+<h2 class="text-center">Editar Producto</h2>
+<hr style="color: grey; border-color: grey" />
 
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select class="js-example-basic-single" id="IdCategory" onchange="DescExistente()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                <option value="@Model.idCategory">@Model.Category.CategoryName</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    if (item.IdCategory != Model.idCategory)
+                    {
+                        <option value="@item.IdCategory">@item.CategoryName</option>
+                    }
+                }
+            </select>
+            <span id="spancategory" style="color: red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div>
+                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="DescExistente()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                    <option value="@Model.IdTrademark">@Model.Trademark.TrademarkName</option>
+                    @foreach (var item in ViewBag.Trademarks)
+                    {
+                        if (item.IdTrademark != Model.IdTrademark)
+                        {
+                            <option value="@item.IdTrademark">@item.TrademarkName</option>
+                        }
+                    }
+                </select>
+                <span id="spantrademark" style="color:red"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="text" id="ProductDescription" class="" value="@Model.ProductDescription" placeholder="Ingrese la descripción del producto" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()" />
+            <span id="spandescexistente" style="color:red"></span>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="ProductCost" maxlength="9" value="@Model.Cost" placeholder="Ingrese el costo del Producto" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()" />
+            <span id="spanvalidcost" class="text-center" style="color:red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="ProductWholeSalePrice" value="@Model.WholeSalePrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio mayorista del Producto" onchange="ValidCost()" oninput="ValidCost()" />
+            <span id="spanwholesaleprice" style="color:red"></span>
+            <span id="spanvalidcost2" class="text-center" style="color:red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="ProductPublicPrice" value="@Model.PublicPrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio minorista del Producto" onchange="ValidCost()" oninput="ValidCost()" />
+            <span id="spanpublicprice" style="color:red"></span>
+            <span id="spanvalidcost3" class="text-center" style="color:red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="radio col-md-4">
+            @if (Model.ProductState)
+            {
+                <label>
+                    <input name="ProductState" id="optionsRadios1" checked type="radio">
+                    Activo
+                </label>
+
+                <label style="margin-left: 12%">
+                    <input name="ProductState" id="optionsRadios2" type="radio">
+                    Desactivado
+                </label>
+            }
+            else
+            {
+                <label>
+                    <input name="ProductState" id="optionsRadios1" type="radio">
+                    Activo
+                </label>
+
+                <label style="margin-left: 12%">
+                    <input name="ProductState" id="optionsRadios2" checked type="radio">
+                    Desactivado
+                </label>
+            }
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="productMinimum" value="@Model.Minimum" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock mínimo" />
+            @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new { @class = "text" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
+
+            <button type="button" value="Guardar" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </div>
+    </div>
+</div>
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section scripts{
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script>
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2();
+        });
+
+        var validcost;
+        var optionstate;
+        var IsValidItem;
+
+        function DescExistente() {
+
+            IsValidItem = true;
+
+            if ($('#ProductDescription').val() != "") {
+                $('#spandescexistente').text("");
+                var options = {};
+                options.url = '@Url.Action("ExisteProd", "Products")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProductDescription").val(), "Trademark": $("#IdTrademark").val(), "idproduct": @Model.IdProduct };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data) {
+                        $('#spandescexistente').text("Producto existente");
+                        IsValidItem = false;
+                    }
+
+                };
+                $.ajax(options);
+
+            } else {
+                $('#spandescexistente').text("Debe ingresar la descripción del Producto");
+                IsValidItem = false;
+            }
+
+        }
+
+        function ValidCost() {
+
+            validcost = true;
+            var cost = parseFloat($('#ProductCost').val());
+            var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
+            var publicPrice = parseFloat($('#ProductPublicPrice').val());
+
+            $('#spanvalidcost').text('');
+            $('#spanvalidcost2').text('');
+            $('#spanvalidcost3').text('');
+
+            if ($('#ProductCost').val() != '') {
+
+                if ($('#ProductWholeSalePrice').val() != '') {
+                    if (cost > wholeSalePrice) {
+                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
+                        validcost = false;
+                    }
+                }
+
+                if ($('#ProductPublicPrice').val() != '') {
+                    if (publicPrice < cost) {
+                        $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                        validcost = false;
+                    }
+                }
+
+            } else {
+                $('#spanvalidcost').text('El costo de un producto es obligatorio');
+                validcost = false;
+            }
+
+            if ($('#ProductPublicPrice').val() != '' & $('#ProductWholeSalePrice').val() != '') {
+                if (publicPrice < wholeSalePrice) {
+                    $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
+                    validcost = false;
+                }
+            }
+        }
+
+        //BOTÓN GUARDAR PRODUCTO
+
+        $('#botonGuardar').click(function() {
+            DescExistente();
+            ValidCost();
+
+            if (validcost & IsValidItem) {
+
+                bootbox.confirm({
+                    title: "Confirmación",
+                    message: "Usted está por modificar un producto",
+                    buttons: {
+                        confirm: {
+                            label: 'Guardar cambios',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Cancelar',
+                            className: 'btn-primary'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result) {
+
+                            if ($('#optionsRadios1').is(':checked')) {
+                                optionstate = true;
+                            } else {
+                                optionstate = false;
+                            }
+
+                            var product = {
+                                IdProduct: @Model.IdProduct,
+                                ProductDescription: $('#ProductDescription').val(),
+                                Cost: parseFloat($('#ProductCost').val()),
+                                WholeSalePrice: parseFloat($('#ProductWholeSalePrice').val()),
+                                PublicPrice: parseFloat($('#ProductPublicPrice').val()),
+                                UploadDate: null,
+                                Stock: @Model.Stock,
+                                ParcialStock: @Model.ParcialStock,
+                                Minimum: parseFloat($('#productMinimum').val()),
+                                ProductState: optionstate,
+                                idCategory: $('#IdCategory').val(),
+                                Category: null,
+                                IdTrademark: $('#IdTrademark').val(),
+                                Trademark: null,
+                                PurchaseLines: null,
+                                SaleLines: null,
+                                Providers: null,
+                                BillLines: null
+                            }
+
+                            $.ajax({
+                                url: '@Url.Action("EditProduct", "Products")',
+                                type: "POST",
+                                data: JSON.stringify(product),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function(d) {
+                                    if (d.status) {
+                                        var url = '@Url.Action("Index", "Products", new { message = 2})';
+                                        window.location.href = url;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+    </script>
+}

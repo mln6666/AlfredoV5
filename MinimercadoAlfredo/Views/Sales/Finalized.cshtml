@@ -105,17 +105,11 @@
 
             ////Grilla automatica//
             $("#tabla").DataTable({
-                order: [[1, "desc"]],
+                order: [[0, "desc"]],
+                "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
                 "language": { "url": "/Scripts/DataTables/spanish.json" }
             });
             $('.dropdown-toggle').dropdown();
-
-            if ($('#message').val() == 2) {
-                toastr.success("Venta modificada exitosamente");
-            };
-            if ($('#message').val() == 3) {
-                toastr.success("Venta eliminada exitosamente");
-            };
 
     });
 

@@ -109,14 +109,14 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         // GET: Products
-        public ActionResult Index(bool? message)
+        public ActionResult Index(int? message)
         {
             var products = (from p in db.Products
                             where p.ProductState
                             select p);
 
             if (message != null)
-                TempData["message"] = 1;
+                TempData["message"] = message;
 
             return View(products.ToList());
         }
@@ -141,8 +141,6 @@ namespace MinimercadoAlfredo.Controllers
 
         public JsonResult ExisteProd(string nombre, int? idproduct, int Trademark)
         {
-            //if (Trademark == "")
-            //    Trademark = "[Producto sin Marca]";
             var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.IdTrademark == Trademark & a.IdTrademark != idproduct);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
@@ -279,40 +277,71 @@ namespace MinimercadoAlfredo.Controllers
             return new JsonResult { Data = new { status = true}};
         }
 
-        // GET: Products/Create
-        public ActionResult Create()
+        public ActionResult EditProduct(int id)
         {
-            ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
-            ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
-            ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
+            Product product = db.Products.Find(id);
 
-            return View();
+            ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
+            ViewBag.Categories = db.Categories.ToList().OrderBy(c => c.CategoryName);
+
+            return View(product);
         }
+
+        [HttpPost]
+        public JsonResult EditProduct(Product product)
+        {
+            Product prod = db.Products.Find(product.IdProduct);
+            prod.ProductDescription = product.ProductDescription;
+            prod.Cost = product.Cost;
+            prod.WholeSalePrice = product.WholeSalePrice;
+            prod.PublicPrice = product.PublicPrice;
+            prod.ProductState = product.ProductState;
+            prod.idCategory = product.idCategory;
+            prod.IdTrademark = product.IdTrademark;
+            prod.Minimum = product.Minimum;
+            prod.UploadDate = DateTime.Today;
+
+            db.Entry(prod).State = EntityState.Modified;
+            db.SaveChanges();
+
+            //TempData["message"] = 6;
+            return new JsonResult { Data = new { status = true } };
+        }
+
+        // GET: Products/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName");
+        //    ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName");
+        //    ViewBag.Trademarks = db.Trademarks.ToList().OrderBy(t => t.TrademarkName);
+
+        //    return View();
+        //}
 
         // POST: Products/Create
         // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                //if (product.Trademark == null)
-                //    product.Trademark = "[Producto sin Marca]";
-                product.UploadDate = DateTime.Now.Date;
-                product.ParcialStock = product.Stock;
-                db.Products.Add(product);
-                db.SaveChanges();
-                TempData["message"] = 1;
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory")] Product product)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        //if (product.Trademark == null)
+        //        //    product.Trademark = "[Producto sin Marca]";
+        //        product.UploadDate = DateTime.Now.Date;
+        //        product.ParcialStock = product.Stock;
+        //        db.Products.Add(product);
+        //        db.SaveChanges();
+        //        TempData["message"] = 1;
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
-            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
+        //    ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
+        //    ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
 
-            return View(product);
-        }
+        //    return View(product);
+        //}
 
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)

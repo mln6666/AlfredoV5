@@ -1,5 +1,4 @@
 ﻿@model MinimercadoAlfredo.Models.Product
-
 @{
     ViewBag.Title = "CreateProduct";
 }
@@ -353,7 +352,7 @@
                                 success: function(d) {
                                     if (d.status) {
                                         
-                                        var url = '@Url.Action("CreateProduct", "Products", new { message = true})';
+                                        var url = '@Url.Action("CreateProduct", "Products", new { message = 1})';
                                         window.location.href = url;
                                     }
                                 }

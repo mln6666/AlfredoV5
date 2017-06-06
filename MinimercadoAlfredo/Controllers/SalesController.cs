@@ -626,24 +626,25 @@ namespace MinimercadoAlfredo.Controllers
             {
                 ViewBag.pendiente = "Solo es posible eliminar Ventas Pendientes";
             }
+            TempData["View"] = view;
             return View(sale);
         }
 
         // POST: Sales/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id,int? view)
+        
+        //[ValidateAntiForgeryToken]
+        public JsonResult DeleteSale(Dato dato)
         {
-            Sale sale = db.Sales.Find(id);
-            bool finalized = false;
-            if (sale.SaleState == SaleState.Finalizada)
-            {finalized = true;}
+            Sale sale = db.Sales.Find(dato.IdSale);
+            //bool finalized = false;
+            //if (sale.SaleState == SaleState.Finalizada)
+            //{finalized = true;}
 
             foreach (var item in sale.SaleLines)
             {
                 Product prod = new Product();
                 prod = db.Products.Find(item.IdProduct);
-                if (finalized) { prod.Stock = prod.Stock + item.LineQuantity; }
+                //if (finalized) { prod.Stock = prod.Stock + item.LineQuantity; }
                 prod.ParcialStock = prod.ParcialStock + item.LineQuantity;
                 db.Entry(prod).State = EntityState.Modified;
                 db.SaveChanges();
@@ -652,11 +653,10 @@ namespace MinimercadoAlfredo.Controllers
 
             db.Sales.Remove(sale);
             db.SaveChanges();
-            if (view == 0) { return RedirectToAction("Index", new { message = 3 }); }
-            if (view == 1) { return RedirectToAction("Pending", new { message = 3 }); }
-            if (view == 2) { return RedirectToAction("Finalized", new { message = 3 }); }
+            if (dato.View == 2) { return new JsonResult { Data = new { status = 2 } }; }
+            //if (view == 3) { return new JsonResult { Data = new { status = 3 } }; }
 
-            return RedirectToAction("Index", new { message = true});
+            return new JsonResult { Data = new { status = 1 } };
         }
 
         protected override void Dispose(bool disposing)

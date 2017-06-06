@@ -2,7 +2,10 @@
 @{
     ViewBag.Title = "Eliminar Venta";
 }
-
+@if (TempData["View"] != null)
+{
+    <input id="view" style="display: none" value="@TempData["View"]" />
+}
 
 <h3 class="text-center" style="color:red">¿Está seguro que desea eliminar la siguiente venta?</h3>
 <div>
@@ -11,7 +14,6 @@
         <thead>
         <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
             <th class="text-left" style="border-radius: 3px">
-
                 Nº Venta
             </th>
             <th class="text-left" style="border-radius: 3px">
@@ -26,7 +28,6 @@
             <th class="text-left" style="border-radius: 3px;">
                 Cuit/Cuil
             </th>
-
         </tr>
         </thead>
         <tbody>
@@ -50,76 +51,76 @@
         </tbody>
     </table>
     <h3 class="text-center">Lista de Productos</h3>
-    <hr style="color:grey; border-color: grey; margin-top: 0" />
+    <hr style="color: grey; border-color: grey; margin-top: 0"/>
     <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
         <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
 
-                <th class="text-left" style="border-radius: 3px">
-                    Producto
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Cantidad
-                </th>
-                <th class="text-left" style="border-radius: 3px">
-                    Descuento
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Precio Unitario
-                </th>
-                <th class="text-left" style="border-radius: 3px;">
-                    Subtotal
-                </th>
+            <th class="text-left" style="border-radius: 3px">
+                Producto
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Cantidad
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Descuento
+            </th>
+            <th class="text-left" style="border-radius: 3px;">
+                Precio Unitario
+            </th>
+            <th class="text-left" style="border-radius: 3px;">
+                Subtotal
+            </th>
 
-            </tr>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.SaleLines)
-            {
-                <tr>
-                    <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                    </td>
-                    <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineQuantity)
-                    </td>
-                    <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineDiscount)
-                    </td>
-                    <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LinePrice)
-                    </td>
-                    <td class="text-left">
-                        @Html.DisplayFor(modelItem => item.LineTotal)
-                    </td>
-                </tr>
-            }
+        @foreach (var item in Model.SaleLines)
+        {
+            <tr>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LinePrice)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
     <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
         <thead>
-            <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
-                <th class="text-left" style="border-radius: 3px">
-                    Comentarios
-                </th>
-                <th class="text-left" style="border-radius: 3px">
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" style="border-radius: 3px">
+                Comentarios
+            </th>
+            <th class="text-left" style="border-radius: 3px">
 
-                    Total Venta
-                </th>
+                Total Venta
+            </th>
 
 
-            </tr>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.Comments)
-                </td>
-                <td class="text-left">
-                    @Html.DisplayFor(model => model.SaleTotal)
-                </td>
+        <tr>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.Comments)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleTotal)
+            </td>
 
-            </tr>
+        </tr>
         </tbody>
     </table>
 
@@ -130,8 +131,38 @@
 
         <div class="form-actions no-color text-center">
             <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
-            <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            @*<button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>*@
+            <button id="eliminar" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         </div>
     }
 </div>
 
+@section Scripts{
+    <script>
+        $('#eliminar').click(function() {
+            var view = @TempData["View"];
+            var dato = {
+                IdSale: @Model.IdSale,
+                View: view
+            }
+
+            var url2;
+            $.ajax({
+                url: '@Url.Action("DeleteSale","Sales")',
+                type: "GET",
+                data: JSON.stringify(dato),
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function(d) {
+                    if (d.status == 2) {
+                        url2 = '@Url.Action("Pending", "Sales", new { message = 3})';
+                        window.location.href = url2;
+                    } else {
+                        url2 = '@Url.Action("Index", "Sales", new { message = 3})';
+                        window.location.href = url;
+                    }
+                }
+            });
+        })
+    </script>
+}
