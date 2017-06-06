@@ -302,7 +302,7 @@
                         options3.success = function (data3) {
                             if (data3 != null) {
                                 $('#IdTrademark').append('<option value="' + data3 + '">' + val + '</option>');
-                                $('#linedescription').val(data3).trigger('change');
+                                $('#IdTrademark').val(data3).trigger('change');
                             }
                         };
                         $.ajax(options3);
