@@ -53,6 +53,17 @@ namespace MinimercadoAlfredo.Controllers
             return new JsonResult { Data = new { exist = exist, x = db.Trademarks.ToList().Last().IdTrademark }};
         }
 
+        public JsonResult GetIdTrademark(string dato)
+        {
+            //var idtrad = (from t in db.Trademarks
+            //              where t.TrademarkName == dato
+            //              select t.IdTrademark);
+
+            var idtrad = db.Trademarks.ToList().LastOrDefault().IdTrademark;
+            
+            return Json(idtrad, JsonRequestBehavior.AllowGet);
+        }
+
         // POST: Trademarks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
