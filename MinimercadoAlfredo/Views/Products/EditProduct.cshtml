@@ -12,7 +12,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <select class="js-example-basic-single" id="IdCategory" onchange="DescExistente()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+            <select class="js-example-basic-single" id="IdCategory" onchange="category()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
                 <option value="@Model.idCategory">@Model.Category.CategoryName</option>
                 @foreach (var item in ViewBag.Categories)
                 {
@@ -30,7 +30,7 @@
         @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             <div>
-                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="DescExistente()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
                     <option value="@Model.IdTrademark">@Model.Trademark.TrademarkName</option>
                     @foreach (var item in ViewBag.Trademarks)
                     {
@@ -128,7 +128,7 @@
         <div class="col-md-offset-2 col-md-10">
             <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
 
-            <button type="button" value="Guardar" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+            <button type="button" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
         </div>
     </div>
 </div>
@@ -143,6 +143,22 @@
         var validcost;
         var optionstate;
         var IsValidItem;
+        var IsValidItem2;
+        var IsValidItem3;
+
+        function category() {
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
+            if ($('#IdCategory').val() == '' | $('#IdCategory').val() == null) {
+                $('#spancategory').text('Debe seleccionar un Rubro');
+                IsValidItem2 = false;
+            } else {
+                $('#spancategory').text('');
+                IsValidItem2 = true;
+            }
+        }
 
         function DescExistente() {
 
@@ -153,7 +169,7 @@
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "Trademark": $("#IdTrademark").val(), "idproduct": @Model.IdProduct };
+                options.data = { "nombre": $("#ProductDescription").val(), "trademark": $("#IdTrademark").val(), "idproduct": @Model.IdProduct, "categ": $('#IdCategory').val() };
                 options.dataType = "json";
                 options.success = function(data) {
                     if (data) {
@@ -166,6 +182,20 @@
             } else {
                 $('#spandescexistente').text("Debe ingresar la descripción del Producto");
                 IsValidItem = false;
+            }
+        }
+
+        function Marca() {
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
+            if ($('#IdTrademark').val() == 0) {
+                $('#spantrademark').text("Debe seleccionar una Marca");
+                IsValidItem3 = false;
+            } else {
+                IsValidItem3 = true;
+                $('#spantrademark').text("");
             }
         }
 
@@ -212,7 +242,7 @@
         //BOTÓN GUARDAR PRODUCTO
 
         $('#botonGuardar').click(function() {
-            if (validcost & IsValidItem) {
+            if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
 
                 bootbox.confirm({
                     title: "Confirmación",

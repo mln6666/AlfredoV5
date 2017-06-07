@@ -153,30 +153,34 @@
         var IsValidItem3;
 
         function category() {
-            $('#spancategory').text('');
-            IsValidItem2 = true;
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
             if ($('#IdCategory').val() == '' | $('#IdCategory').val() == null) {
                 $('#spancategory').text('Debe seleccionar un Rubro');
                 IsValidItem2 = false;
+            } else {
+                $('#spancategory').text('');
+                IsValidItem2 = true;
             }
         }
 
 
         function DescExistente() {
-
-            IsValidItem = true;
-
             if ($('#ProductDescription').val() != "") {
                 $('#spandescexistente').text("");
                 var options = {};
                 options.url = '@Url.Action("ExisteProd", "Products")';
                 options.type = "GET";
-                options.data = { "nombre": $("#ProductDescription").val(), "Trademark": $("#IdTrademark").val() };
+                options.data = { "nombre": $("#ProductDescription").val(), "trademark": $("#IdTrademark").val(), "categ": $('#IdCategory').val() };
                 options.dataType = "json";
                 options.success = function(data) {
                     if (data) {
                         $('#spandescexistente').text("Producto existente");
                         IsValidItem = false;
+                    } else {
+                        IsValidItem = true;
                     }
 
                 };
@@ -190,17 +194,20 @@
         }
 
         function Marca() {
-            IsValidItem3 = true;
-            $('#spantrademark').text("");
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
             if ($('#IdTrademark').val() == 0) {
                 $('#spantrademark').text("Debe seleccionar una Marca");
                 IsValidItem3 = false;
+            } else {
+                IsValidItem3 = true;
+                $('#spantrademark').text("");
             }
         }
 
         function ValidCost() {
-
-            validcost = true;
             var cost = parseFloat($('#ProductCost').val());
             var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
             var publicPrice = parseFloat($('#ProductPublicPrice').val());
@@ -210,7 +217,7 @@
             $('#spanvalidcost3').text('');
 
             if ($('#ProductCost').val() != '') {
-
+                validcost = true;
                 if ($('#ProductWholeSalePrice').val() != '') {
                     if (cost > wholeSalePrice) {
                         $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
@@ -295,6 +302,7 @@
                             //$('#newtrademark').val('');
                         };
                         $.ajax(options2);
+                        
                     }
                 };
                 $.ajax(options);
@@ -305,7 +313,7 @@
 
         //BOTÓN GUARDAR PRODUCTO
 
-        $('#botonGuardar').click(function() {
+        $('#botonGuardar').click(function () {
 
             if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
 

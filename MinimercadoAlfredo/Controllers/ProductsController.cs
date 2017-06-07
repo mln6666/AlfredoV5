@@ -139,9 +139,9 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList().OrderBy(p => Tuple.Create(p.Category.CategoryName, p.IdTrademark)));
         }
 
-        public JsonResult ExisteProd(string nombre, int? idproduct, int Trademark)
+        public JsonResult ExisteProd(string nombre, int? idproduct, int trademark, int categ)
         {
-            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.IdTrademark == Trademark & a.IdTrademark != idproduct);
+            var existe = db.Products.ToList().Exists(a => a.ProductDescription == nombre & a.IdTrademark == trademark & a.IdProduct != idproduct & a.idCategory == categ);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
