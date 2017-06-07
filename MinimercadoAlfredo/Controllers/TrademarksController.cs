@@ -40,28 +40,16 @@ namespace MinimercadoAlfredo.Controllers
         public JsonResult AddTrademark(string newtrademark)
         {
             var exist = db.Trademarks.ToList().Exists(t => t.TrademarkName == newtrademark);
-            
+            Trademark trademark = new Trademark();
             if (!exist)
             {
-                Trademark trademark = new Trademark
-                {
-                    TrademarkName = newtrademark
-                };
+                trademark.TrademarkName = newtrademark;
+                
                 db.Trademarks.Add(trademark);
                 db.SaveChanges();
             }
-            return new JsonResult { Data = new { exist = exist, x = db.Trademarks.ToList().Last().IdTrademark }};
-        }
-
-        public JsonResult GetIdTrademark(string dato)
-        {
-            //var idtrad = (from t in db.Trademarks
-            //              where t.TrademarkName == dato
-            //              select t.IdTrademark);
-
-            var idtrad = db.Trademarks.ToList().LastOrDefault().IdTrademark;
             
-            return Json(idtrad, JsonRequestBehavior.AllowGet);
+            return new JsonResult { Data = new { exist = exist, x = trademark.IdTrademark }};
         }
 
         // POST: Trademarks/Create
@@ -117,8 +105,11 @@ namespace MinimercadoAlfredo.Controllers
         {
             var status = false;
             Trademark trademark = db.Trademarks.Find(dato);
-            db.Trademarks.Remove(trademark);
-            db.SaveChanges();
+            if (trademark != null)
+            {
+                db.Trademarks.Remove(trademark);
+                db.SaveChanges();
+            }
             status = true;
 
             return Json(status, JsonRequestBehavior.AllowGet);

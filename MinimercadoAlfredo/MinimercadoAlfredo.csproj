@@ -209,9 +209,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ProvidersController.cs" />
-    <Compile Include="Controllers\PurchaseLinesController.cs" />
     <Compile Include="Controllers\PurchasesController.cs" />
-    <Compile Include="Controllers\SaleLinesController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\TrademarksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

@@ -15,12 +15,14 @@ namespace MinimercadoAlfredo.Models
 
         public virtual Product Product { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal LinePrice { get; set; }
 
         public decimal LineDiscount { get; set; }
 
         public decimal LineQuantity { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal LineTotal { get; set; }
 
         public decimal? Return {get; set; }

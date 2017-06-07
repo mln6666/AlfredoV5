@@ -283,31 +283,18 @@
 
                                 $('#showtrademark').toggle('slow');
                                 $('#addtrademark').toggle('slow');
+
+                                var val = $('#newtrademark').val();
+
+                                $('#IdTrademark').append('<option value="' + data2.x + '">' + val + '</option>');
+                                $('#IdTrademark').val(data2.x).trigger('change');
+                                $('#newtrademark').val('');
                             } else {
                                 toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente");
                             }
                             //$('#newtrademark').val('');
                         };
                         $.ajax(options2);
-
-                        //AQUÍ VA LA FUNCIÓN PARA ACTUALIZAR LA LISTA DE MARCAS DEL SELECT2
-
-                        var val = $('#newtrademark').val();
-
-                        var options3 = {};
-                        options3.url = '@Url.Action("GetIdTrademark", "Trademarks")';
-                        options3.type = "POST";
-                        options3.data = { "dato": val };
-                        options3.dataType = "JSON";
-                        options3.success = function (data3) {
-                            if (data3 != null) {
-                                $('#IdTrademark').append('<option value="' + data3 + '">' + val + '</option>');
-                                $('#IdTrademark').val(data3).trigger('change');
-                            }
-                        };
-                        $.ajax(options3);
-                        
-                        $('#newtrademark').val('');
                     }
                 };
                 $.ajax(options);

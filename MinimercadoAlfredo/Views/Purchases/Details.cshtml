@@ -48,52 +48,63 @@
 <hr style="color:grey;border-color:grey" />
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
-        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-            <td class="text-left" style="border-radius: 3px">
-                Producto
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Marca
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                N° Artículo
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Cantidad
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Costo Unitario
-            </td>
-            <td class="text-left" style="border-radius: 3px">
-                Subtotal
-            </td>
-        </tr>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+
+        <td class="text-center" style="border-radius: 3px">
+            N° Artículo
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Producto
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Marca
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Cantidad
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Costo Unitario
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Subtotal
+        </td>
+    </tr>
 </thead>
     <tbody>
-        @foreach(var item in Model.PurchaseLines)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LineQuantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Cost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LineTotal)
-                </td>
-            </tr>
-        }
+    @foreach (var item in Model.PurchaseLines)
+    {
+        <tr>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Product.IdProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LineQuantity)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.Product.Cost)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LineTotal)
+            </td>
+        </tr>
+    }
     </tbody>
+    <tr>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <th class="text-center">TOTAL</th>
+        <th class="text-center">
+            @Html.DisplayFor(model => model.PurchaseTotal)
+        </th>
+    </tr>
 </table>
 <hr style="color:grey;border-color:grey" />
 
@@ -103,15 +114,11 @@
             <td class="text-left" style="border-radius: 3px">
                 Comentarios
             </td>
-            <td class="text-left" style="border-radius: 3px; width:200px">
-                Total de Compra
-            </td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>@Model.Comments</td>
-            <td>@Html.DisplayFor(model => model.PurchaseTotal)</td>
         </tr>
     </tbody>
 </table>
@@ -139,11 +146,11 @@
 {
 <script>
     $(document).ready(function () {
-        $("#tabla").DataTable({
-            "language": {
-                "url": "/Scripts/DataTables/spanish.json"
-            }
-        });
+        //$("#tabla").DataTable({
+        //    "language": {
+        //        "url": "/Scripts/DataTables/spanish.json"
+        //    }
+        //});
 
         $("body").on("click", "a.dialog-window", null, function (e) {
             e.preventDefault();
