@@ -121,7 +121,7 @@
 @section scripts
 {
     <script>
-        $('#myModal').modal('show')
+        $('#myModal').modal('show');
 
         $(document).ready(function() {
 
@@ -131,6 +131,7 @@
 
             ////Grilla automatica//
             $("#tabla").DataTable({
+                "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
                 "language": {
                     "url": "/Scripts/DataTables/spanish.json"
                 }
