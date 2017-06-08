@@ -102,6 +102,19 @@ namespace MinimercadoAlfredo.Controllers
             return Json(productdesc, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetTrademarkName(int pro)
+        {
+            var product = db.Products.ToList().Find(p => p.IdProduct == pro);
+            var trademarkname = String.Empty;
+
+            if (product.IdTrademark != null)
+            {
+                trademarkname = product.Trademark.TrademarkName;
+            }
+
+            return Json(trademarkname, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Getproductdata(string pro)
         {
             var cero = 0;
@@ -416,20 +429,25 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sale sale = db.Sales.Find(id);
-            if (sale == null)
+            //Sale sale = db.Sales.Find(id);
+            CreateSaleVM sale = new CreateSaleVM();
+            sale.Sale = db.Sales.Find(id);
+            sale.Customers = db.Customers.ToList();
+            sale.Products = db.Products.ToList().FindAll(p => p.ProductState);
+            if (sale.Sale == null)
             {
                 return HttpNotFound();
             }
 
-            if (sale.SaleState == SaleState.Finalizada)
+            if (sale.Sale.SaleState == SaleState.Finalizada)
             {
-                ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
-                return View("Delete", sale);
+                return HttpNotFound();
+                //ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
+                //return View("Delete", db.Sales.Find(id));
             }
             
-            ViewBag.Customers = db.Customers.ToList().OrderBy(c => c.CustomerName);
-            ViewBag.Products = db.Products.ToList().FindAll(p => p.ProductState);
+            //ViewBag.Customers = db.Customers.ToList().OrderBy(c => c.CustomerName);
+            //ViewBag.Products = db.Products.ToList().FindAll(p => p.ProductState);
             return View(sale);
         }
 
