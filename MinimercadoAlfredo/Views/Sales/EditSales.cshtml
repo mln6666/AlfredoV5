@@ -176,12 +176,12 @@
                 <input id="@("itemid" + item.IdProduct)" type="text" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center"/>
             </td>
             <td>
-                <input id="@("itemdesc" + item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
+                <input id="@("itemdesc" + item.IdProduct)" type="text" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
             </td>
             <td class="text-center" style="width: 14%">
                 @if (item.Product.IdTrademark != null)
                 {
-                    <input id="@("itemtrademark" + item.IdProduct)" type="text" name="producttrademark" value="@item.Product.Trademark.TrademarkName" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" />
+                    <input id="@("itemtrademark" + item.IdProduct)" type="text" value="@item.Product.Trademark.TrademarkName" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" />
                 }
             </td>
             <td class="text-center" style="width: 12%">
@@ -410,7 +410,7 @@
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemid' + idproduct + '" name="productid" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center" /></td>');
                 $('#itemid' + idproduct).val(idproduct);
 
-                $('#inserttd' + idproduct).append('<td><input id="itemdesc' + idproduct + '" name="productdescription" readonly="readonly" style="border: none; background-color: transparent" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemdesc' + idproduct + '" readonly="readonly" style="border: none; background-color: transparent" /></td>');
 
                 var options = {};
                 options.url = '@Url.Action("Getproductdescription", "Sales")';
@@ -424,7 +424,7 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemtrademark'+idproduct+'" name="producttrademark" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemtrademark'+idproduct+'" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" /></td>');
 
                 var options2 = {};
                 options2.url = '@Url.Action("GetTrademarkName", "Sales")';
