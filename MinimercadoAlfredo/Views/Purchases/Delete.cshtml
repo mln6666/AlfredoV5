@@ -124,10 +124,13 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color text-center" style="margin-top: 3%">
+        <div class="row text-center" style="margin-top: 3%">
+        <div class="col-lg-4 text-left">
             <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
-            
-            <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        </div>
+            <div class="col-lg-4 text-center">
+                <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
         </div>
     }
     
