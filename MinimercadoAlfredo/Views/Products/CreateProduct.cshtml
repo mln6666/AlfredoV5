@@ -359,7 +359,7 @@
                                 contentType: "application/json",
                                 success: function(d) {
                                     if (d.status) {
-                                        
+
                                         var url = '@Url.Action("CreateProduct", "Products", new { message = 1})';
                                         window.location.href = url;
                                     }
@@ -370,6 +370,16 @@
                 });
 
 
+            } else {
+                if ($('#IdCategory').val() == 0) {
+                    $('#spancategory').text("Debe seleccionar un Rubro");
+                }
+                if ($('#ProductDescription').val() == "") {
+                    $('#spandescexistente').text("Debe ingresar la descripción del Producto");
+                }
+                if ($('#IdTrademark').val() == 0) {
+                    $('#spantrademark').text("Debe seleccionar una Marca");
+                }
             }
         });
 
