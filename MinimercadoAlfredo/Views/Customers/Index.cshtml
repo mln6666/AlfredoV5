@@ -6,6 +6,11 @@
     <link href="/Content/Site.css" rel="stylesheet">
 </head>
 
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
 <h2 class="text-center">Lista de Clientes</h2>
 <hr style="color:grey;border-color:grey" />
 
@@ -85,6 +90,13 @@
                     "url": "/Scripts/DataTables/spanish.json"
                 }
             });
+            if ($('#message').val() == 1) {
+                toastr.success("Se  ha agregado un nuevo Cliente al sistema");
+            };
+            if ($('#message').val() == 2) {
+                toastr.success("Cliente modificado exitosamente");
+            };
+            
 
             $("body").on("click", "a.dialog-window1", null, function(e) {
                 e.preventDefault();

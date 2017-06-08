@@ -60,21 +60,24 @@
 <table class="table table-condensed table-striped table-bordered" id="tabla">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-        <td class="text-center" style="border-radius: 3px; width: 13%">
+        <td class="text-center" style="border-radius: 3px; width: 10%">
             N° Artículo
         </td>
-        <td class="text-center" style="border-radius: 3px; width: 30%">
+        <td class="text-center" style="border-radius: 3px; width: 24%">
             Producto
         </td>
-        <td class="text-center" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px; width: 15%">
             Marca
         </td>
 
-        <td class="text-center" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px; width: 11%">
             Cantidad
         </td>
-        <td class="text-center" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px; width: 14%">
             Precio
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Descuento (%)
         </td>
         <td class="text-center" style="border-radius: 3px; width: 16%">
             Subtotal
@@ -99,7 +102,10 @@
                 @Html.DisplayFor(modelItem => item.LineQuantity)
             </td>
             <td class="text-center">
-                @Html.DisplayFor(modelItem => item.Product.WholeSalePrice)
+                @Html.DisplayFor(modelItem => item.LinePrice)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LineDiscount)
             </td>
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.LineTotal)
@@ -108,6 +114,7 @@
     }
     </tbody>
     <tr>
+        <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>

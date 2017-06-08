@@ -79,6 +79,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
+                TempData["message"] = 1;
                 return RedirectToAction("Index");
             }
 
@@ -111,6 +112,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = 2;
                 return RedirectToAction("Index");
             }
             return View(customer);
