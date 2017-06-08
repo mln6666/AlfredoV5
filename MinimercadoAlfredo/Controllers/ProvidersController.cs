@@ -16,12 +16,8 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Providers
-        public ActionResult Index(bool? message)
+        public ActionResult Index()
         {
-            if (message != null)
-            {
-                ViewBag.message = "El Proveedor ha sido eliminado correctamente.";
-            }
             return View(db.Providers.ToList());
         }
         public JsonResult ExisteProv(string nombre)
@@ -91,6 +87,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 db.Providers.Add(provider);
                 db.SaveChanges();
+                TempData["message"] = 1;
                 return RedirectToAction("Index");
 
             }
@@ -124,6 +121,7 @@ namespace MinimercadoAlfredo.Controllers
             {
                 db.Entry(provider).State = EntityState.Modified;
                 db.SaveChanges();
+                TempData["message"] = 2;
                 return RedirectToAction("Index");
             }
             return View(provider);
@@ -165,7 +163,8 @@ namespace MinimercadoAlfredo.Controllers
                 db.Providers.Remove(provider);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Providers", new { message = true });
+            TempData["message"] = 3;
+            return RedirectToAction("Index", "Providers");
         }
 
         protected override void Dispose(bool disposing)
