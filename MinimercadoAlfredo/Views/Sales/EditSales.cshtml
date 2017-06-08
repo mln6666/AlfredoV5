@@ -36,7 +36,7 @@
                 @Html.DisplayFor(model => model.IdSale)
             </td>
             <td>
-                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)">
+                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
                     <option value="@Model.IdCustomer">@Model.Customer.CustomerName</option>
                     @foreach (var item in ViewBag.Customers)
                     {
@@ -49,10 +49,10 @@
 
             </td>
             <td>
-                <input type="text" id="customeraddress" value="@Model.SaleAddress" readonly="readonly" style="border-color: transparent" />
+                <input type="text" id="customeraddress" value="@Model.SaleAddress" class="panel-info form-control inputForm" />
             </td>
             <td style="width: 13%">
-                <input type="text" id="customercuil" value="@Model.Customer.CuitCuil" readonly="readonly" style="border-color: transparent" width="100%" />
+                <input type="text" id="customercuil" value="@Model.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
             </td>
             <td style="color: black; font-weight: bold">
                 <select class="inputForm" id="salestate">
@@ -61,7 +61,7 @@
                 </select>
             </td>
             <td style="color: black">
-                <input id="Date" name="Date" type="date" class="form-control" value="@Model.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center" />
+                <input id="Date" name="Date" type="date" class="panel-info form-control inputForm" value="@Model.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center" />
             </td>
 
         </tr>
@@ -80,19 +80,19 @@
         <table id="nueva" class="table table-condensed table-striped table-bordered">
             <thead>
                 <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                    <td style="width: 40%">
+                    <td style="width: 41%">
                         Producto
                     </td>
                     <td style="width: 12%">
                         Cantidad
                     </td>
-                    <td style="width: 12%">
+                    <td style="width: 16%">
                         Precio
                     </td>
-                    <td style="width: 13%">
+                    <td style="width: 12%">
                         Descuento (%)
                     </td>
-                    <td style="width: 19%">
+                    <td style="width: 17%">
                         Subtotal
                     </td>
                 </tr>
@@ -120,10 +120,10 @@
                         <input type="number" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros()" />
                     </td>
                     <td>
-                        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
+                        <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="width: 100%; font-weight: bold"/>
                     </td>
-                    <td class="text-center">
-                        <button type="button" id="add" class="btn btn-success btn-sm" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+                    <td class="text-center" style="width: 2%">
+                        <button type="button" id="add" class="btn btn-success btn-xs" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -168,17 +168,17 @@
             <td>
                 <input id="@("itemdesc" + @item.IdProduct)" type="text" name="productdescription" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
             </td>
-            <td class="text-center">
-                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" style="text-align: center" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center" style="width: 12%">
+                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100% ; font-weight: bold" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center">
-                <input id="@("itemprice" + @item.IdProduct)" name="productprice" style="text-align: center" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center" style="width: 16%">
+                <input id="@("itemprice" + @item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center">
-                <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" style="text-align: center; width: 90%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center" style="width: 12%">
+                <input id="@("itemdiscount" + @item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center">
-                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" style="text-align: center" type="text" class="panel-info totalView dataContainer" value="@item.LineTotal" readonly="readonly"/>
+            <td class="text-center" style="width: 17%">
+                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100% ; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
             </td>
             <td class="text-center" style="width: 2%">
                 <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -193,7 +193,7 @@
         <td style="border-color: transparent"></td>
         <th style="border-color: transparent; text-align: center">TOTAL</th>
         <td class="text-center" style="text-align: center">
-            <input type="text" id="totalgral" class="panel-info text-center totalView dataContainer" value="@Model.SaleTotal" readonly="readonly" />
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.SaleTotal" readonly="readonly" style="font-weight: bold" />
         </td>
     </tr>
 </table>
@@ -407,16 +407,16 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" style="text-align: center" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" style="text-align: center" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" style="text-align: center; width: 90%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center" type="text" class="panel-info text-center totalView dataContainer" readonly="readonly" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center; font-weight: bold" type="text" class="panel-info text-center form-control fina" readonly="readonly" /></td>');
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
