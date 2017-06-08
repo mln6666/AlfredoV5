@@ -380,32 +380,6 @@ namespace MinimercadoAlfredo.Controllers
             return new JsonResult { Data = new { status = status, id = sale1.IdSale } };
         }
 
-
-        //[HttpPost]
-        //public JsonResult CreateSale(SaleVM O)
-        //{
-        //    bool status = false;
-        //    if (ModelState.IsValid)
-        //    {
-        //        using (AlfredoContext dc = new AlfredoContext())
-        //        {
-        //            Sale order = new Sale { CustomerName = O.CustomerName, SaleAddress = O.SaleAddress, SaleDate = O.SaleDate, SaleTotal = O.SaleTotal, Comments = O.Comments };
-        //            foreach (var i in O.SaleLines)
-        //            {
-        //                order.SaleLines.Add(i);
-        //            }
-        //            dc.Sales.Add(order);
-        //            dc.SaveChanges();
-        //            status = true;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        status = false;
-        //    }
-        //    return new JsonResult { Data = new { status = status } };
-        //}
-
         // GET: Sales/Details/5
         public ActionResult Details(int? id)
         {
@@ -433,31 +407,6 @@ namespace MinimercadoAlfredo.Controllers
                 return HttpNotFound();
             }
             return View(customer);
-        }
-
-        // GET: Sales/Create
-        public ActionResult Create()
-        {
-            ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName");
-            return View();
-        }
-
-        // POST: Sales/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdSale,SaleDate,Discount,Comments,SaleTotal,IdCustomer")] Sale sale)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Sales.Add(sale);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName", sale.IdCustomer);
-            return View(sale);
         }
 
         //GET
@@ -558,58 +507,7 @@ namespace MinimercadoAlfredo.Controllers
 
             
         }
-
-        // GET: Sales/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sale sale = db.Sales.Find(id);
-            if (sale == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (sale.SaleState == SaleState.Finalizada)
-            {
-                ViewBag.pendiente = "No se permiten modificaciones en Ventas Finalizadas.";
-                return View("Delete", sale);
-            }
-
-            return View(sale);
-
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Sale sale = db.Sales.Find(id);
-            //if (sale == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName", sale.IdCustomer);
-            //return View(sale);
-        }
-
-        // POST: Sales/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdSale,SaleDate,Discount,Comments,SaleTotal,IdCustomer")] Sale sale)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(sale).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdCustomer = new SelectList(db.Customers, "IdCustomer", "CustomerName", sale.IdCustomer);
-            return View(sale);
-        }
-
+        
         // GET: Sales/Delete/5
         public ActionResult Delete(int? id,int? view)
         {

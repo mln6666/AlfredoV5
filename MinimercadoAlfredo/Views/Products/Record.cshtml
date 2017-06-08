@@ -95,8 +95,8 @@
                         </button>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Action("EditProduct","Products", new { id = item.IdProduct })">Editar</a></li>
                             <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
+                            <li><a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})">Editar</a></li>
                             @if (item.ProductState)
                             {
                                 <li><a id="@("deac" + @item.IdProduct)" class="hvr-glow" onclick="deac(@item.IdProduct)">Desactivar</a></li>
@@ -105,7 +105,7 @@
                             {
                                 <li><a id="@("ac" + @item.IdProduct)" class="hvr-glow" onclick="ac(@item.IdProduct)">Activar</a></li>
                             }
-                            <li><a href="@Url.Action("Delete","Products", new { id = item.IdProduct })" class="dialog-window1">Eliminar</a></li>
+                            <li><a href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="dialog-window1">Eliminar</a></li>
 
                         </ul>
                     </div>                    

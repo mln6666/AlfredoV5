@@ -16,12 +16,8 @@ namespace MinimercadoAlfredo.Controllers
         private AlfredoContext db = new AlfredoContext();
 
         // GET: Customers
-        public ActionResult Index(bool? message)
+        public ActionResult Index()
         {
-            if (message != null)
-            {
-                ViewBag.message = "El Cliente ha sido eliminado correctamente.";
-            }
             return View(db.Customers.ToList());
         }
 
@@ -132,29 +128,19 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return HttpNotFound();
             }
-
-            if (customer.Sales.Count() != 0)
-            {
-                ViewBag.errorcustomer = "Acción no permitida! Cliente con ventas relacionadas.";
-            }
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult DeleteCustomer(int dato)
         {
-            Customer customer = db.Customers.Find(id);
-            if (customer.Sales.Count() == 0)
-            {
-                db.Customers.Remove(customer);
-                db.SaveChanges();
-            } else
-            {
-                return HttpNotFound();
-            }
-            return RedirectToAction("Index", "Customers", new { message = true });
+            var status = false;
+            Customer customer = db.Customers.Find(dato);
+            db.Customers.Remove(customer);
+            db.SaveChanges();
+            status = true;
+
+            return Json(status, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

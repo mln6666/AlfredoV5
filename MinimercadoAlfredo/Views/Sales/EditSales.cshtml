@@ -162,7 +162,7 @@
     @foreach (var item in Model.SaleLines)
     {
         <tr>
-            <td class="text-center">
+            <td class="text-center" style="width: 13%">
                 <input id="@("itemid" + @item.IdProduct)" type="text" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center"/>
             </td>
             <td>
@@ -236,8 +236,6 @@
     <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
     <script>
         $(document).ready(function() {
-            //$('#Date').datepicker();
-
             $(".js-example-basic-single").select2();
 
             changecust(@Model.IdCustomer);
@@ -517,24 +515,19 @@
             if ($('#spanquantitytable').val() == '' & $('#spanpricetable').val() == '' & $('#spandiscounttable').val() == '') {
                 var saleproducts = [];
                 var productids = [];
-                //var productdescriptions = [];
                 var productquantities = [];
                 var productprices = [];
                 var productdiscounts = [];
-                //var productsubtotals = [];
                 
                 $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
-                //$('input[name="productdescription"]').map(function () { productdescriptions.push(this.value) });
                 $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
                 $('input[name="productprice"]').map(function () { productprices.push(parseFloat(this.value)) });
                 $('input[name="productdiscount"]').map(function () { productdiscounts.push(parseFloat(this.value)) });
-                //$('input[name="productsubtotals"]').map(function () { productsubtotals.push(parseFloat(this.value)) });
 
                 var product;
                 for (var i = 0; i < productids.length; i++) {
                     product = {
                         IdProduct: productids[i],
-                        //ProductDescription: productdescriptions[i],
                         LineQuantity: productquantities[i],
                         LinePrice: productprices[i],
                         LineDiscount: productdiscounts[i],

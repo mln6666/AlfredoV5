@@ -40,7 +40,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td id="@("name"+ item.IdCustomer)">
                     @Html.DisplayFor(modelItem => item.CustomerName)
                 </td>
                 <td>
@@ -57,70 +57,25 @@
                 </td>
                 <td class="text-center">
                     <a href="@Url.Action("Edit", "Customers", new {id = item.IdCustomer})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                    <a href="@Url.Action("Delete","Customers", new { id = item.IdCustomer })" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-                    
+                    @if (item.Sales.Any())
+                    {
+                        <button class="btn btn-danger btn-sm" title="Eliminar" onclick="aviso(@item.IdCustomer)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <a id="@("del" + item.IdCustomer)" class="btn btn-danger btn-sm dialog-window1" title="Eliminar" onclick="del(@item.IdCustomer)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
-@if (ViewBag.message != null)
-{
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Mensaje de Aviso</h4>
-                </div>
-                <div class="modal-body">
-                    <p>@ViewBag.message</p>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
-<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center">Eliminar Cliente</h4>
-            </div>
-            <div class="modal-body">
-                <div class="te">Espere...</div>
-            </div>
-        </div>
-    </div>
-</div>
-@if (ViewBag.errorcustomer != null)
-{
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h2 class="modal-title text-center">Aviso</h2>
-                </div>
-                <div class="modal-body">
-                    <h3 class="text-center" style="color: Red">@ViewBag.errorcustomer</h3>
-                </div>
-                <div class="modal-footer text-center">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 @section scripts
 {
     <script>
-        $('#myModal').modal('show')
+        $('#myModal').modal('show');
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             $('.dropdown-toggle').dropdown();
 
@@ -131,7 +86,7 @@
                 }
             });
 
-            $("body").on("click", "a.dialog-window1", null, function (e) {
+            $("body").on("click", "a.dialog-window1", null, function(e) {
                 e.preventDefault();
 
                 var $link = $(this); // Reference to <a/> link
@@ -141,16 +96,64 @@
                 var url = $(this).attr('href');
                 if (url.indexOf('#') == 0) {
                     $('#myModal1').modal('show');
-                }
-                else {
-                    $.get(url, function (data) {
+                } else {
+                    $.get(url, function(data) {
                         $('#myModal1 .te').html(data);
                         $('#myModal1').modal();
-                    }).success(function () { $('input:text:visible:first').focus(); });
+                    }).success(function() { $('input:text:visible:first').focus(); });
                 }
             });
 
-        })
+        });
+
+        function aviso(customer) {
+            bootbox.alert({
+                title: "Eliminar Cliente",
+                message: "Acción denegada, no es posible eliminar el cliente " + $('#name' + customer).html() + "ya que éste tiene ventas asociadas.",
+                buttons: {
+                    ok: {
+                        label: "Aceptar",
+                        className: "btn-primary"
+                    }
+                }
+            });
+        }
+
+        function del(customer) {
+            bootbox.confirm({
+                title: "Eliminar Cliente",
+                message: "¿Está seguro de eliminar el cliente" + $('#name' + customer).html() + "?",
+                buttons: {
+                    confirm: {
+                        label: "Eliminar",
+                        className: "btn-danger"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+
+                        var options = {};
+                        options.url = '@Url.Action("DeleteCustomer", "Customers")';
+                        options.type = "POST";
+                        options.data = { "dato": customer };
+                        options.dataType = "json";
+                        options.success = function (data) {
+                            if (data) {
+                                toastr.success("Cliente eliminado exitosamente");
+
+                                $('#del' + customer).closest('tr').remove();
+                            }
+                        };
+                        $.ajax(options);
+
+                    }
+                }
+            });
+        }
     </script>
 
 }
