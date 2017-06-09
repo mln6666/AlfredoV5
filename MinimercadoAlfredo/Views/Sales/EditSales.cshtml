@@ -71,12 +71,8 @@
 <hr style="color: grey; border-color: grey; margin-top: 0" />
 <div>
     <button id="mostrar" class="hidden-print btn btn-primary btn-sm hvr-bubble-right">Agregar Producto &nbsp;&nbsp;</button>
-    <br />
     <div id="nuevalinea" style="display: none">
-        <div>
-            <button id="ocultar" class="hidden-print btn btn-sm btn-primary hvr-bubble-left positionOcultar">&nbsp;&nbsp; Ocultar</button>
-
-        </div>
+        <button id="ocultar" class="hidden-print btn btn-sm btn-primary hvr-bubble-left positionOcultar">&nbsp;&nbsp; Ocultar</button>
         <table id="nueva" class="table table-condensed table-striped table-bordered">
             <thead>
                 <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
@@ -259,9 +255,8 @@
         });
 
         $("#mostrar").click(function () {
-            $("#mostrar").hide();
             $("#nuevalinea").toggle("slow");
-
+            $("#mostrar").hide("slow");
         });
         $("#ocultar").click(function () {
             $("#nuevalinea").toggle("slow");

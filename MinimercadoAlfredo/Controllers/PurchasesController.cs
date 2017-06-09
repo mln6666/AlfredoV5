@@ -264,30 +264,14 @@ namespace MinimercadoAlfredo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Purchase purchase = db.Purchases.Find(id);
+            CreatePurchaseVM purchase = new CreatePurchaseVM();
+            purchase.Purchase = db.Purchases.Find(id);
+            purchase.Providers = db.Providers.ToList();
+            purchase.Products = db.Products.ToList();
             if (purchase == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Providers = db.Providers.ToList().OrderBy(p => p.ProviderName);
-            ViewBag.Products = db.Products.ToList();
-            return View(purchase);
-        }
-
-        // POST: Purchases/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPurchase,PurchaseDate,Comments,PurchaseTotal,IdProvider")] Purchase purchase)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(purchase).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.IdProvider = new SelectList(db.Providers, "IdProvider", "ProviderName", purchase.IdProvider);
             return View(purchase);
         }
 

@@ -139,15 +139,6 @@ namespace MinimercadoAlfredo.Controllers
             return Json(existe, JsonRequestBehavior.AllowGet);
         }
 
-        //public JsonResult ExisteNro(int nombre, int? idproduct)
-        //{
-
-        //    var existe = db.Products.ToList().Exists(a => a.ProductNumber == nombre & a.IdProduct != idproduct);
-
-
-        //    return Json(existe, JsonRequestBehavior.AllowGet);
-        //}
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -299,47 +290,6 @@ namespace MinimercadoAlfredo.Controllers
 
             //TempData["message"] = 6;
             return new JsonResult { Data = new { status = true } };
-        }
-
-        // GET: Products/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Product product = db.Products.Find(id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.idCategory = new SelectList(db.Categories.OrderBy(c => c.CategoryName), "IdCategory", "CategoryName", product.idCategory);
-            ViewBag.IdTrademark = new SelectList(db.Trademarks.OrderBy(c => c.TrademarkName), "IdTrademark", "TrademarkName", product.IdTrademark);
-
-            return View(product);
-        }
-
-        // POST: Products/Edit/5
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdProduct,IdTrademark,ProductDescription,Cost,WholeSalePrice,PublicPrice,Stock,Minimum,ProductState,idCategory,ParcialStock,UploadDate,Image")] Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                //if (product.Trademark == null)
-                //    product.Trademark = "[Producto sin Marca]";
-                
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
-                TempData["message"] = 4;
-                return RedirectToAction("Index");
-            }
-            ViewBag.idCategory = new SelectList(db.Categories, "IdCategory", "CategoryName", product.idCategory);
-            ViewBag.IdTrademark = new SelectList(db.Trademarks, "IdTrademark", "TrademarkName", product.IdTrademark);
-
-            return View(product);
         }
 
         // GET: Products/Delete/5

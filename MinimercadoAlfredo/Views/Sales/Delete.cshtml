@@ -16,17 +16,18 @@
             <th class="text-left" style="border-radius: 3px">
                 Nº Venta
             </th>
-            <th class="text-left" style="border-radius: 3px">
-                Estado Venta
-            </th>
+
             <th class="text-left" style="border-radius: 3px">
                 Cliente
             </th>
             <th class="text-left" style="border-radius: 3px">
                 Dirección
             </th>
-            <th class="text-left" style="border-radius: 3px;">
-                Cuit/Cuil
+            <th class="text-left" style="border-radius: 3px">
+                Estado Venta
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Fecha de Venta
             </th>
         </tr>
         </thead>
@@ -36,23 +37,23 @@
                 @Html.DisplayFor(model => model.IdSale)
             </td>
             <td class="text-left">
-                @Html.DisplayFor(model => model.SaleState)
-            </td>
-            <td class="text-left">
                 @Html.DisplayFor(model => model.Customer.CustomerName)
             </td>
             <td class="text-left">
                 @Html.DisplayFor(model => model.SaleAddress)
             </td>
             <td class="text-left">
-                @Html.DisplayFor(model => model.Customer.CuitCuil)
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleDate)
             </td>
         </tr>
         </tbody>
     </table>
     <h3 class="text-center">Lista de Productos</h3>
     <hr style="color: grey; border-color: grey; margin-top: 0"/>
-    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
+    <table id="tabla" class="table table-condensed   table-striped table-bordered table-condensed resaltar">
         <thead>
         <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
 
@@ -66,7 +67,7 @@
                 Descuento
             </th>
             <th class="text-left" style="border-radius: 3px;">
-                Precio Unitario
+                Precio
             </th>
             <th class="text-left" style="border-radius: 3px;">
                 Subtotal
@@ -97,18 +98,16 @@
         }
         </tbody>
     </table>
+    <hr style="color: grey; border-color: grey"/>
     <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
         <thead>
         <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
             <th class="text-left" style="border-radius: 3px">
                 Comentarios
             </th>
-            <th class="text-left" style="border-radius: 3px">
-
+            <th class="text-left" style="border-radius: 3px; width: 18%">
                 Total Venta
             </th>
-
-
         </tr>
         </thead>
         <tbody>
@@ -116,53 +115,40 @@
             <td class="text-left">
                 @Html.DisplayFor(model => model.Comments)
             </td>
-            <td class="text-left">
+            <th class="text-left">
                 @Html.DisplayFor(model => model.SaleTotal)
-            </td>
+            </th>
 
         </tr>
         </tbody>
     </table>
 
 
-    @using (Html.BeginForm("DeleteSale", "Sales", new { id = Model.IdSale, view = TempData["View"] }, FormMethod.Post, null))
+    @using (Html.BeginForm("DeleteSale", "Sales", new {id = Model.IdSale, view = TempData["View"]}, FormMethod.Post, null))
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color text-center">
-            <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
-            <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-            @*<button id="eliminar" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>*@
+        <div class="row text-center" style="margin-top: 2%">
+            <div class="col-lg-4 text-left">
+                <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
         </div>
     }
 </div>
 
-@section Scripts{
+@section scripts{
     <script>
-        $('#eliminar').click(function() {
-            var view = @TempData["View"];
-            var dato = {
-                IdSale: @Model.IdSale,
-                View: view
-            }
-
-            var url2;
-            $.ajax({
-                url: '@Url.Action("DeleteSale","Sales")',
-                type: "GET",
-                data: JSON.stringify(dato),
-                dataType: "JSON",
-                contentType: "application/json",
-                success: function(d) {
-                    if (d.status == 2) {
-                        url2 = '@Url.Action("Pending", "Sales", new { message = 3})';
-                        window.location.href = url2;
-                    } else {
-                        url2 = '@Url.Action("Index", "Sales", new { message = 3})';
-                        window.location.href = url;
-                    }
+        $(document).ready(function () {
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
                 }
             });
         })
     </script>
 }
+
+
