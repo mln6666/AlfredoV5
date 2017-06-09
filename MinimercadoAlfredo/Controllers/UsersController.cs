@@ -16,7 +16,7 @@ namespace MinimercadoAlfredo.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Users
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
@@ -36,7 +36,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(usersView);
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult ViewPermissions()
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
@@ -67,7 +67,7 @@ namespace MinimercadoAlfredo.Controllers
             ViewBag.ViewCateg = "Permite al usuario acceder a la lista de Rubros";
             ViewBag.CreateCateg = "Permite al usuario agregar un nuevo Rubro";
             ViewBag.EditCateg = "Permite al usuario modificar un Rubro";
-            //ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro (IMPORTANTE: Esta acción provocará la eliminación de todos los Productos relacionados)";
+            ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro";
             ViewBag.ViewPurch = "Permite al usuario acceder a la lista de Compras y al detalle de cada una";
             ViewBag.CreatePurch = "Permite al usuario registrar una Compra";
             ViewBag.EditPurch = "Permite al usuario modificar tanto la información de una Compra, como su detalle";
@@ -88,7 +88,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(userView);
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Roles (string userID)
         {
             if (string.IsNullOrEmpty(userID))
@@ -138,7 +138,7 @@ namespace MinimercadoAlfredo.Controllers
             ViewBag.ViewCateg = "Permite al usuario acceder a la lista de Rubros";
             ViewBag.CreateCateg = "Permite al usuario agregar un nuevo Rubro";
             ViewBag.EditCateg = "Permite al usuario modificar un Rubro";
-            //ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro (IMPORTANTE: Esta acción provocará la eliminación de todos los Productos relacionados)";
+            ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro";
             ViewBag.ViewPurch = "Permite al usuario acceder a la lista de Compras y al detalle de cada una";
             ViewBag.CreatePurch = "Permite al usuario registrar una Compra";
             ViewBag.EditPurch = "Permite al usuario modificar tanto la información de una Compra, como su detalle";
@@ -159,6 +159,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(userView);
         }
 
+        [Authorize(Roles = "Administrador")]
         public ActionResult MyRoles (string name1)
         {
             if (string.IsNullOrEmpty(name1))
@@ -209,7 +210,7 @@ namespace MinimercadoAlfredo.Controllers
             ViewBag.ViewCateg = "Permite al usuario acceder a la lista de Rubros";
             ViewBag.CreateCateg = "Permite al usuario agregar un nuevo Rubro";
             ViewBag.EditCateg = "Permite al usuario modificar un Rubro";
-            //ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro (IMPORTANTE: Esta acción provocará la eliminación de todos los Productos relacionados)";
+            ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro";
             ViewBag.ViewPurch = "Permite al usuario acceder a la lista de Compras y al detalle de cada una";
             ViewBag.CreatePurch = "Permite al usuario registrar una Compra";
             ViewBag.EditPurch = "Permite al usuario modificar tanto la información de una Compra, como su detalle";
@@ -230,7 +231,7 @@ namespace MinimercadoAlfredo.Controllers
             return View("MyPermissions", userView);
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult AddRole(string userID)
         {
             if (string.IsNullOrEmpty(userID))
@@ -266,7 +267,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(userView);
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public ActionResult AddRole(string userID, FormCollection form)
         {
@@ -280,7 +281,7 @@ namespace MinimercadoAlfredo.Controllers
             ViewBag.ViewCateg = "Permite al usuario acceder a la lista de Rubros";
             ViewBag.CreateCateg = "Permite al usuario agregar un nuevo Rubro";
             ViewBag.EditCateg = "Permite al usuario modificar un Rubro";
-            //ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro (IMPORTANTE: Esta acción provocará la eliminación de todos los Productos relacionados)";
+            ViewBag.DeleteCateg = "Permite al usuario eliminar un Rubro";
             ViewBag.ViewPurch = "Permite al usuario acceder a la lista de Compras y al detalle de cada una";
             ViewBag.CreatePurch = "Permite al usuario registrar una Compra";
             ViewBag.EditPurch = "Permite al usuario modificar tanto la información de una Compra, como su detalle";
@@ -353,7 +354,7 @@ namespace MinimercadoAlfredo.Controllers
             return View("Roles", userView);
         }
 
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Delete(string userID, string roleID)
         {
             if (string.IsNullOrEmpty(userID) || string.IsNullOrEmpty(roleID))
@@ -403,7 +404,7 @@ namespace MinimercadoAlfredo.Controllers
         }
 
         // POST: /Users/Delete/5
-        //[Authorize(Roles = "Administrador")]
+        [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> DeleteUser(string id)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));

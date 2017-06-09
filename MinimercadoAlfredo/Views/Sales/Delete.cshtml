@@ -125,14 +125,14 @@
     </table>
 
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("DeleteSale", "Sales", new { id = Model.IdSale, view = TempData["View"] }, FormMethod.Post, null))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
             <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
-            @*<button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>*@
-            <button id="eliminar" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            @*<button id="eliminar" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>*@
         </div>
     }
 </div>

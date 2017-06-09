@@ -296,13 +296,13 @@ namespace MinimercadoAlfredo
         private void CreateSuperuser (ApplicationDbContext dc)
         {
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(dc));
-            var user = userManager.FindByName("alfredo@admin.com");
+            var user = userManager.FindByName("Alfredo Piriz");
 
             if (user == null)
             {
                 user = new ApplicationUser
                 {
-                    UserName = "alfredo@admin.com",
+                    UserName = "Alfredo Piriz",
                     Email = "alfredo@admin.com"
                 };
                 userManager.Create(user, "Abc123.");

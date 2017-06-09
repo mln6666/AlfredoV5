@@ -239,7 +239,6 @@
     <Compile Include="ViewModels\CatalogVM.cs" />
     <Compile Include="ViewModels\CreateProductVM.cs" />
     <Compile Include="ViewModels\CreateSaleVM.cs" />
-    <Compile Include="ViewModels\Dato.cs" />
     <Compile Include="ViewModels\PurchaseVM.cs" />
     <Compile Include="ViewModels\SaleVM.cs" />
   </ItemGroup>

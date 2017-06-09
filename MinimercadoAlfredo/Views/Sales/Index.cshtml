@@ -122,6 +122,9 @@
 
             $('.dropdown-toggle').dropdown();
 
+            if ($('#message').val() == 0) {
+                toastr.warning("Ha ocurrido un error al eliminar la venta");
+            };
             if ($('#message').val() == 2) {
                 toastr.success("Venta modificada exitosamente");
             };
