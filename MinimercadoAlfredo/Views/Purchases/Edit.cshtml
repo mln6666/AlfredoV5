@@ -178,9 +178,9 @@
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <th style="border-color: transparent; text-align: center">TOTAL</th>
-        <td class="text-center" style="text-align: center">
+        <th class="text-center" style="text-align: center">
             <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Purchase.PurchaseTotal" readonly="readonly" style="font-weight: bold" />
-        </td>
+        </th>
     </tr>
 </table>
 <span id="spanquantitytable" style="color: red"></span>
@@ -520,6 +520,7 @@
                     contentType: "application/json",
                     success: function(d) {
                         if (d.status) {
+                            //HAY QUE REDIRECCIONAR A UNA VISTA DONDE ESTEN TODOS LOS PRODUCTOS COMPRADOS Y QUE DE LA POSIBILIDAD DE ACTUALIZAR LOS PRECIOS MAYORISTAS Y MINORISTAS DESPUES DE LA COMPRA
                             var url = '@Url.Action("Index", "Purchases", new { message = 2})';
                             window.location.href = url;
                         }

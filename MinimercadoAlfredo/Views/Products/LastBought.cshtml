@@ -1,0 +1,104 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+
+@{
+    ViewBag.Title = "Última Compra";
+}
+
+<h2 class="text-center">Productos Comprados</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div class="row">
+    <div class="col-lg-10"></div>
+    <div class="btn-group col-lg-1">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown">
+            Mostrar <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
+            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
+            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
+            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>
+        </ul>
+    </div>
+</div>
+<br />
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
+    <thead>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
+        </th>
+        <th>
+            Nro Artículo
+        </th>
+        <th>
+            Costo
+        </th>
+        <th>
+            P. Mayorista
+        </th>
+        <th>
+            P. Minorista
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td width="300px">
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                <input type="number" value="@item.WholeSalePrice"/>
+            </td>
+            <td>
+                <input type="number" value="@item.PublicPrice"/>
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+<div class="row text-center" style="margin-top: 2%">
+    <div class="col-lg-4 text-left">
+        <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;Volver</a>
+    </div>
+    <div class="col-lg-4 text-center">
+        <button>Guardar</button>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $('#myModal').modal('show');
+        $('#myModal3').modal('show');
+
+        $(document).ready(function() {
+            $('.dropdown-toggle').dropdown();
+        });
+    </script>
+}
