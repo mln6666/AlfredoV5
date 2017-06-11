@@ -38,8 +38,8 @@
         </tr>
     </thead>
     <tbody id="last">
-    <td>
-        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+    <td style="width: 40%;background: #a0cee8">
+        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 100%; height: 25px; background-color: beige;" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
             <option value="0">Seleccionar Producto...</option>
             @foreach (var item in ViewBag.Products)
             {
@@ -47,21 +47,21 @@
             }
         </select>
         <input type="hidden" id="shadow" value="">
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
-    <td>
-        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
+    <td class="text-center" style="background: #a0cee8">
+        <input type="text" class="panel-info form-control inputForm" style="width: 100%;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
 
     </td>
-    <td>
-        <input type="number" class="panel-info" style="width: 130px;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
-        <span class="error">Requerido</span>
+    <td class="text-center"  style="background: #a0cee8">
+        <input type="number" class="panel-info form-control inputForm" style="width: 100%;height:25px;" id="baja" value="0" onchange="totalstock()" oninput="totalstock()" onkeypress="solonumerosptocoma()" />
+        <span class="text-danger"></span>
     </td>
-    <td>
-        <input type="text" class="panel-info" style="width: 130px;height:25px;" id="stockfuturo" value="0" readonly="readonly" />
+    <td class="text-center"  style="background: #a0cee8">
+        <input type="text" class="panel-info form-control inputForm" style="width: 100%;height:25px;font-weight: bold" id="stockfuturo" value="0" readonly="readonly" />
 
     </td>
-    <td>
+    <td class="text-center"  style="background: #a0cee8">
         <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
         <span class="glyphicon glyphicon-plus"></span>
     </td>
@@ -153,40 +153,39 @@
                 var isValidItem = true;
                 if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
                     isValidItem = false;
-                    $('#linedescription').siblings('span.error').text('Requerido');
-                    $('#linedescription').siblings('span.error').css('visibility', 'visible');
+                    $('#linedescription').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linedescription').siblings('span.error').css('visibility', 'hidden');
+                    $('#linedescription').siblings('span.text-danger').html('');
                 }
                 if ($('#stockactual').val().trim() == '' | $('#stockactual').val().trim() == 0) {
                     isValidItem = false;
-                    $('#stockactual').siblings('span.error').text('Requerido');
-                    $('#stockactual').siblings('span.error').css('visibility', 'visible');
+                    $('#stockactual').siblings('span.text-danger').html('Requerido.');
+                   
                 } else {
-                    $('#stockactual').siblings('span.error').css('visibility', 'hidden');
+                    $('#stockactual').siblings('span.text-danger').html('');
                 }
 
                 if ($('#baja').val().trim() == '') {
                     isValidItem = false;
-                    $('#baja').siblings('span.error').text('Requerido');
+                    $('#baja').siblings('span.text-danger').html('Requerido.');
 
-                    $('#baja').siblings('span.error').css('visibility', 'visible');
                 } else {
                     if ($('#baja').val().trim() * 1==0) {
                         isValidItem = false;
-                        $('#baja').siblings('span.error').text('Valor min: 1');
+                        $('#baja').siblings('span.text-danger').html('Debe ser mayor a 0');
 
-                    $('#baja').siblings('span.error').css('visibility', 'visible');}else{
-                    $('#baja').siblings('span.error').css('visibility', 'hidden');}
+                  }else{
+                        $('#baja').siblings('span.text-danger').html('');
+                    }
                 }
 
                 if ($('#stockfuturo').val().trim() == '') {
                     isValidItem = false;
-                    $('#stockfuturo').siblings('span.error').text('Requerido');
+                    $('#stockfuturo').siblings('span.text-danger').html('Requerido.');
 
-                    $('#stockfuturo').siblings('span.error').css('visibility', 'visible');
+                  
                 } else {
-                    $('#stockfuturo').siblings('span.error').css('visibility', 'hidden');
+                    $('#stockfuturo').siblings('span.text-danger').html('');
                 }
 
 
@@ -306,9 +305,9 @@
                     $.each(orderItems, function(i, val) {
                         var $row = $('<tr class="elim"  style="background-color: white"></tr>');
                         $row.append($('<td></td>').html(val.LineDescription));
-                        $row.append($('<td></td>').html(val.LinePrice));
-                        $row.append($('<td></td>').html(val.LineQuantity));
-                        $row.append($('<td></td>').html(val.LineTotal));
+                        $row.append($('<td class="text-center"></td>').html(val.LinePrice));
+                        $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
+                        $row.append($('<td class="text-center"></td>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
                         $remove.click(function(e) {
                             e.preventDefault();
@@ -316,7 +315,7 @@
                             verifproductos.splice(i, 1);
                             GeneratedItemsTable();
                         });
-                        $row.append($('<td></td>').append($remove));
+                        $row.append($('<td class="text-center"></td>').append($remove));
                         $('#mytable > tbody:last').append($row);
                     });
 

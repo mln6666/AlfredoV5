@@ -347,7 +347,7 @@
                 } else {
                     if ($('#linequantity').val().trim() * 1 == 0) {
                         isValidItem = false;
-                        $('#linequantity').siblings('span.error').text('Valor min: 1');
+                        $('#linequantity').siblings('span.error').text('Debe ser mayor a 0');
 
                         $('#linequantity').siblings('span.error').css('visibility', 'visible');
                     } else {
