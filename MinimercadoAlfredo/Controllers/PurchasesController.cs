@@ -30,18 +30,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(purchases.ToList().OrderByDescending(p => p.PurchaseDate));
         }
 
-        public ActionResult LastBought()
-        {
-            List<Product> lastproducts = new List<Product>();
-
-            Purchase lastpurchase = db.Purchases.LastOrDefault();
-
-            //lastproducts = (from p in lastpurchase.PurchaseLines
-            //                select p.Product);
-
-            return View(lastproducts);
-        }
-
         // GET: Purchases/Details/5
         public ActionResult Details(int? id)
         {

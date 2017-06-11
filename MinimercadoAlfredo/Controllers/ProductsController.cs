@@ -113,6 +113,55 @@ namespace MinimercadoAlfredo.Controllers
 
             return View(products.ToList());
         }
+
+        public ActionResult LastBought(int? id)
+        {
+            List<Product> lastproducts = new List<Product>();
+            Purchase lastpurchase = new Purchase();
+
+            if (id != null)
+            {
+                lastpurchase = db.Purchases.Find(id);
+            }
+            else
+            {
+                lastpurchase = db.Purchases.ToList().LastOrDefault();
+            }
+
+            foreach (var item in lastpurchase.PurchaseLines.ToList())
+            {
+                lastproducts.Add(item.Product);
+            }
+
+            return View(lastproducts);
+        }
+
+        [HttpPost]
+        public JsonResult LastBought(List<LastProduct> prods)
+        {
+            Product product = new Product();
+
+            foreach (var item in prods)
+            {
+                product = db.Products.Find(item.Productid);
+
+                if (item.Publicprice != null & item.Wholesaleprice != null)
+                {
+                    product.UploadDate = DateTime.Today;
+                }
+
+                product.WholeSalePrice = item.Wholesaleprice;
+                product.PublicPrice = item.Publicprice;
+
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            var status = true;
+
+            return Json(status, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public ActionResult Catalog(bool personal)
         {

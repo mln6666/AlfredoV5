@@ -240,6 +240,7 @@
     <Compile Include="ViewModels\CreateProductVM.cs" />
     <Compile Include="ViewModels\CreatePurchaseVM.cs" />
     <Compile Include="ViewModels\CreateSaleVM.cs" />
+    <Compile Include="ViewModels\LastProduct.cs" />
     <Compile Include="ViewModels\PurchaseVM.cs" />
     <Compile Include="ViewModels\SaleVM.cs" />
   </ItemGroup>

@@ -158,7 +158,7 @@
             }
 
             if ($('#IdCategory').val() == '' | $('#IdCategory').val() == null) {
-                $('#spancategory').text('Debe seleccionar un Rubro');
+                $('#spancategory').text('Debe seleccionar un Rubro.');
                 IsValidItem2 = false;
             } else {
                 $('#spancategory').text('');
@@ -177,7 +177,7 @@
                 options.dataType = "json";
                 options.success = function(data) {
                     if (data) {
-                        $('#spandescexistente').text("Producto existente");
+                        $('#spandescexistente').text("Producto existente.");
                         IsValidItem = false;
                     } else {
                         IsValidItem = true;
@@ -187,7 +187,7 @@
                 $.ajax(options);
 
             } else {
-                $('#spandescexistente').text("Debe ingresar la descripción del Producto");
+                $('#spandescexistente').text("Debe ingresar la descripción del Producto.");
                 IsValidItem = false;
             }
 
@@ -199,7 +199,7 @@
             }
 
             if ($('#IdTrademark').val() == 0) {
-                $('#spantrademark').text("Debe seleccionar una Marca");
+                $('#spantrademark').text("Debe seleccionar una Marca.");
                 IsValidItem3 = false;
             } else {
                 IsValidItem3 = true;
@@ -220,26 +220,26 @@
                 validcost = true;
                 if ($('#ProductWholeSalePrice').val() != '') {
                     if (cost > wholeSalePrice) {
-                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
+                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista.');
                         validcost = false;
                     }
                 }
 
                 if ($('#ProductPublicPrice').val() != '') {
                     if (publicPrice < cost) {
-                        $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                        $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto.');
                         validcost = false;
                     }
                 }
 
             } else {
-                $('#spanvalidcost').text('El costo de un producto es obligatorio');
+                $('#spanvalidcost').text('El costo de un producto es obligatorio.');
                 validcost = false;
             }
 
             if ($('#ProductPublicPrice').val() != '' & $('#ProductWholeSalePrice').val() != '') {
                 if (publicPrice < wholeSalePrice) {
-                    $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
+                    $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista.');
                     validcost = false;
                 }
             }
@@ -260,7 +260,7 @@
 
         function inputtrademark() {
             if ($('#newtrademark').val() == '') {
-                $('#spannewtrademark').text("Ingrese el nombre de la nueva Marca");
+                $('#spannewtrademark').text("Ingrese el nombre de la nueva Marca.");
             } else {
                 $('#spannewtrademark').text("");
             }
@@ -277,7 +277,7 @@
                 options.dataType = "json";
                 options.success = function(data) {
                     if (data) {
-                        $('#spannewtrademark').text("La marca que está intentando ingresar ya existe");
+                        $('#spannewtrademark').text("La marca que está intentando ingresar ya existe.");
                     } else {
                         var options2 = {};
                         options2.url = '@Url.Action("AddTrademark", "Trademarks")';
@@ -286,7 +286,7 @@
                         options2.dataType = "JSON";
                         options2.success = function(data2) {
                             if (!data2.exist) {
-                                toastr.success("La Marca ha sido registrada exitosamente");
+                                toastr.success("La Marca ha sido registrada exitosamente.");
 
                                 $('#showtrademark').toggle('slow');
                                 $('#addtrademark').toggle('slow');
@@ -297,7 +297,7 @@
                                 $('#IdTrademark').val(data2.x).trigger('change');
                                 $('#newtrademark').val('');
                             } else {
-                                toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente");
+                                toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente.");
                             }
                             //$('#newtrademark').val('');
                         };
@@ -319,7 +319,7 @@
 
                 bootbox.confirm({
                     title: "Confirmación",
-                    message: "Usted está por agregar un nuevo producto",
+                    message: "Usted está por agregar un nuevo producto.",
                     buttons: {
                         confirm: {
                             label: 'Agregar',
@@ -372,13 +372,13 @@
 
             } else {
                 if ($('#IdCategory').val() == 0) {
-                    $('#spancategory').text("Debe seleccionar un Rubro");
+                    $('#spancategory').text("Debe seleccionar un Rubro.");
                 }
                 if ($('#ProductDescription').val() == "") {
-                    $('#spandescexistente').text("Debe ingresar la descripción del Producto");
+                    $('#spandescexistente').text("Debe ingresar la descripción del Producto.");
                 }
                 if ($('#IdTrademark').val() == 0) {
-                    $('#spantrademark').text("Debe seleccionar una Marca");
+                    $('#spantrademark').text("Debe seleccionar una Marca.");
                 }
             }
         });

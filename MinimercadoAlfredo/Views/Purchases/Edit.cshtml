@@ -512,20 +512,61 @@
 
                 }
 
-                $.ajax({
-                    url: '@Url.Action("EditPurchases","Purchases")',
-                    type: "POST",
-                    data: JSON.stringify(purchase),
-                    dataType: "JSON",
-                    contentType: "application/json",
-                    success: function(d) {
-                        if (d.status) {
-                            //HAY QUE REDIRECCIONAR A UNA VISTA DONDE ESTEN TODOS LOS PRODUCTOS COMPRADOS Y QUE DE LA POSIBILIDAD DE ACTUALIZAR LOS PRECIOS MAYORISTAS Y MINORISTAS DESPUES DE LA COMPRA
-                            var url = '@Url.Action("Index", "Purchases", new { message = 2})';
-                            window.location.href = url;
+                bootbox.confirm({
+                    title: "Actualización de Precios",
+                    message: "¿Desea actualizar ahora mismo los precios de los productos adquiridos?",
+                    buttons: {
+                        confirm: {
+                            label: "Actualizar",
+                            className: "btn-success"
+                        },
+                        cancel: {
+                            label: "Cancelar",
+                            className: "btn-primary"
+                        }
+
+                    },
+                    callback: function (result) {
+                        if (result) {
+
+                            $.ajax({
+                                url: '@Url.Action("EditPurchases","Purchases")',
+                                type: "POST",
+                                data: JSON.stringify(purchase),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function(d) {
+                                    if (d.status) {
+                                        
+                                        var url = '@Url.Action("LastBought", "Products", new { id = Model.Purchase.IdPurchase})';
+                                        window.location.href = url;
+
+                                    }
+                                }
+                            });
+
+                        } else {
+                            $.ajax({
+                                url: '@Url.Action("EditPurchases","Purchases")',
+                                type: "POST",
+                                data: JSON.stringify(purchase),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function(d) {
+                                    if (d.status) {
+                                        
+                                        var url = '@Url.Action("Index", "Purchases", new { message = 2})';
+                                        window.location.href = url;
+
+                                    }
+                                }
+                            });
                         }
                     }
                 });
+
+
+                
 
             }
         });

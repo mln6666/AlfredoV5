@@ -19,7 +19,8 @@
             <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
             <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
             <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record","Products")">Todos los Productos</a></li>
+            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
+            <li><a href="@Url.Action("LastBought","Products")">Última adquisición</a></li>
         </ul>
     </div>
 </div>
@@ -28,24 +29,21 @@
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
         <th>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.ProductDescription)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
         </th>
-        <th>
+        <th style="width: 15%">
             Nro Artículo
         </th>
-        <th>
+        <th style="width: 15%">
             Costo
         </th>
-        <th>
+        <th style="width: 15%">
             P. Mayorista
         </th>
-        <th>
+        <th style="width: 15%">
             P. Minorista
         </th>
     </tr>
@@ -55,38 +53,36 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-            </td>
-            <td width="300px">
                 @Html.DisplayFor(modelItem => item.ProductDescription)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdProduct)
+                <input type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center"/>
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cost)
+                <input id="@("cost" + item.IdProduct)" type="number" value="@item.Cost" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center"/>
             </td>
             <td>
-                <input type="number" value="@item.WholeSalePrice"/>
+                <input id="@("wsp" + item.IdProduct)" type="number" value="@item.WholeSalePrice" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center"/>
             </td>
-            <td>
-                <input type="number" value="@item.PublicPrice"/>
+            <td>                
+                <input id="@("pp" + item.IdProduct)" type="number" value="@item.PublicPrice" name="publicprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center"/>
             </td>
         </tr>
     }
     </tbody>
 
 </table>
+<span id="spanwsp" style="color: red"></span><span id="spanpp" style="color: red"></span>
 
 <div class="row text-center" style="margin-top: 2%">
     <div class="col-lg-4 text-left">
         <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp;Volver</a>
     </div>
     <div class="col-lg-4 text-center">
-        <button>Guardar</button>
+        <button id="save" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
     </div>
 </div>
 
@@ -94,11 +90,102 @@
 @section scripts
 {
     <script>
-        $('#myModal').modal('show');
-        $('#myModal3').modal('show');
-
         $(document).ready(function() {
             $('.dropdown-toggle').dropdown();
         });
+
+        function ValidPrice(idproduct) {
+            $('#spanwsp').text("");
+            $('#spanpp').text("");
+            $('#wsp' + idproduct).css("border-color", "");
+            $('#pp' + idproduct).css("border-color", "");
+            if ($('#save').hasClass("disabled")) {
+                $('#save').removeClass("disabled");
+            }
+
+            var cost = $('#cost' + idproduct).val();
+            var wsp = $('#wsp' + idproduct).val();
+            var pp = $('#pp' + idproduct).val();
+
+            if (wsp != "" & pp != "") {
+
+                if (cost > wsp | cost > pp) {
+                    if (cost > wsp) {
+
+                        $('#spanwsp').text("El precio mayorista del producto " + idproduct.toString() + " no puede ser inferior a su costo. ");
+                        $('#wsp' + idproduct).css("border-color", "red");
+                        $('#save').addClass("disabled");
+                    }
+
+                    if (cost > pp) {
+                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su costo.");
+                        $('#pp' + idproduct).css("border-color", "red");
+                        $('#save').addClass("disabled");
+                    }
+                } else {
+                    if (wsp > pp) {
+                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su precio mayorista.");
+                        $('#wsp' + idproduct).css("border-color", "red");
+                        $('#pp' + idproduct).css("border-color", "red");
+                        $('#save').addClass("disabled");
+                    }
+                }
+            } else {
+                
+                if (wsp == "") {
+                    
+                    if (cost > pp) {
+                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su costo.");
+                        $('#pp' + idproduct).css("border-color", "red");
+                        $('#save').addClass("disabled");
+                    }
+                } else {
+                    
+                    if (cost > wsp) {
+                        $('#spanwsp').text("El precio mayorista del producto " + idproduct.toString() + " no puede ser inferior a su costo. ");
+                        $('#wsp' + idproduct).css("border-color", "red");
+                        $('#save').addClass("disabled");
+                    }
+                }
+            }
+        }
+
+        $('#save').click(function() {
+            var products = [];
+            var product;
+            var productids = [];
+            var priceswsp = [];
+            var pricespp = [];
+
+            $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
+            $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value)) });
+            $('input[name="publicprice"]').map(function () { pricespp.push(parseFloat(this.value)) });
+
+            for (var i = 0; i < productids.length; i++) {
+                product = {
+                    Productid: productids[i],
+                    Wholesaleprice: priceswsp[i],
+                    Publicprice: pricespp[i]
+                }
+                products.push(product);
+            }
+
+            $.ajax({
+                url: '@Url.Action("LastBought","Products")',
+                type: "POST",
+                data: JSON.stringify(products),
+                dataType: "JSON",
+                contentType: "application/json",
+                success: function(d) {
+                    if (d) {
+                        var url = '@Url.Action("Index", "Products", new { message = 4})';
+                        window.location.href = url;
+                    }
+                }
+            });
+        });
     </script>
 }
+
+
+ 
