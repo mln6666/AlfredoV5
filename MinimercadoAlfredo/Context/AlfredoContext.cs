@@ -14,7 +14,10 @@ namespace MinimercadoAlfredo.Context
         {
         }
 
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Properties<decimal>().Configure(c => c.HasPrecision(18, 3));
+        }
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Product> Products { get; set; }
 
         public System.Data.Entity.DbSet<MinimercadoAlfredo.Models.Category> Categories { get; set; }

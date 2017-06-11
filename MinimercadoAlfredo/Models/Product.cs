@@ -40,11 +40,14 @@ namespace MinimercadoAlfredo.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
         public DateTime? UploadDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.000}", ApplyFormatInEditMode = true)]
         public decimal? Stock { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:0.000}", ApplyFormatInEditMode = true)]
         public decimal? ParcialStock { get; set; }
 
         [Display(Name = "Stock mínimo")]
+        [DisplayFormat(DataFormatString = "{0:0.000}", ApplyFormatInEditMode = true)]
         public decimal? Minimum { get; set; }
 
         public bool ProductState { get; set; }

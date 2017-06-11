@@ -121,7 +121,7 @@
                     var stockactual = parseFloat($('#stockactual').val());
                     var baja = parseFloat($('#baja').val());
                     var stockfuturo = (stockactual + baja);
-                    document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);;
+                    document.getElementById("stockfuturo").value = stockfuturo.toFixed(3);;
                 };
                 $.ajax(options);
             });
@@ -135,7 +135,7 @@
                 var baja = parseFloat($('#baja').val());
                
                 var stockfuturo = (stockactual + baja);
-                document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);
+                document.getElementById("stockfuturo").value = stockfuturo.toFixed(3);
             }
 
         ////////////////////End: stockfuturo Calculation/////////////

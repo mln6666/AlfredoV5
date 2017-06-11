@@ -53,8 +53,8 @@
     </thead>
     <tbody>
 
-    <td class="text-center">
-        <div class="dataContainer">@ViewBag.nsale</div>
+    <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
+        <div >@ViewBag.nsale</div>
     </td>
 
     <td class="text-center">
@@ -320,7 +320,7 @@
                 options.data = { "pro": $("#linedescription").val() };
                 options.dataType = "json";
                 options.success = function (data) {
-                    document.getElementById("lineprice").value = data;
+                    document.getElementById("lineprice").value = parseFloat(data).toFixed(2);
                     var price = parseFloat($('#lineprice').val());
                     var quantity = parseFloat($('#linequantity').val());
                     var discount = parseFloat($('#linediscount').val());
@@ -690,7 +690,7 @@
                 $.each(orderItems, function (i, val) {
                     var $row = $('<tr class="elim"  style="background-color: white"></tr>');
                     $row.append($('<td></td>').html(val.LineDescription));
-                    $row.append($('<td class="text-center"></td>').html(val.LinePrice));
+                    $row.append($('<td class="text-center"></td>').html(parseFloat(val.LinePrice).toFixed(2)));
                     $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                     $row.append($('<td class="text-center"></td>').html(val.LineDiscount));
                     $row.append($('<td class="text-center"></td>').html(val.LineTotal));

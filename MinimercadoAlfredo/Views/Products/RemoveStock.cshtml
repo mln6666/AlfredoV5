@@ -121,7 +121,7 @@
                     var stockactual = parseFloat($('#stockactual').val());
                     var baja = parseFloat($('#baja').val());
                     var stockfuturo = (stockactual - baja);
-                    document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);;
+                    document.getElementById("stockfuturo").value = stockfuturo.toFixed(3);;
                 };
                 $.ajax(options);
             });
@@ -134,12 +134,12 @@
                 var stockactual = parseFloat($('#stockactual').val());
                 var baja = parseFloat($('#baja').val());
                 if (stockactual < baja) {
-                    baja = stockactual; document.getElementById("baja").value = stockactual.toFixed(2);
+                    baja = stockactual; document.getElementById("baja").value = stockactual.toFixed(3);
                     $('#baja').siblings('span.error').css('visibility', 'visible');
                     $('#baja').siblings('span.error').text('Valor max:'+" "+stockactual);
                 } else { $('#baja').siblings('span.error').css('visibility', 'hidden'); }
                 var stockfuturo = (stockactual - baja);
-                document.getElementById("stockfuturo").value = stockfuturo.toFixed(2);
+                document.getElementById("stockfuturo").value = stockfuturo.toFixed(3);
             }
 
         ////////////////////End: stockfuturo Calculation/////////////
