@@ -9,22 +9,21 @@
 <table class="table table-condensed table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-            <th style="width: 10%">
-                N° Venta
-            </th>
-            <th>
+            <th class="text-center">
+                N°
+<th>
                 Cliente
             </th>
             <th>
                 Dirección
             </th>
-            <th>
+            <th class="text-center">
                 CUIT/CUIL
             </th>
             <th style="width: 12%">
                 Estado de Venta
             </th>
-            <th style="width: 16%">
+            <th style="width: 16%" class="text-center">
                 @Html.DisplayNameFor(model => model.Sale.SaleDate)
             </th>
 
@@ -32,12 +31,12 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td style="color: black; text-align: center">
+            <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
                 @Html.DisplayFor(model => model.Sale.IdSale)
             </td>
             <td>
                 @if (Model.Sale.IdCustomer == null)
-                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
+                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
                     <option value="0">Seleccionar cliente</option>
                     @foreach (var item in Model.Customers)
                     {
@@ -47,7 +46,7 @@
                     }
                 </select> }
                 else
-                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
+                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
                     <option value="@Model.Sale.IdCustomer">@Model.Sale.Customer.CustomerName</option>
                     @foreach (var item in Model.Customers)
                     {
@@ -62,14 +61,14 @@
             </td>
             <td>
                 @if (Model.Sale.IdCustomer == null)
-                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" />
+                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%" />
                 }
                 else
-                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" /> }
+                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" /> }
 
                
             </td>
-            <td style="width: 13%">
+            <td style="width: 13%" class="text-center">
                 @if (Model.Sale.IdCustomer == null)
                 {                <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
                 }
@@ -78,22 +77,21 @@
                
             </td>
             <td style="color: black; font-weight: bold">
-                <select class="inputForm" id="salestate">
+                <select class="panel-info form-control inputForm" id="salestate" style="padding: initial">
                     <option value="0">Pendiente</option>
                     <option value="1">Finalizada</option>
                 </select>
             </td>
-            <td style="color: black">
+            <td style="color: black" class="text-center">
                 <input id="Date" name="Date" type="date" class="panel-info form-control inputForm" value="@Model.Sale.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center" />
             </td>
 
         </tr>
     </tbody>
 </table>
-<h3 class="text-center">Lista de Productos</h3>
-<hr style="color: grey; border-color: grey; margin-top: 0" />
 
-<table class="table table-condensed table-bordered" id="productTable" style="background-color: white">
+
+<table class="table table-condensed table-bordered sinborde" id="productTable">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
         <td>
@@ -156,7 +154,7 @@
 
     @foreach (var item in Model.Sale.SaleLines)
     {
-        <tr>
+        <tr style="background-color: white">
             <td>
                 @{
                     var x = "";
@@ -192,13 +190,15 @@
     }
     </tbody>
     <tr>
-        <td style="border-color: transparent"></td>
-        <td style="border-color: transparent"></td>
-        <td style="border-color: transparent"></td>
-        <th style="border-color: transparent; text-align: center; background-color: khaki; font-weight: bold">TOTAL</th>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <th class="text-center" style="background: khaki">TOTAL</th>
         <th class="text-center" style="text-align: center; background-color: khaki">
-            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold" />
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold"/>
         </th>
+        <td class="sinborde"></td>
+
     </tr>
 </table>
 <span id="spanquantitytable" style="color: red"></span>
@@ -208,14 +208,14 @@
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
             <td>
-                Comentarios
+                Observaciones
             </td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                <input type="text" id="salecomments" value="@Model.Sale.Comments"/>
+                <input type="text" id="salecomments" value="@Model.Sale.Comments" style="max-width: 100%!important;width: 100%!important" class="panel-info form-control sizeComment"/>
             </td>
         </tr>
     </tbody>
@@ -382,7 +382,7 @@
                 //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
 
                 var idproduct = $('#linedescription').val();
-                $('#insert').append('<tr id="inserttd' + idproduct + '"></tr>');
+                $('#insert').append('<tr id="inserttd' + idproduct + '" style="background-color: white"></tr>');
 
                 $('#inserttd' + idproduct).append('<td><input id="itemid' + idproduct + '" name="productid" value="'+ idproduct +'" class="hidden" /><input id="desc'+ idproduct +'" type="text" value="'+ idproduct.toString() +'" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly" /></td>');
 
