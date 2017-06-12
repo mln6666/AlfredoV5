@@ -38,7 +38,7 @@
                 @Html.DisplayFor(model => model.Provider.ProviderPhone)
             </td>
             <td>
-                @Html.DisplayFor(model => model.PurchaseDate)
+                <input type="date" value="@Model.PurchaseDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly" />
             </td>
             
         </tr>

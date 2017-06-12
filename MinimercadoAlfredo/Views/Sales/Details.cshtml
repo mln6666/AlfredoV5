@@ -52,7 +52,7 @@ else
                 @Html.DisplayFor(model => model.SaleState)
             </td>
             <td>
-                @Html.DisplayFor(model => model.SaleDate)
+                <input type="date" value="@Model.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly"/>
             </td>
 
         </tr>
