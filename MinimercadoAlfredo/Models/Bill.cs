@@ -11,6 +11,8 @@ namespace MinimercadoAlfredo.Models
         [Key]
         public int IdBill { get; set; }
 
+
+
         [Display(Name = "Fecha de Venta")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]

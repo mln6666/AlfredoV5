@@ -36,7 +36,18 @@
                 @Html.DisplayFor(model => model.Sale.IdSale)
             </td>
             <td>
-                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
+                @if (Model.Sale.IdCustomer == null)
+                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
+                    <option value="0">Seleccionar cliente</option>
+                    @foreach (var item in Model.Customers)
+                    {
+                       
+                            <option value="@item.IdCustomer">@item.CustomerName</option>
+                        
+                    }
+                </select> }
+                else
+                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 180px; height: 38px; background-color: beige;">
                     <option value="@Model.Sale.IdCustomer">@Model.Sale.Customer.CustomerName</option>
                     @foreach (var item in Model.Customers)
                     {
@@ -45,14 +56,26 @@
                             <option value="@item.IdCustomer">@item.CustomerName</option>
                         }
                     }
-                </select>
+                </select> }
+               
 
             </td>
             <td>
-                <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" />
+                @if (Model.Sale.IdCustomer == null)
+                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" />
+                }
+                else
+                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" /> }
+
+               
             </td>
             <td style="width: 13%">
-                <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                @if (Model.Sale.IdCustomer == null)
+                {                <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                }
+                else
+                {  <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" /> }
+               
             </td>
             <td style="color: black; font-weight: bold">
                 <select class="inputForm" id="salestate">

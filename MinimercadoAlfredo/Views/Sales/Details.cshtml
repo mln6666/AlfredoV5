@@ -35,7 +35,10 @@
             </td>
 
             <td>
-                @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })
+                @if (Model.IdCustomer == null) { <text>-</text>}
+else
+{    @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })}
+             
             </td>
             <td>
                 @if (Model.SaleAddress == "" | Model.SaleAddress == null)
@@ -156,7 +159,7 @@
         {
             <a class="btn btn-success disabled">Editar &nbsp;<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
         }
-        <a href="@Url.Action("_Details", "Bills", new {id = Model.IdSale})" class="btn btn-primary dialog-window2 chicle">Ver Comprobante &nbsp;<span class="glyphicon glyphicon-file" aria-hidden="true"></span></a>
+        <a href="@Url.Action("_Details", "Bills", new {id = Model.IdBill})" class="btn btn-primary dialog-window2 chicle">Ver Comprobante &nbsp;<span class="glyphicon glyphicon-file" aria-hidden="true"></span></a>
     </div>
 </div>
 

@@ -281,7 +281,10 @@ namespace MinimercadoAlfredo.Controllers
                 bill.SaleDate = O.SaleDate;
                 bill.SaleAddress = O.SaleAddress;
                 bill.LinesTotal = O.SaleTotal;
-                bill.IdCustomer = cusid;
+                if (cusid != 0)
+                {
+                    bill.IdCustomer = cusid;
+                }
                 db.Bills.Add(bill);
                 db.SaveChanges();
 
@@ -291,7 +294,9 @@ namespace MinimercadoAlfredo.Controllers
                 sale.SaleTotal = O.SaleTotal;
                 sale.LinesTotal = O.SaleTotal;
                 sale.IdBill = bill.IdBill;
-                sale.IdCustomer = cusid;
+                if (cusid != 0) { sale.IdCustomer = cusid; }
+
+                  
                
                 db.Sales.Add(sale);
                     db.SaveChanges();
@@ -481,7 +486,11 @@ namespace MinimercadoAlfredo.Controllers
 
             if (ModelState.IsValid)
             {
-                s.IdCustomer = sale.IdCustomer;
+                if (sale.IdCustomer != 0)
+                {
+                    s.IdCustomer = sale.IdCustomer;
+                }
+
                 s.SaleState = sale.SaleState;
                 s.SaleTotal = sale.SaleTotal;
                 s.Comments = sale.Comments;

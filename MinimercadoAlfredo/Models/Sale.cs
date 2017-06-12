@@ -41,7 +41,7 @@ namespace MinimercadoAlfredo.Models
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? SaleTotal { get; set; }
 
-        public int IdCustomer { get; set; } //Clave Foránea de Cliente (Customer)
+        public int? IdCustomer { get; set; } //Clave Foránea de Cliente (Customer)
 
         public virtual Customer Customer { get; set; }
 
