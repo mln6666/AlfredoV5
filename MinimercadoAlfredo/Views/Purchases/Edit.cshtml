@@ -73,6 +73,7 @@
             <td style="width: 17%">
                 Subtotal
             </td>
+            <td></td>
         </tr>
     </thead>
 
@@ -131,10 +132,10 @@
                 }
             </td>
             <td class="text-center">
-                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%; font-weight: bold"/>
+                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%"/>
             </td>
             <td class="text-center">
-                <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice" class="panel-info text-center form-control fina" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" style="text-align: center; width: 100%; font-weight: bold"/>
+                <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice" class="panel-info text-center form-control fina" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" style="text-align: center; width: 100%"/>
             </td>
 
             <td class="text-center">
@@ -150,7 +151,7 @@
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <th style="border-color: transparent; text-align: center; background-color: khaki">TOTAL</th>
-        <th class="text-center" style="text-align: center; background-color: khaki">
+        <th class="text-center" style="text-align: center; background-color: khaki; font-weight: bold">
             <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Purchase.PurchaseTotal" readonly="readonly" style="font-weight: bold" />
         </th>
     </tr>
@@ -178,7 +179,7 @@
 <hr style="color: grey" />
 <div style="width: 100%; display: flex">
     <div style="width: 25%; text-align: left">
-        <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-hand-left " aria-hidden="true"></span>&nbsp; Volver</a>
+        <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span>&nbsp; Volver</a>
     </div>
     <div style="width: 50%; text-align: center">
         <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
@@ -199,16 +200,6 @@
 
             $(".js-example-basic-single").select2();
         });
-
-        //$("#mostrar").click(function () {
-        //    $("#mostrar").hide("slow");
-        //    $("#nuevalinea").toggle("slow");
-
-        //});
-        //$("#ocultar").click(function () {
-        //    $("#nuevalinea").toggle("slow");
-        //    $("#mostrar").toggle("slow");
-        //});
 
         //CARGA AUTOMÁTICA DE DIRECCIÓN DE CLIENTE
 
@@ -261,7 +252,7 @@
 
                 if ($('#linecost').val() == 0 | $('#linecost').val().trim() == '') {
                     isAllValid = false;
-                    $('#spancost').text("No se puede comprar un Producto por $0.00, para realizar esta operación se recomienda realizar un alta de Productos en masa");
+                    $('#spancost').text("Debe ser mayor a 0");
                     document.getElementById("linetotal").value = "0.00";
                 } else {
                     $('#spancost').text("");
@@ -269,7 +260,7 @@
 
                 if ($('#linequantity').val() < 1) {
                     isAllValid = false;
-                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    $('#spanquantity').text("Debe ser mayor a 0");
                     document.getElementById("linetotal").value = "0.00";
 
                 } else {
@@ -301,14 +292,14 @@
 
                 if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
                     isAllValid = false;
-                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    $('#spanquantity').text("Debe ser mayor a 0");
                 } else {
                     $('#spanquantity').text("");
                 }
 
                 if ($('#linecost').val() == 0 | $('#linecost').val().trim() == '') {
                     isAllValid = false;
-                    $('#spancost').text("No se puede comprar un Producto por $0.00, para realizar esta operación se recomienda realizar un alta de Productos en masa");
+                    $('#spancost').text("Debe ser mayor a 0");
                 } else {
                     $('#spancost').text("");
                 }
@@ -317,7 +308,7 @@
                 if (exist) {
                     $('#spanproducto').text("");
                 } else {
-                    $('#spanproducto').text("El Producto que intenta agregar ya existe en la Lista de Productos");
+                    $('#spanproducto').text("El Producto ya existe en la Lista de Productos");
                     isAllValid = false;
                 }
             }
@@ -351,10 +342,10 @@
                 $.ajax(options);
 
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" type="number" min="0" class="panel-info text-center form-control fina" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" style="text-align: center; width: 100%; font-weight: bold" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" type="number" min="0" class="panel-info text-center form-control fina" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" style="text-align: center; width: 100%" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemcost' + idproduct + '" name="productcost" type="number" min="1" class="panel-info text-center form-control fina onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" style="text-align: center; width: 100%; font-weight: bold" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemcost' + idproduct + '" name="productcost" type="number" min="1" class="panel-info text-center form-control fina onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" style="text-align: center; width: 100%" /></td>');
                 $('#itemcost' + idproduct).val($('#linecost').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" type="text" class="panel-info text-center form-control fina" style="text-align: center; font-weight: bold" readonly="readonly" /></td>');
@@ -426,7 +417,7 @@
 
             if ($('#itemquantity' + idproduct).val() == 0) {
                 $('#itemquantity' + idproduct).css("border-color","red");
-                $('#spanquantitytable').text('Error, la cantidad comprada de un producto no puede ser cero');
+                $('#spanquantitytable').text('Debe ser mayor a 0');
 
             } else {
                 $('#itemquantity' + idproduct).css("border-color","");
@@ -435,7 +426,7 @@
 
             if ($('#itemcost' + idproduct).val() == 0) {
                 $('#itemcost' + idproduct).css("border-color", "red");
-                $('#spancosttable').text('Error, el costo no puede ser cero, se recomienda realizar un alta de Productos en masa');
+                $('#spancosttable').text('Debe ser mayor a 0');
             } else {
                 $('#itemcost' + idproduct).css("border-color", "");
                 $('#spancosttable').text('');

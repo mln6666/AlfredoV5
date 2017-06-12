@@ -111,6 +111,7 @@
         <td style="width: 16%">
             Subtotal
         </td>
+        <td></td>
     </tr>
     </thead>
 
@@ -173,13 +174,13 @@
                 }
             </td>
             <td class="text-center">
-                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center">
-                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center" >
-                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center">
                 <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
@@ -194,7 +195,7 @@
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
-        <th style="border-color: transparent; text-align: center; background-color: khaki">TOTAL</th>
+        <th style="border-color: transparent; text-align: center; background-color: khaki; font-weight: bold">TOTAL</th>
         <th class="text-center" style="text-align: center; background-color: khaki">
             <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold" />
         </th>
@@ -222,7 +223,7 @@
 <hr style="color: grey" />
 <div style="width: 100%; display: flex">
     <div style="width: 25%; text-align: left">
-        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-hand-left " aria-hidden="true"></span>&nbsp; Volver</a>
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span>&nbsp; Volver</a>
     </div>
     <div style="width: 50%; text-align: center">
         <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
@@ -243,15 +244,6 @@
 
             changecust(@Model.Sale.IdCustomer);
         });
-
-        //$("#mostrar").click(function () {
-        //    $("#nuevalinea").toggle("slow");
-        //    $("#mostrar").hide("slow");
-        //});
-        //$("#ocultar").click(function () {
-        //    $("#nuevalinea").toggle("slow");
-        //    $("#mostrar").toggle("slow");
-        //});
 
         //CARGA AUTOMÁTICA DE DIRECCIÓN Y CUIL/CUIT DE CLIENTE
 
@@ -401,7 +393,7 @@
                 options.dataType = "JSON";
                 options.success = function (data) {
 
-                    var description = "";
+                    var description;
 
                     if (data.trademark != "") {
                         description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
@@ -413,13 +405,13 @@
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center; font-weight: bold" type="text" class="panel-info text-center form-control fina" readonly="readonly" /></td>');
