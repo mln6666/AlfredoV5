@@ -84,7 +84,7 @@
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
     <div class="navbar navbar-inverse hidden-print" style="margin-bottom: 0px;">
         <div class="container">
-            <div class="navbar-btn vibrador sombra_externa">
+            <div class="navbar-btn sombra_externa">
                 @Html.ActionLink("Minimercado Alfredo", "Index", "Home", new { area = "" }, new { @class = "navbar-Trademark" })
             </div>
             <div class="navbar-collapse">
@@ -150,7 +150,7 @@
 <div class="container body-content">
 
     @RenderBody()
-    <hr/>
+    <hr class="hidden-print" />
     <footer>
         <p class="text-center hidden-print"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ® <a class="hidden-print" style="color: black">@Html.ActionLink("Contacto", "Contact", "Home")</></a> -
         </p>

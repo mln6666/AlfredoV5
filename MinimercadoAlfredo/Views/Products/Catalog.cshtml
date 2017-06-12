@@ -12,7 +12,11 @@ else
 {
     <h2 class="text-center">Catálogo Público</h2>
 }
-<hr style="color:grey;border-color:grey" />
+
+<button style="float: right" class="btn btn-md btn-success hidden-print glyphicon glyphicon-print" onclick="window.print()">Imprimir</button>
+
+
+
 
 <table class="table table-condensed   table-condensed table-bordered" style="background-color:white">
     <thead>
@@ -20,7 +24,7 @@ else
             <td style="width:150px">
                 N° Art.
             </td>
-            
+
             <td>
                 Producto
             </td>
@@ -32,7 +36,8 @@ else
                 <td>
                     Precio Mayorista
                 </td>
-            }else
+            }
+            else
             {
                 <td>Precio Venta</td>
             }
@@ -44,15 +49,15 @@ else
             {
                 var rubro = Model.First().Category;
 
-                <tr style="color:white; background-color:gray; border:hidden">
+                <tr style="color:white; background-color:gray;">
 
-                    <td style="border: hidden"></td>
-                    <td style="border: hidden; font-size: large">@rubro.CategoryName</td>
+                    <td></td>
+                    <td style="border: hidden; font-size:large">@rubro.CategoryName</td>
                     @if (ViewBag.personal)
                     {
-                        <td style="border: hidden"></td>
+                        <td></td>
                     }
-                    <td style="border: hidden"></td>
+                    <td></td>
                 </tr>
 
                 foreach (var item in Model)
@@ -61,15 +66,15 @@ else
                     {
                         rubro = item.Category;
 
-                        <tr style="color:white; background-color:grey; border:hidden">
+                        <tr style="color:white; background-color:grey;">
 
-                            <td style="border:hidden"></td>
-                            <td style="border:hidden; font-size:large">@item.Category.CategoryName</td>
+                            <td></td>
+                            <td style="font-size:large">@item.Category.CategoryName</td>
                             @if (ViewBag.personal)
                         {
-                                <td style="border:hidden"></td>
+                                <td></td>
                             }
-                            <td style="border:hidden"></td>
+                            <td></td>
                         </tr>
                     }
 
@@ -94,5 +99,3 @@ else
 
     </tbody>
 </table>
-
-
