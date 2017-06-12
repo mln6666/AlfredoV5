@@ -18,8 +18,8 @@
     <table class="table table-condensed   table-striped table-bordered table-condensed">
         <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-            <th style="width: 110px">
-                N° Venta
+            <th class="text-center">
+                N°
             </th>
             <th>
                 Cliente
@@ -27,7 +27,7 @@
             <th>
                 Dirección
             </th>
-            <th style="width: 170px">
+            <th class="text-center" style="width: 170px">
                 @Html.DisplayNameFor(model => model.SaleDate)
             </th>
 
@@ -35,14 +35,15 @@
         </thead>
         <tbody>
         <tr style="background-color: white">
-            <td>
+            <td class="text-center" style="width: 10%">
+
                 @Html.DisplayFor(model => model.IdBill)
             </td>
 
-            <td>
+            <td style="width: 35%">
                 @Html.DisplayFor(model => model.Customer.CustomerName)
             </td>
-            <td>
+            <td style="width: 35%">
                 @if (Model.SaleAddress == "" | Model.SaleAddress == null)
                 {<text>-</text>}
                 else
@@ -50,7 +51,7 @@
                     @Html.DisplayFor(model => model.SaleAddress)
                 }
             </td>
-            <td>
+            <td class="text-center">
                 @Html.DisplayFor(model => model.SaleDate)
             </td>
 
@@ -60,23 +61,23 @@
     <table class="table table-condensed   table-striped table-bordered table-condensed" id="tabla">
         <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+            <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 Nº Art.
             </td>
             <td class="text-left" style="border-radius: 3px; font-weight: bold">
                 Producto
             </td>
 
-            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+            <td class="text-center"style="border-radius: 3px; font-weight: bold">
                 Cant.
             </td>
-            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+            <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 Desc.
             </td>
-            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+            <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 P. Unit.
             </td>
-            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+            <td class="text-center" style="border-radius: 3px; font-weight: bold">
                 Subtotal(+)
             </td>
         </tr>
@@ -85,22 +86,22 @@
         @foreach (var item in Model.BillLines)
         {
             <tr style="background-color: white">
-                <td>
+                <td class="text-center" style="width: 10%">
                     @Html.DisplayFor(modelItem => item.Product.IdProduct)
                 </td>
-                <td>
+                <td style="width: 35%">
                     @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
+                <td class="text-center" style="width: 10%">
                     @Html.DisplayFor(modelItem => item.LineQuantity)
                 </td>
-                <td>
+                <td class="text-center" style="width: 10%">
                     @Html.DisplayFor(modelItem => item.LineDiscount)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LinePrice)
                 </td>
-                <td>
+                <td class="text-center" style="width: 20%">
                     @Html.DisplayFor(modelItem => item.LineTotal)
                 </td>
             </tr>
@@ -109,9 +110,9 @@
             <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
             <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
             <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
-            <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
             <td style="border-left: hidden; border-bottom: hidden;"></td>
-            <td style="color: black; font-weight: bolder; background-color: lightgray">
+            <td class="text-center" style="font-weight: bold;background: khaki">TOTAL</td>
+            <td class="text-center" style="color: black; font-weight: bolder; background-color: khaki">
                 @Html.DisplayFor(model => model.LinesTotal)
             </td>
         </tr>
@@ -124,9 +125,7 @@
             <td class="text-left" style="border-radius: 3px; font-weight: bold">
                 Observaciones
             </td>
-            <td class="text-left" style="border-radius: 3px; width: 200px; font-weight: bold">
-                Total
-            </td>
+           
         </tr>
         </thead>
         <tbody>
@@ -139,7 +138,6 @@
                     @Html.DisplayFor(model => model.Comments)
                 }
             </td>
-            <td>@Html.DisplayFor(model => model.SaleTotal)</td>
         </tr>
         </tbody>
     </table>
