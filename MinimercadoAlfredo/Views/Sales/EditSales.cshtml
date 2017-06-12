@@ -92,128 +92,98 @@
 </table>
 <h3 class="text-center">Lista de Productos</h3>
 <hr style="color: grey; border-color: grey; margin-top: 0" />
-<div>
-    <button id="mostrar" class="hidden-print btn btn-primary btn-sm hvr-bubble-right">Agregar Producto &nbsp;&nbsp;</button>
-    <div id="nuevalinea" style="display: none">
-        <button id="ocultar" class="hidden-print btn btn-sm btn-primary hvr-bubble-left positionOcultar">&nbsp;&nbsp; Ocultar</button>
-        <table id="nueva" class="table table-condensed table-striped table-bordered">
-            <thead>
-                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                    <td>
-                        Producto
-                    </td>
-                    <td style="width: 12%">
-                        Cantidad
-                    </td>
-                    <td style="width: 14%">
-                        Precio
-                    </td>
-                    <td style="width: 12%">
-                        Descuento (%)
-                    </td>
-                    <td style="width: 16%">
-                        Subtotal
-                    </td>
-                </tr>
-            </thead>
-            <tbody id="nueva">
-                <tr>
-                    <td>
-                        <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 90%">
-                            <option value="0">Seleccionar Producto...</option>
-                            @foreach (var item in Model.Products)
-                            {
-                                if (item.Trademark != null)
-                                {
-                                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription - @item.Trademark.TrademarkName</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
-                                }
-                            }
-                        </select>
-                        
-                    </td>
-                    <td>
-                        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
 
-                    </td>
-                    <td>
-                        <input type="number" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
-                    </td>
-                    <td>
-                        <input type="number" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros()" />
-                    </td>
-                    <td>
-                        <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="width: 100%; font-weight: bold"/>
-                    </td>
-                    <td class="text-center" style="width: 2%">
-                        <button type="button" id="add" class="btn btn-success btn-xs" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <span id="spanproducto" style="color:red"></span>
-        <span id="spanquantity" style="color:red"></span>
-        <span id="spanprice" style="color:red"></span>
-        <span id="spandiscount" style="color:red"></span>
-    </div>
-</div>
-<table class="table table-condensed table-striped table-bordered" id="productTable">
+<table class="table table-condensed table-bordered" id="productTable" style="background-color: white">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
         <td>
-            Nro Artículo
-        </td>
-        <td>
             Producto
         </td>
-        <td>
-            Marca
-        </td>
-        <td>
+        <td style="width: 13%">
             Cantidad
         </td>
-        <td>
+        <td style="width: 14%">
             Precio
         </td>
-        <td>
+        <td style="width: 13%">
             Descuento (%)
         </td>
-        <td>
+        <td style="width: 16%">
             Subtotal
         </td>
+        <td></td>
     </tr>
     </thead>
 
     <tbody id="insert">
+        <tr>
+            <td style="background-color: #a0cee8">
+                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 100%">
+                    <option value="0">Seleccionar Producto...</option>
+                    @foreach (var item in Model.Products)
+                    {
+                        if (item.Trademark != null)
+                        {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription - @item.Trademark.TrademarkName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                        }
+                    }
+                </select>
+                <span id="spanproducto" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                <span id="spanquantity" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()"/>
+                <span id="spanprice" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros()"/>
+                <span id="spandiscount" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="width: 100%; font-weight: bold" />
+            </td>
+            <td class="text-center" style="width: 2%; background-color: #a0cee8">
+                <button type="button" id="add" class="btn btn-success btn-xs" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+            </td>
+        </tr>
+
     @foreach (var item in Model.Sale.SaleLines)
     {
         <tr>
-            <td class="text-center" style="width: 10%">
-                <input id="@("itemid" + item.IdProduct)" type="text" name="productid" value="@item.IdProduct" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center"/>
-            </td>
             <td>
-                <input id="@("itemdesc" + item.IdProduct)" type="text" value="@item.Product.ProductDescription" readonly="readonly" style="border: none; background-color: transparent"/>
-            </td>
-            <td class="text-center" style="width: 14%">
-                @if (item.Product.IdTrademark != null)
-                {
-                    <input id="@("itemtrademark" + item.IdProduct)" type="text" value="@item.Product.Trademark.TrademarkName" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" />
+                @{
+                    var x = "";
+                    if (item.Product.IdTrademark != null)
+                    {
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " - " + item.Product.Trademark.TrademarkName;
+                    }
+                    else
+                    {
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription;
+                    }
+
+                    <input id="@("itemid" + item.IdProduct)" type="text" name="productid" value="@item.IdProduct" class="hidden"/>
+                    <input type="text" value="@x" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly"/>
                 }
             </td>
-            <td class="text-center" style="width: 12%">
-                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100% ; font-weight: bold" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center">
+                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center" style="width: 14%">
-                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center">
+                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center" style="width: 12%">
-                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            <td class="text-center" >
+                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
-            <td class="text-center" style="width: 16%">
-                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100% ; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
+            <td class="text-center">
+                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
             </td>
             <td class="text-center" style="width: 2%">
                 <button id="@("elim" + item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -225,10 +195,8 @@
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
-        <td style="border-color: transparent"></td>
-        <td style="border-color: transparent"></td>
-        <th style="border-color: transparent; text-align: center">TOTAL</th>
-        <th class="text-center" style="text-align: center">
+        <th style="border-color: transparent; text-align: center; background-color: khaki; font-weight: bold">TOTAL</th>
+        <th class="text-center" style="text-align: center; background-color: khaki">
             <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold" />
         </th>
     </tr>
@@ -255,7 +223,7 @@
 <hr style="color: grey" />
 <div style="width: 100%; display: flex">
     <div style="width: 25%; text-align: left">
-        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-hand-left " aria-hidden="true"></span>&nbsp; Volver</a>
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span>&nbsp; Volver</a>
     </div>
     <div style="width: 50%; text-align: center">
         <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
@@ -275,15 +243,6 @@
             $(".js-example-basic-single").select2();
 
             changecust(@Model.Sale.IdCustomer);
-        });
-
-        $("#mostrar").click(function () {
-            $("#nuevalinea").toggle("slow");
-            $("#mostrar").hide("slow");
-        });
-        $("#ocultar").click(function () {
-            $("#nuevalinea").toggle("slow");
-            $("#mostrar").toggle("slow");
         });
 
         //CARGA AUTOMÁTICA DE DIRECCIÓN Y CUIL/CUIT DE CLIENTE
@@ -340,7 +299,7 @@
 
                 if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
                     isAllValid = false;
-                    $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%");
+                    $('#spanprice').text("Debe ser mayor a 0");
                     document.getElementById("linetotal").value = "0.00";
                 } else {
                     $('#spanprice').text("");
@@ -348,7 +307,7 @@
 
                 if ($('#linequantity').val() < 1) {
                     isAllValid = false;
-                    $('#spanquantity').text("La cantidad debe ser mayor a cero");
+                    $('#spanquantity').text("Debe ser mayor a 0");
                     document.getElementById("linetotal").value = "0.00";
 
                 } else {
@@ -357,7 +316,7 @@
 
                 if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
                     isAllValid = false;
-                    $('#spandiscount').text("El descuento no puede superar el 100%");
+                    $('#spandiscount').text("Debe ser menor a 100");
                     document.getElementById("linetotal").value = "0.00";
                 } else {
                     $('#spandiscount').text("");
@@ -384,27 +343,27 @@
 
             if ($('#linedescription').val() == 0) {
                 isAllValid = false;
-                $('#spanproducto').text("Es necesario completar el campo Producto. ");
+                $('#spanproducto').text("Debe seleccionar un Producto");
             } else {
                 $('#spanproducto').text("");
 
                 if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
                     isAllValid = false;
-                    $('#spanquantity').text("La cantidad debe ser mayor a cero. ");
+                    $('#spanquantity').text("Debe ser mayor a 0");
                 } else {
                     $('#spanquantity').text("");
                 }
 
                 if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
                     isAllValid = false;
-                    $('#spanprice').text("No se puede vender un Producto por $0.00, para realizar esta operación se recomienda realizar un descuento del 100%. ");
+                    $('#spanprice').text("Debe ser mayor a 0");
                 } else {
                     $('#spanprice').text("");
                 }
 
                 if ($('#linediscount').val() > 100 | $('#linediscount').val().trim() == '') {
                     isAllValid = false;
-                    $('#spandiscount').text("El descuento no puede superar el 100%. ");
+                    $('#spandiscount').text("Debe ser menor a 100");
                 } else {
                     $('#spandiscount').text("");
                 }
@@ -413,7 +372,7 @@
                 if (exist) {
                     $('#spanproducto').text("");
                 } else {
-                    $('#spanproducto').text("El Producto que intenta agregar ya existe en la Lista de Productos. ");
+                    $('#spanproducto').text("Producto existente en la lista");
                     isAllValid = false;
                 }
             }
@@ -425,44 +384,34 @@
                 var idproduct = $('#linedescription').val();
                 $('#insert').append('<tr id="inserttd' + idproduct + '"></tr>');
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemid' + idproduct + '" name="productid" readonly="readonly" style="border: none; background-color: transparent; width: 70%; text-align: center" /></td>');
-                $('#itemid' + idproduct).val(idproduct);
-
-                $('#inserttd' + idproduct).append('<td><input id="itemdesc' + idproduct + '" readonly="readonly" style="border: none; background-color: transparent" /></td>');
+                $('#inserttd' + idproduct).append('<td><input id="itemid' + idproduct + '" name="productid" value="'+ idproduct +'" class="hidden" /><input id="desc'+ idproduct +'" type="text" value="'+ idproduct.toString() +'" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly" /></td>');
 
                 var options = {};
                 options.url = '@Url.Action("Getproductdescription", "Sales")';
-                options.type = "GET";
+                options.type = "POST";
                 options.data = { "pro": $('#linedescription').val() };
-                options.dataType = "json";
+                options.dataType = "JSON";
                 options.success = function (data) {
 
-                    $('#itemdesc' + idproduct).val(data);
+                    var description;
 
+                    if (data.trademark != "") {
+                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                    } else {
+                        description = idproduct.toString() + " - " + data.product;
+                    }
+
+                    $('#desc' + idproduct).val(description);
                 };
                 $.ajax(options);
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemtrademark'+idproduct+'" readonly="readonly" style="border: none; background-color: transparent; width: 100%; text-align: center" /></td>');
-
-                var options2 = {};
-                options2.url = '@Url.Action("GetTrademarkName", "Sales")';
-                options2.type = "GET";
-                options2.data = { "pro": $('#linedescription').val() };
-                options2.dataType = "json";
-                options2.success = function (data) {
-
-                    $('#itemtrademark' + idproduct).val(data);
-
-                };
-                $.ajax(options2);
-
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemprice' + idproduct).val($('#lineprice').val());
 
-                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%; font-weight: bold" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center; font-weight: bold" type="text" class="panel-info text-center form-control fina" readonly="readonly" /></td>');

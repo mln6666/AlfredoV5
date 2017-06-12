@@ -133,6 +133,7 @@ namespace MinimercadoAlfredo.Controllers
                 lastproducts.Add(item.Product);
             }
 
+            ViewBag.Purchase = lastpurchase.IdPurchase;
             return View(lastproducts);
         }
 
