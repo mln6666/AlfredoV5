@@ -680,7 +680,6 @@
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Products\Record.cshtml" />
     <Content Include="Views\Products\OffProducts.cshtml" />
-    <Content Include="Views\Purchases\Create.cshtml" />
     <Content Include="Views\Products\Minimum.cshtml" />
     <Content Include="Views\Sales\CreateSale.cshtml" />
     <Content Include="Views\Purchases\CreatePurchase.cshtml" />
