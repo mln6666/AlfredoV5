@@ -58,15 +58,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" id="botonGuardar" class="btn btn-success" />
+                <a href="@Url.Action("Index", "Customers")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
+                <button type="submit" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
             </div>
         </div>
     </div>
 }
-
-<div>
-    <a href="@Url.Action("Index", "Customers")" class="btn btn-primary">Volver</a>
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

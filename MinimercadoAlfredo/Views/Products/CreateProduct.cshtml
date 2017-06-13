@@ -137,7 +137,7 @@
             $(".js-example-basic-single").select2();
         });
 
-        var validcost;
+        var validcost = true;
         var optionstate;
         var IsValidItem;
         var IsValidItem2;
@@ -201,12 +201,13 @@
         function ValidCost() {
             var cost = parseFloat($('#ProductCost').val());
             var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
+            validcost = true;
 
             $('#spanvalidcost').text('');
             $('#spanvalidcost2').text('');
 
             if ($('#ProductCost').val() != '') {
-                validcost = true;
+                
                 if ($('#ProductWholeSalePrice').val() != '') {
                     if (cost > wholeSalePrice) {
                         $('#spanvalidcost').text('El costo de un producto no puede superar al precio.');
@@ -214,9 +215,6 @@
                     }
                 }
 
-            } else {
-                $('#spanvalidcost').text('El costo de un producto es obligatorio.');
-                validcost = false;
             }
         }
 
