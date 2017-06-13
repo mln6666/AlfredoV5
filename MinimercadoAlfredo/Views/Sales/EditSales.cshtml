@@ -116,7 +116,7 @@
     <tbody id="insert">
         <tr>
             <td style="background-color: #a0cee8">
-                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 100%">
+                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct()" oninput="addproduct()" style="width: 100%">
                     <option value="0">Seleccionar Producto...</option>
                     @foreach (var item in Model.Products)
                     {
@@ -266,7 +266,7 @@
 
         //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
 
-        function addproduct(x) {
+        function addproduct() {
             $('#spanproducto').text("");
 
             var options = {};

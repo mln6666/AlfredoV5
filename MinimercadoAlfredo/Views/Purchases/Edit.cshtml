@@ -80,7 +80,7 @@
     <tbody id="insert">
         <tr>
             <td style="background-color: #a0cee8">
-                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct(this.value)" oninput="addproduct(this.value)" style="width: 100%">
+                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct()" oninput="addproduct()" style="width: 100%">
                     <option value="0">Seleccionar Producto...</option>
                     @foreach (var item in Model.Products)
                     {
@@ -217,30 +217,23 @@
 
         //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
 
-        function addproduct(x) {
-            if (x == 0) {
-                $('#spanproducto').text("Es necesario completar el campo Producto");
+        function addproduct() {
+            $('#spanproducto').text("");
 
-                document.getElementById("linecost").value = "0.00";
-                document.getElementById("linetotal").value = "0.00";
-            } else {
-                $('#spanproducto').text("");
+            var options = {};
+            options.url = '@Url.Action("Getproductdata", "Purchases")';
+            options.type = "GET";
+            options.data = { "pro": $("#linedescription").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                document.getElementById("linecost").value = data;
+                var cost = parseFloat($('#linecost').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var total = (cost * quantity);
+                document.getElementById("linetotal").value = total.toFixed(2);
 
-                var options = {};
-                options.url = '@Url.Action("Getproductdata", "Purchases")';
-                options.type = "GET";
-                options.data = { "pro": $("#linedescription").val() };
-                options.dataType = "json";
-                options.success = function (data) {
-                    document.getElementById("linecost").value = data;
-                    var cost = parseFloat($('#linecost').val());
-                    var quantity = parseFloat($('#linequantity').val());
-                    var total = (cost * quantity);
-                    document.getElementById("linetotal").value = total.toFixed(2);
-
-                };
-                $.ajax(options);
-            }
+            };
+            $.ajax(options);
         }
 
         //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
@@ -284,10 +277,7 @@
         $('#add').click(function() {
             var isAllValid = true;
 
-            if ($('#linedescription').val() == 0) {
-                isAllValid = false;
-                $('#spanproducto').text("Es necesario completar el campo Producto");
-            } else {
+            if ($('#linedescription').val() != 0) {
                 $('#spanproducto').text("");
 
                 if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
@@ -311,6 +301,8 @@
                     $('#spanproducto').text("El Producto ya existe en la Lista de Productos");
                     isAllValid = false;
                 }
+            } else {
+                isAllValid = false;
             }
 
             if (isAllValid) {
@@ -353,7 +345,7 @@
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
 
-                $('#linedescription').val(0);
+                $('#linedescription').val(0).trigger('change');
                 $('#linequantity').val('1');
                 $('#linecost').val('');
                 $('#linetotal').val('0.00');
