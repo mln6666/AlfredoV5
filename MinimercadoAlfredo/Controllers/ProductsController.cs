@@ -111,6 +111,7 @@ namespace MinimercadoAlfredo.Controllers
             if (message != null)
                 TempData["message"] = message;
 
+            ViewBag.Purchases = db.Purchases.ToList().Count();
             return View(products.ToList());
         }
 
@@ -146,13 +147,12 @@ namespace MinimercadoAlfredo.Controllers
             {
                 product = db.Products.Find(item.Productid);
 
-                if (item.Publicprice != null & item.Wholesaleprice != null)
+                if (item.Wholesaleprice != null)
                 {
                     product.UploadDate = DateTime.Today;
                 }
 
                 product.WholeSalePrice = item.Wholesaleprice;
-                product.PublicPrice = item.Publicprice;
 
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
@@ -167,7 +167,7 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Catalog(bool personal)
         {
             var products = (from p in db.Products
-                where p.ProductState == true
+                where p.ProductState
                 select p);
 
             if (personal)
@@ -222,6 +222,7 @@ namespace MinimercadoAlfredo.Controllers
                             where p.Stock <= p.Minimum
                             select p);
 
+            ViewBag.Purchases = db.Purchases.ToList().Count();
             return View(products.ToList());
         }
 
@@ -230,12 +231,8 @@ namespace MinimercadoAlfredo.Controllers
             var products = (from p in db.Products
                             where !p.ProductState
                             select p);
-
-            if (message != null)
-            {
-                ViewBag.message = "El Producto ha sido activado correctamente.";
-            }
-
+            
+            ViewBag.Purchases = db.Purchases.ToList().Count();
             return View(products.ToList());
         }
 
@@ -243,6 +240,7 @@ namespace MinimercadoAlfredo.Controllers
         {
             var products = db.Products.Include(p => p.Category);
 
+            ViewBag.Purchases = db.Purchases.ToList().Count();
             return View(products.ToList());
         }
 
@@ -297,7 +295,6 @@ namespace MinimercadoAlfredo.Controllers
             prod.ProductDescription = product.ProductDescription;
             prod.Cost = product.ProductCost;
             prod.WholeSalePrice = product.ProductWholeSalePrice;
-            prod.PublicPrice = product.ProductPublicPrice;
             prod.UploadDate = DateTime.Today;
             prod.ProductState = product.ProductState;
             prod.ParcialStock = product.ProductStock;
@@ -328,7 +325,6 @@ namespace MinimercadoAlfredo.Controllers
             prod.ProductDescription = product.ProductDescription;
             prod.Cost = product.Cost;
             prod.WholeSalePrice = product.WholeSalePrice;
-            prod.PublicPrice = product.PublicPrice;
             prod.ProductState = product.ProductState;
             prod.idCategory = product.idCategory;
             prod.IdTrademark = product.IdTrademark;

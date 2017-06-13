@@ -10,7 +10,5 @@ namespace MinimercadoAlfredo.ViewModels
         public int Productid { get; set; }
 
         public decimal? Wholesaleprice { get; set; }
-
-        public decimal? Publicprice { get; set; }
     }
 }

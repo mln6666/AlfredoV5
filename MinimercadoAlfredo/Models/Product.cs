@@ -31,10 +31,6 @@ namespace MinimercadoAlfredo.Models
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal? WholeSalePrice { get; set; }
 
-        [Display(Name = "P Minorista")]
-        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
-        public decimal? PublicPrice { get; set; }
-
         [Display(Name = "Última Actualización")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = false)]
@@ -51,8 +47,6 @@ namespace MinimercadoAlfredo.Models
         public decimal? Minimum { get; set; }
 
         public bool ProductState { get; set; }
-
-        public string Image { get; set; }
 
         public int idCategory { get; set; } //Clave Foránea de Category
 

@@ -12,7 +12,6 @@ namespace MinimercadoAlfredo.ViewModels
         public string ProductTrademark { get; set; }
         public decimal ProductCost { get; set; }
         public decimal ProductWholeSalePrice { get; set; }
-        public decimal ProductPublicPrice { get; set; }
         public bool ProductState { get; set; }
         public decimal ProductStock { get; set; }
         public decimal ProductMinimum { get; set; }

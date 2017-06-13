@@ -255,11 +255,6 @@ namespace MinimercadoAlfredo.Controllers
                     if (i.LinePrice > product.WholeSalePrice)
                     {
                         product.WholeSalePrice = i.LinePrice;
-
-                        if (i.LinePrice > product.PublicPrice)
-                        {
-                            product.PublicPrice = i.LinePrice;
-                        }
                     }
 
                     db.Entry(product).State = EntityState.Modified;

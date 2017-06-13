@@ -24,55 +24,53 @@
         </ul>
     </div>
 </div>
-<br/>
+<br />
 <h3>Compra N°: @ViewBag.Purchase</h3>
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
-    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-        <th>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
-        </th>
-        <th style="width: 15%">
-            Nro Artículo
-        </th>
-        <th style="width: 15%">
-            Costo
-        </th>
-        <th style="width: 15%">
-            P. Mayorista
-        </th>
-        <th style="width: 15%">
-            P. Minorista
-        </th>
-    </tr>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <th>
+                Producto
+            </th>
+            <th class="text-center" style="width: 18%">
+                Última Actualización
+            </th>
+            <th class="text-center" style="width: 18%">
+                Costo
+            </th>
+            <th class="text-center" style="width: 18%">
+                P. Mayorista
+            </th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
-            </td>
-            <td>
-                <input type="number" name="productid" value="@item.IdProduct" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center"/>
-            </td>
-            <td>
-                <input id="@("cost" + item.IdProduct)" type="number" value="@item.Cost" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center"/>
-            </td>
-            <td>
-                <input id="@("wsp" + item.IdProduct)" type="number" value="@item.WholeSalePrice" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center"/>
-            </td>
-            <td>                
-                <input id="@("pp" + item.IdProduct)" type="number" value="@item.PublicPrice" name="publicprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center"/>
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        var x = item.IdProduct.ToString() + " - " + item.ProductDescription;
+
+                        if (item.IdTrademark != null)
+                        {
+                            x = x + " - " + item.Trademark.TrademarkName;
+                        }
+
+                        <input type="number" name="productid" value="@item.IdProduct" class="hidden" />
+                        <input type="text" value="@x" style="background-color: transparent; border-color: transparent; width: 100%; text-align: left; margin-left: 1%" readonly="readonly" />
+                    }
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.UploadDate)
+                </td>
+                <td>
+                    <input id="@("cost" + item.IdProduct)" type="number" value="@item.Cost" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center" />
+                </td>
+                <td>
+                    <input id="@("wsp" + item.IdProduct)" type="number" value="@item.WholeSalePrice" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center" />
+                </td>
+            </tr>
+                        }
     </tbody>
 
 </table>
@@ -97,56 +95,20 @@
 
         function ValidPrice(idproduct) {
             $('#spanwsp').text("");
-            $('#spanpp').text("");
             $('#wsp' + idproduct).css("border-color", "");
-            $('#pp' + idproduct).css("border-color", "");
             if ($('#save').hasClass("disabled")) {
                 $('#save').removeClass("disabled");
             }
 
             var cost = $('#cost' + idproduct).val();
             var wsp = $('#wsp' + idproduct).val();
-            var pp = $('#pp' + idproduct).val();
 
-            if (wsp != "" & pp != "") {
+            if (wsp != "") {
+                if (cost > wsp) {
 
-                if (cost > wsp | cost > pp) {
-                    if (cost > wsp) {
-
-                        $('#spanwsp').text("El precio mayorista del producto " + idproduct.toString() + " no puede ser inferior a su costo. ");
-                        $('#wsp' + idproduct).css("border-color", "red");
-                        $('#save').addClass("disabled");
-                    }
-
-                    if (cost > pp) {
-                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su costo.");
-                        $('#pp' + idproduct).css("border-color", "red");
-                        $('#save').addClass("disabled");
-                    }
-                } else {
-                    if (wsp > pp) {
-                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su precio mayorista.");
-                        $('#wsp' + idproduct).css("border-color", "red");
-                        $('#pp' + idproduct).css("border-color", "red");
-                        $('#save').addClass("disabled");
-                    }
-                }
-            } else {
-                
-                if (wsp == "") {
-                    
-                    if (cost > pp) {
-                        $('#spanpp').text("El precio minorista del producto " + idproduct.toString() + " no puede ser inferior a su costo.");
-                        $('#pp' + idproduct).css("border-color", "red");
-                        $('#save').addClass("disabled");
-                    }
-                } else {
-                    
-                    if (cost > wsp) {
-                        $('#spanwsp').text("El precio mayorista del producto " + idproduct.toString() + " no puede ser inferior a su costo. ");
-                        $('#wsp' + idproduct).css("border-color", "red");
-                        $('#save').addClass("disabled");
-                    }
+                    $('#spanwsp').text("El precio del producto " + idproduct.toString() + " no puede ser inferior a su costo. ");
+                    $('#wsp' + idproduct).css("border-color", "red");
+                    $('#save').addClass("disabled");
                 }
             }
         }
@@ -156,17 +118,14 @@
             var product;
             var productids = [];
             var priceswsp = [];
-            var pricespp = [];
 
             $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
             $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value)) });
-            $('input[name="publicprice"]').map(function () { pricespp.push(parseFloat(this.value)) });
 
             for (var i = 0; i < productids.length; i++) {
                 product = {
                     Productid: productids[i],
-                    Wholesaleprice: priceswsp[i],
-                    Publicprice: pricespp[i]
+                    Wholesaleprice: priceswsp[i]
                 }
                 products.push(product);
             }

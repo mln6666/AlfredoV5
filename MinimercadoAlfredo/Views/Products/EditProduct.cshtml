@@ -67,20 +67,11 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.WholeSalePrice, "Precio Mayorista", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.WholeSalePrice, "Precio", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="number" id="ProductWholeSalePrice" value="@Model.WholeSalePrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio mayorista del Producto" onchange="ValidCost()" oninput="ValidCost()" />
+            <input type="number" id="ProductWholeSalePrice" value="@Model.WholeSalePrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio del Producto" onchange="ValidCost()" oninput="ValidCost()" />
             <span id="spanwholesaleprice" style="color:red"></span>
             <span id="spanvalidcost2" class="text-center" style="color:red"></span>
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.PublicPrice, "Precio Minorista", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="number" id="ProductPublicPrice" value="@Model.PublicPrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio minorista del Producto" onchange="ValidCost()" oninput="ValidCost()" />
-            <span id="spanpublicprice" style="color:red"></span>
-            <span id="spanvalidcost3" class="text-center" style="color:red"></span>
         </div>
     </div>
 
@@ -140,11 +131,11 @@
             $(".js-example-basic-single").select2();
         });
 
-        var validcost;
+        var validcost = true;
         var optionstate;
-        var IsValidItem;
-        var IsValidItem2;
-        var IsValidItem3;
+        var IsValidItem = true;
+        var IsValidItem2 = true;
+        var IsValidItem3 = true;
 
         function category() {
             if ($('#ProductDescription').val() != "") {
@@ -204,24 +195,15 @@
             validcost = true;
             var cost = parseFloat($('#ProductCost').val());
             var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
-            var publicPrice = parseFloat($('#ProductPublicPrice').val());
 
             $('#spanvalidcost').text('');
             $('#spanvalidcost2').text('');
-            $('#spanvalidcost3').text('');
 
             if ($('#ProductCost').val() != '') {
 
                 if ($('#ProductWholeSalePrice').val() != '') {
                     if (cost > wholeSalePrice) {
-                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio mayorista');
-                        validcost = false;
-                    }
-                }
-
-                if ($('#ProductPublicPrice').val() != '') {
-                    if (publicPrice < cost) {
-                        $('#spanvalidcost3').text('El precio minorista no puede ser menor al costo del producto');
+                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio.');
                         validcost = false;
                     }
                 }
@@ -229,13 +211,6 @@
             } else {
                 $('#spanvalidcost').text('El costo de un producto es obligatorio');
                 validcost = false;
-            }
-
-            if ($('#ProductPublicPrice').val() != '' & $('#ProductWholeSalePrice').val() != '') {
-                if (publicPrice < wholeSalePrice) {
-                    $('#spanvalidcost2').text('El precio mayorista no puede superar al precio minorista');
-                    validcost = false;
-                }
             }
         }
 
@@ -271,7 +246,6 @@
                                 ProductDescription: $('#ProductDescription').val(),
                                 Cost: parseFloat($('#ProductCost').val()),
                                 WholeSalePrice: parseFloat($('#ProductWholeSalePrice').val()),
-                                PublicPrice: parseFloat($('#ProductPublicPrice').val()),
                                 UploadDate: null,
                                 Stock: @Model.Stock,
                                 ParcialStock: @Model.ParcialStock,
