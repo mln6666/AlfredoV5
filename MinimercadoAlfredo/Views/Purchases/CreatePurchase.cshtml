@@ -17,15 +17,12 @@
 <hr style="margin-top: 10px;
     margin-bottom: 10px;" />
 
-<legend style="margin-bottom: 2px;">
-    Datos Generales
-</legend>
 <table class="table table-condensed   table-condensed table-bordered">
     <thead class="tableStyle">
         
         <tr>
             <th class="text-center">
-                N° Compra
+                N°
             </th>
             <th class="text-center">
                 Proveedor
@@ -37,30 +34,28 @@
        
     </thead>
     <tbody>
-    <td class= "text-center col-lg-2">
-        <div class="dataContainer">@ViewBag.npurchase</div>
+    <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
+        <div>@ViewBag.npurchase</div>
     </td>
-    <td class="text-center col-lg-6">
-        <select class="js-example-basic-single inputForm" id="providername" style="font: small-caption; width: 180px; height: 25px; background-color: beige;">
+    <td class="text-center">
+        <select class="js-example-basic-single" id="providername" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
             <option value="0">Seleccionar Proveedor...</option>
             @foreach (var item in ViewBag.Providers)
             {
                 <option value="@item.IdProvider">@item.ProviderName</option>
             }
         </select>
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
-    <td class="col-lg-4" align="center">
-        <input type="date" class="panel-info form-control inputForm" id="purchasedate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
-        <span class="error">Requerido</span>
+    <td class="text-center">
+        <input type="date" class="panel-info form-control inputForm" id="purchasedate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" style="width: 100%;max-width: 100%" />
+        <span class="text-danger"></span>
     </td>
     </tbody>
 
 </table>
-<legend style="margin-bottom: 2px;">
-    Listado Productos
-</legend>
-<table id="mytable" class="table table-condensed   table-condensed table-bordered">
+
+<table id="mytable" class="table table-condensed table-condensed table-bordered sinborde">
     <thead class="tableStyle">
         <tr class="text-center">
             <th class="text-center">
@@ -81,10 +76,10 @@
         </tr>
     </thead>
     <tbody id="last">
-    <td class="text-center">
+    <td style="width: 40%;background: #a0cee8">
         @* <input type="text" class="panel-info" style="width: 130px;height:25px;" id="linedescription" />*@
         @*<div id="ajaxBeginFormResult">*@
-        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+        <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 100%; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
             <option value="0">Seleccionar Producto...</option>
             @foreach (var item in ViewBag.Products)
             {
@@ -96,24 +91,34 @@
             </a>*@
         @*</div>*@
         <input type="hidden" id="shadow" value="">
-        <span class="error">Requerido</span>
+        <span class="text-danger"></span>
     </td>
-    <td align="center">
-        <input type="text" class="panel-info form-control inputForm" value="0" style="width: 130px; height: 25px;" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" onkeyup="enterToSave()" />
-        <span class="error">Requerido</span>
+    <td class="text-center" style="background: #a0cee8">
+        <input type="text" class="panel-info form-control inputForm" value="0" style="width:100%; height: 25px;" id="lineprice" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" onkeyup="enterToSave()" />
+        <span class="text-danger"></span>
     </td>
-    <td align="center">
-        <input type="number" class="panel-info form-control inputForm" value="1" style="width: 130px; height: 25px;" id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" onkeyup="enterToSave()" />
-        <span class="error">Requerido</span>
+    <td class="text-center" style="background: #a0cee8">
+        <input type="number" class="panel-info form-control inputForm" value="1" style="width: 100%; height: 25px;" id="linequantity" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" onkeyup="enterToSave()" />
+        <span class="text-danger"></span>
     </td>
-    <td align="center">
-        <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="linetotal" readonly="readonly" />
-        <span class="error">Requerido</span>
+    <td class="text-center" style="background: #a0cee8">
+        <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" />
+        <span class="text-danger"></span>
     </td>
-    <td align="center">
-        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom:auto" />Agregar
+    <td class="text-center" style="background: #a0cee8">
+        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto"/>Agregar
         <span class="glyphicon glyphicon-plus"></span>
     </td>
+    <tr id="trtot">
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <th class="text-center" style="background: khaki">TOTAL</th>
+        <td class="ftot" style="background: khaki">
+            <input type="text" class="panel-info form-control text-center fina" value="0.00" id="purchasetotal" placeholder="" readonly="readonly" style="font-weight: bold; border: none" />
+            <span id="spansaletotal" class="text-danger" style="display: block"></span>
+        </td>
+        <td class="sinborde"></td>
+    </tr>
     </tbody>
 </table>
 
@@ -124,9 +129,7 @@
 
 </div>
 
-<legend style="margin-bottom: 2px;">
-    Resumen
-</legend>
+
 <table class="table table-condensed   table-striped table-bordered table-condensed">
 
     <thead class="tableStyle">
@@ -134,21 +137,21 @@
             <td class="text-left col-lg-8" style="border-radius: 3px; font-weight: bold">
                 Observaciones
             </td>
-            <td class="col-lg-6" align="center" style="border-radius: 3px; width: 200px; font-weight: bold">
+            @*<td class="col-lg-6" align="center" style="border-radius: 3px; width: 200px; font-weight: bold">
                 Total
-            </td>
+            </td>*@
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                <textarea type="text" style="width: 300px;" class="panel-info form-control" id="comments" placeholder=""></textarea>
+                <textarea type="text" style="max-width: 100%!important;width: 100%!important" class="panel-info form-control" id="comments" placeholder=""></textarea>
 
             </td>
-            <td>
+            @*<td>
                 <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="purchasetotal" placeholder="" readonly="readonly" />
                 <span class="error">Requerido</span>
-            </td>
+            </td>*@
         </tr>
 
     </tbody>
@@ -327,38 +330,36 @@
                 var isValidItem = true;
                 if ($('#linedescription').val().trim() == '' || $('#linedescription').val().trim() == '0') {
                     isValidItem = false;
-                    $('#linedescription').siblings('span.error').css('visibility', 'visible');
+                    $('#linedescription').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linedescription').siblings('span.error').css('visibility', 'hidden');
+                    $('#linedescription').siblings('span.text-danger').html('');
                 }
 
                 if ($('#lineprice').val().trim() == '') {
                     isValidItem = false;
-                    $('#lineprice').siblings('span.error').css('visibility', 'visible');
+                    $('#lineprice').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#lineprice').siblings('span.error').css('visibility', 'hidden');
+                    $('#lineprice').siblings('span.text-danger').html('');
                 }
 
 
                 if ($('#linequantity').val().trim() == '') {
                     isValidItem = false;
-                    $('#linequantity').siblings('span.error').text('Requerido');
-                    $('#linequantity').siblings('span.error').css('visibility', 'visible');
+                    $('#linequantity').siblings('span.text-danger').html('Requerido.');
                 } else {
                     if ($('#linequantity').val().trim() * 1 == 0) {
                         isValidItem = false;
-                        $('#linequantity').siblings('span.error').text('Debe ser mayor a 0');
+                        $('#linequantity').siblings('span.text-danger').html('Debe ser mayor a 0');
 
-                        $('#linequantity').siblings('span.error').css('visibility', 'visible');
                     } else {
-                        $('#linequantity').siblings('span.error').css('visibility', 'hidden');
+                        $('#linequantity').siblings('span.text-danger').html('');
                     }
                 }
                 if ($('#linetotal').val().trim() == '') {
                     isValidItem = false;
-                    $('#linetotal').siblings('span.error').css('visibility', 'visible');
+                    $('#linetotal').siblings('span.text-danger').html('Requerido.');
                 } else {
-                    $('#linetotal').siblings('span.error').css('visibility', 'hidden');
+                    $('#linetotal').siblings('span.text-danger').html('');
                 }
                 if (isValidItem) {
                     ////////////***********//////////
@@ -416,24 +417,24 @@
                     isAllValid = false;
                 }
                 if ($('#providername').val().trim() == '' || $('#providername').val().trim() == '0') {
-                    $('#providername').siblings('span.error').css('visibility', 'visible');
+                    $('#providername').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#providername').siblings('span.error').css('visibility', 'hidden');
+                    $('#providername').siblings('span.text-danger').html('');
                 }
 
 
                 if ($('#purchasetotal').val().trim() == '') {
-                    $('#purchasetotal').siblings('span.error').css('visibility', 'visible');
+                    $('#purchasetotal').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#purchasetotal').siblings('span.error').css('visibility', 'hidden');
+                    $('#purchasetotal').siblings('span.text-danger').html('');
                 }
                 if ($('#purchasedate').val().trim() == '') {
-                    $('#purchasedate').siblings('span.error').css('visibility', 'visible');
+                    $('#purchasedate').siblings('span.text-danger').html('Requerido.');
                     isAllValid = false;
                 } else {
-                    $('#purchasedate').siblings('span.error').css('visibility', 'hidden');
+                    $('#purchasedate').siblings('span.text-danger').html('');
                 }
 
                 //Save if valid
@@ -483,10 +484,10 @@
 
                     $.each(orderItems, function(i, val) {
                         var $row = $('<tr class="elim"  style="background-color: white"></tr>');
-                        $row.append($('<td></td>').html(val.LineDescription));
-                        $row.append($('<td></td>').html(val.LinePrice));
-                        $row.append($('<td></td>').html(val.LineQuantity));
-                        $row.append($('<td></td>').html(val.LineTotal));
+                        $row.append($('<td class="text-center"></td>').html(val.LineDescription));
+                        $row.append($('<td class="text-center"></td>').html(val.LinePrice));
+                        $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
+                        $row.append($('<td class="text-center"></td>').html(val.LineTotal));
                         var $remove = $('<a href="#">Eliminar</a>');
 
                         //CALCULO TOTAL GRAL
@@ -504,8 +505,10 @@
                             $.each(totgral, function () { purchasetotal += parseFloat(this) || 0; });
                             document.getElementById("purchasetotal").value = purchasetotal.toFixed(2);
                         });
-                        $row.append($('<td></td>').append($remove));
-                        $('#mytable > tbody:last').append($row);
+                        $row.append($('<td class="text-center"></td>').append($remove));
+                        //$('#mytable > tbody:last').append($row);
+                        $('#trtot').before($row);
+
                     });
 
                 } else {
