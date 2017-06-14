@@ -1,0 +1,339 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+@{
+    ViewBag.Title = "PriceUpdate";
+}
+
+<h2 class="text-center">Actualización de Precios</h2>
+<hr style="color:grey;border-color:grey" />
+<legend style="margin-bottom: 2px;">
+    Productos a actualizar
+</legend>
+<table id="mytable" class="table table-condensed   table-condensed table-bordered" style="background-color: white">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th class="text-center">
+                Producto
+            </th>
+            <th class="text-center">
+                Costo Actual
+            </th>
+            <th class="text-center">
+                Nuevo Costo
+            </th>
+            <th class="text-center">
+                Precio Actual
+            </th>
+            <th class="text-center">
+                Nuevo Precio
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="last">
+        <tr>
+            <td style="width: 40%;background: #a0cee8">
+                <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 100%; height: 25px; background-color: beige;" onchange="CompletePrice()">
+                    <option value="0">Seleccionar Producto...</option>
+                    @foreach (var item in Model)
+            {
+                if (item.IdTrademark != null)
+                {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription - @item.Trademark.TrademarkName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                        }
+                    }
+                </select>
+                <span id="spanproduct" style="color: red"></span>
+            </td>
+            <td class="text-center" style="background: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" style="width: 100%; height: 25px;" id="costoactual" value="0" onkeypress="solonumerosptocoma()" readonly="readonly" />
+            </td>
+            <td class="text-center" style="background: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" style="width: 100%; height: 25px;" id="nuevocosto" value="0" onchange="clearspan()" onkeypress="solonumerosptocoma()"/>
+                <span id="spancost" style="color: red"></span>
+            </td>
+            <td class="text-center" style="background: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" style="width: 100%;height:25px;" id="precioactual" value="0" onkeypress="solonumerosptocoma()" readonly="readonly" />
+                <span class="text-danger"></span>
+            </td>
+            <td class="text-center" style="background: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" style="width: 100%;height:25px" id="nuevoprecio" value="0" onchange="clearspan()" onkeypress="solonumerosptocoma()" />
+                <span id="spanprice" style="color: red"></span>
+            </td>
+            <td class="text-center" style="background: #a0cee8">
+                <button type="button" id="add" class="btn btn-success btn-xs " value="Agregar" style="bottom:auto"><span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div>
+    <div id="orderItems">
+    </div>
+    <span class="error"></span>
+
+</div>
+<hr />
+
+<div class="text-center">
+    <button type="button" id="submit" class="btn btn-success btn-md" value="Guardar compra">
+        Guardar
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+    </button>
+
+
+</div>
+
+
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section Scripts{
+
+
+
+
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+
+
+    <script>
+
+        /////////////////Start:Select searchable////////////////
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2();
+        });
+        ////////////////End:Select searchable///////////////////
+
+
+        //////////////////////Start: Autocomplete Product Stock/////////////
+        //$(document).ready(function() {
+
+        //});
+
+        function CompletePrice() {
+            $('#spanproduct').text('');
+            if ($('#linedescription').val() != 0) {
+                var options = {};
+                options.url = '@Url.Action("GetProductData", "Products")';
+                options.type = "POST";
+                options.data = { "productid": $("#linedescription").val() };
+                options.dataType = "JSON";
+                options.success = function(data) {
+                    $('#costoactual').val(data.cost);
+                    $('#precioactual').val(data.price);
+                };
+                $.ajax(options);
+            } else {
+                $('#costoactual').val(0);
+                $('#precioactual').val(0);
+            }
+        }
+
+        function clearspan() {
+            $('#spancost').text('');
+            $('#spanprice').text('');
+            $('#nuevoprecio').css("border-color", "");
+            $('#nuevocosto').css("border-color", "");
+        }
+
+        $('#add').click(function () {
+            //Check validation of order item
+            var isValidItem = true;
+            if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
+                isValidItem = false;
+                $('#spanproduct').text('Requerido.');
+            } else {
+                $('#spanproduct').text('');
+            }
+
+            if ($('#nuevocosto').val().trim() != '' & $('#nuevocosto').val().trim() != 0 & $('#nuevoprecio').val().trim() != '' & $('#nuevoprecio').val().trim() != 0) {
+                if ($('#nuevocosto').val() > $('#nuevoprecio').val()) {
+                    $('#spancost').text('Error');
+                    $('#spanprice').text('Error');
+                    $('#nuevoprecio').css("border-color", "red");
+                    $('#nuevocosto').css("border-color", "red");
+                    isValidItem = false;
+                } else {
+                    $('#spancost').text('');
+                    $('#spanprice').text('');
+                    $('#nuevoprecio').css("border-color", "");
+                    $('#nuevocosto').css("border-color", "");
+                }
+            }
+
+            var exist = ProdExist($('#linedescription').val());
+            if (!exist) {
+                isValidItem = false;
+                $('#spanproduct').text('Producto existente en la lista');
+            }
+
+            if (isValidItem) {
+                var idproduct = $('#linedescription').val();
+                $('#last').append('<tr id="tr' + idproduct + '"></tr>');
+
+                $('#tr' + idproduct).append('<td><input type="text" name="productid" value="' + idproduct.toString() + '" class="hidden" /><input type="text" id="desc' + idproduct + '" name="productdescription" value="" readonly="readonly" style="border-color: transparent; background-color: transparent; text-align: left; width: 100%" /></td>');
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdescription", "Sales")';
+                options.type = "POST";
+                options.data = { "pro": $('#linedescription').val() };
+                options.dataType = "JSON";
+                options.success = function (data) {
+
+                    var description;
+
+                    if (data.trademark != "") {
+                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                    } else {
+                        description = idproduct.toString() + " - " + data.product;
+                    }
+
+                    $('#desc' + idproduct).val(description);
+                };
+                $.ajax(options);
+
+                var val = $('#costoactual').val();
+                $('#tr' + idproduct).append('<td class="text-center"><input type="number" value="' + val + '" readonly="readonly" style="border-color: transparent; background-color: transparent; text-align: center; width: 100%" /></td>');
+
+                val = $('#nuevocosto').val();
+                $('#tr' + idproduct).append('<td class="text-center"><input type="number" name="productcost" value="' + val + '" readonly="readonly" style="border-color: transparent; background-color: transparent; text-align: center; width: 100%" /></td>');
+
+                val = $('#precioactual').val();
+                $('#tr' + idproduct).append('<td class="text-center"><input type="number" value="' + val + '" readonly="readonly" style="border-color: transparent; background-color: transparent; text-align: center; width: 100%" /></td>');
+
+                val = $('#nuevoprecio').val();
+                $('#tr' + idproduct).append('<td class="text-center"><input type="number" name="productprice" value="' + val + '" readonly="readonly" style="border-color: transparent; background-color: transparent; text-align: center; width: 100%" /></td>');
+
+                $('#tr' + idproduct).append('<td class="text-center"><a id="elim'+idproduct+'" class="btn btn-danger btn-xs" onclick="deleteProduct('+ idproduct +')"><span class="glyphicon glyphicon-remove"></span></a></td>');
+
+                $('#linedescription').val(0).trigger("change");
+                $('#nuevocosto').val(0);
+                $('#nuevoprecio').val(0);
+
+            }
+
+        });
+
+        function ProdExist(productid) {
+            var products = [];
+
+            $('input[name="productid"]').map(function () { products.push(this.value) });
+
+            for (var i = 0; i < products.length; i++) {
+                if (products[i] == productid) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function deleteProduct(id) {
+            $('#elim' + id).closest('tr').remove();
+        }
+
+        //Save button click function
+        $('#submit').click(function () {
+
+            var products = [];
+            var product;
+            var productids = [];
+            var productcosts = [];
+            var productprices = [];
+
+            $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
+            $('input[name="productcost"]').map(function () { productcosts.push(parseFloat(this.value)) });
+            $('input[name="productprice"]').map(function () { productprices.push(parseFloat(this.value)) });
+
+            for (var i = 0; i < productids.length; i++) {
+                product = {
+                    IdProduct: productids[i],
+                    Cost: productcosts[i],
+                    WholeSalePrice: productprices[i]
+                }
+                products.push(product);
+            }
+
+            bootbox.confirm({
+                title: "Actualización de Precios",
+                message: "¿Está seguro de actualizar todos los costos y precios especificados?",
+                buttons: {
+                    confirm: {
+                        label: "Actualizar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+
+                },
+                callback: function (result) {
+                    if (result) {
+
+                        $.ajax({
+                            url: '@Url.Action("PriceUpdate", "Products")',
+                            type: "POST",
+                            data: JSON.stringify(products),
+                            dataType: "JSON",
+                            contentType: "application/json",
+                            success: function (d) {
+                                if (d.status) {
+
+                                    var url = '@Url.Action("Index", "Products", new {message = 4})';
+                                    window.location.href = url;
+
+                                }
+                            }
+                        });
+
+                    }
+                }
+
+
+            });
+        });
+    </script>
+}
+
+<style>
+    /*Adding some css for looks good*/
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: red;
+        font-size: 90%;
+    }
+
+
+    /*css for table*/
+    .container td {
+        vertical-align: top;
+    }
+
+    .tablecontainer table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 1px solid #BFAEAE;
+        border-right: 1px solid #BFAEAE;
+    }
+
+    .tablecontainer th {
+        border-bottom: 2px solid #BFAEAE !important;
+    }
+
+    .tablecontainer th, .tablecontainer td {
+        text-align: left;
+        border-left: 1px solid #BFAEAE;
+        padding: 5px;
+        border-bottom: 1px solid #BFAEAE;
+    }
+
+    .ui-widget {
+        font-size: 12px !important;
+    }
+</style>

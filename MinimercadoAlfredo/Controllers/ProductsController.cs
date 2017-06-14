@@ -79,6 +79,41 @@ namespace MinimercadoAlfredo.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
+        [HttpPost]
+        public JsonResult GetProductData(int productid)
+        {
+            var cost = db.Products.Find(productid).Cost;
+            var price = db.Products.Find(productid).WholeSalePrice;
+
+            return new JsonResult { Data = new { cost = cost, price = price}};
+        }
+
+        public ActionResult PriceUpdate()
+        {
+            List<Product> products = new List<Product>();
+            products = db.Products.ToList();
+
+            return View(products);
+        }
+
+        [HttpPost]
+        public JsonResult PriceUpdate(List<Product> products)
+        {
+            Product product = new Product();
+            foreach (var item in products)
+            {
+                product = db.Products.Find(item.IdProduct);
+                product.Cost = item.Cost;
+                product.WholeSalePrice = item.WholeSalePrice;
+
+                db.Entry(product).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            bool status = true;
+
+            return new JsonResult { Data = new { status = status}};
+        }
+
 
         public JsonResult Getproductstock(string pro)
         {

@@ -130,9 +130,16 @@
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Marcas", "Index", "Trademarks")</li>
                             <li class="divider"></li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@>Actualización de Stock</a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-weight: bold;">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
+                                    <li class="divider"></li>
+                                    <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                                </ul>
+                            </li>
                             <li class="divider"></li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                            <li style="font-weight: bold;">@Html.ActionLink("Actualización de Precios", "PriceUpdate", "Products")</li>
 
                         </ul>
                     </li>
