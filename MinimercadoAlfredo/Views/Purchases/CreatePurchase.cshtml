@@ -484,7 +484,7 @@
 
                     $.each(orderItems, function(i, val) {
                         var $row = $('<tr class="elim"  style="background-color: white"></tr>');
-                        $row.append($('<td class="text-center"></td>').html(val.LineDescription));
+                        $row.append($('<td></td>').html(val.LineDescription));
                         $row.append($('<td class="text-center"></td>').html(val.LinePrice));
                         $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                         $row.append($('<td class="text-center"></td>').html(val.LineTotal));
