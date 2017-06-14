@@ -219,6 +219,8 @@
 
         function addproduct() {
             $('#spanproducto').text("");
+            $('#spancost').text("");
+            $('#spanquantity').text("");
 
             var options = {};
             options.url = '@Url.Action("Getproductdata", "Purchases")';
@@ -302,6 +304,7 @@
                     isAllValid = false;
                 }
             } else {
+                $('#spanproducto').text("Debe seleccionar un producto");
                 isAllValid = false;
             }
 
