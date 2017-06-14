@@ -37,7 +37,7 @@
     <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
         <div>@ViewBag.npurchase</div>
     </td>
-    <td class="text-center">
+    <td>
         <select class="js-example-basic-single" id="providername" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
             <option value="0">Seleccionar Proveedor...</option>
             @foreach (var item in ViewBag.Providers)
@@ -47,7 +47,7 @@
         </select>
         <span class="text-danger"></span>
     </td>
-    <td class="text-center">
+    <td>
         <input type="date" class="panel-info form-control inputForm" id="purchasedate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" style="width: 100%;max-width: 100%" />
         <span class="text-danger"></span>
     </td>
@@ -58,7 +58,7 @@
 <table id="mytable" class="table table-condensed table-condensed table-bordered sinborde">
     <thead class="tableStyle">
         <tr class="text-center">
-            <th class="text-center">
+            <th>
                 Producto
             </th>
             <th class="text-center">
