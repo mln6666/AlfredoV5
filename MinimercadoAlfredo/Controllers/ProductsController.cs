@@ -150,7 +150,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(products.ToList());
         }
 
-        public ActionResult LastBought(int? id)
+        public ActionResult LastBought(int? id, bool? message)
         {
             List<Product> lastproducts = new List<Product>();
             Purchase lastpurchase = new Purchase();
@@ -167,6 +167,11 @@ namespace MinimercadoAlfredo.Controllers
             foreach (var item in lastpurchase.PurchaseLines.ToList())
             {
                 lastproducts.Add(item.Product);
+            }
+
+            if (message != null)
+            {
+                TempData["message"] = message;
             }
 
             ViewBag.Purchase = lastpurchase.IdPurchase;

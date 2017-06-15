@@ -259,7 +259,7 @@
         }
         /////////////////Start:Select searchable////////////////
         $(document).ready(function () {
-            if ($('#msg').val() == 1) { toastr.success("Compra guardada correctamente."); }
+            if ($('#msg').val() == 1) { toastr.success("Compra registrada exitosamente"); }
             $(".js-example-basic-single").select2();
         });
         ////////////////End:Select searchable///////////////////
@@ -450,27 +450,73 @@
 
                     $(this).val('Please wait...');
 
-                    $.ajax({
-                        url: '@Url.Action("CreatePurchase", "Purchases")',
-                        type: "POST",
-                        data: JSON.stringify(data),
-                        dataType: "JSON",
-                        contentType: "application/json",
-                        success: function(d) {
-                            //check is successfully save to database
-                            if (d.status == true) {
-                                var url = '@Url.Action("CreatePurchase", "Purchases", new { x = 1 })';
-                                window.location.href = url;
-                            } else {
-                                alert('Failed');
+                    bootbox.confirm({
+                        title: "Actualización de Precios",
+                        message: "¿Desea actualizar ahora mismo los precios de los productos adquiridos?",
+                        buttons: {
+                            confirm: {
+                                label: "Actualizar",
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: "Ahora NO",
+                                className: "btn-primary"
                             }
-                            $('#submit').val('Save');
+
                         },
-                        error: function() {
-                            alert('Error. Please try again.');
-                            $('#submit').val('Save');
+                        callback: function (result) {
+                            if (result) {
+
+                                $.ajax({
+                                    url: '@Url.Action("CreatePurchase", "Purchases")',
+                                    type: "POST",
+                                    data: JSON.stringify(data),
+                                    dataType: "JSON",
+                                    contentType: "application/json",
+                                    success: function (d) {
+                                        //check is successfully save to database
+                                        if (d.status == true) {
+                                            var url = '@Url.Action("LastBought", "Products", new { message = true})';
+                                            window.location.href = url;
+                                        } else {
+                                            alert('Failed');
+                                        }
+                                        $('#submit').val('Save');
+                                    },
+                                    error: function () {
+                                        alert('Error. Please try again.');
+                                        $('#submit').val('Save');
+                                    }
+                                });
+
+                            } else {
+                                
+                                $.ajax({
+                                    url: '@Url.Action("CreatePurchase", "Purchases")',
+                                    type: "POST",
+                                    data: JSON.stringify(data),
+                                    dataType: "JSON",
+                                    contentType: "application/json",
+                                    success: function (d) {
+                                        //check is successfully save to database
+                                        if (d.status == true) {
+                                            var url = '@Url.Action("CreatePurchase", "Purchases", new { x = 1 })';
+                                            window.location.href = url;
+                                        } else {
+                                            alert('Failed');
+                                        }
+                                        $('#submit').val('Save');
+                                    },
+                                    error: function () {
+                                        alert('Error. Please try again.');
+                                        $('#submit').val('Save');
+                                    }
+                                });
+
+                            }
                         }
                     });
+                    
                 }
 
             });
