@@ -364,7 +364,7 @@
                     $('#linedescription').siblings('span.text-danger').html('');
                 }
 
-                if ($('#lineprice').val().trim() == '') {
+                if ($('#lineprice').val().trim() == '' | $('#lineprice').val().trim() == 0) {
                     isValidItem = false;
                     $('#lineprice').siblings('span.text-danger').html('Requerido.');
                 } else {
