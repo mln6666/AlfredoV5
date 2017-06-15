@@ -541,7 +541,7 @@
                 var sale = {
                     IdSale: @Model.Sale.IdSale,
                     SaleState: parseInt($('#salestate').val()),
-                    @*SaleDate: @Model.SaleDate,*@
+                    SaleDate: $('#Date').val(),
                     IdCustomer: $('#customerid').val(),
                     SaleLines: saleproducts,
                     Comments: $('#salecomments').val(),

@@ -81,23 +81,6 @@ namespace MinimercadoAlfredo.Controllers
             return View("CreatePurchase");
         }
 
-        // POST: Purchases/Create
-        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
-        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdPurchase,PurchaseDate,Comments,PurchaseTotal,IdProvider")] Purchase purchase)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Purchases.Add(purchase);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IdProvider = new SelectList(db.Providers, "IdProvider", "ProviderName", purchase.IdProvider);
-            return View(purchase);
-        }
         public JsonResult Getproductdata(string pro)
         {
             var cero = 0;
@@ -223,6 +206,7 @@ namespace MinimercadoAlfredo.Controllers
             }
 
             p.IdProvider = purchase.IdProvider;
+            p.PurchaseDate = purchase.PurchaseDate;
             p.PurchaseTotal = purchase.PurchaseTotal;
             p.Comments = purchase.Comments;
 

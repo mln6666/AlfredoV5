@@ -486,7 +486,7 @@ namespace MinimercadoAlfredo.Controllers
                 {
                     s.IdCustomer = sale.IdCustomer;
                 }
-
+                s.SaleDate = sale.SaleDate;
                 s.SaleState = sale.SaleState;
                 s.SaleTotal = sale.SaleTotal;
                 s.Comments = sale.Comments;

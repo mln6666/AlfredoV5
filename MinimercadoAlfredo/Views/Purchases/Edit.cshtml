@@ -47,7 +47,7 @@
                 <input type="text" id="provideraddress" value="@Model.Purchase.Provider.ProviderAddress" style="border-color: transparent" readonly="readonly"/>
             </td>
             <td style="color: black">
-                <input id="Date" name="Date" type="date" readonly="readonly" class="form-control" value="@Model.Purchase.PurchaseDate.ToString("dd/MM/yyyy")" style="text-align: center" />
+                <input id="Date" name="Date" type="date" class="form-control" value="@Model.Purchase.PurchaseDate.ToString("yyyy-MM-dd")" style="text-align: center" />
             </td>
 
         </tr>
@@ -453,7 +453,7 @@
 
                 var purchase = {
                     IdPurchase: @Model.Purchase.IdPurchase,
-                    @*PurchaseDate: @Model.Purchase.PurchaseDate.Date,*@
+                    PurchaseDate: $('#Date').val(),
                     IdProvider: $('#providerid').val(),
                     PurchaseLines: purchaseproducts,
                     Comments: $('#purchasecomments').val(),
