@@ -49,7 +49,7 @@
     <div id="showtrademark" class="form-group" style="display: none">
         <div class="col-md-2"></div>
         <div class="col-md-10">
-            <input type="text" id="newtrademark" placeholder="Ingrese nueva marca" style="width: 280px" onchange="inputtrademark()" oninput="inputtrademark()"/>
+            <input type="text" id="newtrademark" style="width: 280px" onchange="inputtrademark()" oninput="inputtrademark()"/>
             <button id="addconfirmation" class="btn btn-success btn-xs" title="Agregar"><span class="glyphicon glyphicon-ok text-center"></span></button>
             <button id="hiddentrademark" class="btn btn-danger btn-xs" title="Cancelar"><span class="glyphicon glyphicon-remove text-center"></span></button>
             <span id="spannewtrademark" style="color: red"></span>
@@ -60,7 +60,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="text" id="ProductDescription" class="" placeholder="Ingrese la descripción del producto" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
+            <input type="text" id="ProductDescription" class="form-control input-sm"  style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
             <span id="spandescexistente" style="color:red"></span>
         </div>
 
@@ -72,7 +72,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="number" id="ProductCost" maxlength="9" step="any" placeholder="Ingrese el costo del Producto" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()"/>
+            <input class="form-control input-sm" type="number" id="ProductCost" maxlength="9" step="any" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()"/>
             <span id="spanvalidcost" class="text-center" style="color:red"></span>
         </div>
     </div>
@@ -80,7 +80,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.WholeSalePrice, "Precio", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="number" id="ProductWholeSalePrice" maxlength="9" style="width: 280px" placeholder="Ingrese el precio del Producto" onchange="ValidCost()" oninput="ValidCost()"/>
+            <input class="form-control input-sm"  type="number" id="ProductWholeSalePrice" maxlength="9" style="width: 280px"  onchange="ValidCost()" oninput="ValidCost()"/>
             <span id="spanwholesaleprice" style="color:red"></span>
             <span id="spanvalidcost2" class="text-center" style="color:red"></span>
         </div>
@@ -106,14 +106,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Stock, htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="number" id="productStock" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock actual del producto" />
+            <input class="form-control input-sm" type="number" id="productStock" min="0" maxlength="4" style="width: 280px" />
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new {@class = "control-label col-md-2"})
         <div class="col-md-10">
-            <input type="number" id="productMinimum" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock mínimo" />
+            <input class="form-control input-sm" type="number" id="productMinimum" min="0" maxlength="4" style="width: 280px" />
             @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new {@class = "text"})
         </div>
     </div>
