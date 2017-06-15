@@ -238,6 +238,7 @@ namespace MinimercadoAlfredo.Controllers
                         select p);
 
             ViewBag.Products = products;
+     
             var nsale = 0;
             if (db.Sales != null & db.Sales.Count() != 0)
             {
