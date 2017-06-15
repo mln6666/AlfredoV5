@@ -86,7 +86,7 @@
                     {
                         if (item.IdTrademark != null)
                         {
-                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription - @item.Trademark.TrademarkName</option>
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
                         }
                         else
                         {
@@ -453,7 +453,7 @@
 
                 var purchase = {
                     IdPurchase: @Model.Purchase.IdPurchase,
-                    @*PurchaseDate: @Model.PurchaseDate,*@
+                    @*PurchaseDate: @Model.Purchase.PurchaseDate.Date,*@
                     IdProvider: $('#providerid').val(),
                     PurchaseLines: purchaseproducts,
                     Comments: $('#purchasecomments').val(),
