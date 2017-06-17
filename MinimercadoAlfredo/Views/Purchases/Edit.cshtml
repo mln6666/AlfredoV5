@@ -10,16 +10,16 @@
 <table class="table table-condensed table-striped table-bordered">
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-            <th style="width: 110px">
-                N° Venta
+            <th class="text-center" style="width: 8%">
+                N°
             </th>
-            <th>
+            <th style="width: 30%">
                 Proveedor
             </th>
-            <th>
+            <th style="width: 35%">
                 Dirección
             </th>
-            <th>
+            <th class="text-center">
                 Fecha de Compra
             </th>
 
@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td class="text-center" style="color: black">
+            <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
                 @Html.DisplayFor(model => model.Purchase.IdPurchase)
             </td>
             <td>
@@ -53,8 +53,6 @@
         </tr>
     </tbody>
 </table>
-<h3 class="text-center">Lista de Productos</h3>
-<hr style="color: grey; border-color: grey" />
 
 <table class="table table-condensed table-bordered" id="productTable" style="background-color: white">
     <thead>
