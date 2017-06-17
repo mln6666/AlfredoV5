@@ -7,10 +7,10 @@
 <head>
     <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
 </head>
-<h3 class="text-center text-danger">¿Está seguro de eliminar el siguiente Producto?</h3>
-<br />
+<h3 class="text-center" style="color: red; margin-top: 1%">¿Está seguro de eliminar el siguiente Producto?</h3>
+<text style="margin-top: 4%; font-weight: bold">IMPORTANTE</text><text style="margin-top: 4%">: Al eliminar un producto, éste desaparecerá de todas las compras y ventas que haya realizado pero no alterará los valores de sus totales si no son modificadas. Se recomienda eliminar este producto sólo si las compras y ventas en las que aparece no volverán a ser alteradas.</text>
 
-<div>
+<div style="margin-top: 3%">
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.ProductDescription)
@@ -93,8 +93,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-            <input type="submit" value="Eliminar" class="btn btn-danger" />
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger" >Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         </div>
     }
 
