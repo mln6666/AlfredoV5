@@ -39,13 +39,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th>
+            <th style="width: 20%">
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
-            <th>
+            <th style="width: 10%">
                 Nro Artículo
             </th>
             <th>
@@ -55,7 +55,7 @@
                 Estado
             </th>
 
-            <th class="text-center">
+            <th class="text-center" style="width: 16%">
                 Opciones
             </th>
         </tr>
@@ -64,19 +64,19 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <td style="width: 13%">
                     @Html.DisplayFor(modelItem => item.Category.CategoryName)
                 </td>
-                <td width="300px">
+                <td>
                     @Html.DisplayFor(modelItem => item.ProductDescription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Cost)
                 </td>
                 @if (item.ProductState)
@@ -93,26 +93,17 @@
                 }
 
                 <td class="text-center">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" title="Opciones">
-                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>&nbsp;<span class="caret"></span>
-                        </button>
-
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="dialog-window4">Detalles</a></li>
-                            <li><a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})">Editar</a></li>
-                            @if (item.ProductState)
-                            {
-                                <li><a id="@("deac" + @item.IdProduct)" class="hvr-glow" onclick="deac(@item.IdProduct)">Desactivar</a></li>
-                            }
-                            else
-                            {
-                                <li><a id="@("ac" + @item.IdProduct)" class="hvr-glow" onclick="ac(@item.IdProduct)">Activar</a></li>
-                            }
-                            <li><a href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="dialog-window1">Eliminar</a></li>
-
-                        </ul>
-                    </div>                    
+                    <button href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window4" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+                    <a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    @if (item.ProductState)
+                    {
+                        <button id="@("deac" + @item.IdProduct)" class="btn btn-warning btn-sm hvr-glow" onclick="deac(@item.IdProduct)" title="Desactivar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <button id="@("ac" + @item.IdProduct)" class="btn btn-success btn-sm hvr-glow" onclick="ac(@item.IdProduct)" title="Activar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                    }
+                    <button href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>                   
                 </td>
             </tr>
         }
@@ -176,7 +167,7 @@
                 }
             });
 
-            $("body").on("click", "a.dialog-window1", null, function(e) {
+            $("body").on("click", "button.dialog-window1", null, function(e) {
                 e.preventDefault();
 
                 var $link = $(this); // Reference to <a/> link
@@ -194,25 +185,7 @@
                 }
             });
 
-            $("body").on("click", "a.dialog-window2", null, function(e) {
-                e.preventDefault();
-
-                var $link = $(this); // Reference to <a/> link
-                var title = $link.text(); //this is title to fetch in htnl
-                $('#myModal2.modal-title').html(title);
-
-                var url = $(this).attr('href');
-                if (url.indexOf('#') == 0) {
-                    $('#myModal2').modal('show');
-                } else {
-                    $.get(url, function(data) {
-                        $('#myModal2 .te').html(data);
-                        $('#myModal2').modal();
-                    }).success(function() { $('input:text:visible:first').focus(); });
-                }
-            });
-
-            $("body").on("click", "a.dialog-window4", null, function(e) {
+            $("body").on("click", "button.dialog-window4", null, function(e) {
                 e.preventDefault();
 
                 var $link = $(this); // Reference to <a/> link
@@ -260,7 +233,7 @@
                             toastr.success("Producto Desactivado exitosamente");
 
                             $('#state' + x).html('<text class="text-danger">Desactivado</text>');
-                            $('#deac' + x).replaceWith('<a id="ac' + x + '" onclick="ac(' + x + ')">Activar</a>');
+                            $('#deac' + x).replaceWith('<button id="ac' + x + '" class="btn btn-success btn-sm" onclick="ac(' + x + ')" title="Activar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>');
                         }
 
                     };
@@ -302,7 +275,7 @@
                                 toastr.success("Producto Activado exitosamente");
 
                                 $('#state' + x).html('<text class="text-success">Activo</text>');
-                                $('#ac' + x).replaceWith('<a id="deac' + x + '" onclick="deac(' + x + ')">Desactivar</a>');
+                                $('#ac' + x).replaceWith('<button id="deac' + x + '" class="btn btn-warning btn-sm" onclick="deac(' + x + ')" title="Desactivar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></button>');
                             }
 
                         };
