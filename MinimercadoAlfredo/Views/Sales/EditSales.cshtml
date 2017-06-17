@@ -242,26 +242,33 @@
         $(document).ready(function() {
             $(".js-example-basic-single").select2();
 
-            changecust(@Model.Sale.IdCustomer);
+            if ($('#customerid').val() != 0) {
+                changecust(@Model.Sale.IdCustomer);
+            }
         });
 
         //CARGA AUTOMÁTICA DE DIRECCIÓN Y CUIL/CUIT DE CLIENTE
 
         function changecust(idcustomer) {
-            var options = {};
-            options.url = '@Url.Action("Getcustomerdata", "Sales")';
-            options.type = "GET";
-            options.data = { "cus": idcustomer };
-            options.dataType = "json";
-            options.success = function(data) {
-                if (data.CustomerAddress != null) {
-                    $('#customeraddress').val(data.CustomerAddress);
-                }
-                if (data.CuitCuil != null) {
-                    $('#customercuil').val(data.CuitCuil);
-                }
-            };
-            $.ajax(options);
+            if (idcustomer != 0) {
+                var options = {};
+                options.url = '@Url.Action("Getcustomerdata", "Sales")';
+                options.type = "GET";
+                options.data = { "cus": idcustomer };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data.CustomerAddress != null) {
+                        $('#customeraddress').val(data.CustomerAddress);
+                    }
+                    if (data.CuitCuil != null) {
+                        $('#customercuil').val(data.CuitCuil);
+                    }
+                };
+                $.ajax(options);
+            } else {
+                $('#customeraddress').val("");
+                $('#customercuil').val("");
+            }
         }
 
         //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
