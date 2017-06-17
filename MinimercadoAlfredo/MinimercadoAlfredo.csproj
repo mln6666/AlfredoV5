@@ -255,6 +255,7 @@
     <Content Include="Content\Images\compras.jpg" />
     <Content Include="Content\Images\compras.png" />
     <Content Include="Content\Images\IMG_30319.jpg" />
+    <Content Include="Content\Images\productos.jpg" />
     <Content Include="Content\Images\ventas2.jpg" />
     <Content Include="Content\normalize.css" />
     <Content Include="Content\Select2\select2.css" />
