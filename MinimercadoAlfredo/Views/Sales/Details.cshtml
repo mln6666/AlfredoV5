@@ -30,15 +30,16 @@
     </thead>
     <tbody>
         <tr style="background-color: white">
-            <td class="text-center">
+            <td class="text-center" style="background-color: khaki">
                 @Html.DisplayFor(model => model.IdSale)
             </td>
 
             <td>
-                @if (Model.IdCustomer == null) { <text>-</text>}
-else
-{    @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })}
-             
+                @if (Model.IdCustomer == null)
+                { <text>-</text>}
+                else
+                {    @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })}
+
             </td>
             <td>
                 @if (Model.SaleAddress == "" | Model.SaleAddress == null)

@@ -79,9 +79,18 @@
         @foreach (var item in Model.SaleLines)
         {
             <tr>
-                <td class="text-left">
-                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                </td>
+                @if (item.Product.IdTrademark != null)
+                {
+                    <td class="text-left">
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                    </td>
+                }
+                else
+                {
+                    <td class="text-left">
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    </td>
+                }
                 <td class="text-left">
                     @Html.DisplayFor(modelItem => item.LineQuantity)
                 </td>
@@ -115,7 +124,7 @@
             <td class="text-left">
                 @Html.DisplayFor(model => model.Comments)
             </td>
-            <th class="text-left">
+            <th class="text-center" style="background-color: khaki; width: 16%">
                 @Html.DisplayFor(model => model.SaleTotal)
             </th>
 

@@ -51,22 +51,16 @@
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
         <td class="text-left" style="border-radius: 3px">
-            N° Artículo
-        </td>
-        <td class="text-left" style="border-radius: 3px">
             Producto
         </td>
-        <td class="text-left" style="border-radius: 3px">
-            Marca
-        </td>
 
-        <td class="text-left" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px; width: 14%">
             Cantidad
         </td>
-        <td class="text-left" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px">
             Costo
         </td>
-        <td class="text-left" style="border-radius: 3px">
+        <td class="text-center" style="border-radius: 3px">
             Subtotal
         </td>
     </tr>
@@ -75,22 +69,25 @@
         @foreach (var item in Model.PurchaseLines)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
-                </td>
-                <td>
+                @if (item.Product.IdTrademark != null)
+                {
+                    <td>
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    </td>
+                }
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LineQuantity)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Product.Cost)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LineTotal)
                 </td>
             </tr>
@@ -105,7 +102,7 @@
             <td class="text-left" style="border-radius: 3px">
                 Comentarios
             </td>
-            <td class="text-left" style="border-radius: 3px; width: 15%">
+            <td class="text-left" style="border-radius: 3px; width: 20%">
                 Total de Compra
             </td>
         </tr>
@@ -113,7 +110,7 @@
     <tbody>
         <tr>
             <td>@Model.Comments</td>
-            <th>@Html.DisplayFor(model => model.PurchaseTotal)</th>
+            <th class="text-center" style="background-color: khaki">@Html.DisplayFor(model => model.PurchaseTotal)</th>
         </tr>
     </tbody>
 </table>

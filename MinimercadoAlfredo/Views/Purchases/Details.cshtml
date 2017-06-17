@@ -27,12 +27,11 @@
     </thead>
     <tbody>
         <tr>
-            <td>
+            <td class="text-center" style="background-color: khaki">
                 @Html.DisplayFor(model => model.IdPurchase)
             </td>
             <td>
                 @Html.ActionLink((string)Model.Provider.ProviderName, "modalProvider", new { id = Model.IdProvider}, new { @class = "dialog-window" })
-                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
             </td>
             <td>
                 @Html.DisplayFor(model => model.Provider.ProviderPhone)
