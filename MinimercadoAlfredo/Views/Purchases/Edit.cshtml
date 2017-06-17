@@ -99,7 +99,7 @@
                 <span id="spanquantity" style="color:red"></span>
             </td>
             <td style="background-color: #a0cee8">
-                <input type="text" class="panel-info form-control inputForm" id="linecost" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" style="width: 100%"/>
+                <input type="text" class="panel-info form-control inputForm" id="linecost" value="0.00" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" style="width: 100%"/>
                 <span id="spancost" style="color:red"></span>
             </td>
             <td class="text-center" style="background-color: #a0cee8">
@@ -169,7 +169,8 @@
     <tbody>
         <tr>
             <td>
-                <input type="text" id="purchasecomments" value="@Model.Purchase.Comments" width="100%"/>
+                <textarea type="text" style="max-width: 100%!important;width: 100%!important" value="@Model.Purchase.Comments" class="panel-info form-control" id="purchasecomments" placeholder=""></textarea>
+                @*<input type="text" id="purchasecomments" value="@Model.Purchase.Comments" width="100%"/>*@
             </td>
         </tr>
     </tbody>
@@ -348,7 +349,7 @@
 
                 $('#linedescription').val(0).trigger('change');
                 $('#linequantity').val('1');
-                $('#linecost').val('');
+                $('#linecost').val('0.00');
                 $('#linetotal').val('0.00');
             }
 
@@ -461,7 +462,7 @@
 
                 bootbox.confirm({
                     title: "Actualización de Precios",
-                    message: "¿Desea actualizar ahora mismo los precios de los productos adquiridos?",
+                    message: "¿Desea actualizar ahora mismo los precios de los productos adquiridos en esta compra?",
                     buttons: {
                         confirm: {
                             label: "Actualizar",
