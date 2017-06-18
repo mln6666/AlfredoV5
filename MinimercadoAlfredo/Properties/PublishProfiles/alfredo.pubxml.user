@@ -145,7 +145,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/11/2017 21:56:04</publishTime>
     </File>
     <File Include="bin/MinimercadoAlfredo.dll">
-      <publishTime>06/17/2017 22:36:01</publishTime>
+      <publishTime>06/17/2017 23:04:03</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>06/11/2017 21:56:04</publishTime>
