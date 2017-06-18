@@ -142,7 +142,7 @@ namespace MinimercadoAlfredo.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles = "Administrador")]
+        
         public ActionResult Register()
         {
             return View();
@@ -151,7 +151,7 @@ namespace MinimercadoAlfredo.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
+        
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
