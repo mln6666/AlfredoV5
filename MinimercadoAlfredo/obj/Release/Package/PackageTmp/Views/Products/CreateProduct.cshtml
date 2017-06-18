@@ -1,0 +1,358 @@
+﻿@model MinimercadoAlfredo.Models.Product
+@{
+    ViewBag.Title = "CreateProduct";
+}
+
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
+<h2 class="text-center">Nuevo Producto</h2>
+<hr style="color: grey; border-color: grey"/>
+
+<div class="form-horizontal">
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.idCategory, "Rubro", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <select class="js-example-basic-single" id="IdCategory" onchange="category()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                <option value="">Seleccione un Rubro...</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    <option value="@item.IdCategory">@item.CategoryName</option>
+                }
+            </select>
+            <span id="spancategory" style="color: red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdTrademark, "Marca", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <div>
+                <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
+                    <option value="0">Seleccione una Marca...</option>
+                    @foreach (var item in ViewBag.Trademarks)
+                    {
+                        <option value="@item.IdTrademark">@item.TrademarkName</option>
+                    }
+                </select>
+                <button id="addtrademark" class="btn btn-success btn-xs" title="Agregar marca"><span class="glyphicon glyphicon-plus text-center"></span></button>
+                
+                <span id="spantrademark" style="color:red"></span>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="showtrademark" class="form-group" style="display: none">
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <input type="text" id="newtrademark" class="form-control input-sm" style="width: 280px; display: inline-flex" placeholder="Ingrese nueva marca" onchange="inputtrademark()" oninput="inputtrademark()"/>
+            <button id="addconfirmation" class="btn btn-success btn-xs" title="Agregar"><span class="glyphicon glyphicon-ok text-center"></span></button>
+            <button id="hiddentrademark" class="btn btn-danger btn-xs" title="Cancelar"><span class="glyphicon glyphicon-remove text-center"></span></button>
+            <span id="spannewtrademark" style="color: red"></span>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductDescription, "Descripción", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <input type="text" id="ProductDescription" class="form-control input-sm" style="width: 280px" onchange="DescExistente()" oninput="DescExistente()"/>
+            <span id="spandescexistente" style="color:red"></span>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <input class="form-control input-sm" type="number" id="ProductCost" maxlength="9" step="any" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()"/>
+            <span id="spanvalidcost" class="text-center" style="color:red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.WholeSalePrice, "Precio", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <input class="form-control input-sm"  type="number" id="ProductWholeSalePrice" maxlength="9" style="width: 280px"  onchange="ValidCost()" oninput="ValidCost()"/>
+            <span id="spanwholesaleprice" style="color:red"></span>
+            <span id="spanvalidcost2" class="text-center" style="color:red"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ProductState, "Estado", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="radio col-md-4">
+            <label>
+                <input name="ProductState" id="optionsRadios1" checked type="radio">
+                Activo
+            </label>
+
+            <label style="margin-left: 12%">
+                <input name="ProductState" id="optionsRadios2" type="radio">
+                Desactivado
+            </label>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Stock, htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <input class="form-control input-sm" type="number" id="productStock" min="0" maxlength="4" style="width: 280px" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new {@class = "control-label col-md-2"})
+        <div class="col-md-10">
+            <input class="form-control input-sm" type="number" id="productMinimum" min="0" maxlength="4" style="width: 280px" />
+            @Html.ValidationMessageFor(model => model.Minimum, "El Sistema le avisará cuando el Stock de este Producto sea menor a este valor", new {@class = "text"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
+
+            <button type="button" value="Guardar" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </div>
+    </div>
+</div>
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section scripts{
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script>
+        $(document).ready(function() {
+            if ($('#message').val() == 1)
+                toastr.success("Producto agregado exitosamente");
+
+            $(".js-example-basic-single").select2();
+        });
+
+        var validcost = true;
+        var optionstate;
+        var IsValidItem;
+        var IsValidItem2;
+        var IsValidItem3;
+
+        function category() {
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
+            if ($('#IdCategory').val() == '' | $('#IdCategory').val() == null) {
+                $('#spancategory').text('Debe seleccionar un Rubro.');
+                IsValidItem2 = false;
+            } else {
+                $('#spancategory').text('');
+                IsValidItem2 = true;
+            }
+        }
+
+
+        function DescExistente() {
+            if ($('#ProductDescription').val() != "") {
+                $('#spandescexistente').text("");
+                var options = {};
+                options.url = '@Url.Action("ExisteProd", "Products")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProductDescription").val(), "trademark": $("#IdTrademark").val(), "categ": $('#IdCategory').val() };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data) {
+                        $('#spandescexistente').text("Producto existente.");
+                        IsValidItem = false;
+                    } else {
+                        IsValidItem = true;
+                    }
+
+                };
+                $.ajax(options);
+
+            } else {
+                $('#spandescexistente').text("Debe ingresar la descripción del Producto.");
+                IsValidItem = false;
+            }
+
+        }
+
+        function Marca() {
+            if ($('#ProductDescription').val() != "") {
+                DescExistente();
+            }
+
+            if ($('#IdTrademark').val() == 0) {
+                $('#spantrademark').text("Debe seleccionar una Marca.");
+                IsValidItem3 = false;
+            } else {
+                IsValidItem3 = true;
+                $('#spantrademark').text("");
+            }
+        }
+
+        function ValidCost() {
+            var cost = parseFloat($('#ProductCost').val());
+            var wholeSalePrice = parseFloat($('#ProductWholeSalePrice').val());
+            validcost = true;
+
+            $('#spanvalidcost').text('');
+            $('#spanvalidcost2').text('');
+
+            if ($('#ProductCost').val() != '') {
+                
+                if ($('#ProductWholeSalePrice').val() != '') {
+                    if (cost > wholeSalePrice) {
+                        $('#spanvalidcost').text('El costo de un producto no puede superar al precio.');
+                        validcost = false;
+                    }
+                }
+
+            }
+        }
+
+        //BOTONES PARA AGREGAR NUEVA MARCA
+
+        $('#addtrademark').click(function() {
+            $('#spantrademark').text('');
+            $('#addtrademark').hide('slow');
+            $('#showtrademark').toggle('slow');
+        });
+
+        $('#hiddentrademark').click(function() {
+            $('#showtrademark').toggle('slow');
+            $('#addtrademark').toggle('slow');
+        });
+
+        function inputtrademark() {
+            if ($('#newtrademark').val() == '') {
+                $('#spannewtrademark').text("Ingrese el nombre de la nueva Marca.");
+            } else {
+                $('#spannewtrademark').text("");
+            }
+        }
+
+        $('#addconfirmation').click(function() {
+            
+            if ($('#newtrademark').val() != "") {
+
+                var options = {};
+                options.url = '@Url.Action("ExisteMarca", "Trademarks")';
+                options.type = "GET";
+                options.data = { "trademark": $("#newtrademark").val() };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data) {
+                        $('#spannewtrademark').text("La marca que está intentando ingresar ya existe.");
+                    } else {
+                        var options2 = {};
+                        options2.url = '@Url.Action("AddTrademark", "Trademarks")';
+                        options2.type = "POST";
+                        options2.data = { "newtrademark": $("#newtrademark").val() };
+                        options2.dataType = "JSON";
+                        options2.success = function(data2) {
+                            if (!data2.exist) {
+                                toastr.success("La Marca ha sido registrada exitosamente.");
+
+                                $('#showtrademark').toggle('slow');
+                                $('#addtrademark').toggle('slow');
+
+                                var val = $('#newtrademark').val();
+
+                                $('#IdTrademark').append('<option value="' + data2.x + '">' + val + '</option>');
+                                $('#IdTrademark').val(data2.x).trigger('change');
+                                $('#newtrademark').val('');
+                            } else {
+                                toastr.warning("Hubo un error al intentar guardar la nueva Marca, inténtelo nuevamente.");
+                            }
+                        };
+                        $.ajax(options2);
+                        
+                    }
+                };
+                $.ajax(options);
+            } else {
+                inputtrademark();
+            }
+        });
+
+        //BOTÓN GUARDAR PRODUCTO
+
+        $('#botonGuardar').click(function () {
+
+            if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
+
+                bootbox.confirm({
+                    title: "Confirmación",
+                    message: "Usted está por agregar un nuevo producto.",
+                    buttons: {
+                        confirm: {
+                            label: 'Agregar',
+                            className: 'btn-success'
+                        },
+                        cancel: {
+                            label: 'Cancelar',
+                            className: 'btn-primary'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result) {
+
+                            if ($('#optionsRadios1').is(':checked')) {
+                                optionstate = true;
+                            } else {
+                                optionstate = false;
+                            }
+
+                            var product = {
+                                ProductDescription: $('#ProductDescription').val(),
+                                ProductCategory: $('#IdCategory').val(),
+                                ProductTrademark: $('#IdTrademark').val(),
+                                ProductCost: parseFloat($('#ProductCost').val()),
+                                ProductWholeSalePrice: parseFloat($('#ProductWholeSalePrice').val()),
+                                ProductState: optionstate,
+                                ProductStock: parseFloat($('#productStock').val()),
+                                ProductMinimum: parseFloat($('#productMinimum').val())
+                            }
+
+                            $.ajax({
+                                url: '@Url.Action("CreateProduct", "Products")',
+                                type: "POST",
+                                data: JSON.stringify(product),
+                                dataType: "JSON",
+                                contentType: "application/json",
+                                success: function(d) {
+                                    if (d.status) {
+
+                                        var url = '@Url.Action("CreateProduct", "Products", new { message = 1})';
+                                        window.location.href = url;
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+            } else {
+                if ($('#IdCategory').val() == 0) {
+                    $('#spancategory').text("Debe seleccionar un Rubro.");
+                }
+                if ($('#ProductDescription').val() == "") {
+                    $('#spandescexistente').text("Debe ingresar la descripción del Producto.");
+                }
+                if ($('#IdTrademark').val() == 0) {
+                    $('#spantrademark').text("Debe seleccionar una Marca.");
+                }
+            }
+        });
+
+    </script>
+}

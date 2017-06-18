@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+@{
+    ViewBag.Title = "Catálogo";
+}
+
+
+@if (ViewBag.personal)
+{
+    <h2 class="text-center">Catálogo Vendedores</h2>
+}
+else
+{
+    <h2 class="text-center">Catálogo Público</h2>
+}
+
+
+<button style="float: right" class="btn btn-md btn-success hidden-print glyphicon glyphicon-print" onclick="window.print()"> Imprimir</button>
+
+<hr style="color: grey; border-color: grey" />
+
+<table class="table table-condensed   table-condensed table-bordered" style="background-color:white">
+    <thead>
+        <tr style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <td style="width:150px">
+                N° Art.
+            </td>
+
+            <td>
+                Producto
+            </td>
+            @if (ViewBag.personal)
+            {
+                <td>
+                    Costo
+                </td>
+                <td>
+                    Precio Mayorista
+                </td>
+            }
+            else
+            {
+                <td>Precio Venta</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.Products != 0)
+            {
+                var rubro = Model.First().Category;
+
+                <tr style="color:white; background-color:gray;">
+
+                    <td></td>
+                    <td style="border: hidden; font-size:large">@rubro.CategoryName</td>
+                    @if (ViewBag.personal)
+                    {
+                        <td></td>
+                    }
+                    <td></td>
+                </tr>
+
+                foreach (var item in Model)
+                {
+                    if (item.Category != rubro)
+                    {
+                        rubro = item.Category;
+
+                        <tr style="color:white; background-color:grey;">
+
+                            <td></td>
+                            <td style="font-size:large">@item.Category.CategoryName</td>
+                            @if (ViewBag.personal)
+                        {
+                                <td></td>
+                            }
+                            <td></td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.IdProduct)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.ProductDescription)</td>
+
+                        @if (ViewBag.personal)
+                    {
+                            <td>@Html.DisplayFor(modelItem => item.Cost)</td>
+                        }
+                        <td>@Html.DisplayFor(modelItem => item.WholeSalePrice)</td>
+                    </tr>
+                }
+            }
+
+
+
+
+        }
+
+
+    </tbody>
+</table>

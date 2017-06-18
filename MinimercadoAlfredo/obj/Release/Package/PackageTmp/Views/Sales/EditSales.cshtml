@@ -1,0 +1,611 @@
+﻿@model MinimercadoAlfredo.ViewModels.CreateSaleVM
+@{
+    ViewBag.Title = "Editar Venta";
+}
+
+<h2 class="text-center">Editar Venta</h2>
+<hr style="color:grey; border-color: grey; margin-top: 0" />
+@Html.HiddenFor(model => model.Sale.IdSale)
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <th class="text-center">
+                N°
+<th>
+                Cliente
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th class="text-center">
+                CUIT/CUIL
+            </th>
+            <th style="width: 12%">
+                Estado de Venta
+            </th>
+            <th style="width: 16%" class="text-center">
+                @Html.DisplayNameFor(model => model.Sale.SaleDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white">
+            <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
+                @Html.DisplayFor(model => model.Sale.IdSale)
+            </td>
+            <td>
+                @if (Model.Sale.IdCustomer == null)
+                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
+                    <option value="0">Seleccionar cliente</option>
+                    @foreach (var item in Model.Customers)
+                    {
+                       
+                            <option value="@item.IdCustomer">@item.CustomerName</option>
+                        
+                    }
+                </select> }
+                else
+                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
+                    <option value="@Model.Sale.IdCustomer">@Model.Sale.Customer.CustomerName</option>
+                    @foreach (var item in Model.Customers)
+                    {
+                        if (item.IdCustomer != Model.Sale.Customer.IdCustomer)
+                        {
+                            <option value="@item.IdCustomer">@item.CustomerName</option>
+                        }
+                    }
+                </select> }
+               
+
+            </td>
+            <td>
+                @if (Model.Sale.IdCustomer == null)
+                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%" />
+                }
+                else
+                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" /> }
+
+               
+            </td>
+            <td style="width: 13%" class="text-center">
+                @if (Model.Sale.IdCustomer == null)
+                {                <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                }
+                else
+                {  <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" /> }
+               
+            </td>
+            <td style="color: black; font-weight: bold">
+                <select class="panel-info form-control inputForm" id="salestate" style="padding: initial">
+                    <option value="0">Pendiente</option>
+                    <option value="1">Finalizada</option>
+                </select>
+            </td>
+            <td style="color: black" class="text-center">
+                <input id="Date" name="Date" type="date" class="panel-info form-control inputForm" value="@Model.Sale.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center" />
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+<table class="table table-condensed table-bordered sinborde" id="productTable">
+    <thead>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td>
+            Producto
+        </td>
+        <td style="width: 13%">
+            Cantidad
+        </td>
+        <td style="width: 14%">
+            Precio
+        </td>
+        <td style="width: 13%">
+            Descuento (%)
+        </td>
+        <td style="width: 16%">
+            Subtotal
+        </td>
+        <td></td>
+    </tr>
+    </thead>
+
+    <tbody id="insert">
+        <tr>
+            <td style="background-color: #a0cee8">
+                <select class="js-example-basic-single inputForm" id="linedescription" onchange="addproduct()" oninput="addproduct()" style="width: 100%">
+                    <option value="0">Seleccionar Producto...</option>
+                    @foreach (var item in Model.Products)
+                    {
+                        if (item.Trademark != null)
+                        {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+                        }
+                        else
+                        {
+                            <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                        }
+                    }
+                </select>
+                <span id="spanproducto" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()" />
+                <span id="spanquantity" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma()"/>
+                <span id="spanprice" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="number" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" onchange="totallinea();" onkeypress="solonumeros()"/>
+                <span id="spandiscount" style="color:red"></span>
+            </td>
+            <td style="background-color: #a0cee8">
+                <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="width: 100%; font-weight: bold" />
+            </td>
+            <td class="text-center" style="width: 2%; background-color: #a0cee8">
+                <button type="button" id="add" class="btn btn-success btn-xs" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+            </td>
+        </tr>
+
+    @foreach (var item in Model.Sale.SaleLines)
+    {
+        <tr style="background-color: white">
+            <td>
+                @{
+                    var x = "";
+                    if (item.Product.IdTrademark != null)
+                    {
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " - " + item.Product.Trademark.TrademarkName;
+                    }
+                    else
+                    {
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription;
+                    }
+
+                    <input id="@("itemid" + item.IdProduct)" type="text" name="productid" value="@item.IdProduct" class="hidden"/>
+                    <input type="text" value="@x" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly"/>
+                }
+            </td>
+            <td class="text-center">
+                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            </td>
+            <td class="text-center">
+                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            </td>
+            <td class="text-center" >
+                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+            </td>
+            <td class="text-center">
+                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
+            </td>
+            <td class="text-center" style="width: 2%">
+                <button id="@("elim" + item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tr>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <th class="text-center" style="background: khaki">TOTAL</th>
+        <th class="text-center" style="text-align: center; background-color: khaki">
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold"/>
+        </th>
+        <td class="sinborde"></td>
+
+    </tr>
+</table>
+<span id="spanquantitytable" style="color: red"></span>
+<span id="spanpricetable" style="color: red"></span>
+<span id="spandiscounttable" style="color: red"></span>
+<table class="table table-condensed table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+            <td>
+                Observaciones
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <input type="text" id="salecomments" value="@Model.Sale.Comments" style="max-width: 100%!important;width: 100%!important" class="panel-info form-control sizeComment"/>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<hr style="color: grey" />
+<div style="width: 100%; display: flex">
+    <div style="width: 25%; text-align: left">
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary btn-md"><span class="glyphicon glyphicon-arrow-left " aria-hidden="true"></span>&nbsp; Volver</a>
+    </div>
+    <div style="width: 50%; text-align: center">
+        <button type="button" id="guardar" class="btn btn-success btn-md " value="Guardar">
+            Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+    </div>
+    <div style="width: 25%"></div>
+</div>
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section scripts{
+<script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script>
+        $(document).ready(function() {
+            $(".js-example-basic-single").select2();
+
+            if ($('#customerid').val() != 0) {
+                changecust(@Model.Sale.IdCustomer);
+            }
+        });
+
+        //CARGA AUTOMÁTICA DE DIRECCIÓN Y CUIL/CUIT DE CLIENTE
+
+        function changecust(idcustomer) {
+            if (idcustomer != 0) {
+                var options = {};
+                options.url = '@Url.Action("Getcustomerdata", "Sales")';
+                options.type = "GET";
+                options.data = { "cus": idcustomer };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data.CustomerAddress != null) {
+                        $('#customeraddress').val(data.CustomerAddress);
+                    }
+                    if (data.CuitCuil != null) {
+                        $('#customercuil').val(data.CuitCuil);
+                    }
+                };
+                $.ajax(options);
+            } else {
+                $('#customeraddress').val("");
+                $('#customercuil').val("");
+            }
+        }
+
+        //CARGA AUTOMATICA DE CAMPOS DE LINEA DE PRODUCTO
+
+        function addproduct() {
+            $('#spanproducto').text("");
+            $('#spanquantity').text("");
+            $('#spanprice').text("");
+            $('#spandiscount').text("");
+
+            var options = {};
+            options.url = '@Url.Action("Getproductdata", "Sales")';
+            options.type = "GET";
+            options.data = { "pro": $("#linedescription").val() };
+            options.dataType = "json";
+            options.success = function(data) {
+                document.getElementById("lineprice").value = data;
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+
+                if (total > 0) {
+                    document.getElementById("linetotal").value = total.toFixed(2);
+                }
+
+            };
+            $.ajax(options);
+        }
+
+        //VALIDACIONES PARA INGRESAR UN NUEVO PRODUCTO
+
+        function totallinea() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() != 0) {
+
+                if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanprice').text("Debe ser mayor a 0");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spanprice').text("");
+                }
+
+                if ($('#linequantity').val() < 1) {
+                    isAllValid = false;
+                    $('#spanquantity').text("Debe ser mayor a 0");
+                    document.getElementById("linetotal").value = "0.00";
+
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("Debe ser menor");
+                    document.getElementById("linetotal").value = "0.00";
+                } else {
+                    $('#spandiscount').text("");
+                }
+
+            } else {
+                isAllValid = false;
+            }
+
+
+            if (isAllValid) {
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);
+            }
+        }
+
+        //BOTON PARA AGREGAR UN NUEVO PRODUCTO
+        $('#add').click(function() {
+            var isAllValid = true;
+
+            if ($('#linedescription').val() == 0) {
+                isAllValid = false;
+                $('#spanproducto').text("Debe seleccionar un Producto");
+            } else {
+                $('#spanproducto').text("");
+
+                if ($('#linequantity').val() < 1 | $('#linequantity').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanquantity').text("Debe ser mayor a 0");
+                } else {
+                    $('#spanquantity').text("");
+                }
+
+                if ($('#lineprice').val() == 0 | $('#lineprice').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spanprice').text("Debe ser mayor a 0");
+                } else {
+                    $('#spanprice').text("");
+                }
+
+                if ($('#linediscount').val() > 100 | $('#linediscount').val().trim() == '') {
+                    isAllValid = false;
+                    $('#spandiscount').text("Debe ser menor");
+                } else {
+                    $('#spandiscount').text("");
+                }
+
+                var exist = prodexist($('#linedescription').val());
+                if (exist) {
+                    $('#spanproducto').text("");
+                } else {
+                    $('#spanproducto').text("Producto existente en la lista");
+                    isAllValid = false;
+                }
+            }
+
+            if (isAllValid) {
+
+                //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
+
+                var idproduct = $('#linedescription').val();
+                $('#insert').append('<tr id="inserttd' + idproduct + '" style="background-color: white"></tr>');
+
+                $('#inserttd' + idproduct).append('<td><input id="itemid' + idproduct + '" name="productid" value="'+ idproduct +'" class="hidden" /><input id="desc'+ idproduct +'" type="text" value="'+ idproduct.toString() +'" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly" /></td>');
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdescription", "Sales")';
+                options.type = "POST";
+                options.data = { "pro": $('#linedescription').val() };
+                options.dataType = "JSON";
+                options.success = function (data) {
+
+                    var description;
+
+                    if (data.trademark != "") {
+                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                    } else {
+                        description = idproduct.toString() + " - " + data.product;
+                    }
+
+                    $('#desc' + idproduct).val(description);
+                };
+                $.ajax(options);
+
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemquantity' + idproduct + '" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#itemquantity' + idproduct).val($('#linequantity').val());
+
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#itemprice' + idproduct).val($('#lineprice').val());
+
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
+                $('#itemdiscount' + idproduct).val($('#linediscount').val());
+
+                $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" style="text-align: center; font-weight: bold" type="text" class="panel-info text-center form-control fina" readonly="readonly" /></td>');
+                document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
+
+                $('#inserttd' + idproduct).append('<td class="text-center"><button id="elim' + idproduct + '" class="btn btn-danger btn-xs" onclick="deleteProduct(' + idproduct + ')"><span class="glyphicon glyphicon-remove"></span></button></td>');
+
+                $('#linedescription').val(0).trigger('change');
+                $('#linequantity').val('1');
+                $('#lineprice').val('0');
+                $('#linediscount').val('0');
+                $('#linetotal').val('0.00');
+            }
+
+            calcgral();
+
+        });
+
+        //FUNCIÓN PARA VALIDAR SI EL PRODUCTO INGRESADO YA EXISTE EN LA LISTA DE PRODUCTOS
+
+        function prodexist(id) {
+            var products = [];
+
+            $('input[name="productid"]').map(function () { products.push(this.value) });
+
+            for (var i = 0; i < products.length; i++) {
+                if (products[i] == id) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        //BOTÓN PARA ELIMINAR UN PRODUCTO DE LA LISTA DE PRODUCTOS
+
+        function deleteProduct(id) {
+            $('#elim' + id).closest('tr').remove();
+            calcgral();
+        }
+
+        //FUNCIÓN PARA CALCULAR EL TOTAL GENERAL DE VENTA
+
+        function calcgral() {
+            var subtotals = [];
+            var total = 0;
+
+            $('input[name="productsubtotal"]').map(function () { subtotals.push(parseFloat(this.value)) });
+
+            for (var i = 0; i < subtotals.length; i++) {
+                total += subtotals[i];
+            }
+
+            document.getElementById("totalgral").value = total.toFixed(2);
+        }
+
+        //FUNCIÓN PARA CÁLCULO AUTOMÁTICO DE LOS SUBTOTALES DE LA TABLA DE PRODUCTOS
+
+        function CalcSubtotal(idproduct) {
+            var subtotal = $('#itemquantity'+ idproduct).val() * $('#itemprice' + idproduct).val();
+            subtotal = subtotal - (subtotal * $('#itemdiscount' + idproduct).val() / 100 );
+
+            document.getElementById('itemsubtotal' + idproduct).value = subtotal.toFixed(2);
+
+            calcgral();
+        }
+
+        //VALIDACIONES DE LÍNEAS DE TABLA DE PRODUCTOS
+
+        function ValidLine(idproduct) {
+
+            if ($('#itemquantity' + idproduct).val() == 0) {
+                $('#itemquantity' + idproduct).css("border-color","red");
+                $('#spanquantitytable').text('Error, la cantidad vendida de un producto no puede ser cero');
+
+            } else {
+                $('#itemquantity' + idproduct).css("border-color","");
+                $('#spanquantitytable').text('');
+            }
+
+            if ($('#itemprice' + idproduct).val() == 0) {
+                $('#itemprice' + idproduct).css("border-color", "red");
+                $('#spanpricetable').text('Error, el precio no puede ser cero, se recomienda realizar un descuento del 100%');
+            } else {
+                $('#itemprice' + idproduct).css("border-color", "");
+                $('#spanpricetable').text('');
+            }
+
+            if ($('#itemdiscount' + idproduct).val() > 100) {
+                $('#itemdiscount' + idproduct).css("border-color", "red");
+                $('#spandiscounttable').text('Error, el descuento no puede superar el 100%');
+            } else {
+                $('#itemdiscount' + idproduct).css("border-color", "");
+                $('#spandiscounttable').text('');
+            }
+        }
+
+        $('#guardar').click(function() {
+            if ($('#spanquantitytable').val() == '' & $('#spanpricetable').val() == '' & $('#spandiscounttable').val() == '') {
+                var saleproducts = [];
+                var productids = [];
+                var productquantities = [];
+                var productprices = [];
+                var productdiscounts = [];
+
+                $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
+                $('input[name="productquantity"]').map(function () { productquantities.push(parseFloat(this.value)) });
+                $('input[name="productprice"]').map(function () { productprices.push(parseFloat(this.value)) });
+                $('input[name="productdiscount"]').map(function () { productdiscounts.push(parseFloat(this.value)) });
+
+                var product;
+                for (var i = 0; i < productids.length; i++) {
+                    product = {
+                        IdProduct: productids[i],
+                        LineQuantity: productquantities[i],
+                        LinePrice: productprices[i],
+                        LineDiscount: productdiscounts[i],
+                        LineTotal: (productquantities[i]*productprices[i]) - (productquantities[i]*productprices[i]*productdiscounts[i]/100)
+                    }
+
+                    saleproducts.push(product);
+                }
+
+                var sale = {
+                    IdSale: @Model.Sale.IdSale,
+                    SaleState: parseInt($('#salestate').val()),
+                    SaleDate: $('#Date').val(),
+                    IdCustomer: $('#customerid').val(),
+                    SaleLines: saleproducts,
+                    Comments: $('#salecomments').val(),
+                    SaleTotal: $('#totalgral').val()
+
+                }
+
+                if ($('#salestate').val() == 1) {
+                    bootbox.confirm({
+                        title: "Aviso",
+                        message: "Usted está por finalizar la venta. Recuerde que las ventas finalizadas no podrán ser modificadas ni eliminadas. ¿Desea finalizar?",
+                        buttons: {
+                            confirm: {
+                                label: "Finalizar",
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+                        },
+                        callback: function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: '@Url.Action("EditSales","Sales")',
+                                    type: "POST",
+                                    data: JSON.stringify(sale),
+                                    dataType: "JSON",
+                                    contentType: "application/json",
+                                    success: function(d) {
+                                        if (d.status) {
+                                            var url = '@Url.Action("Index", "Sales", new { message = 2})';
+                                            window.location.href = url;
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '@Url.Action("EditSales","Sales")',
+                        type: "POST",
+                        data: JSON.stringify(sale),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function(d) {
+                            if (d.status) {
+                                var url = '@Url.Action("Index", "Sales", new { message = 2})';
+                                window.location.href = url;
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+
+    </script>
+}

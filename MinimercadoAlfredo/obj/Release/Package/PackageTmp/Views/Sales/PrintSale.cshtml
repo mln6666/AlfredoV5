@@ -1,0 +1,172 @@
+﻿@using MinimercadoAlfredo.Models
+@model MinimercadoAlfredo.Models.Sale
+@{
+    ViewBag.Title = "Imprimir";
+}
+@if (TempData["mimsg"] != null)
+{
+    {
+        <input id="msg" style="display: none" value="@TempData["mimsg"]" />
+
+    }
+
+}
+<div class="modal-body" id="modalDiv">
+    <div class="text-center">Nota de pedido</div>
+    <hr style="color: grey; border-color: grey; margin: 5px;"/>
+    <table class="table table-condensed   table-striped table-bordered table-condensed">
+        <thead>
+        <tr class="text-center" style="color: white; background-color: #4d77a3">
+            <th style="width: 110px">
+                N° Venta
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th style="width: 170px">
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="background-color: white">
+            <td>
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Customer.CustomerName)
+            </td>
+            <td>
+                @if (Model.SaleAddress == "" | Model.SaleAddress == null)
+                {<text>-</text>}
+                else
+                {
+                    @Html.DisplayFor(model => model.SaleAddress)
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.SaleDate)
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-condensed   table-striped table-bordered table-condensed" id="tabla">
+        <thead>
+            <tr class="text-center" style="color: white; background-color: #4d77a3">
+                <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                    Nº Art.
+                </td>
+                <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                    Producto
+                </td>
+
+                <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                    Cant.
+                </td>
+                <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                    Desc.
+                </td>
+                <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                    P. Unit.
+                </td>
+                <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                    Subtotal(+)
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.SaleLines)
+        {
+            <tr style="background-color: white">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.IdProduct)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.IdTrademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LinePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+            </tr>
+        }
+        <tr style="background: none">
+            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+            <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
+            <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
+            <td style="border-right: hidden; border-left: hidden; border-bottom: hidden;"></td>
+            <td style="border-left: hidden; border-bottom: hidden;"></td>
+            <td style="color: black; font-weight: bolder; background-color: lightgray">
+                @Html.DisplayFor(model => model.LinesTotal)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="table table-condensed   table-striped table-bordered table-condensed">
+        <thead>
+        <tr class="text-right" style="color: white; background-color: #4d77a3">
+            <td class="text-left" style="border-radius: 3px; font-weight: bold">
+                Observaciones
+            </td>
+            <td class="text-left" style="border-radius: 3px; width: 200px; font-weight: bold">
+                Total
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="background-color: white">
+            <td>
+                @if (Model.Comments == "" | Model.Comments == null)
+                {<text>-</text>}
+                else
+                {
+                    @Html.DisplayFor(model => model.Comments)
+                }
+            </td>
+            <td>@Html.DisplayFor(model => model.SaleTotal)</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center hidden-print">
+        <a class="btn btn-warning hidden-print" id="impcomprobante" onclick="imprimir();">
+            Imprimir
+        </a>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="@Url.Content("~/Scripts/printThis.js")"></script>
+
+    <script>
+        function imprimir() {
+            $("#modalDiv").printThis({
+
+            });
+        }
+
+        $(document).ready(function() {
+            if ($('#msg').val() == 1) {
+                toastr.success("Venta guardada correctamente.");
+            }
+        });
+    </script>
+}
+
+ 

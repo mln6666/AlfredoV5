@@ -1,0 +1,292 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
+
+@{
+    ViewBag.Title = "Todos los Productos";
+}
+
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]"/>
+}
+
+<h2 class="text-center">Lista de Todos los Productos</h2>
+<hr style="color:grey;border-color:grey" />
+
+<div class="row">
+    <div class="col-lg-10"></div>
+    <div class="btn-group col-lg-1">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+                data-toggle="dropdown">
+            Mostrar <span class="caret"></span>
+        </button>
+
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
+            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
+            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
+            <li><a href="#">Todos los Productos</a></li>
+            @if (ViewBag.Purchases != 0)
+            {
+                <li><a href="@Url.Action("LastBought","Products")">Última adquisición</a></li>
+            }
+        </ul>
+    </div>
+</div>
+<br />
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th>
+                @Html.DisplayNameFor(model => model.Category.CategoryName)
+            </th>
+            <th style="width: 20%">
+                @Html.DisplayNameFor(model => model.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
+            </th>
+            <th style="width: 10%">
+                Nro Artículo
+            </th>
+            <th>
+                Costo
+            </th>            
+            <th>
+                Estado
+            </th>
+
+            <th class="text-center" style="width: 16%">
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width: 13%">
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.IdProduct)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Cost)
+                </td>
+                @if (item.ProductState)
+                {
+                    <td width="125px" id="@("state" + @item.IdProduct)">
+                        <text class="text-success">Activo</text>
+                    </td>
+                }
+                else
+                {
+                    <td width="125px" id="@("state" + @item.IdProduct)">
+                        <text class="text-danger">Desactivado</text>
+                    </td>
+                }
+
+                <td class="text-center">
+                    <button href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window4" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></button>
+                    <a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    @if (item.ProductState)
+                    {
+                        <button id="@("deac" + @item.IdProduct)" class="btn btn-warning btn-sm hvr-glow" onclick="deac(@item.IdProduct)" title="Desactivar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <button id="@("ac" + @item.IdProduct)" class="btn btn-success btn-sm hvr-glow" onclick="ac(@item.IdProduct)" title="Activar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                    }
+                    <button href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>                   
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
+
+
+<div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Eliminar Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal4" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Producto</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $('#myModal').modal('show');
+        $('#myModal3').modal('show');
+
+        $(document).ready(function() {
+
+            if ($('#message').val() == 4)
+                toastr.success("El producto ha sido modificado exitosamente");
+
+            if ($('#message').val() == 5)
+                toastr.success("El producto ha sido eliminado exitosamente");
+
+
+            ////Grilla automatica//
+            $("#tabla").DataTable({
+                "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
+
+            $("body").on("click", "button.dialog-window1", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal1.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal1').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal1 .te').html(data);
+                        $('#myModal1').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "button.dialog-window4", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal4.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal4').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal4 .te').html(data);
+                        $('#myModal4').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $('.dropdown-toggle').dropdown();
+        });
+
+        function deac(x) {
+            bootbox.confirm({
+                title: "¿Está seguro de Desactivar este Producto?",
+                message: "Recuerde que para vender un Producto, éste debe estar Activo",
+                buttons: {
+                    confirm: {
+                        label: "Desactivar",
+                        className: "btn-warning"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                    var options = {};
+                    options.url = '@Url.Action("Deactivate", "Products")';
+                    options.type = "POST";
+                    options.data = { "id": x };
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        if (data) {
+
+                            toastr.success("Producto Desactivado exitosamente");
+
+                            $('#state' + x).html('<text class="text-danger">Desactivado</text>');
+                            $('#deac' + x).replaceWith('<button id="ac' + x + '" class="btn btn-success btn-sm" onclick="ac(' + x + ')" title="Activar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>');
+                        }
+
+                    };
+                    $.ajax(options);
+                }
+                }
+            });
+
+            
+
+
+        }
+
+        function ac(x) {
+
+            bootbox.confirm({
+                title: "¿Está seguro de Activar este Producto?",
+                message: "Al Activar este Producto, podrá volver a venderlo con normalidad",
+                buttons: {
+                    confirm: {
+                        label: "Activar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+                },
+                callback: function (result) {
+                    if (result) {
+                        var options = {};
+                        options.url = '@Url.Action("Deactivate", "Products")';
+                        options.type = "POST";
+                        options.data = { "id": x };
+                        options.dataType = "json";
+                        options.success = function (data) {
+                            if (data) {
+
+                                toastr.success("Producto Activado exitosamente");
+
+                                $('#state' + x).html('<text class="text-success">Activo</text>');
+                                $('#ac' + x).replaceWith('<button id="deac' + x + '" class="btn btn-warning btn-sm" onclick="deac(' + x + ')" title="Desactivar"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span></button>');
+                            }
+
+                        };
+                        $.ajax(options);
+                    }
+                }
+            });
+
+            
+
+
+        }
+    </script>
+}

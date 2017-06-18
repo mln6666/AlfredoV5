@@ -1,0 +1,102 @@
+﻿@model MinimercadoAlfredo.Models.Product
+
+@{
+    Layout = null;
+}
+
+<head>
+    <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
+</head>
+<h3 class="text-center" style="color: red; margin-top: 1%">¿Está seguro de eliminar el siguiente Producto?</h3>
+<text style="margin-top: 4%; font-weight: bold">IMPORTANTE</text><text style="margin-top: 4%">: Al eliminar un producto, éste desaparecerá de todas las compras y ventas que haya realizado pero no alterará los valores de sus totales si no son modificadas. Se recomienda eliminar este producto sólo si las compras y ventas en las que aparece no volverán a ser alteradas.</text>
+
+<div style="margin-top: 3%">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>        
+        <dt>
+            @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trademark.TrademarkName)
+        </dd>
+        <dt>
+            Nro Artículo
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdProduct)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cost)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.WholeSalePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WholeSalePrice)
+        </dd>
+        <dt>
+            Última compra
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadDate)
+        </dd>
+        <dt>
+            Stock
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Stock)
+        </dd>
+
+        <dt>
+            Estado
+        </dt>
+
+        @if (Model.ProductState == true)
+        {
+            <dd>
+                <text class="text-success">Activo</text>
+            </dd>
+        }else
+        {
+            <dd>
+                <text class="text-danger">Desactivado</text>
+            </dd>
+        }
+
+    </dl>
+    <hr style="color:grey;border-color:lightgray" />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color text-center">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger" >Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+        </div>
+    }
+
+    
+</div>

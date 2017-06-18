@@ -1,0 +1,163 @@
+﻿@model MinimercadoAlfredo.Models.Sale
+@{
+    ViewBag.Title = "Eliminar Venta";
+}
+@if (TempData["View"] != null)
+{
+    <input id="view" style="display: none" value="@TempData["View"]" />
+}
+
+<h3 class="text-center" style="color:red">¿Está seguro que desea eliminar la siguiente venta?</h3>
+<div>
+
+    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar" style="margin-top: 3%">
+        <thead>
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" style="border-radius: 3px">
+                Nº Venta
+            </th>
+
+            <th class="text-left" style="border-radius: 3px">
+                Cliente
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Dirección
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Estado Venta
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Fecha de Venta
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.Customer.CustomerName)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleAddress)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.SaleDate)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3 class="text-center">Lista de Productos</h3>
+    <hr style="color: grey; border-color: grey; margin-top: 0"/>
+    <table id="tabla" class="table table-condensed   table-striped table-bordered table-condensed resaltar">
+        <thead>
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+
+            <th class="text-left" style="border-radius: 3px">
+                Producto
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Cantidad
+            </th>
+            <th class="text-left" style="border-radius: 3px">
+                Descuento
+            </th>
+            <th class="text-left" style="border-radius: 3px;">
+                Precio
+            </th>
+            <th class="text-left" style="border-radius: 3px;">
+                Subtotal
+            </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.SaleLines)
+        {
+            <tr>
+                @if (item.Product.IdTrademark != null)
+                {
+                    <td class="text-left">
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                    </td>
+                }
+                else
+                {
+                    <td class="text-left">
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    </td>
+                }
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LinePrice)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <hr style="color: grey; border-color: grey"/>
+    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar">
+        <thead>
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" style="border-radius: 3px">
+                Comentarios
+            </th>
+            <th class="text-left" style="border-radius: 3px; width: 18%">
+                Total Venta
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-left">
+                @Html.DisplayFor(model => model.Comments)
+            </td>
+            <th class="text-center" style="background-color: khaki; width: 16%">
+                @Html.DisplayFor(model => model.SaleTotal)
+            </th>
+
+        </tr>
+        </tbody>
+    </table>
+
+
+    @using (Html.BeginForm("DeleteSale", "Sales", new {id = Model.IdSale, view = TempData["View"]}, FormMethod.Post, null))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row text-center" style="margin-top: 2%">
+            <div class="col-lg-4 text-left">
+                <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
+        })
+    </script>
+}
+
+

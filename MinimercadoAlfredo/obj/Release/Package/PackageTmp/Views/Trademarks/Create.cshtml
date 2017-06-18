@@ -1,0 +1,88 @@
+﻿@model MinimercadoAlfredo.Models.Trademark
+
+@{
+    Layout= null;
+}
+
+
+@using (Html.BeginForm("Create", "Trademarks", null, FormMethod.Post, new { id = "crearmarca" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrademarkName, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.TrademarkName, new { htmlAttributes = new { @class = "form-control", @onchange = "clearspan()" } })
+                <span id="spantrademark" style="color: red"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TrademarkDescription, "Comentarios" , htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.TrademarkDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TrademarkDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions no-color text-center">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+        </div>
+    </div>
+}
+
+<script>
+    function clearspan() {
+        $('#spantrademark').text("");
+    }
+
+    $('#crearmarca').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        var options = {};
+        options.url = '@Url.Action("ExisteMarca", "Trademarks")';
+        options.type = "GET";
+        options.data = { "nombre": $("#TrademarkName").val() };
+        options.dataType = "json";
+        options.success = function (data) {
+            if (data) {
+                $('#spantrademark').text("*Marca existente !");
+
+            } else {
+                if ($('#TrademarkName').val().trim() == '') {
+
+                    $('#spantrademark').text("* Campo requerido !");
+                }
+                else {
+                    $('#spantrademark').text("");
+                    bootbox.confirm({
+                        title: "Confirmación",
+                        message: "Está por agregar una nueva Marca",
+                        buttons: {
+                            confirm: {
+                                label: "Confirmar",
+                                className: "btn-success"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                x.submit();
+                            }
+                        }
+                    });
+                }
+            }
+
+
+        };
+        $.ajax(options);
+    });
+</script>

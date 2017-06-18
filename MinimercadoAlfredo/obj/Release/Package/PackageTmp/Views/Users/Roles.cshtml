@@ -1,0 +1,267 @@
+﻿@model MinimercadoAlfredo.Models.UserView
+@{
+    ViewBag.Title = "Roles";
+}
+
+<h1 class="text-center">
+    Permisos del usuario: <span style="color:royalblue">@Model.Name</span>
+</h1>
+<hr style="color:grey;border-color:grey" />
+
+
+<table class="table table-condensed   table-striped">
+    <thead>
+
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" width="20%" style="border-radius: 3px">
+                @*@Html.DisplayNameFor(model => model.Name)*@Permiso
+            </th>
+            <th class="text-left" style="border-radius: 3px">Descripción </th>
+            @if (User.IsInRole("Administrador"))
+            {
+                if (Model.Roles.Count() != 0)
+                {
+                    if (Model.Roles[0].Name != "Administrador")
+                    {
+                        <th class="text-center" style="border-radius: 3px">
+                            Acciones
+                        </th>
+                    }
+
+                }
+                else
+                {
+                    <th class="text-center" style="border-radius: 3px">
+                        Acciones
+                    </th> }
+            }
+        </tr>
+    </thead>
+    @for (int i = 0; i < Model.Roles.Count; i++)
+    {
+
+
+
+        <tr style="background-color: azure">
+            <td style="font-weight: bold; color: #2c3e50;font-style: italic">
+                @Html.DisplayFor(modelItem => Model.Roles[i].Name)
+            </td>
+            <td>
+                @if (Model.Roles[i].Name == "Administrador")
+                {
+                    <span>@ViewBag.descAdmin</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Productos")
+                {
+                    <span>@ViewBag.ViewProd</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Producto")
+                {
+                    <span>@ViewBag.CreateProd</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Producto")
+                {
+                    <span>@ViewBag.EditProd</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Producto")
+                {
+                    <span>@ViewBag.DeleteProd</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Rubros")
+                {
+                    <span>@ViewBag.ViewCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Rubro")
+                {
+                    <span>@ViewBag.CreateCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Rubro")
+                {
+                    <span>@ViewBag.EditCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Compras")
+                {
+                    <span>@ViewBag.ViewPurch</span>
+                }
+                @if (Model.Roles[i].Name == "Registrar Compra")
+                {
+                    <span>@ViewBag.CreatePurch</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Compra")
+                {
+                    <span>@ViewBag.EditPurch</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Compra")
+                {
+                    <span>@ViewBag.DeletePurch</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Ventas")
+                {
+                    <span>@ViewBag.ViewSale</span>
+                }
+                @if (Model.Roles[i].Name == "Registrar Venta")
+                {
+                    <span>@ViewBag.CreateSale</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Venta")
+                {
+                    <span>@ViewBag.EditSale</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Venta")
+                {
+                    <span>@ViewBag.DeleteSale</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Clientes")
+                {
+                    <span>@ViewBag.ViewCust</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Cliente")
+                {
+                    <span>@ViewBag.CreateCust</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Cliente")
+                {
+                    <span>@ViewBag.EditCust</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Cliente")
+                {
+                    <span>@ViewBag.DeleteCust</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Proveedores")
+                {
+                    <span>@ViewBag.ViewProv</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Proveedor")
+                {
+                    <span>@ViewBag.CreateProv</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Proveedor")
+                {
+                    <span>@ViewBag.EditProv</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Proveedor")
+                {
+                    <span>@ViewBag.DeleteProv</span>
+                }
+            </td>
+            @if (User.IsInRole("Administrador"))
+            {
+                if (Model.Roles.Count() != 0)
+                {
+                    if (Model.Roles[0].Name != "Administrador")
+                    {
+                        <td class="text-center">
+                            <button userID=@Model.UserID roleID=@Model.Roles[i].RoleID nombrepermiso=@Model.Roles[i].Name id="eliminar" class="btn btn-warning btn-sm js-delete">Quitar Permiso</button>
+                        </td>
+                    }
+
+                }
+                else
+                {
+                    <td class="text-center">
+                        <button userID=@Model.UserID roleID=@Model.Roles[i].RoleID nombrepermiso=@Model.Roles[i].Name id="eliminar" class="btn btn-warning btn-sm js-delete">Quitar Permiso</button>
+                    </td>
+                }
+            }
+
+
+
+            @*@Html.ActionLink("Eliminar", "Delete", new {userID = Model.UserID, roleID = Model.Roles[i].RoleID})*@
+
+        </tr>
+    }
+
+</table>
+<p>
+    @if (User.IsInRole("Administrador"))
+{
+    <a href="@Url.Action("Index", "Users")" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+    @*@Html.ActionLink("Volver", "Index", new { user = Model }, new { @class = "btn btn-default" })*@
+    @*@Html.ActionLink("Agregar permiso", "AddRole", new { userID = Model.UserID }, new { @class = "btn btn-success" })*@
+if (Model.Roles.Count() != 0)
+{
+    if (Model.Roles[0].Name != "Administrador")
+    {
+        <a href="@Url.Action("AddRole", new {userID = Model.UserID})" class="btn btn-success dialog-window10" style="color: white; line-height: inherit; border-radius: 5px; font-weight: 500">Permiso <span class="glyphicon glyphicon-plus"></span></a>
+
+    }
+
+}
+else
+{
+    <a href="@Url.Action("AddRole", new {userID = Model.UserID})" class="btn btn-success dialog-window10" style="color: white; line-height: inherit; border-radius: 5px; font-weight: 500">Permiso <span class="glyphicon glyphicon-plus"></span></a>
+    }
+
+}
+else
+{        <a href="@Url.Action("Index", "Manage")" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+}
+</p>
+
+<div class="modal fade" id="myModal10" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Agregar Permiso</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".js-delete").on("click", function () {
+                var button = $(this);
+
+                bootbox.confirm("¿Está seguro que desea quitar el permiso: " + button.attr("nombrepermiso") + "?", function (result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/Users/Delete/",
+                            type: 'post',
+                            data: {
+                                userID: button.attr("userID"),
+                                RoleID: button.attr("roleID")
+                            },
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+
+
+        $("body").on("click", "a.dialog-window10", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal10.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal10').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal10 .te').html(data);
+                    $('#myModal10').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+ 
+                    <select class="js-example-basic-single" id="linedescription" style="font: small-caption; width: 200px; height: 25px; background-color: beige; display: inline-block" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor;">
+                        <option value="0">Seleccionar Producto...</option>
+                        @foreach (var item in ViewBag.Products)
+                        {
+                            <option value="@item.IdProduct">@item.ProductDescription</option>
+                        }
+                    </select>
+                    <a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">
+                        <span class="glyphicon glyphicon-plus text-center"></span>
+                    </a>
+            
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+
+
+
+
+<script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+<script> $(document).ready(function () {
+     $(".js-example-basic-single").select2();
+     $("#linedescription").val(@ViewBag.idultimoprod).trigger('change');
+     var options = {};
+     options.url = "/Purchases/Getproductdata";
+     options.type = "GET";
+     options.data = { "pro": $("#linedescription").val() };
+     options.dataType = "json";
+     options.success = function (data) {
+         document.getElementById("lineprice").value = data;
+         var price = parseFloat($('#lineprice').val());
+         var quantity = parseFloat($('#linequantity').val());
+         var discount = parseFloat($('#linediscount').val());
+         var total = (price * quantity);
+         total = total - (total * discount / 100);
+         document.getElementById("linetotal").value = total.toFixed(2);;
+     };
+     $.ajax(options);
+   
+ });
+    //////////////////////Start: Autocomplete Product Price/////////////
+    $(document).ready(function () {
+        $("#linedescription").change(function () {
+
+            var options = {};
+            options.url = "/Purchases/Getproductdata";
+            options.type = "GET";
+            options.data = { "pro": $("#linedescription").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                document.getElementById("lineprice").value = data;
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);;
+            };
+            $.ajax(options);
+        });
+    });
+    ///////////////////End: Autocomplete Product Price////////
+    
+    
+    </script>

@@ -1,0 +1,139 @@
+﻿
+
+@model MinimercadoAlfredo.Models.UserView
+@{
+    ViewBag.Title = "MisPermisos";
+}
+
+<h1 class="text-center">
+    Permisos del usuario: <span style="color:royalblue">@Model.Name</span>
+</h1>
+<hr style="color:grey;border-color:grey" />
+
+
+<table class="table table-condensed   table-striped">
+    <thead>
+
+        <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
+            <th class="text-left" width="20%" style="border-radius: 3px">
+                Permiso
+            </th>
+            <th class="text-left" style="border-radius: 3px">Descripción </th>
+
+        </tr>
+    </thead>
+    @for (int i = 0; i < Model.Roles.Count; i++)
+    {
+        <tr style="background-color: azure">
+            <td style="font-weight: bold; color: #2c3e50;font-style: italic">
+                @Html.DisplayFor(modelItem => Model.Roles[i].Name)
+            </td>
+            <td>
+                @if (Model.Roles[i].Name == "Administrador")
+                {
+                    <span>@ViewBag.descAdmin</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Productos")
+                {
+                    <span>@ViewBag.ViewProd</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Producto")
+                {
+                    <span>@ViewBag.CreateProd</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Producto")
+                {
+                    <span>@ViewBag.EditProd</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Producto")
+                {
+                    <span>@ViewBag.DeleteProd</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Rubros")
+                {
+                    <span>@ViewBag.ViewCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Rubro")
+                {
+                    <span>@ViewBag.CreateCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Rubro")
+                {
+                    <span>@ViewBag.EditCateg</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Compras")
+                {
+                    <span>@ViewBag.ViewPurch</span>
+                }
+                @if (Model.Roles[i].Name == "Registrar Compra")
+                {
+                    <span>@ViewBag.CreatePurch</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Compra")
+                {
+                    <span>@ViewBag.EditPurch</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Compra")
+                {
+                    <span>@ViewBag.DeletePurch</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Ventas")
+                {
+                    <span>@ViewBag.ViewSale</span>
+                }
+                @if (Model.Roles[i].Name == "Registrar Venta")
+                {
+                    <span>@ViewBag.CreateSale</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Venta")
+                {
+                    <span>@ViewBag.EditSale</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Venta")
+                {
+                    <span>@ViewBag.DeleteSale</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Clientes")
+                {
+                    <span>@ViewBag.ViewCust</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Cliente")
+                {
+                    <span>@ViewBag.CreateCust</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Cliente")
+                {
+                    <span>@ViewBag.EditCust</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Cliente")
+                {
+                    <span>@ViewBag.DeleteCust</span>
+                }
+                @if (Model.Roles[i].Name == "Ver Proveedores")
+                {
+                    <span>@ViewBag.ViewProv</span>
+                }
+                @if (Model.Roles[i].Name == "Agregar Proveedor")
+                {
+                    <span>@ViewBag.CreateProv</span>
+                }
+                @if (Model.Roles[i].Name == "Editar Proveedor")
+                {
+                    <span>@ViewBag.EditProv</span>
+                }
+                @if (Model.Roles[i].Name == "Eliminar Proveedor")
+                {
+                    <span>@ViewBag.DeleteProv</span>
+                }
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+<p>
+
+    <a href="@Url.Action("Index", "Manage")" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Volver</a>
+
+</p>

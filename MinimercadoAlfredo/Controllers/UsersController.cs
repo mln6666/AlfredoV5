@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace MinimercadoAlfredo.Controllers
 {
+    [Authorize(Users = "luisalfredopiriz@yahoo.com.ar")]
     public class UsersController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

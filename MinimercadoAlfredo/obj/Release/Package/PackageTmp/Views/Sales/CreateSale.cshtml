@@ -1,0 +1,763 @@
+﻿@model MinimercadoAlfredo.Models.Sale
+
+@{
+    ViewBag.Title = "Nueva Venta";
+}
+<head>
+
+    <link href="/Content/site.css" rel="stylesheet">
+</head>
+@*///////////////////////////*@
+
+ @if (TempData["mimsg"] != null)
+    {
+        {
+<input id="msg" style="display: none" value="@TempData["mimsg"]" />
+
+        }
+
+    }
+<h2 class="text-center">Nueva Venta:
+   <span class="hidden-print">
+        <select class="form-control text-right" id="salestate" style="width: auto; height: 35px; font-weight: bold; display: inline-block">
+            <option value="0">En curso</option>
+            <option value="1">Finalizada</option>
+        </select>
+    </span>
+</h2>
+<hr style="color:grey; border-color: grey; margin-top: 0" />
+
+
+<table class="table table-condensed   table-condensed table-bordered">
+
+    <thead class="tableStyle">
+
+
+            <tr class="text-center">
+            <th class="text-center">
+                N°
+            </th>
+            <th class="text-center">
+                Cliente
+            </th>
+            <th class="text-center">
+                Dirección
+            </th>
+            <th class="text-center">
+                CUIT/CUIL
+            </th>
+            <th class="text-center">
+                Fecha
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+    <td class="text-center" style="background: khaki; font-weight: bold;vertical-align: inherit;">
+        <div >@ViewBag.nsale</div>
+    </td>
+
+    <td class="text-center">
+        <select class="js-example-basic-single" id="customername" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
+            <option value="0">Seleccionar Cliente...</option>
+            @foreach (var item in ViewBag.Customers)
+            {
+                <option value="@item.IdCustomer">@item.CustomerName</option>
+            }
+        </select>
+        @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
+        <span class="text-danger"></span>
+    </td>
+    <td class="text-center">
+        <input type="text" class="panel-info form-control inputForm" id="saleaddress" onFocus="this.select()" placeholder="" />
+    </td>
+    <td class="text-center">
+        <input type="number" class="panel-info form-control inputForm" onFocus="this.select()" id="cuitcuil" placeholder="" />
+        <span class="text-danger"></span>
+    </td>
+    <td class="text-center">
+        <input type="date" class="panel-info form-control inputForm" id="saledate" value="@DateTime.Now.ToString("yyyy-MM-dd")" placeholder="dd/mm/aaaa" />
+        <span class="text-danger"></span>
+    </td>
+    </tbody>
+
+</table>
+
+
+<table id="mytable" class="table table-condensed table-condensed table-bordered sinborde">
+    <thead class="tableStyle">
+        <tr class="text-center" >
+            <th class="text-center">
+                Producto
+            </th>
+            <th class="text-center">
+                Precio
+            </th>
+            <th class="text-center">
+                Cantidad
+            </th>
+            <th class="text-center">
+                Descuento (%)
+            </th>
+            <th class="text-center">
+                Total
+            </th>
+            <th class="text-center">
+                Acción
+            </th>
+        </tr>
+    </thead>
+    <tbody id="last">
+    <td style="width: 40%;background: #a0cee8">
+        <select class="js-example-basic-single inputForm" id="linedescription" onchange="javacript: var valor = this.options[selectedIndex].text; document.getElementById('shadow').value = valor; fquantity();" style="width: 100%">
+            <option value="0">Seleccionar Producto...</option>
+            @foreach (var item in ViewBag.Products)
+            {
+                <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+            }
+        </select>
+        <input type="hidden" id="shadow" value="">
+        <span class="text-danger"></span>
+    </td>
+    <td style="background: #a0cee8">
+        <input type="text" class="panel-info form-control inputForm" id="lineprice" onFocus="this.select()" onchange="totallinea(); fquantity()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+        <span class="text-danger"></span>
+    </td>
+    <td style="background: #a0cee8">
+        <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
+        <span class="text-danger"></span>
+    </td>
+    <td style="background: #a0cee8">
+        <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
+        <span class="text-danger"></span>
+    </td>
+    <td style="background: #a0cee8">
+        <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="font-weight: bold" />
+        <span class="text-danger"></span>
+    </td>
+    <td style="background: #a0cee8">
+        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto" />Agregar
+        <span class="glyphicon glyphicon-plus"></span>
+    </td>
+    <tr id="trtot">
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <td class="sinborde"></td>
+        <th class="text-center" style="background: khaki">TOTAL</th>
+        <td class="ftot" style="background: khaki">
+            <input type="text" class="panel-info form-control text-center fina" value="0.00" id="saletotal" placeholder="" readonly="readonly" style="font-weight: bold; border: none" />
+            <span id="spansaletotal" class="text-danger" style="display: block"></span>
+        </td>
+        <td class="sinborde"></td>
+    </tr>
+    </tbody>
+
+
+</table>
+
+
+<div>
+    <div id="orderItems">
+    </div>
+    <span class="error"></span>
+
+</div>
+
+<table class="table table-condensed   table-striped table-bordered table-condensed">
+
+    <thead class="tableStyle">
+        <tr class="text-right" >
+            <td class="text-center" style="border-radius: 3px; font-weight: bold">
+                Observaciones
+            </td>
+            @*<td class="text-center" style="border-radius: 3px; width: 200px; font-weight: bold">
+                Total
+            </td>*@
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <textarea type="text" style="max-width: 100%!important;width: 100%!important" class="panel-info form-control sizeComment" id="comments" onFocus="this.select()" placeholder=""></textarea>
+
+            </td>
+            @*<td>
+                <input type="text" class="panel-info text-center totalView dataContainer" value="0.00" id="saletotal" placeholder="" readonly="readonly" />
+                <span class="error">Requerido</span>
+            </td>*@
+        </tr>
+
+    </tbody>
+
+</table>
+
+<hr style="color: grey" />
+
+
+<div class="row">
+    <div class="col-lg-4 text-left">
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+    </div>
+    <div class="col-lg-4 text-center">
+        <button type="button" id="submit" class="btn btn-success btn-md chicle" value="Guardar venta">
+            Guardar
+            <span class="glyphicon glyphicon-floppy-disk"></span>
+        </button>
+        <button type="button" id="imprimir" class="btn btn-success btn-md chicle" value="Guardar venta">
+            Guardar e Imprimir
+            <span class="glyphicon glyphicon-print"></span>
+        </button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+@section Scripts{
+
+
+
+
+    <script src="@Url.Content("~/Content/Select2/select2.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumeros.js")"></script>
+    <script src="@Url.Content("~/Scripts/solonumerosptocoma.js")"></script>
+
+
+    <script>
+        function fquantity() { setTimeout(function() { $("#linequantity").focus(); }, 1); }
+
+/////////////////Start:Select searchable////////////////
+        $(document).ready(function() {
+            if ($('#msg').val() == 1) {
+                toastr.success("Venta guardada correctamente.");
+            }
+            $(".js-example-basic-single").select2();
+            if (event.keyCode == 45) {
+
+                $("#select2-customername-container").click();
+            }
+
+        });
+        ////////////////End:Select searchable///////////////////
+        $(document).keydown(function() {
+            if (event.keyCode == 109) {
+                var select2 = $("#customername").data('select2');
+                if (select2.isOpen() == false) {
+                    select2.open();
+                }else{select2.close();}
+
+               
+            }
+        if (event.keyCode == 107) {
+            var select2 = $("#linedescription").data('select2');
+            if (select2.isOpen() == false) {
+                select2.open();
+            } else { select2.close(); }
+           
+        }
+        if (event.keyCode == 36) {
+
+            $("#submit").click();
+        }
+        if (event.keyCode == 35) {
+
+            $("#imprimir").click();
+        }
+       
+
+    });
+
+        ////////////////Start:Enter to save a productLine///////////////////
+        function enterToSave() {
+
+            if (event.keyCode == 13) {
+
+                $("#add").click();
+            }
+        };
+        ////////////////End: Enter to save a productLine///////////////////
+
+
+
+
+
+        /////////////Start:Autocomplete Sale Address CuitCuil/////
+        $(document).ready(function() {
+            $("#customername").change(function() {
+
+                var options = {};
+                options.url = '@Url.Action("Getcustomerdata", "Sales")';
+                options.type = "GET";
+                options.data = { "cus": $("#customername").val() };
+                options.dataType = "json";
+                options.success = function(data) {
+                    if (data.CustomerAddress != null) {
+                        document.getElementById("saleaddress").value = data.CustomerAddress;
+                    }
+                    if (data.CuitCuil != null) {
+                        document.getElementById("cuitcuil").value = data.CuitCuil;
+                    }
+                };
+                $.ajax(options);
+            });
+        });
+        //////////////End:Autocomplete Sale Address CuitCuil/////////////
+
+        //////////////////////Start: Autocomplete Product Price/////////////
+        $(document).ready(function() {
+            $("#linedescription").change(function() {
+
+                var options = {};
+                options.url = '@Url.Action("Getproductdata", "Sales")';
+                options.type = "GET";
+                options.data = { "pro": $("#linedescription").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    document.getElementById("lineprice").value = parseFloat(data).toFixed(2);
+                    var price = parseFloat($('#lineprice').val());
+                    var quantity = parseFloat($('#linequantity').val());
+                    var discount = parseFloat($('#linediscount').val());
+                    var total = (price * quantity);
+                    total = total - (total * discount / 100);
+                    document.getElementById("linetotal").value = total.toFixed(2);;
+                };
+                $.ajax(options);
+
+            });
+
+        });
+        ///////////////////End: Autocomplete Product Price////////
+
+        //////////////////Start: LinePrice Calculation//////////////
+
+            function totallinea() {
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);
+            }
+
+        ////////////////////End: LinePrice Calculation/////////////
+
+
+        $(document).ready(function() {
+            var orderItems = [];
+            var verifproductos = [];
+            var totgral = [];
+            //Add button click function
+            $('#add').click(function() {
+                //Check validation of order item
+                var isValidItem = true;
+                if ($('#linedescription').val().trim() == '' | $('#linedescription').val().trim() == 0) {
+                    isValidItem = false;
+                    $('#linedescription').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    $('#linedescription').siblings('span.text-danger').html('');
+                }
+
+                if ($('#lineprice').val().trim() == '' | $('#lineprice').val().trim() == 0) {
+                    isValidItem = false;
+                    $('#lineprice').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    $('#lineprice').siblings('span.text-danger').html('');
+                }
+
+                if ($('#linediscount').val().trim() == '') {
+                    isValidItem = false;
+                    $('#linediscount').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    $('#linediscount').siblings('span.text-danger').html('');
+                }
+                if ($('#linediscount').val().trim() == '') {
+                    isValidItem = false;
+                    $('#linediscount').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    $('#linediscount').siblings('span.text-danger').html('');
+                }
+                if ($('#linequantity').val().trim() == '') {
+                    isValidItem = false;
+                    $('#linequantity').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    if ($('#linequantity').val().trim() * 1 == 0) {
+                        isValidItem = false;
+                        $('#linequantity').siblings('span.text-danger').html('Debe ser mayor a 0');
+
+                      
+                    } else {
+                        $('#linequantity').siblings('span.text-danger').html('');
+                    }
+                }
+                if ($('#linetotal').val().trim() == '') {
+                    isValidItem = false;
+                    $('#linetotal').siblings('span.text-danger').html('Requerido.');
+                } else {
+                    $('#linetotal').siblings('span.text-danger').html('');
+                }
+
+                if (isValidItem) {
+                    ////////////***********//////////
+                    var historial = verifproductos;
+                    var errorproductos = false;
+                    productoact = parseInt($('#linedescription').val().trim());
+                    $.each(historial, function() {
+                        if (productoact == parseInt(this)) {
+                            errorproductos = true;
+
+                        }
+                    });
+                }
+                if (errorproductos) {
+                    isValidItem = false;
+                    bootbox.alert({
+                        title: "Producto existente",
+                        message: "El producto: - " + $('#shadow').val().trim()+" - ya se encuentra en el listado. ",
+                        backdrop: true
+                    });
+                }
+
+                //Validacion de Stock
+                if (isValidItem) {
+                    var options = {};
+                    options.url = '@Url.Action("ValStockSale", "Sales")';
+                    options.type = "GET";
+                    options.data = { "pro": $("#linedescription").val() };
+                    options.dataType = "json";
+                    options.success = function (data) {
+                        var parcialstock = parseFloat(data);
+                        var cantidad = ($('#linequantity').val().trim());
+                        var faltante = parseFloat($('#linequantity').val().trim()) - parcialstock;
+
+                        if (parcialstock < cantidad) {
+                            toastr.options = {
+                                "closeButton": false,
+                                "debug": false,
+                                "newestOnTop": false,
+                                "progressBar": false,
+                                "positionClass": "toast-top-right",
+                                "preventDuplicates": false,
+                                "onclick": null,
+                                "showDuration": "300",
+                                "hideDuration": "1000",
+                                "timeOut": "7000",
+                                "extendedTimeOut": "1000",
+                                "showEasing": "swing",
+                                "hideEasing": "linear",
+                                "showMethod": "fadeIn",
+                                "hideMethod": "fadeOut"
+                            }
+                            toastr["warning"]($('#shadow').val().trim() + "<br/># Disponible: " + parcialstock + "<br/># Solicitada: " + cantidad + "<br/># Faltante: " + faltante, "Fuera de Stock")
+
+                          
+                         
+                        }
+                       
+                            //                    data = data.replace(",",'.');
+
+                            orderItems.push({
+                                IdProduct: $('#linedescription').val().trim(),
+                                LinePrice: $('#lineprice').val().trim(),                                
+                                LineQuantity: $('#linequantity').val().trim(),
+                                LineDiscount: $('#linediscount').val().trim(),
+                                LineTotal: $('#linetotal').val().trim(),
+                                LineDescription: $('#shadow').val().trim()
+                            });
+                            verifproductos.push(
+                                parseInt($('#linedescription').val().trim())
+                            );
+                            totgral.push(
+                               parseFloat($('#linetotal').val().trim())
+                           );
+                            //Clear fields
+                            //$(document).find('#linedescription').select2();
+                            $("#linedescription").val(0).trigger('change');
+                            $('#lineprice,#linequantity,#linetotal').val('0.00');
+                            $('#linediscount').val('0');
+                            $('#linequantity').val('1');
+
+                            GeneratedItemsTable();
+                       
+
+                        ////NO PERMITIR AGREGAR PRODUCTOS SIN STOCK
+                        //if (parcialstock < cantidad) {
+                        //    bootbox.alert({
+                        //        title: "No hay suficiente stock",
+                        //       message: "Producto: " + $('#shadow').val().trim()+"<br/>Stock disponible: "+parcialstock+"<br/>Stock solicitado: "+cantidad+"<br/>Stock faltante: "+faltante,
+                        //        backdrop: true
+                        //    });
+                        //}
+                        //else {
+                        //    //                    data = data.replace(",",'.');
+
+                        //    orderItems.push({
+                        //        IdProduct: $('#linedescription').val().trim(),
+                        //        LinePrice: $('#lineprice').val().trim(),                                
+                        //        LineQuantity: $('#linequantity').val().trim(),
+                        //        LineDiscount: $('#linediscount').val().trim(),
+                        //        LineTotal: $('#linetotal').val().trim(),
+                        //        LineDescription: $('#shadow').val().trim()
+                        //    });
+                        //    verifproductos.push(
+                        //        parseInt($('#linedescription').val().trim())
+                        //    );
+                        //    totgral.push(
+                        //       parseFloat($('#linetotal').val().trim())
+                        //   );
+                        //    //Clear fields
+                        //    //$(document).find('#linedescription').select2();
+                        //    $("#linedescription").val(0).trigger('change');
+                        //    $('#lineprice,#linequantity,#linetotal').val('0.00');
+                        //    $('#linediscount').val('0');
+                        //    $('#linequantity').val('1');
+
+                        //    GeneratedItemsTable();
+                        //}
+                    };
+                    $.ajax(options);
+                }
+
+
+                //Add item to list if valid
+
+                //populate order items
+
+            });
+            //Save button click function
+            $('#submit').click(function() {
+                //validation of order
+                var isAllValid = true;
+                if (orderItems.length == 0) {
+                    $('#orderItems').html('<span class="text-danger">Por favor, agregue productos.</span>');
+                    isAllValid = false;
+                }
+
+
+                //if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
+                //    $('#customername').siblings('span.text-danger').html('Requerido.');
+                //    isAllValid = false;
+                //} else {
+                //    $('#customername').siblings('span.text-danger').html('');
+                //}
+
+                if ($('#saledate').val().trim() == '') {
+                    $('#saledate').siblings('span.text-danger').html('Requerido.');
+                    isAllValid = false;
+                } else {
+                    $('#saledate').siblings('span.text-danger').html('');
+                }
+                if ($('#saletotal').val().trim() == '') {
+                    $('#saletotal').siblings('span.text-danger').html('Requerido.');
+                    isAllValid = false;
+                } else {
+                    $('#saletotal').siblings('span.text-danger').html('');
+                }
+
+                //Save if valid
+                if (isAllValid) {
+                    var data = {
+                        CustomerName: $('#customername').val().trim(),
+                        //Sorry forgot to add Description Field
+                        SaleAddress: $('#saleaddress').val().trim(),
+                        CuitCuil: $('#cuitcuil').val().trim(),
+                        SaleDate: $('#saledate').val().trim(),
+                        SaleTotal: $('#saletotal').val().trim(),
+                        Comments: $('#comments').val().trim(),
+                        SaleState: $('#salestate').val().trim(),
+                        SaleLines: orderItems
+                    }
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        url: '@Url.Action("CreateSale", "Sales")',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function(d) {
+                            //check is successfully save to database
+                            if (d.status == true) {
+
+                                var url = '@Url.Action("CreateSale","Sales", new { x = 1 })';
+                                window.location.href = url;
+                            } else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function() {
+                            alert('Error. Please try again.');
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+
+            });
+
+            //////////////////////////////IMPRIMIR Y GUARDAR
+            //////////////////////////////
+            //////////////////////////////
+            $('#imprimir').click(function() {
+                //validation of order
+                var isAllValid = true;
+                if (orderItems.length == 0) {
+                    $('#orderItems').html('<span class="text-danger">Por favor, agregue productos.</span>');
+                    isAllValid = false;
+                }
+
+                //if ($('#customername').val().trim() == '' || $('#customername').val().trim() == '0') {
+                //    $('#customername').siblings('span.text-danger').html('Requerido.');
+                //    isAllValid = false;
+                //} else {
+                //    $('#customername').siblings('span.text-danger').html('');
+                //}
+
+                if ($('#saledate').val().trim() == '') {
+                    $('#saledate').siblings('span.text-danger').html('Requerido.');
+                    isAllValid = false;
+                } else {
+                    $('#saledate').siblings('span.text-danger').html('');
+                }
+                if ($('#saletotal').val().trim() == '') {
+                    $('#saletotal').siblings('span.text-danger').html('Requerido.');
+                    isAllValid = false;
+                } else {
+                    $('#saletotal').siblings('span.text-danger').html('');
+                }
+
+
+                //Save if valid
+                if (isAllValid) {
+                    var data = {
+                        CustomerName: $('#customername').val().trim(),
+                        //Sorry forgot to add Description Field
+                        SaleAddress: $('#saleaddress').val().trim(),
+                        CuitCuil: $('#cuitcuil').val().trim(),
+                        SaleDate: $('#saledate').val().trim(),
+                        SaleTotal: $('#saletotal').val().trim(),
+                        Comments: $('#comments').val().trim(),
+                        SaleState: $('#salestate').val().trim(),
+                        SaleLines: orderItems
+                    }
+
+                    $(this).val('Please wait...');
+
+                    $.ajax({
+                        url: '@Url.Action("CreateSale", "Sales")',
+                        type: "POST",
+                        data: JSON.stringify(data),
+                        dataType: "JSON",
+                        contentType: "application/json",
+                        success: function(d) {
+                            u = d.miid;
+                            //check is successfully save to database
+                            if (d.status == true) {
+
+                                var url1 = '@Url.Action("Details","Bills", new { id = ViewBag.nsale,x=1})';
+                                window.open(url1);
+
+                                var url = '@Url.Action("CreateSale","Sales", new { x = 1 })';
+                                window.location.href = url;
+
+                            } else {
+                                alert('Failed');
+                            }
+                            $('#submit').val('Save');
+                        },
+                        error: function() {
+                            alert('Error. Please try again.');
+                            $('#submit').val('Save');
+                        }
+                    });
+                }
+
+            });
+
+
+
+            function GeneratedItemsTable() {
+                $('.elim').remove();
+                if (orderItems.length > 0) {
+                    $('#orderItems').html('<span class="text-danger"></span>');
+                $.each(orderItems, function (i, val) {
+                    var $row = $('<tr class="elim"  style="background-color: white"></tr>');
+                    $row.append($('<td></td>').html(val.LineDescription));
+                    $row.append($('<td class="text-center"></td>').html(parseFloat(val.LinePrice).toFixed(2)));
+                    $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
+                    $row.append($('<td class="text-center"></td>').html(val.LineDiscount));
+                    $row.append($('<td class="text-center"></td>').html(val.LineTotal));
+                    var $remove = $('<a href="#">Eliminar</a>');
+                    //CALCULO TOTAL GRAL
+                    saletotal = 0;
+                    $.each(totgral, function () { saletotal += parseFloat(this) || 0; });
+                    document.getElementById("saletotal").value = saletotal.toFixed(2);
+                    //FIN CALCULO TOTAL GRAL
+                    $remove.click(function (e) {
+                        e.preventDefault();
+                        orderItems.splice(i, 1);
+                        verifproductos.splice(i, 1);
+                        totgral.splice(i, 1);
+                        GeneratedItemsTable();
+                        saletotal = 0;
+                        $.each(totgral, function () { saletotal += parseFloat(this) || 0; });
+                        document.getElementById("saletotal").value = saletotal.toFixed(2);
+
+                    });
+                    $row.append($('<td class="text-center"></td>').append($remove));
+                    $('#trtot').before($row);
+                });
+            } else {
+                $('#orderItems').html('');
+            }
+        }
+
+
+        });
+    </script>
+}
+
+<style>
+    /*Adding some css for looks good*/
+    span.error {
+        display: block;
+        visibility: hidden;
+        color: #b94a48;
+        font-size: 90%;
+    }
+
+
+    /*css for table*/
+    .container td {
+        vertical-align: top;
+    }
+
+    .tablecontainer table {
+        width: 100%;
+        border-collapse: collapse;
+        border-top: 1px solid #BFAEAE;
+        border-right: 1px solid #BFAEAE;
+    }
+
+    .tablecontainer th {
+        border-bottom: 2px solid #BFAEAE !important;
+    }
+
+    .tablecontainer th, .tablecontainer td {
+        text-align: left;
+        border-left: 1px solid #BFAEAE;
+        padding: 5px;
+        border-bottom: 1px solid #BFAEAE;
+    }
+
+    .ui-widget {
+        font-size: 12px !important;
+    }
+</style>

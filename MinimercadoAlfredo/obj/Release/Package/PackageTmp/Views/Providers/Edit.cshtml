@@ -1,0 +1,175 @@
+﻿@model MinimercadoAlfredo.Models.Provider
+
+@{
+    ViewBag.Title = "Editar Proveedor";
+}
+
+<h2 class="text-center">Editar @Model.ProviderName</h2>
+<hr style="color:grey;border-color:grey" />
+<br />
+
+
+@using (Html.BeginForm("Edit", "Providers", null, FormMethod.Post, new { id = "editProvider" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdProvider)
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProviderName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProviderName, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidProvider()" } })
+                <span id="spanprovider" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProviderAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProviderAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProviderAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProviderPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProviderPhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProviderPhone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProviderEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProviderEmail, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidEmail()" } })
+                @Html.ValidationMessageFor(model => model.ProviderEmail, "", new { @class = "text-danger" })
+                <span id="spanemail" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CuitCuil, "CUIT/CUIL", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CuitCuil, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCuil()" } })
+                @Html.ValidationMessageFor(model => model.CuitCuil, "", new { @class = "text-danger" })
+                <span id="spancuil" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar cambios" id="botonGuardar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="@Url.Action("Index", "Providers")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+    var IsValidItem = true;
+    function ValidProvider() {
+
+        if ($('#ProviderName').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteProveedor", "Providers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#ProviderName").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spanprovider').text('Proveedor existente');
+                    IsValidItem = false;
+                } else {
+                    $('#spanprovider').text('');
+                    IsValidItem = true;
+                }
+            }
+            $.ajax(options);
+        } else {
+            $('#spanprovider').text('Campo Obligatorio');
+            IsValidItem = false;
+        }
+
+        function ValidEmail() {
+
+            if ($('#ProviderEmail').val() != '') {
+
+                var options = {};
+                options.url = '@Url.Action("ExisteEmail", "Providers")';
+                options.type = "GET";
+                options.data = { "nombre": $("#ProviderEmail").val(), "idprovider": $("#IdProvider").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    if (data) {
+                        $('#spanemail').text('El Email ingresado se encuentra asociado a otro Proveedor');
+                        IsValidItem2 = false;
+                    } else {
+                        $('#spanemail').text('');
+                        IsValidItem2 = true;
+                    }
+                }
+                $.ajax(options);
+            }
+        }
+
+        function ValidCuil() {
+
+            if ($('#CuitCuil').val() != '') {
+
+                var options = {};
+                options.url = '@Url.Action("ExisteCuil", "Providers")';
+                options.type = "GET";
+                options.data = { "nombre": $("#CuitCuil").val(), "idprovider": $("#IdProvider").val() };
+                options.dataType = "json";
+                options.success = function (data) {
+                    if (data) {
+                        $('#spancuil').text('Ya existe un Proveedor con el CUIT/CUIL ingresado');
+                        IsValidItem3 = false;
+                    } else {
+                        $('#spancuil').text('');
+                        IsValidItem3 = true;
+                    }
+                }
+                $.ajax(options);
+            }
+        }
+
+    }
+
+    $('#createProvider').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        if (IsValidItem) {
+            bootbox.confirm({
+                title: "Confirmación",
+                message: "Está por modificar un Proveedor",
+                buttons: {
+                    confirm: {
+                        label: "Confirmar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+
+                },
+                callback: function (result) {
+                    if (result) {
+                        x.submit();
+                    }
+                }
+            });
+        }
+    })
+</script>
+}

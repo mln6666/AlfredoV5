@@ -1,0 +1,215 @@
+﻿@model IEnumerable<MinimercadoAlfredo.Models.Category>
+@{
+    ViewBag.Title = "Rubros";
+}
+
+<head>
+    <link href="/Content/Site.css" rel="stylesheet">
+</head>
+
+@if (TempData["message"] != null)
+{
+    <input id="message" style="display: none" value="@TempData["message"]" />
+}
+
+<h2 class="text-center">Lista de Rubros</h2>
+<hr style="color:grey;border-color:grey" />
+<div>
+    <a href="@Url.Action("Create", "Categories")" class="btn btn-success dialog-window2 chicle">Agregar Rubro</a>
+</div>
+<br />
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th style="width:150px">
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th class="text-center" style="width:100px">
+                Opciones
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="@("name"+ item.IdCategory)">
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td width="700px">
+                    @Html.DisplayFor(modelItem => item.CategoryDescription)
+                </td>
+                <td class="text-center">
+                    <a href="@Url.Action("Edit", "Categories", new {id = item.IdCategory})" class="btn btn-primary btn-sm dialog-window3" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    
+                    @if (item.Products.Any())
+                    {
+                        <button class="btn btn-danger btn-sm" title="Eliminar" onclick="aviso(@item.IdCategory)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <a id="@("del" + item.IdCategory)" class="btn btn-danger btn-sm" title="Eliminar" onclick="del(@item.IdCategory)"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 4%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Nuevo Rubro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal3" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 4%">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Editar Rubro</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $('#myModal').modal('show');
+
+        $(document).ready(function() {
+            if ($('#message').val() == 2) {
+                toastr.success("El Rubro ha sido modificado exitosamente.");
+            }
+
+            $('.dropdown-toggle').dropdown();
+
+            ////Grilla automatica//
+            $("#tabla").DataTable({
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                }
+            });
+
+            $("#myModal").modal('show');
+
+            $("body").on("click", "a.dialog-window1", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal1.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal1').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal1 .te').html(data);
+                        $('#myModal1').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window2", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal2.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal2').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal2 .te').html(data);
+                        $('#myModal2').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window3", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal3.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal3').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal3 .te').html(data);
+                        $('#myModal3').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });;
+        });
+
+        function aviso(category) {
+            bootbox.alert({
+                title: "Eliminar Rubro",
+                message: "Acción denegada, no es posible eliminar el rubro " + $('#name'+category).html() + "ya que éste tiene productos asociados.",
+                buttons: {
+                    ok: {
+                        label: "Aceptar",
+                        className: "btn-primary"
+                    }
+                }
+            });
+        }
+
+        function del(category) {
+            bootbox.confirm({
+                        title: "Eliminar Rubro",
+                        message: "¿Está seguro de eliminar el rubro" + $('#name'+category).html() + "?",
+                        buttons: {
+                            confirm: {
+                                label: "Eliminar",
+                                className: "btn-danger"
+                            },
+                            cancel: {
+                                label: "Cancelar",
+                                className: "btn-primary"
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+
+                                var options = {};
+                                options.url = '@Url.Action("DeleteCategory", "Categories")';
+                                options.type = "POST";
+                                options.data = { "dato": category };
+                                options.dataType = "json";
+                                options.success = function (data) {
+                                    if (data) {
+                                        toastr.success("Rubro eliminado exitosamente");
+
+                                        $('#del' + category).closest('tr').remove();
+                                    }
+                                };
+                                $.ajax(options);
+
+                            }
+                        }
+                    });
+        }
+    </script>
+}

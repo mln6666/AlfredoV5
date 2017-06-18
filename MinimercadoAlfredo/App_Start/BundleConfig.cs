@@ -8,19 +8,28 @@ namespace MinimercadoAlfredo
         // Para obtener más información sobre Bundles, visite http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/lib").Include(
-                          "~/Scripts/jquery-1.12.4.js",
-                        "~/Scripts/jquery-1.12.4.min.js",
-                         "~/Scripts/jquery-ui-1.12.0.js",
-                        "~/Scripts/jquery-ui-1.12.0.min.js",
-                         "~/Scripts/jquery.unobtrusive-ajax.js",
-                        "~/Scripts/bootstrap.js",
-                        "~/Scripts/datatables/jquery.datatables.js",
-                        "~/Scripts/datatables/datatables.bootstrap.js",                        
-                        "~/Scripts/bootstrap.min.js",
-                        "~/Scripts/respond.js",
-                        "~/Scripts/bootbox.js",
-                        "~/scripts/toastr.js"));
+            BundleTable.EnableOptimizations = true;
+            ScriptBundle scriptBundle = new ScriptBundle("~/js");
+            string[] scriptArray =
+            {
+                "~/Scripts/jquery-1.12.4.js",
+                "~/Scripts/jquery-1.12.4.min.js",
+                "~/Scripts/jquery-ui-1.12.0.js",
+                "~/Scripts/jquery-ui-1.12.0.min.js",
+                "~/Scripts/jquery.unobtrusive-ajax.js",
+                "~/Scripts/bootstrap.js",
+                "~/Scripts/datatables/jquery.datatables.js",
+                "~/Scripts/datatables/datatables.bootstrap.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.js",
+                "~/Scripts/bootbox.js",
+                "~/scripts/toastr.js"
+            };
+
+            scriptBundle.Include(scriptArray);
+            scriptBundle.IncludeDirectory("~/Scripts/", "*.js");
+            bundles.Add(scriptBundle);
+
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));

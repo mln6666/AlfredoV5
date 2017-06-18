@@ -1,0 +1,81 @@
+﻿@model MinimercadoAlfredo.Models.UserView
+@{
+    ViewBag.Title = "Agregar permisos";
+}
+@{
+    Layout = null;
+}
+
+<h2 class="text-center">Usuario: <span style="color:royalblue">@Model.Name</span></h2>
+<h3>@ViewBag.Error</h3>
+
+@using (Html.BeginForm("AddRole", "Users", new { userID = Model.UserID }, FormMethod.Post, new { id = "agregarpermiso" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-2"></div>
+
+
+            @*@Html.LabelFor(model => model.Role.RoleID, "RoleID", htmlAttributes: new { @class = "control-label col-md-2" })*@
+            <div class="col-md-8 text-left">
+                @*<label>Permiso</label>*@
+                <label class="control-label" style="text-align:" display inline-block>Permisos: </label>
+
+                <select class="js-example-basic-single form-control input-sm" id="RoleID" name="RoleID" style="font: small-caption; background-color: beige; width: 250px; padding-top: 30px; display: inline-block">
+                    <option value="">Buscar permiso...</option>
+                    @foreach (var item in ViewBag.permisos)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <p><span id="spanpermiso" style="color: red"></span></p>
+
+            </div>
+            <div class="col-md-2"></div>
+
+        </div>
+        @*@Html.ActionLink("Volver", "Roles", new { userID = Model.UserID }, new { @class = "btn btn-default" })*@
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+        <input type="submit" value="Agregar permiso" class="btn btn-success" />
+    </div>
+}
+
+<link href="@Url.Content("~/Content/Select2/select2.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Content/Select2/select2.min.js")"></script>
+<script>
+
+    /////////////////Start:Select searchable////////////////
+    $(document).ready(function () { $(".js-example-basic-single").select2(); });
+    ////////////////End:Select searchable///////////////////
+
+    $('#agregarpermiso').submit(function (e) {
+        var permiso = this;
+        e.preventDefault();
+
+
+        var isValidItem = true;
+        var permi = true;
+
+        if ($('#RoleID').val().trim() == '') {
+            var isValidItem = false;
+            var permi = false;
+            $('#spanpermiso').text("Debe seleccionar un permiso.");
+
+        }
+        if (permi) {
+            $('#spanpermiso').text("");
+        }
+
+        if (isValidItem) {
+            //var x=document.getElementById("RoleID").innerText;
+            bootbox.confirm("¿ Está seguro que desea agregar el permiso ?", function (result) {
+                if (result) {
+                    permiso.submit();
+                }
+            });
+        }
+    });
+</script>

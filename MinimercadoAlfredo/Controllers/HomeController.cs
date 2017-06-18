@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MinimercadoAlfredo.Controllers
 {
+    [Authorize(Users = "luisalfredopiriz@yahoo.com.ar")]
     public class HomeController : Controller
     {
         public ActionResult Index()

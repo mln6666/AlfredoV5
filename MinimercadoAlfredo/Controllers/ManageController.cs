@@ -10,7 +10,7 @@ using MinimercadoAlfredo.Models;
 
 namespace MinimercadoAlfredo.Controllers
 {
-    [Authorize]
+    [Authorize(Users = "luisalfredopiriz@yahoo.com.ar")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

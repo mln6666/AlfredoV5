@@ -1,0 +1,77 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet">
+</head>
+
+<body class="full" background="~/Content/Images/4238051-background.jpg">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center jumbotron sombra_externa sombra_fija sombra_radial fade2"">
+                    <h3><b>¡Bienvenido al Sistema Minimercado Alfredo!</b></h3>
+                    <h4>Sistema de Administración de Productos de Mercado</h4>
+                </div>
+                <br></br>
+                @*<p class="text-center lead">
+                        A continuación se muestran las funcionalidades del sistema, para utilizar haga clic en la de su preferencia
+                    </p>*@
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="thumbnail sombra_externa chicle sizeElements">
+                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/productos.jpg")'>
+                            <div class="caption">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Products")">
+                                    Productos
+                                </a>
+
+                                <p class="text-center">
+                                    El Módulo de Administración de Productos mantendrá organizado información referente a su stock al mismo tiempo que le brindará la posibilidad de acceder a la información que necesite rápidamente, además de llevar un control eficiente del mismo, visualizando propiedades de interés que lo ayudarán a tomar correctas decisiones.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="thumbnail sombra_externa chicle sizeElements">
+
+                            <img alt="Bootstrap Thumbnail First" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/compras.jpg")'>
+
+
+                            <div class="caption">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Purchases")">
+                                    Compras
+                                </a>
+
+                                <p class="text-center ">
+                                    El Módulo de Administración de Compras le facilitará la tarea de supervisión sobre actualización de Stock y adquisición de nuevos Productos, conforme mantiene información detallada de sus Proveedores.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail sombra_externa chicle sizeElements">
+                            <img alt="Bootstrap Thumbnail Second" style="width: 300px; height: 180px; border:groove" src='@Url.Content("~/Content/Images/ventas2.jpg")'>
+                            <div class="caption">
+                                <a type="button" class="btn btn-block btn-lg btn btn-info" href="@Url.Action("Index", "Sales")">
+                                    Ventas
+                                </a>
+
+                                <p class="text-center">
+                                    El Módulo de Administración de Ventas le proporcionará la información requerida acerca de sus Clientes y la Venta de sus Productos, ahorrandole tiempo y trabajo de facturación gracias a la posibilidad de generación de comprobantes de forma veloz, sencilla y segura.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</body>

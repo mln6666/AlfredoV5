@@ -1,0 +1,170 @@
+﻿@model MinimercadoAlfredo.Models.Customer
+
+@{
+    ViewBag.Title = "Nuevo Cliente";
+}
+
+<h2 class="text-center">Agregar Cliente</h2>
+<hr style="color:grey;border-color:grey" />
+<br />
+
+@using (Html.BeginForm("Create", "Customers", null, FormMethod.Post, new { id = "createCustomer" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCustomer()" } })
+                <span id="spancustomer" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerAddress, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerPhone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerPhone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CustomerPhone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerEmail, "Email", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CustomerEmail, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidEmail()" } })
+                @Html.ValidationMessageFor(model => model.CustomerEmail, "", new { @class = "text-danger" })
+                <span id="spanemail" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CuitCuil, "CUIL/CUIT", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CuitCuil, new { htmlAttributes = new { @class = "form-control", @onchange = "ValidCuil()" } })
+                <span id="spancuil" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="@Url.Action("Index", "Customers")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
+                <button type="submit" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script>
+    var IsValidItem = true;
+    var IsValidItem2 = true;
+    var IsValidItem3 = true;
+    function ValidCustomer() {
+
+        if ($('#CustomerName').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteCliente", "Customers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CustomerName").val(), "idcustomer": $("#IdCustomer").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spancustomer').text('Cliente existente');
+                    IsValidItem = false;
+                } else {
+                    $('#spancustomer').text('');
+                    IsValidItem = true;
+                }
+            }
+            $.ajax(options);
+        } else {
+            $('#spancustomer').text('Campo Obligatorio');
+            IsValidItem = false;
+        }
+    }
+
+    function ValidEmail() {
+
+        if ($('#CustomerEmail').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteEmail", "Customers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CustomerEmail").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spanemail').text('El Email ingresado se encuentra asociado a otro Cliente');
+                    IsValidItem2 = false;
+                } else {
+                    $('#spanemail').text('');
+                    IsValidItem2 = true;
+                }
+            }
+            $.ajax(options);
+        }
+    }
+
+    function ValidCuil() {
+
+        if ($('#CuitCuil').val() != '') {
+
+            var options = {};
+            options.url = '@Url.Action("ExisteCuil", "Customers")';
+            options.type = "GET";
+            options.data = { "nombre": $("#CuitCuil").val() };
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data) {
+                    $('#spancuil').text('Ya existe un Cliente con el CUIT/CUIL ingresado');
+                    IsValidItem3 = false;
+                } else {
+                    $('#spancuil').text('');
+                    IsValidItem3 = true;
+                }
+            }
+            $.ajax(options);
+        }
+    }
+
+    $('#createCustomer').submit(function (e) {
+        var x = this;
+        e.preventDefault();
+        if (IsValidItem & IsValidItem2 & IsValidItem3) {
+            bootbox.confirm({
+                title: "Confirmación",
+                message: "Está por agregar un nuevo Cliente",
+                buttons: {
+                    confirm: {
+                        label: "Confirmar",
+                        className: "btn-success"
+                    },
+                    cancel: {
+                        label: "Cancelar",
+                        className: "btn-primary"
+                    }
+
+                },
+                callback: function (result) {
+                    if (result) {
+                        x.submit();
+                    }
+                }
+            });
+        }
+    })
+</script>
+}

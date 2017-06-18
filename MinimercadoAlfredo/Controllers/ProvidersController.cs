@@ -11,6 +11,7 @@ using MinimercadoAlfredo.Models;
 
 namespace MinimercadoAlfredo.Controllers
 {
+    [Authorize(Users = "luisalfredopiriz@yahoo.com.ar")]
     public class ProvidersController : Controller
     {
         private AlfredoContext db = new AlfredoContext();

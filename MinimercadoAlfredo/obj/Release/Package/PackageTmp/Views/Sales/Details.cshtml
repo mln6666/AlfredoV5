@@ -1,0 +1,401 @@
+﻿@using MinimercadoAlfredo.Models
+@model MinimercadoAlfredo.Models.Sale
+
+@{
+    ViewBag.Title = "Detalles de Venta";
+}
+<h2 class="text-center hidden-print">Detalles de Venta</h2>
+<hr style="color:grey;border-color:grey" />
+
+<table class="table table-condensed   table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th style="width:110px">
+                N° Venta
+            </th>
+            <th>
+                Cliente
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th class="hidden-print" style="width:220px">
+                Estado de Venta
+            </th>
+            <th style="width:170px">
+                @Html.DisplayNameFor(model => model.SaleDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color: white">
+            <td class="text-center" style="background-color: khaki">
+                @Html.DisplayFor(model => model.IdSale)
+            </td>
+
+            <td>
+                @if (Model.IdCustomer == null)
+                { <text>-</text>}
+                else
+                {    @Html.ActionLink((string)Model.Customer.CustomerName, "modalCustomer", new { id = Model.IdCustomer }, new { @class = "dialog-window" })}
+
+            </td>
+            <td>
+                @if (Model.SaleAddress == "" | Model.SaleAddress == null)
+            {<text>-</text>}
+            else
+            {
+                    @Html.DisplayFor(model => model.SaleAddress)}
+            </td>
+
+            <td class="hidden-print">
+                @Html.DisplayFor(model => model.SaleState)
+            </td>
+            <td>
+                <input type="date" value="@Model.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly"/>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center hidden-print">Lista de Productos</h3>
+<hr style="color:grey;border-color:grey" />
+<table class="table table-condensed table-striped table-bordered" id="tabla">
+    <thead>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td class="text-center" style="border-radius: 3px">
+            Producto
+        </td>
+
+        <td class="text-center" style="border-radius: 3px; width: 14%">
+            Cantidad
+        </td>
+        <td class="text-center" style="border-radius: 3px; width: 14%">
+            Precio
+        </td>
+        <td class="text-center" style="border-radius: 3px; width: 14%">
+            Descuento (%)
+        </td>
+        <td class="text-center" style="border-radius: 3px; width: 16%">
+            Subtotal
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.SaleLines)
+    {
+        <tr>
+            @if (item.Product.IdTrademark != null)
+            {
+                <td>
+                    &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                </td>
+            }
+            else
+            {
+                <td>
+                    &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                </td>
+            }
+
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LineQuantity)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LinePrice)
+            </td>
+            <td class="text-center">
+                @Html.DisplayFor(modelItem => item.LineDiscount)%
+            </td>
+            <td class="text-center" style="font-weight: bold">
+                @Html.DisplayFor(modelItem => item.LineTotal)
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tr>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <td style="border-color: transparent"></td>
+        <th class="text-center" style="background-color: khaki">TOTAL</th>
+        <th class="text-center" style="background-color: khaki">
+            @Html.DisplayFor(model => model.SaleTotal)
+        </th>
+    </tr>
+</table>
+<hr style="color:grey;border-color:grey" />
+
+<table class="table table-condensed   table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <td class="text-left" style="border-radius: 3px">
+                Observaciones
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Comments</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="row text-center hidden-print" style="margin-top: 2%">
+    <div class="col-lg-4 text-left">
+        <a href="@Url.Action("Index", "Sales")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+    </div>
+    <div class="col-lg-4 text-center">
+        @if (Model.SaleState == SaleState.Pendiente)
+        {
+            <a href="@Url.Action("EditSales", "Sales", new {id = Model.IdSale})" class="btn btn-success">Editar &nbsp; <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+        }
+        else
+        {
+            <a class="btn btn-success disabled">Editar &nbsp;<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+        }
+        <a href="@Url.Action("_Details", "Bills", new {id = Model.IdBill})" class="btn btn-primary dialog-window2 chicle">Ver Comprobante &nbsp;<span class="glyphicon glyphicon-file" aria-hidden="true"></span></a>
+    </div>
+</div>
+
+
+@*<div id="GSCCModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 1000px;left: -35%;">
+            <div class="modal-header" style="display: none">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;  </button>
+                <h4 class="modal-title hidden-print text-center" id="myModalLabel">Modelo de impresión</h4>
+            </div>
+            <div class="modal-body" id="modalDiv">
+                <div class="text-center">Nota de pedido</div>
+                <hr style="color:grey; border-color: grey; margin: 5px;" />
+                <table class="table table-condensed   table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                            <th style="width:110px">
+                                N° Venta
+                            </th>
+                            <th>
+                                Cliente
+                            </th>
+                            <th>
+                                Dirección
+                            </th>
+                            <th style="width:170px">
+                                @Html.DisplayNameFor(model => model.SaleDate)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: white">
+                            <td>
+                                @Html.DisplayFor(model => model.IdSale)
+                            </td>
+
+                            <td>
+                               @Html.DisplayFor(model => model.Customer.CustomerName)
+                            </td>
+                            <td>
+                                @if (Model.SaleAddress == "" | Model.SaleAddress == null)
+            {<text>-</text>}
+            else
+            {
+                                    @Html.DisplayFor(model => model.SaleAddress)}
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.SaleDate)
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-condensed   table-striped table-bordered table-condensed" id="tabla">
+                    <thead>
+                        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Nº Art.
+                            </td>
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Producto
+                            </td>
+
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Cant.
+                            </td>
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Desc.
+                            </td>
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                P. Unit.
+                            </td>
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Subtotal(+)
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.SaleLines)
+                        {
+                            <tr style="background-color: white">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.ProductNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Product.Trademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LineDiscount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LinePrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.LineTotal)
+                                </td>
+                            </tr>
+                        }
+                        <tr style="background:none">
+                            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+                            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+                            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+                            <td style="border-right:hidden;border-left:hidden;border-bottom:hidden;"></td>
+                            <td style="border-left:hidden;border-bottom:hidden;"></td>
+                            <td style="color:black; font-weight: bolder; background-color:lightgray">
+                                @Html.DisplayFor(model => model.LinesTotal)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="table table-condensed   table-striped table-bordered table-condensed">
+                    <thead>
+                        <tr class="text-right" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                            <td class="text-left" style="border-radius: 3px;font-weight: bold">
+                                Observaciones
+                            </td>
+                            <td class="text-left" style="border-radius: 3px; width:200px;font-weight: bold">
+                                Total
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: white">
+                            <td>
+                                @if (Model.Comments == "" | Model.Comments == null)
+            {<text>-</text>}
+            else
+            {
+                                    @Html.DisplayFor(model => model.Comments)}
+                            </td>
+                            <td>@Html.DisplayFor(model => model.SaleTotal)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="text-center hidden-print">
+                    @if (Model.SaleState == SaleState.Pendiente)
+                    {<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <a class="btn btn-warning hidden-print" id="impcomprobante" onclick="imprimir();">
+                            Imprimir
+                        </a>
+                    }
+
+
+
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 1000px;left: -35%;">
+          
+            <div id="modalDiv1" class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Cliente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{<script src="@Url.Content("~/Scripts/printThis.js")"></script>
+
+    <script>
+        //function imprimir() {
+        //    $("#modalDiv").printThis({
+               
+        //    });
+        //}
+        function imprimir1() {
+            $("#modalDiv1").printThis({
+
+            });
+        }
+
+        $(document).ready(function() {
+            //$("#tabla").DataTable({
+            //    "language": {
+            //        "url": "/Scripts/DataTables/spanish.json"
+            //    }
+            //});
+
+            $("body").on("click", "a.dialog-window2", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal2.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal2').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal2 .te').html(data);
+                        $('#myModal2').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+
+            $("body").on("click", "a.dialog-window", null, function(e) {
+                e.preventDefault();
+
+                var $link = $(this); // Reference to <a/> link
+                var title = $link.text(); //this is title to fetch in htnl
+                $('#myModal.modal-title').html(title);
+
+                var url = $(this).attr('href');
+                if (url.indexOf('#') == 0) {
+                    $('#myModal').modal('show');
+                } else {
+                    $.get(url, function(data) {
+                        $('#myModal .te').html(data);
+                        $('#myModal').modal();
+                    }).success(function() { $('input:text:visible:first').focus(); });
+                }
+            });
+        });
+    </script>
+}

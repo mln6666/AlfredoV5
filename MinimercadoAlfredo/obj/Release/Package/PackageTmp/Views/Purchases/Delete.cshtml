@@ -1,0 +1,181 @@
+﻿@model MinimercadoAlfredo.Models.Purchase
+
+@{
+    ViewBag.Title = "Eliminar Compra";
+}
+
+<h3 class="text-center" style="color:red">¿Está seguro de eliminar la siguiente Compra?</h3>
+<h4>AVISO IMPORTANTE: Los costos que usted haya actualizado con esta compra NO volverán a su valor anterior una vez completada la eliminación. Asegúrese luego que los productos incluidos en esta compra poseen el costo deseado.</h4>
+<hr style="color:grey;border-color:grey" />
+
+<table class="table table-condensed   table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <th style="width:110px">
+                N° Compra
+            </th>
+            <th>
+                Proveedor
+            </th>
+            <th style="width:220px">
+                Teléfono
+            </th>
+            <th style="width:170px">
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.IdPurchase)
+            </td>
+            <td>
+                @Html.ActionLink((string)Model.Provider.ProviderName, "modalProvider", new { id = Model.IdProvider }, new { @class = "dialog-window" })
+                @*@Html.DisplayFor(model => model.Provider.ProviderName)*@
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Provider.ProviderPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.PurchaseDate)
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+<h3 class="text-center">Lista de Productos</h3>
+<hr style="color:grey; border-color: grey; margin-top: 0" />
+<table class="table table-condensed   table-striped table-bordered" id="tabla">
+    <thead>
+    <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+        <td class="text-left" style="border-radius: 3px">
+            Producto
+        </td>
+
+        <td class="text-center" style="border-radius: 3px; width: 14%">
+            Cantidad
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Costo
+        </td>
+        <td class="text-center" style="border-radius: 3px">
+            Subtotal
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PurchaseLines)
+        {
+            <tr>
+                @if (item.Product.IdTrademark != null)
+                {
+                    <td>
+                        &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                    </td>
+                }
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.LineQuantity)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.Product.Cost)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.LineTotal)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr style="color:grey;border-color:grey" />
+
+<table class="table table-condensed   table-striped table-bordered">
+    <thead>
+        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+            <td class="text-left" style="border-radius: 3px">
+                Comentarios
+            </td>
+            <td class="text-left" style="border-radius: 3px; width: 20%">
+                Total de Compra
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Comments</td>
+            <th class="text-center" style="background-color: khaki">@Html.DisplayFor(model => model.PurchaseTotal)</th>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="text-center">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row text-center" style="margin-top: 3%">
+        <div class="col-lg-4 text-left">
+            <a href="@Url.Action("Index", "Purchases")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+        </div>
+            <div class="col-lg-4 text-center">
+                <button type="submit" class="btn btn-danger">Eliminar &nbsp;<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            </div>
+        </div>
+    }
+    
+</div>
+
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-center">Detalle de Proveedor</h4>
+            </div>
+            <div class="modal-body">
+                <div class="te">Espere...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+    $(document).ready(function () {
+        $("#tabla").DataTable({
+            "language": {
+                "url": "/Scripts/DataTables/spanish.json"
+            }
+        });
+
+        $("body").on("click", "a.dialog-window", null, function (e) {
+            e.preventDefault();
+
+            var $link = $(this); // Reference to <a/> link
+            var title = $link.text(); //this is title to fetch in htnl
+            $('#myModal.modal-title').html(title);
+
+            var url = $(this).attr('href');
+            if (url.indexOf('#') == 0) {
+                $('#myModal').modal('show');
+            }
+            else {
+                $.get(url, function (data) {
+                    $('#myModal .te').html(data);
+                    $('#myModal').modal();
+                }).success(function () { $('input:text:visible:first').focus(); });
+            }
+        });
+    })
+    </script>
+
+}

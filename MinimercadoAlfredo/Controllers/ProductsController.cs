@@ -12,6 +12,7 @@ using MinimercadoAlfredo.ViewModels;
 
 namespace MinimercadoAlfredo.Controllers
 {
+    [Authorize(Users = "luisalfredopiriz@yahoo.com.ar")]
     public class ProductsController : Controller
     {
         private AlfredoContext db = new AlfredoContext();
