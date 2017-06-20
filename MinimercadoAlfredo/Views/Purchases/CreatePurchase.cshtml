@@ -82,7 +82,14 @@
             <option value="0">Seleccionar Producto...</option>
             @foreach (var item in ViewBag.Products)
             {
-                <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+                if (item.IdTrademark != null)
+                {
+                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+                }
+                else
+                {
+                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                }
             }
         </select>
         @*<a class="btn btn-warning btn-xs" data-toggle="modal" data-target="#myModal" style="padding-right: 6px; padding-left: 6px; padding-top: 4px; padding-bottom: 4px">

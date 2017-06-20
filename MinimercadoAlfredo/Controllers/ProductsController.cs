@@ -332,7 +332,14 @@ namespace MinimercadoAlfredo.Controllers
         {
             Product prod = new Product();
             prod.idCategory = Int32.Parse(product.ProductCategory);
-            prod.IdTrademark = Int32.Parse(product.ProductTrademark);
+            if (product.ProductTrademark != "0")
+            {
+                prod.IdTrademark = Int32.Parse(product.ProductTrademark);
+            }
+            else
+            {
+                prod.IdTrademark = null;
+            }
             prod.ProductDescription = product.ProductDescription;
             prod.Cost = product.ProductCost;
             prod.WholeSalePrice = product.ProductWholeSalePrice;
@@ -368,7 +375,14 @@ namespace MinimercadoAlfredo.Controllers
             prod.WholeSalePrice = product.WholeSalePrice;
             prod.ProductState = product.ProductState;
             prod.idCategory = product.idCategory;
-            prod.IdTrademark = product.IdTrademark;
+            if (product.IdTrademark != 0)
+            {
+                prod.IdTrademark = product.IdTrademark;
+            }
+            else
+            {
+                prod.IdTrademark = null;
+            }
             prod.Minimum = product.Minimum;
             prod.UploadDate = DateTime.Today;
 

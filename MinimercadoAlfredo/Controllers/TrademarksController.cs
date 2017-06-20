@@ -30,9 +30,9 @@ namespace MinimercadoAlfredo.Controllers
             return View();
         }
 
-        public JsonResult ExisteMarca(string nombre, int? trademark)
+        public JsonResult ExisteMarca(string trademark)
         {
-            var existe = db.Trademarks.ToList().Exists(t => t.TrademarkName == nombre & t.IdTrademark != trademark);
+            var existe = db.Trademarks.ToList().Exists(t => t.TrademarkName == trademark);
 
             return Json(existe, JsonRequestBehavior.AllowGet);
         }

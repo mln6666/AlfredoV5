@@ -135,7 +135,6 @@
         var optionstate;
         var IsValidItem = true;
         var IsValidItem2 = true;
-        var IsValidItem3 = true;
 
         function category() {
             if ($('#ProductDescription').val() != "") {
@@ -180,14 +179,6 @@
             if ($('#ProductDescription').val() != "") {
                 DescExistente();
             }
-
-            if ($('#IdTrademark').val() == 0) {
-                $('#spantrademark').text("Debe seleccionar una Marca");
-                IsValidItem3 = false;
-            } else {
-                IsValidItem3 = true;
-                $('#spantrademark').text("");
-            }
         }
 
         function ValidCost() {
@@ -214,7 +205,7 @@
         //BOTÓN GUARDAR PRODUCTO
 
         $('#botonGuardar').click(function() {
-            if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
+            if (validcost & IsValidItem & IsValidItem2) {
 
                 bootbox.confirm({
                     title: "Confirmación",
