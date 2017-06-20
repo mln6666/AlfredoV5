@@ -31,13 +31,10 @@
         <div class="col-md-10">
             <div>
                 <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
-                    <option value="@Model.IdTrademark">@Model.Trademark.TrademarkName</option>
+                    <option value="0">Producto sin Marca</option>
                     @foreach (var item in ViewBag.Trademarks)
                     {
-                        if (item.IdTrademark != Model.IdTrademark)
-                        {
-                            <option value="@item.IdTrademark">@item.TrademarkName</option>
-                        }
+                        <option value="@item.IdTrademark">@item.TrademarkName</option>
                     }
                 </select>
                 <span id="spantrademark" style="color:red"></span>
@@ -129,6 +126,8 @@
     <script>
         $(document).ready(function() {
             $(".js-example-basic-single").select2();
+
+            $('#IdTrademark').val(@Model.IdTrademark).trigger('change');
         });
 
         var validcost = true;
