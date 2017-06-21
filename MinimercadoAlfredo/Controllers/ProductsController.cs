@@ -260,7 +260,7 @@ namespace MinimercadoAlfredo.Controllers
         public ActionResult Minimum()
         {
             var products = (from p in db.Products
-                            where p.Stock <= p.Minimum
+                            where p.ParcialStock <= p.Minimum
                             select p);
 
             ViewBag.Purchases = db.Purchases.ToList().Count();
