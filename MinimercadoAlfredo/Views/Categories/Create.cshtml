@@ -60,26 +60,7 @@
                 }
                 else {
                     $('#spanrubroexistente').text("");
-                    bootbox.confirm({
-                        title: "Confirmación",
-                        message: "Está por agregar un nuevo Rubro",
-                        buttons: {
-                            confirm: {
-                                label: "Confirmar",
-                                className: "btn-success"
-                            },
-                            cancel: {
-                                label: "Cancelar",
-                                className: "btn-primary"
-                            }
-                            
-                        },
-                        callback: function(result) {
-                            if (result) {
-                                x.submit();
-                            }
-                        }
-                });
+                    x.submit();
                 }
             }
 
