@@ -64,7 +64,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @if (item.Stock >= item.Minimum | item.Minimum == null)
+                @if (item.ParcialStock >= item.Minimum | item.Minimum == null)
                 {
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
