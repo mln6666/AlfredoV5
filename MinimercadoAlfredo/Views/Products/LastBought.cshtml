@@ -121,8 +121,8 @@ else
                 $('#save').removeClass("disabled");
             }
 
-            var cost = $('#cost' + idproduct).val();
-            var wsp = $('#wsp' + idproduct).val();
+            var cost = parseFloat($('#cost' + idproduct).val());
+            var wsp = parseFloat($('#wsp' + idproduct).val());
 
             if (wsp != "") {
                 if (cost > wsp) {
