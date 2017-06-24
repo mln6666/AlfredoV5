@@ -19,19 +19,19 @@
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-            <th>
+            <th style="width: 10%">
                 N° Compra
             </th>
-            <th>
+            <th style="width: 14%">
                 Fecha de Compra
             </th>
             <th>
                 Proveedor
             </th>          
-            <th>
-                Total Comprado
+            <th class="text-center" style="width: 13%">
+                Total
             </th>
-            <th class="text-center" style="width:120px">
+            <th class="text-center" style="width: 14%">
                 Opciones
             </th>
         </tr>
@@ -50,10 +50,10 @@
                         @Html.DisplayFor(modelItem => item.PurchaseDate.Day)/@Html.DisplayFor(modelItem => item.PurchaseDate.Month)/@Html.DisplayFor(modelItem => item.PurchaseDate.Year)
                     </div>
                 </td>
-                <td width="250px">
+                <td>
                     @Html.DisplayFor(modelItem => item.Provider.ProviderName)
                 </td>                
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.PurchaseTotal)
                 </td>
                 <td class="text-center">

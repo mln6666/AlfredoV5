@@ -33,22 +33,22 @@
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
     <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-        <th>
+        <th style="width: 10%">
            Nº Venta
         </th>
-        <th>
+        <th style="width: 14%">
             @Html.DisplayNameFor(model => model.SaleDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Customer.CustomerName)
         </th>
-        <th>
+        <th class="text-center" style="width: 13%">
             @Html.DisplayNameFor(model => model.SaleTotal)
         </th>
-        <th>
+        <th style="width: 12%">
             Estado
         </th>
-        <th class="text-center" style="width:120px">
+        <th class="text-center" style="width: 14%">
             Opciones
         </th>
     </tr>
@@ -66,13 +66,13 @@
                         @Html.DisplayFor(modelItem => item.SaleDate.Day)/@Html.DisplayFor(modelItem => item.SaleDate.Month)/@Html.DisplayFor(modelItem => item.SaleDate.Year)
                     </div>
                 </td>
-                <td width="350px">
+                <td>
                     @Html.DisplayFor(modelItem => item.Customer.CustomerName)
                 </td>
-                <td width="100px">
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.SaleTotal)
                 </td>
-                <td width="100px">
+                <td>
                     @Html.DisplayFor(modelItem => item.SaleState)
                 </td>
                 <td class="text-center">
