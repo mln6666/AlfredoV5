@@ -18,7 +18,7 @@ namespace MinimercadoAlfredo.Models
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal LinePrice { get; set; }
 
-        public int LineQuantity { get; set; }
+        public decimal LineQuantity { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
         public decimal LineTotal { get; set; }

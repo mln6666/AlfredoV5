@@ -163,7 +163,12 @@ namespace MinimercadoAlfredo.Controllers
                     Product prod = new Product();
                     prod = db.Products.Find(i.IdProduct);
                     prod.Stock = prod.Stock + i.LineQuantity;
-                    prod.UploadDate = purchase.PurchaseDate;
+
+                    if (prod.Cost != i.LinePrice)
+                    {
+                        prod.UploadDate = purchase.PurchaseDate;
+                    }
+
                     prod.ParcialStock = prod.ParcialStock + i.LineQuantity;
                     prod.Cost = i.LinePrice;
                     db.Entry(prod).State = EntityState.Modified;
@@ -232,7 +237,7 @@ namespace MinimercadoAlfredo.Controllers
 
                     if (product.Cost != i.LinePrice)
                     {
-                        product.UploadDate = DateTime.Today;
+                        product.UploadDate = purchase.PurchaseDate;
                     }
 
                     product.Cost = i.LinePrice;
