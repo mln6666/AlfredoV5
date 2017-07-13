@@ -63,7 +63,7 @@ else
 
                         if (item.IdTrademark != null)
                         {
-                            x = x + " - " + item.Trademark.TrademarkName;
+                            x = x + " | " + item.Trademark.TrademarkName;
                         }
 
                         <input type="number" name="productid" value="@item.IdProduct" class="hidden" />
@@ -74,10 +74,10 @@ else
                     @Html.DisplayFor(modelItem => item.UploadDate)
                 </td>
                 <td>
-                    <input id="@("cost" + item.IdProduct)" type="number" value="@item.Cost" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center" />
+                    <input id="@("cost" + item.IdProduct)" type="text" value="@item.Cost.Value.ToString("#,##0.00")" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center" />
                 </td>
                 <td>
-                    <input id="@("wsp" + item.IdProduct)" type="number" value="@item.WholeSalePrice" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center" />
+                    <input id="@("wsp" + item.IdProduct)" type="text" value="@item.WholeSalePrice.Value.ToString("#,##0.00")" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center" />
                 </td>
             </tr>
                         }
@@ -121,8 +121,8 @@ else
                 $('#save').removeClass("disabled");
             }
 
-            var cost = parseFloat($('#cost' + idproduct).val());
-            var wsp = parseFloat($('#wsp' + idproduct).val());
+            var cost = parseFloat($('#cost' + idproduct).val()).toFixed(2);
+            var wsp = parseFloat($('#wsp' + idproduct).val()).toFixed(2);
 
             if (wsp != "") {
                 if (cost > wsp) {
@@ -141,7 +141,7 @@ else
             var priceswsp = [];
 
             $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
-            $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value)) });
+            $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value).toFixed(2)) });
 
             for (var i = 0; i < productids.length; i++) {
                 product = {

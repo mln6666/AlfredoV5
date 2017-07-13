@@ -175,13 +175,13 @@
                 <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center">
-                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice.ToString("#,##0.00")" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center" >
-                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount.ToString("#0")" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center">
-                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
+                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal.ToString("#,##0.00")" readonly="readonly"/>
             </td>
             <td class="text-center" style="width: 2%">
                 <button id="@("elim" + item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -285,7 +285,7 @@
             options.data = { "pro": $("#linedescription").val() };
             options.dataType = "json";
             options.success = function(data) {
-                document.getElementById("lineprice").value = data;
+                document.getElementById("lineprice").value = parseFloat(data).toFixed(2);
                 var price = parseFloat($('#lineprice').val());
                 var quantity = parseFloat($('#linequantity').val());
                 var discount = parseFloat($('#linediscount').val());
@@ -324,11 +324,15 @@
                     $('#spanquantity').text("");
                 }
 
-                if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
-                    isAllValid = false;
+                if ($('#linediscount').val() > 100 ) {
+                    isAllValid = false; 
                     $('#spandiscount').text("Debe ser menor");
                     document.getElementById("linetotal").value = "0.00";
-                } else {
+                } else 
+                if ($('#linediscount').val() == '') {
+                    $('#linediscount').val(0);
+                }else
+                {
                     $('#spandiscount').text("");
                 }
 
@@ -406,7 +410,7 @@
                     var description;
 
                     if (data.trademark != "") {
-                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                        description = idproduct.toString() + " - " + data.product + " | " + data.trademark;
                     } else {
                         description = idproduct.toString() + " - " + data.product;
                     }
@@ -419,7 +423,7 @@
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
-                $('#itemprice' + idproduct).val($('#lineprice').val());
+                $('#itemprice' + idproduct).val(parseFloat($('#lineprice').val()).toFixed(2));
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());

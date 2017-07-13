@@ -54,7 +54,7 @@
     </tbody>
 </table>
 
-<table class="table table-condensed table-bordered" id="productTable" style="background-color: white">
+<table class="table table-condensed table-bordered" id="productTable" style="background: none">
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
             
@@ -112,7 +112,7 @@
 
     @foreach (var item in Model.Purchase.PurchaseLines)
     {
-        <tr>
+        <tr style="background-color: white">
             <td>
                 @{
                     var x = "";
@@ -133,11 +133,11 @@
                 <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%"/>
             </td>
             <td class="text-center">
-                <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice" class="panel-info text-center form-control fina" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" style="text-align: center; width: 100%"/>
+                <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice.ToString("#,##0.00")" class="panel-info text-center form-control fina" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" style="text-align: center; width: 100%"/>
             </td>
 
             <td class="text-center">
-                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly" style="text-align: center; width: 100%; font-weight: bold"/>
+                <input id="@("itemsubtotal" + @item.IdProduct)" name="productsubtotal" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal.ToString("#,##0.00")" readonly="readonly" style="text-align: center; width: 100%; font-weight: bold"/>
             </td>
             <td class="text-center" style="width: 2%">
                 <button id="@("elim" + @item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -161,7 +161,7 @@
     <thead>
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
             <td>
-                Comentarios
+                Observaciones
             </td>
             
         </tr>
@@ -227,7 +227,7 @@
             options.data = { "pro": $("#linedescription").val() };
             options.dataType = "json";
             options.success = function (data) {
-                document.getElementById("linecost").value = data;
+                document.getElementById("linecost").value = parseFloat(data).toFixed(2);
                 var cost = parseFloat($('#linecost').val());
                 var quantity = parseFloat($('#linequantity').val());
                 var total = (cost * quantity);
@@ -312,7 +312,7 @@
                 //ACA INSERTAMOS EL HTML DEL NUEVO PRODUCTO A LA LISTA
 
                 var idproduct = $('#linedescription').val();
-                $('#insert').append('<tr id="inserttd'+idproduct+'"></tr>');
+                $('#insert').append('<tr id="inserttd'+idproduct+'" style="background-color:white"></tr>');
 
                 $('#inserttd' + idproduct).append('<td><input id="itemid' + idproduct + '" name="productid" value="'+ idproduct +'" class="hidden" /><input id="desc'+ idproduct +'" type="text" value="'+ idproduct.toString() +'" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly" /></td>');
 
@@ -326,7 +326,7 @@
                     var description = "";
 
                     if (data.trademark != "") {
-                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                        description = idproduct.toString() + " - " + data.product + " | " + data.trademark;
                     } else {
                         description = idproduct.toString() + " - " + data.product;
                     }
@@ -340,7 +340,7 @@
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemcost' + idproduct + '" name="productcost" type="number" min="1" class="panel-info text-center form-control fina onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" style="text-align: center; width: 100%" /></td>');
-                $('#itemcost' + idproduct).val($('#linecost').val());
+                $('#itemcost' + idproduct).val(parseFloat($('#linecost').val()).toFixed(2));
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemsubtotal'+idproduct+'" name="productsubtotal" type="text" class="panel-info text-center form-control fina" style="text-align: center; font-weight: bold" readonly="readonly" /></td>');
                 document.getElementById("itemsubtotal" + idproduct).value = $('#linetotal').val();
