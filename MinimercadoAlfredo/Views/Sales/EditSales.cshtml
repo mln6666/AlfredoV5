@@ -11,13 +11,13 @@
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
             <th class="text-center">
                 N°
-<th>
+            <th style="width: 24%">
                 Cliente
             </th>
-            <th>
+            <th style="width: 25%">
                 Dirección
             </th>
-            <th class="text-center">
+            <th class="text-center" style="width: 13%">
                 CUIT/CUIL
             </th>
             <th style="width: 12%">
@@ -35,46 +35,42 @@
                 @Html.DisplayFor(model => model.Sale.IdSale)
             </td>
             <td>
-                @if (Model.Sale.IdCustomer == null)
-                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
+                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
                     <option value="0">Seleccionar cliente</option>
                     @foreach (var item in Model.Customers)
                     {
-                       
-                            <option value="@item.IdCustomer">@item.CustomerName</option>
-                        
+
+                        <option value="@item.IdCustomer">@item.CustomerName</option>
+
                     }
-                </select> }
-                else
-                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
-                    <option value="@Model.Sale.IdCustomer">@Model.Sale.Customer.CustomerName</option>
-                    @foreach (var item in Model.Customers)
-                    {
-                        if (item.IdCustomer != Model.Sale.Customer.IdCustomer)
-                        {
-                            <option value="@item.IdCustomer">@item.CustomerName</option>
-                        }
-                    }
-                </select> }
-               
+                </select>
+
 
             </td>
+
             <td>
                 @if (Model.Sale.IdCustomer == null)
-                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%" />
+                {
+                    <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%"/>
                 }
                 else
-                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" /> }
+                {
+                    <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" />
+                }
 
-               
+
             </td>
+
             <td style="width: 13%" class="text-center">
                 @if (Model.Sale.IdCustomer == null)
-                {                <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                {
+                    <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center"/>
                 }
                 else
-                {  <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" /> }
-               
+                {
+                    <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                }
+
             </td>
             <td style="color: black; font-weight: bold">
                 <select class="panel-info form-control inputForm" id="salestate" style="padding: initial">
@@ -160,7 +156,7 @@
                     var x = "";
                     if (item.Product.IdTrademark != null)
                     {
-                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " - " + item.Product.Trademark.TrademarkName;
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " | " + item.Product.Trademark.TrademarkName;
                     }
                     else
                     {
@@ -195,7 +191,7 @@
         <td class="sinborde"></td>
         <th class="text-center" style="background: khaki">TOTAL</th>
         <th class="text-center" style="text-align: center; background-color: khaki">
-            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold"/>
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal.Value.ToString("#,##0.00")" readonly="readonly" style="font-weight: bold"/>
         </th>
         <td class="sinborde"></td>
 
@@ -241,6 +237,10 @@
     <script>
         $(document).ready(function() {
             $(".js-example-basic-single").select2();
+
+            if (@Model.Sale.IdCustomer != null) {
+                $('#customerid').val(@Model.Sale.IdCustomer).trigger('change');
+            }
 
             if ($('#customerid').val() != 0) {
                 changecust(@Model.Sale.IdCustomer);
@@ -325,10 +325,10 @@
                 }
 
                 if ($('#linediscount').val() > 100 ) {
-                    isAllValid = false; 
+                    isAllValid = false;
                     $('#spandiscount').text("Debe ser menor");
                     document.getElementById("linetotal").value = "0.00";
-                } else 
+                } else
                 if ($('#linediscount').val() == '') {
                     $('#linediscount').val(0);
                 }else

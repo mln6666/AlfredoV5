@@ -118,7 +118,7 @@
                     var x = "";
                     if (item.Product.IdTrademark != null)
                     {
-                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " - " + item.Product.Trademark.TrademarkName;
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " | " + item.Product.Trademark.TrademarkName;
                     }
                     else
                     {
@@ -150,7 +150,7 @@
         <td style="border-color: transparent"></td>
         <th style="border-color: transparent; text-align: center; background-color: khaki">TOTAL</th>
         <th class="text-center" style="text-align: center; background-color: khaki; font-weight: bold">
-            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Purchase.PurchaseTotal" readonly="readonly" style="font-weight: bold" />
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Purchase.PurchaseTotal.Value.ToString("#,##0.00")" readonly="readonly" style="font-weight: bold" />
         </th>
     </tr>
 </table>

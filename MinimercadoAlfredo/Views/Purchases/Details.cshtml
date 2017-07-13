@@ -79,7 +79,7 @@
                 </td>
             }
             <td class="text-center">
-                @Html.DisplayFor(modelItem => item.LineQuantity)
+                @item.LineQuantity.ToString("#,##0.000")
             </td>
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.Product.Cost)
