@@ -167,7 +167,7 @@
                     <input type="text" value="@x" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly"/>
                 }
             </td>
-            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA")
+            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
             {
                 <td class="text-center">
                     <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>

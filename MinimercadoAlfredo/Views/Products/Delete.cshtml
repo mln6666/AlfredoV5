@@ -63,12 +63,82 @@
             @Html.DisplayFor(model => model.UploadDate)
         </dd>
         <dt>
-            Stock
+            Stock Real
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
+        @if (Model.Stock != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Stock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Stock.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
+
+        <dt>
+            Stock Disponible
+        </dt>
+
+        @if (Model.ParcialStock != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.ParcialStock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.ParcialStock.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Minimum)
+        </dt>
+
+        @if (Model.Minimum != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Minimum)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Minimum.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
 
         <dt>
             Estado
