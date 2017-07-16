@@ -129,9 +129,18 @@
                     <input type="text" value="@x" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly" />
                 }
             </td>
-            <td class="text-center">
-                <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%"/>
-            </td>
+            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA")
+            {
+                <td class="text-center">
+                    <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%"/>
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    <input id="@("itemquantity" + @item.IdProduct)" name="productquantity" type="number" value="@item.LineQuantity.ToString("#,##0")" class="panel-info text-center form-control fina" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" onfocus="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" style="text-align: center; width: 100%" />
+                </td>
+            }
             <td class="text-center">
                 <input id="@("itemcost" + @item.IdProduct)" name="productcost" type="number" value="@item.LinePrice.ToString("#,##0.00")" class="panel-info text-center form-control fina" min="1" onchange="CalcSubtotal(@item.IdProduct)" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" style="text-align: center; width: 100%"/>
             </td>

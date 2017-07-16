@@ -67,16 +67,16 @@
                 </td>
 
                 <td class="text-left" style="border-radius: 3px; font-weight: bold">
-                    Cant.
+                    Cantidad
                 </td>
                 <td class="text-left" style="border-radius: 3px; font-weight: bold">
-                    Desc.
+                    Descuento (%)
                 </td>
                 <td class="text-left" style="border-radius: 3px; font-weight: bold">
-                    P. Unit.
+                    Precio
                 </td>
                 <td class="text-left" style="border-radius: 3px; font-weight: bold">
-                    Subtotal(+)
+                    Subtotal
                 </td>
             </tr>
         </thead>
@@ -90,9 +90,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Product.IdTrademark) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LineQuantity)
-                </td>
+                @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA")
+                {
+                    <td>
+                        @item.LineQuantity.ToString("#,###0.000")
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.LineQuantity.ToString("#,###0")
+                    </td>
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.LineDiscount)
                 </td>

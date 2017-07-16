@@ -81,9 +81,19 @@
                         @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                     </td>
                 }
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.LineQuantity)
-                </td>
+                
+                @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERÍA")
+                {
+                    <td class="text-center">
+                        @item.LineQuantity.ToString("#,##0.000")
+                    </td>
+                }
+                else
+                {
+                    <td class="text-center">
+                        @item.LineQuantity.ToString("#,##0")
+                    </td>
+                }
                 <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Product.Cost)
                 </td>

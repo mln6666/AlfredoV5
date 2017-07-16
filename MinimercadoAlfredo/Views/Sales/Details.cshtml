@@ -99,8 +99,18 @@
                 </td>
             }
 
-            <td class="text-center">
-                @item.LineQuantity.ToString("#,###0.000")            </td>
+            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA")
+            {
+                <td class="text-center">
+                    @item.LineQuantity.ToString("#,###0.000")
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    @item.LineQuantity.ToString("#,###0")
+                </td>
+            }
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.LinePrice)
             </td>
