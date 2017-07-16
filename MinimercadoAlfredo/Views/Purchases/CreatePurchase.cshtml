@@ -69,9 +69,7 @@
             <th class="text-center">
                 Total
             </th>
-            <th class="text-center">
-                Acción
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="last">
@@ -112,7 +110,7 @@
         <span class="text-danger"></span>
     </td>
     <td class="text-center" style="background: #a0cee8">
-        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto"/>Agregar
+        <button type="button" id="add" class="btn btn-success btn-sm chicle" value="Agregar" style="bottom: auto"/>
         <span class="glyphicon glyphicon-plus"></span>
     </td>
     <tr id="trtot">
@@ -540,7 +538,7 @@
                         $row.append($('<td class="text-center"></td>').html(val.LinePrice));
                         $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                         $row.append($('<td class="text-center"></td>').html(val.LineTotal));
-                        var $remove = $('<a href="#">Eliminar</a>');
+                        var $remove = $('<a href="#"><button type="button" class="btn btn-danger btn-xs" style="bottom: auto"><span class="glyphicon glyphicon-remove"></span></button></a>');
 
                         //CALCULO TOTAL GRAL
                         purchasetotal = 0;

@@ -5,7 +5,7 @@
 }
 
 <div>
-    
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
@@ -60,7 +60,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UploadDate)
+            @Html.DisplayFor(model => model.UploadDate) <text style="color: blue; display: inline-flex">(*)</text>
         </dd>
 
         <dt>
@@ -160,6 +160,7 @@
 
     </dl>
 </div>
+<text style="color: blue; font-size: smaller">* La fecha se actualiza cuando el producto cambia cualquier valor a excepción de su stock</text>
 <hr style="color:grey;border-color:lightgray" />
 <div class="form-actions no-color text-center">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
