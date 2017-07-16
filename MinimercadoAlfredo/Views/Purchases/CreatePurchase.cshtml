@@ -288,7 +288,7 @@
                 options.data = { "pro": $("#linedescription").val() };
                 options.dataType = "json";
                 options.success = function(data) {
-                    document.getElementById("lineprice").value = data;
+                    document.getElementById("lineprice").value = parseFloat(data).toFixed(2);
                     totallinea();
                 };
                 $.ajax(options);
@@ -535,7 +535,7 @@
                     $.each(orderItems, function(i, val) {
                         var $row = $('<tr class="elim"  style="background-color: white"></tr>');
                         $row.append($('<td></td>').html(val.LineDescription));
-                        $row.append($('<td class="text-center"></td>').html(val.LinePrice));
+                        $row.append($('<td class="text-center"></td>').html(parseFloat(val.LinePrice).toFixed(2)));
                         $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                         $row.append($('<td class="text-center"></td>').html(val.LineTotal));
                         var $remove = $('<a href="#"><button type="button" class="btn btn-danger btn-xs" style="bottom: auto"><span class="glyphicon glyphicon-remove"></span></button></a>');
