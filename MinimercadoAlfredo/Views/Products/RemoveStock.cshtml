@@ -32,9 +32,7 @@
             <th class="text-center">
                 Stock Posterior
             </th>
-            <th class="text-center">
-                Acción
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="last">
@@ -69,7 +67,7 @@
 
     </td>
     <td class="text-center" style="background: #a0cee8">
-        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
+        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />
         <span class="glyphicon glyphicon-plus"></span>
     </td>
   
@@ -317,7 +315,7 @@
                         $row.append($('<td class="text-center"></td>').html(val.LinePrice));
                         $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                         $row.append($('<td class="text-center"></td>').html(val.LineTotal));
-                        var $remove = $('<a href="#">Eliminar</a>');
+                        var $remove = $('<a href="#"><button type="button" class="btn btn-danger btn-xs" style="bottom: auto"><span class="glyphicon glyphicon-remove"></span></button></a>');
                         $remove.click(function(e) {
                             e.preventDefault();
                             orderItems.splice(i, 1);
