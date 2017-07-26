@@ -103,7 +103,14 @@
                     {
                         <button id="@("ac" + @item.IdProduct)" class="btn btn-success btn-sm hvr-glow" onclick="ac(@item.IdProduct)" title="Activar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                     }
-                    <button href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>                   
+                    @if (item.PurchaseLines.Count() != 0 & item.SaleLines.Count() != 0)
+                    {
+                        <button class="btn btn-danger btn-sm denegate" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    }
+                    else
+                    {
+                        <button href="@Url.Action("Delete", "Products", new {id = item.IdProduct})" class="btn btn-danger btn-sm dialog-window1" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                    }
                 </td>
             </tr>
         }
@@ -201,6 +208,19 @@
                         $('#myModal4').modal();
                     }).success(function() { $('input:text:visible:first').focus(); });
                 }
+            });
+
+            $('.denegate').click(function() {
+                bootbox.alert({
+                    title: "Eliminar Producto",
+                    message: "Acción denegada. Solo es posible eliminar productos sin compras ni ventas asociadas.",
+                    buttons: {
+                        ok: {
+                            label: 'Aceptar',
+                            className: 'btn-primary'
+                        }
+                    }
+                });;
             });
 
             $('.dropdown-toggle').dropdown();
