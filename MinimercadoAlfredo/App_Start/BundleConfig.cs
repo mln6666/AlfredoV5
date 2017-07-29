@@ -23,7 +23,7 @@ namespace MinimercadoAlfredo
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/respond.js",
                 "~/Scripts/bootbox.js",
-                "~/scripts/toastr.js"
+                "~/scripts/toastr.js","~/Scripts/bootstrap-select.min.js"
             };
 
             scriptBundle.Include(scriptArray);
@@ -44,7 +44,8 @@ namespace MinimercadoAlfredo
                       "~/Content/bootstrap-spacelab.css",
                       "~/Content/datatables/css/datatables.bootstrap.css",
                       "~/content/toastr.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css", "~/Content/bootstrap-select.css",
+                       "~/Content/bootstrap-select.css.map"));
         }
     }
 }

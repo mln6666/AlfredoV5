@@ -1,0 +1,114 @@
+﻿@model MinimercadoAlfredo.ViewModels.ResumenVentas.YearSalesVM
+<link href="@Url.Content("~/Content/YearMonthDaySales.css")" rel="stylesheet" />
+
+<h3 class="text-center">
+    Ventas Año:@Model.YDate.Year
+</h3>
+<hr />
+@{
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+<table class="table table-condensed table-bordered" style="table-layout: fixed">
+    <thead>
+        <tr class="text-center gradcelesteosc cabecera">
+            <th class="text-center"  style="width: 45%">
+                Año
+            </th>
+
+            <th class="text-center"  style="width: 45%">
+                Total Año
+            </th>
+
+           
+        </tr>
+    </thead>
+    <tbody>
+    <td class="text-center ftb">
+        @Model.YDate.Year
+    </td>
+    <td id="cli" class="text-center ftb">
+        @Model.YearSalesTotal
+    </td>
+ 
+    </tbody>
+</table>
+
+<table id="tablaprod" class="table table-condensed table-bordered" style="table-layout: fixed">
+    <thead>
+        <tr class="text-center gradcelestecla detalles ">
+
+            <th class="text-center" style="width: 45%">
+                Mes
+            </th>
+
+            <th class="text-center" style="width: 45%">
+                Total Mes
+            </th>
+          
+            <th class="text-center" style="width: 10%">
+                Acciones
+            </th>
+
+        </tr>
+    </thead>
+    <tbody id="last">
+        @foreach (var item in Model.MonthSales)
+        {
+
+            <tr style="background-color: white">
+
+                <td class="ftb" style="text-transform: capitalize">
+                    @{
+                        var month = System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.GetMonthName(item.MDate.Month);
+                    }
+
+                    @Html.DisplayFor(model => month)
+                </td>
+                <td class="ftb text-center">
+                    @Html.DisplayFor(modelItem => item.MonthSalesTotal)
+                </td>
+             
+                <td class="ftb text-center">
+                    @*@Html.ActionLink("Detalles", "MonthSales", new { date = item.MDate }) |*@
+                    <a href="@Url.Action("MonthSales", "Informations", new {date = item.MDate })" class="btn btn-primary btn-xs" target="_blank" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+
+                </td>
+            </tr>
+
+
+                        }
+        <tr id="trtot">
+            <th class="text-center gradcelesteosc tittot">
+                TOTAL AÑO
+            </th>
+            <td class="ftot negrita text-center">
+                @Model.YearSalesTotal
+            </td>
+            <td class="sinborde"></td>
+
+        </tr>
+       
+
+    </tbody>
+</table>
+
+
+
+
+
+
+<div class="text-center hidden-print">
+    <a href="@Url.Action("Index", "Informations")" class="btn btn-default"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> &nbsp; Volver</a>
+    <a onclick="print()" class="btn btn-warning dialog-window2 chicle">Imprimir</a>
+
+</div>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    #fmes {
+        display: none;
+    }
+
+    #faño {
+        display: none;
+    }
+</style>
+<h3 class="text-center">
+    Resumenes
+</h3>
+<hr />
+<div class="row form-horizontal" style="margin-left: 20%;margin-right: 20%;display: block">
+    <div class="col-sm-4" style="display: flex">
+
+        <select id="select" class="selectpicker show-tick" name="selectedStat" required="required" style="width: 100%">
+            <option value="dia">Por Día</option>
+            <option value="mes">Por Mes</option>
+            <option value="año">Por Año</option>
+
+        </select>
+    </div>
+    <div id="todo">
+        @using (Ajax.BeginForm("DaySales", null,
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "ajaxBeginFormResult",
+                                    LoadingElementId = "loader",
+                                    OnComplete = "AjaxComplete"
+
+                                },
+                                new { id = "fdia" }))
+
+
+        {
+            @Html.AntiForgeryToken()
+            <div class="hidden-print">
+
+
+
+                <div class="col-sm-4">
+                    <input id='from' class="form-control text-left" type="date" name="date" required />
+                </div>
+
+
+
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-success text-center">
+                        Generar&nbsp;<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+
+
+
+
+            </div>
+        }
+
+        @using (Ajax.BeginForm("MonthSales", "Informations",
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "ajaxBeginFormResult",
+                                    LoadingElementId = "loader",
+                                    OnComplete = "AjaxComplete"
+
+                                },
+                                new { id = "fmes" }))
+
+
+        {
+            @Html.AntiForgeryToken()
+            <div class="hidden-print">
+
+
+                <div class="col-sm-4">
+                    <input id='from' class="form-control text-left" type="date" name="date" required />
+                </div>
+
+
+
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-success text-center">
+                        Generar&nbsp;<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+
+
+
+
+            </div>
+        }
+
+        @using (Ajax.BeginForm("YearSales", null,
+                                new AjaxOptions
+                                {
+                                    InsertionMode = InsertionMode.Replace,
+                                    UpdateTargetId = "ajaxBeginFormResult",
+                                    LoadingElementId = "loader",
+                                    OnSuccess = "AjaxComplete"
+
+                                },
+                                new { id = "faño" }))
+
+
+        {
+            @Html.AntiForgeryToken()
+            <div class="hidden-print">
+
+
+
+                <div class="col-sm-4">
+                    <input id='from' class="form-control text-left" type="date" name="date" required />
+                </div>
+
+
+
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-success text-center">
+                        Generar&nbsp;<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+
+
+
+
+            </div>
+        }
+    </div>
+</div>
+<div class="text-center" id="ajaxBeginFormResult"></div>
+
+@section scripts
+{
+    <script>
+        function AjaxComplete() {
+            $("#loader").hide();
+        }
+
+        $(document).ready(function () {
+
+        $('.selectpicker').selectpicker({
+            size: 3,
+            style: 'btn-info'
+        });
+        $('.selectpicker').on('changed.bs.select', function() {
+            if (this.value == "dia") {
+                $("#todo").hide("fast");
+                $("#faño").hide("");
+                $("#fmes").hide("");
+                $("#fdia").show("");
+                $("#todo").show("slow");
+
+
+
+
+
+            } else {
+                if (this.value == "mes") {
+                    $("#todo").hide("fast");
+                    $("#fdia").hide("");
+                    $("#faño").hide("");
+                    $("#fmes").show("");
+
+                    $("#todo").show("slow");
+
+
+                } else {
+                    if (this.value == "año") {
+                        $("#todo").hide("fast");
+                        $("#fmes").hide("");
+                        $("#fdia").hide("");
+                        $("#faño").show("");
+                        $("#todo").show("slow");
+
+
+                    }
+                }
+            }
+
+        });
+        });
+
+    </script>
+
+
+}
