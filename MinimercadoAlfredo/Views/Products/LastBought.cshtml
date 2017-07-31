@@ -13,26 +13,14 @@ else
     <h2 class="text-center">Última Adquisición</h2>
 }
 
+<hr style="color: grey; border-color: grey; margin-top: 0" />
 
-
-<hr style="color:grey;border-color:grey" />
-
-<div class="row">
-    <div class="col-lg-10"></div>
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
-
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
-            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
-            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
-            <li><a href="#">Última adquisición</a></li>
-        </ul>
-    </div>
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="@Url.Action("Index", "Products")" class="btn btn-default">Activos</a>
+    <a href="@Url.Action("Minimum", "Products")" class="btn btn-default">Stock mínimo</a>
+    <a href="@Url.Action("OffProducts", "Products")" class="btn btn-default">Desactivados</a>
+    <a href="@Url.Action("Record", "Products")" class="btn btn-default">Todos</a>
+    <a href="#" class="btn btn-default active">Última compra</a>
 </div>
 <br />
 <h3>Compra N°: @ViewBag.Purchase</h3>

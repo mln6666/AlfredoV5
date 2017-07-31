@@ -9,33 +9,25 @@
    <input id="message" style="display: none" value="@TempData["message"]" />
 }
 
-<h2 class="text-center">Lista de Productos Activos</h2>
-<hr style="color:grey;border-color:grey" />
-
-
 <div class="row">
-    <div class="col-lg-10">
-        <a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success chicle">Agregar Producto</a>
-    </div>    
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
-
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Productos Activos</a></li>
-            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
-            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
-            @if (ViewBag.Purchases != 0)
-            {
-                <li><a href="@Url.Action("LastBought","Products")">Última adquisición</a></li>
-            }
-        </ul>
-    </div>
+    <div class="col-lg-3"><a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success" style="margin-top: 6%">Agregar Producto</a></div>
+    <div class="col-lg-6">
+        <h2 class="text-center">Productos Activos</h2></div>
+    <div class="col-lg-3"></div>
 </div>
-<br />
+<hr style="color: grey; border-color: grey; margin-top: 0"/>
+
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="#" class="btn btn-default active">Activos</a>
+    <a href="@Url.Action("Minimum", "Products")" class="btn btn-default">Stock mínimo</a>
+    <a href="@Url.Action("OffProducts", "Products")" class="btn btn-default">Desactivados</a>
+    <a href="@Url.Action("Record", "Products")" class="btn btn-default">Todos</a>
+    @if (ViewBag.Purchases != 0)
+    {
+        <a href="@Url.Action("LastBought", "Products")" class="btn btn-default">Última compra</a>
+    }
+</div>
+<br/>
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">

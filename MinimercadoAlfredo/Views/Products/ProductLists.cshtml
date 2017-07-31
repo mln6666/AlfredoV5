@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Productos";
+}
+
+<h2 id="title" class="text-center"></h2>
+<hr style="color:grey;border-color:grey" />
+
+@using (Ajax.BeginForm("RedirectList", "Products",
+    new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        UpdateTargetId = "ajaxBeginFormResult",
+        HttpMethod = "GET",
+
+    },
+    new { id = "formpagos" }))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        <div class="btn-group btn-group-justified" data-toggle="buttons" style="display: inline-block">
+            <label class="btn btn-info btn-xs active">
+                <input id="aprobadosfilter" type="radio" name="listproduct" value="1" autocomplete="off">Activos
+            </label>
+
+            <label class="btn btn-info btn-xs">
+                <input type="radio" name="listproduct" value="2" autocomplete="off">Stock mínimo
+            </label>
+
+
+            <label class="btn btn-info btn-xs">
+                <input name="listproduct" type="radio" value="3" autocomplete="off">Desactivados
+            </label>
+
+            <label class="btn btn-info btn-xs">
+                <input type="radio" name="listproduct" value="4" autocomplete="off">Todos
+            </label>
+
+            <label class="btn btn-info btn-xs">
+                <input type="radio" name="listproduct" value="5" autocomplete="off">Última compra
+            </label>
+        </div>
+
+
+    </p>
+}
+
+
+
+<div id="ajaxBeginFormResult"></div>
+
+
+
+
+@section scripts{
+
+    <script @Url.Content("~/Scripts/ListadoPagos.js")></script>
+    <script>
+        $(document).ready(function () {
+            $('#loader').css('display', 'flex');
+            filterSelected = "Aprobados";
+            $('#aprobadosfilter').attr('checked',true);
+            $('#formpagos').submit();
+        });
+    </script>
+}
