@@ -34,19 +34,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th style="width: 20%">
+            <th style="width: 25%">
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
-            <th>
+            <th style="width: 15%">
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
-            <th style="width: 10%">
-                Nro Artículo
-            </th>
-            <th>
-                Costo
-            </th>            
-            <th>
+            <th class="text-center" style="width: 12%">
+                Artículo
+            </th>           
+            <th style="width: 12%">
                 Estado
             </th>
 
@@ -70,9 +67,6 @@
                 </td>
                 <td class="text-center">
                     @Html.DisplayFor(modelItem => item.IdProduct)
-                </td>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.Cost)
                 </td>
                 @if (item.ProductState)
                 {

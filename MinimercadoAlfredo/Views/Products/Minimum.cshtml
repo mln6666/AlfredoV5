@@ -35,20 +35,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th>
+            <th style="width: 30%">
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
             <th>
-                Nro Artículo
-            </th>
-            <th>
-                Costo
+                Artículo
             </th>            
             <th>
-                Stock Disponible
+                Stock
             </th>            
             <th class="text-center" style="width: 13%">Opciones</th>
         </tr>
@@ -69,9 +66,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IdProduct)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
                 </td>
                 @if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERÍA")
                 {
