@@ -65,10 +65,10 @@
                     Cantidad
                 </td>
                 <td class="text-center" style="border-radius: 3px; font-weight: bold">
-                    Descuento (%)
-                </td>
-                <td class="text-center" style="border-radius: 3px; font-weight: bold">
                     Precio
+                </td>
+                <td class="text-center" style="border-radius: 3px; font-weight: bold; width: 17%">
+                    Descuento (%)
                 </td>
                 <td class="text-center" style="border-radius: 3px; font-weight: bold">
                     Subtotal
@@ -100,12 +100,13 @@
                             @item.LineQuantity.ToString("#,###0")
                         </td>
                     }
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.LinePrice)
+                    </td>
                     <td class="text-center" style="width: 15%">
                         @item.LineDiscount.ToString("#,###0")
                     </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.LinePrice)
-                <td class="text-center" style="width: 15%">
+                    <td class="text-center" style="width: 15%">
                         @Html.DisplayFor(modelItem => item.LineTotal)
                     </td>
                 </tr>
@@ -146,7 +147,7 @@
 
     <div class="text-center hidden-print">
        
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                     <a class="btn btn-warning hidden-print" id="impcomprobante" onclick="imprimir1();">
                         Imprimir
                     </a>
