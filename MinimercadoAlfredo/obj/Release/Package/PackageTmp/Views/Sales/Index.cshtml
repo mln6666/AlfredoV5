@@ -7,48 +7,40 @@
 {
     <input id="message" style="display: none" value="@TempData["message"]" />
 }
-
-<h2 class="text-center">Lista de Ventas</h2>
-<hr style="color:grey;border-color:grey" />
-
-
 <div class="row">
-    <div class="col-lg-10">
-        <a href="@Url.Action("CreateSale", "Sales")" class="btn btn-success chicle">Agregar Venta</a>
+    <div class="col-lg-3"><a href="@Url.Action("CreateSale", "Sales")" class="btn btn-success" style="margin-top: 6%">Agregar Venta</a></div>
+    <div class="col-lg-6">
+        <h2 class="text-center">Lista de Ventas</h2>
     </div>
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
+    <div class="col-lg-3"></div>
+</div>
+<hr style="color: grey; border-color: grey; margin-top: 0" />
 
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Todas</a></li>
-            <li><a href="@Url.Action("Pending","Sales")">Pendientes</a></li>
-            <li><a href="@Url.Action("Finalized","Sales")">Finalizadas</a></li>
-        </ul>
-    </div>
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="#" class="btn btn-default active">Todas</a>
+    <a href="@Url.Action("Pending","Sales")" class="btn btn-default">Pendientes</a>
+    <a href="@Url.Action("Finalized","Sales")" class="btn btn-default">Finalizadas</a>
 </div>
 <br />
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
     <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-        <th>
+        <th style="width: 10%">
            Nº Venta
         </th>
-        <th>
+        <th style="width: 14%">
             @Html.DisplayNameFor(model => model.SaleDate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Customer.CustomerName)
         </th>
-        <th>
+        <th class="text-center" style="width: 13%">
             @Html.DisplayNameFor(model => model.SaleTotal)
         </th>
-        <th>
+        <th class="text-center"style="width: 12%">
             Estado
         </th>
-        <th class="text-center" style="width:120px">
+        <th class="text-center" style="width: 14%">
             Opciones
         </th>
     </tr>
@@ -66,13 +58,13 @@
                         @Html.DisplayFor(modelItem => item.SaleDate.Day)/@Html.DisplayFor(modelItem => item.SaleDate.Month)/@Html.DisplayFor(modelItem => item.SaleDate.Year)
                     </div>
                 </td>
-                <td width="350px">
+                <td>
                     @Html.DisplayFor(modelItem => item.Customer.CustomerName)
                 </td>
-                <td width="100px">
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.SaleTotal)
                 </td>
-                <td width="100px">
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.SaleState)
                 </td>
                 <td class="text-center">

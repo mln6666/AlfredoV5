@@ -4,13 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="text-center">Lista de Marcas</h2>
-<hr style="color:grey;border-color:grey" />
-
-<div>
-    <a href="@Url.Action("Create", "Trademarks")" class="btn btn-success dialog-window1">Agregar Marca</a>
+<div class="row">
+    <div class="col-lg-3"><a href="@Url.Action("Create", "Trademarks")" class="btn btn-success dialog-window1" style="margin-top: 6%">Agregar Marca</a></div>
+    <div class="col-lg-6">
+        <h2 class="text-center">Lista de Marcas</h2>
+    </div>
+    <div class="col-lg-3"></div>
 </div>
-<br/>
+<hr style="color:grey; border-color: grey; margin-top: 0" />
+
 <table id="tabla" class="table table-condensed   table-striped table-bordered">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">

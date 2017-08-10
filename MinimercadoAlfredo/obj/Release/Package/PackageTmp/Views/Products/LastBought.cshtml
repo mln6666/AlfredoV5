@@ -13,28 +13,15 @@ else
     <h2 class="text-center">Última Adquisición</h2>
 }
 
+<hr style="color: grey; border-color: grey; margin-top: 0" />
 
-
-<hr style="color:grey;border-color:grey" />
-
-<div class="row">
-    <div class="col-lg-10"></div>
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
-
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
-            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
-            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
-            <li><a href="#">Última adquisición</a></li>
-        </ul>
-    </div>
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="@Url.Action("Index", "Products")" class="btn btn-default">Activos</a>
+    <a href="@Url.Action("Minimum", "Products")" class="btn btn-default">Stock mínimo</a>
+    <a href="@Url.Action("OffProducts", "Products")" class="btn btn-default">Desactivados</a>
+    <a href="@Url.Action("Record", "Products")" class="btn btn-default">Todos</a>
+    <a href="#" class="btn btn-default active">Última compra</a>
 </div>
-<br />
 <h3>Compra N°: @ViewBag.Purchase</h3>
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
@@ -63,7 +50,7 @@ else
 
                         if (item.IdTrademark != null)
                         {
-                            x = x + " - " + item.Trademark.TrademarkName;
+                            x = x + " | " + item.Trademark.TrademarkName;
                         }
 
                         <input type="number" name="productid" value="@item.IdProduct" class="hidden" />
@@ -74,10 +61,10 @@ else
                     @Html.DisplayFor(modelItem => item.UploadDate)
                 </td>
                 <td>
-                    <input id="@("cost" + item.IdProduct)" type="number" value="@item.Cost" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center" />
+                    <input id="@("cost" + item.IdProduct)" type="text" value="@item.Cost.Value.ToString("#,##0.00")" name="productcost" readonly="readonly" style="border-color: transparent; background-color: transparent; width: 100%; text-align: center" />
                 </td>
                 <td>
-                    <input id="@("wsp" + item.IdProduct)" type="number" value="@item.WholeSalePrice" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center" />
+                    <input id="@("wsp" + item.IdProduct)" type="text" value="@item.WholeSalePrice.Value.ToString("#,##0.00")" name="wholesaleprice" class="panel-info text-center form-control fina" onchange="ValidPrice(@item.IdProduct)" style="width: 100%; text-align: center" />
                 </td>
             </tr>
                         }
@@ -98,7 +85,7 @@ else
         }
     </div>
     <div class="col-lg-4 text-center">
-        <button id="save" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+        <button id="save" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
     </div>
 </div>
 
@@ -121,8 +108,8 @@ else
                 $('#save').removeClass("disabled");
             }
 
-            var cost = $('#cost' + idproduct).val();
-            var wsp = $('#wsp' + idproduct).val();
+            var cost = parseFloat($('#cost' + idproduct).val()).toFixed(2);
+            var wsp = parseFloat($('#wsp' + idproduct).val()).toFixed(2);
 
             if (wsp != "") {
                 if (cost > wsp) {
@@ -141,7 +128,7 @@ else
             var priceswsp = [];
 
             $('input[name="productid"]').map(function () { productids.push(parseFloat(this.value)) });
-            $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value)) });
+            $('input[name="wholesaleprice"]').map(function () { priceswsp.push(parseFloat(this.value).toFixed(2)) });
 
             for (var i = 0; i < productids.length; i++) {
                 product = {

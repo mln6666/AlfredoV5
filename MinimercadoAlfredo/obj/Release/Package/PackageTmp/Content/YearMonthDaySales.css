@@ -1,0 +1,79 @@
+﻿.sinbedit {
+           border-left: none;
+           border-right: none;
+           border-top: none;
+           border-bottom-color: burlywood;
+       }
+  .sinbnew {
+           border-left: none;
+           border-right: none;
+           border-top: none;
+           border-bottom-color: blue;
+       }
+  .new2 {
+          
+     background: none!important;
+
+       }
+ .sinb {
+           border-left: none;
+           border-right: none;
+           border-top: none;
+           border-bottom-color: lightsteelblue;
+     background: none!important;
+
+       }
+ .fina{
+     height: initial!important;
+         padding-top: 2px!important;
+    padding-bottom: 2px!important;}
+   input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+            appearance: none !important;
+            margin: 0 !important;
+        }
+
+      .cabecera {
+            font-size: medium !important;
+            font-weight: bold !important;
+            font-style: italic !important;
+          color: #1d2121 !important;
+        }
+      .detalles {
+            font-weight: bold !important;
+          color: #1d2121 !important;
+        }
+      .gradcelesteosc {
+    /*background:#efa631;*/
+    background: -webkit-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+}
+      .gradcelestecla {
+    background: -webkit-linear-gradient(top, rgba(118,168,207,1) 0%, rgba(242,242,242,1) 0%, rgba(118,168,207,1) 100%);
+   
+}
+     
+        .ftb{background: whitesmoke !important}
+        .ftot{background: khaki !important}
+        .tittot{  font-size: medium !important;
+            font-weight: bold !important;
+          color: #1d2121 !important;}
+
+        .table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid rgba(0, 21, 43, 0.45);}
+.table-bordered {border-top: 1px solid rgba(0, 21, 43, 0.45);}
+    .sinborde{border: none!important}
+
+    .noseve{display: none}
+    table{ margin-top: 5px!important;
+           margin-bottom: 5px!important;
+    }
+    .fnew{ background: powderblue !important;}
+
+    .negrita{ font-weight: bold;}
+     .enclist {
+    /*background:#efa631;*/
+    background: -webkit-linear-gradient(top, rgba(147,206,222,1) 0%, rgba(117,189,209,1) 41%, rgba(73,165,191,1) 100%);
+         font-weight: bold;color: #2d2d2d;
+}

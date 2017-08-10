@@ -140,31 +140,12 @@
         }
     }
 
-    $('#createCustomer').submit(function (e) {
+    $('#createCustomer').submit(function(e) {
         var x = this;
         e.preventDefault();
         if (IsValidItem & IsValidItem2 & IsValidItem3) {
-            bootbox.confirm({
-                title: "Confirmación",
-                message: "Está por agregar un nuevo Cliente",
-                buttons: {
-                    confirm: {
-                        label: "Confirmar",
-                        className: "btn-success"
-                    },
-                    cancel: {
-                        label: "Cancelar",
-                        className: "btn-primary"
-                    }
-
-                },
-                callback: function (result) {
-                    if (result) {
-                        x.submit();
-                    }
-                }
-            });
+            x.submit();
         }
-    })
+    });
 </script>
 }

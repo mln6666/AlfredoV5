@@ -7,10 +7,10 @@
     <input id="view" style="display: none" value="@TempData["View"]" />
 }
 
-<h3 class="text-center" style="color:red">¿Está seguro que desea eliminar la siguiente venta?</h3>
+<h2 class="text-center" style="color:red">¿Está seguro que desea eliminar la siguiente venta?</h2>
 <div>
 
-    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar" style="margin-top: 3%">
+    <table class="table table-condensed   table-striped table-bordered table-condensed resaltar" style="margin-top: 2%">
         <thead>
         <tr class="text-center" style="color: #2c3e50; background-color: lightblue">
             <th class="text-left" style="border-radius: 3px">
@@ -60,16 +60,16 @@
             <th class="text-left" style="border-radius: 3px">
                 Producto
             </th>
-            <th class="text-left" style="border-radius: 3px">
+            <th class="text-center" style="border-radius: 3px">
                 Cantidad
             </th>
-            <th class="text-left" style="border-radius: 3px">
+            <th class="text-center" style="border-radius: 3px">
                 Descuento
             </th>
-            <th class="text-left" style="border-radius: 3px;">
+            <th class="text-center" style="border-radius: 3px;">
                 Precio
             </th>
-            <th class="text-left" style="border-radius: 3px;">
+            <th class="text-center" style="border-radius: 3px;">
                 Subtotal
             </th>
 
@@ -91,16 +91,26 @@
                         &nbsp;@Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                     </td>
                 }
-                <td class="text-left">
-                    @Html.DisplayFor(modelItem => item.LineQuantity)
-                </td>
-                <td class="text-left">
+                
+                @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+                {
+                    <td class="text-center">
+                        @item.LineQuantity.ToString("#,###0.000")
+                    </td>
+                }
+                else
+                {
+                    <td class="text-center">
+                        @item.LineQuantity.ToString("#,###0")
+                    </td>
+                }
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LineDiscount)
                 </td>
-                <td class="text-left">
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LinePrice)
                 </td>
-                <td class="text-left">
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.LineTotal)
                 </td>
             </tr>

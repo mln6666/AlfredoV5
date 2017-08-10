@@ -11,13 +11,13 @@
         <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
             <th class="text-center">
                 N°
-<th>
+            <th style="width: 24%">
                 Cliente
             </th>
-            <th>
+            <th style="width: 25%">
                 Dirección
             </th>
-            <th class="text-center">
+            <th class="text-center" style="width: 13%">
                 CUIT/CUIL
             </th>
             <th style="width: 12%">
@@ -35,46 +35,42 @@
                 @Html.DisplayFor(model => model.Sale.IdSale)
             </td>
             <td>
-                @if (Model.Sale.IdCustomer == null)
-                {  <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
+                <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
                     <option value="0">Seleccionar cliente</option>
                     @foreach (var item in Model.Customers)
                     {
-                       
-                            <option value="@item.IdCustomer">@item.CustomerName</option>
-                        
+
+                        <option value="@item.IdCustomer">@item.CustomerName</option>
+
                     }
-                </select> }
-                else
-                { <select class="js-example-basic-single inputForm" id="customerid" onchange="changecust(value)" style="font: small-caption; width: 100%; height: 38px; background-color: beige;">
-                    <option value="@Model.Sale.IdCustomer">@Model.Sale.Customer.CustomerName</option>
-                    @foreach (var item in Model.Customers)
-                    {
-                        if (item.IdCustomer != Model.Sale.Customer.IdCustomer)
-                        {
-                            <option value="@item.IdCustomer">@item.CustomerName</option>
-                        }
-                    }
-                </select> }
-               
+                </select>
+
 
             </td>
+
             <td>
                 @if (Model.Sale.IdCustomer == null)
-                {                <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%" />
+                {
+                    <input type="text" id="customeraddress" class="panel-info form-control inputForm" style="max-width: 100%"/>
                 }
                 else
-                { <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" /> }
+                {
+                    <input type="text" id="customeraddress" value="@Model.Sale.SaleAddress" class="panel-info form-control inputForm" style="max-width: 100%" />
+                }
 
-               
+
             </td>
+
             <td style="width: 13%" class="text-center">
                 @if (Model.Sale.IdCustomer == null)
-                {                <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                {
+                    <input type="text" id="customercuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center"/>
                 }
                 else
-                {  <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" /> }
-               
+                {
+                    <input type="text" id="customercuil" value="@Model.Sale.Customer.CuitCuil" readonly="readonly" style="border-color: transparent; width: 100%; text-align: center" />
+                }
+
             </td>
             <td style="color: black; font-weight: bold">
                 <select class="panel-info form-control inputForm" id="salestate" style="padding: initial">
@@ -148,7 +144,7 @@
                 <input type="text" class="panel-info text-center form-control fina" value="0.00" id="linetotal" readonly="readonly" style="width: 100%; font-weight: bold" />
             </td>
             <td class="text-center" style="width: 2%; background-color: #a0cee8">
-                <button type="button" id="add" class="btn btn-success btn-xs" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
+                <button type="button" id="add" class="btn btn-success btn-sm" value="Agregar" style="bottom: auto"><span class="glyphicon glyphicon-plus"></span></button>
             </td>
         </tr>
 
@@ -160,7 +156,7 @@
                     var x = "";
                     if (item.Product.IdTrademark != null)
                     {
-                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " - " + item.Product.Trademark.TrademarkName;
+                        x = item.IdProduct.ToString() + " - " + item.Product.ProductDescription + " | " + item.Product.Trademark.TrademarkName;
                     }
                     else
                     {
@@ -171,17 +167,26 @@
                     <input type="text" value="@x" style="border: none; background-color: transparent; width: 100%; text-align: left; margin-left: 2%" readonly="readonly"/>
                 }
             </td>
+            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+            {
+                <td class="text-center">
+                    <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity.ToString("#,##0")" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)" />
+                </td>
+            }
             <td class="text-center">
-                <input id="@("itemquantity" + item.IdProduct)" name="productquantity" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LineQuantity" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
-            </td>
-            <td class="text-center">
-                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemprice" + item.IdProduct)" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" value="@item.LinePrice.ToString("#,##0.00")" min="1" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center" >
-                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
+                <input id="@("itemdiscount" + item.IdProduct)" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" maxlength="3" value="@item.LineDiscount.ToString("#0")" min="1" max="100" onchange="CalcSubtotal(@item.IdProduct); ValidLine(@item.IdProduct);" oninput="CalcSubtotal(@item.IdProduct)" onfocus="CalcSubtotal(@item.IdProduct)"/>
             </td>
             <td class="text-center">
-                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal" readonly="readonly"/>
+                <input id="@("itemsubtotal" + item.IdProduct)" name="productsubtotal" style="text-align: center; width: 100%; font-weight: bold" type="text" class="panel-info text-center form-control fina" value="@item.LineTotal.ToString("#,##0.00")" readonly="readonly"/>
             </td>
             <td class="text-center" style="width: 2%">
                 <button id="@("elim" + item.IdProduct)" class="btn btn-danger btn-xs" onclick="deleteProduct(@item.IdProduct)"><span class="glyphicon glyphicon-remove"></span></button>
@@ -195,7 +200,7 @@
         <td class="sinborde"></td>
         <th class="text-center" style="background: khaki">TOTAL</th>
         <th class="text-center" style="text-align: center; background-color: khaki">
-            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal" readonly="readonly" style="font-weight: bold"/>
+            <input type="text" id="totalgral" class="panel-info text-center form-control fina" value="@Model.Sale.SaleTotal.Value.ToString("#,##0.00")" readonly="readonly" style="font-weight: bold"/>
         </th>
         <td class="sinborde"></td>
 
@@ -242,6 +247,10 @@
         $(document).ready(function() {
             $(".js-example-basic-single").select2();
 
+            if (@Model.Sale.IdCustomer != null) {
+                $('#customerid').val(@Model.Sale.IdCustomer).trigger('change');
+            }
+
             if ($('#customerid').val() != 0) {
                 changecust(@Model.Sale.IdCustomer);
             }
@@ -285,7 +294,7 @@
             options.data = { "pro": $("#linedescription").val() };
             options.dataType = "json";
             options.success = function(data) {
-                document.getElementById("lineprice").value = data;
+                document.getElementById("lineprice").value = parseFloat(data).toFixed(2);
                 var price = parseFloat($('#lineprice').val());
                 var quantity = parseFloat($('#linequantity').val());
                 var discount = parseFloat($('#linediscount').val());
@@ -324,11 +333,15 @@
                     $('#spanquantity').text("");
                 }
 
-                if ($('#linediscount').val() > 100 | $('#linediscount').val() == '') {
+                if ($('#linediscount').val() > 100 ) {
                     isAllValid = false;
                     $('#spandiscount').text("Debe ser menor");
                     document.getElementById("linetotal").value = "0.00";
-                } else {
+                } else
+                if ($('#linediscount').val() == '') {
+                    $('#linediscount').val(0);
+                }else
+                {
                     $('#spandiscount').text("");
                 }
 
@@ -406,7 +419,7 @@
                     var description;
 
                     if (data.trademark != "") {
-                        description = idproduct.toString() + " - " + data.product + " - " + data.trademark;
+                        description = idproduct.toString() + " - " + data.product + " | " + data.trademark;
                     } else {
                         description = idproduct.toString() + " - " + data.product;
                     }
@@ -419,7 +432,7 @@
                 $('#itemquantity' + idproduct).val($('#linequantity').val());
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemprice' + idproduct + '" name="productprice" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="1" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
-                $('#itemprice' + idproduct).val($('#lineprice').val());
+                $('#itemprice' + idproduct).val(parseFloat($('#lineprice').val()).toFixed(2));
 
                 $('#inserttd' + idproduct).append('<td class="text-center"><input id="itemdiscount' + idproduct + '" name="productdiscount" class="panel-info text-center form-control fina" style="text-align: center; width: 100%" type="number" min="0" max="100" onchange="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" oninput="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" onfocus="CalcSubtotal(' + idproduct + '); ValidLine(' + idproduct + ');" /></td>');
                 $('#itemdiscount' + idproduct).val($('#linediscount').val());

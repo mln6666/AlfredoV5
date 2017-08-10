@@ -62,16 +62,16 @@
                 </td>
 
                 <td class="text-center" style="border-radius: 3px; font-weight: bold">
-                    Cant.
+                    Cantidad
                 </td>
                 <td class="text-center" style="border-radius: 3px; font-weight: bold">
-                    Desc.
+                    Precio
+                </td>
+                <td class="text-center" style="border-radius: 3px; font-weight: bold; width: 17%">
+                    Descuento (%)
                 </td>
                 <td class="text-center" style="border-radius: 3px; font-weight: bold">
-                    P. Unit.
-                </td>
-                <td class="text-center" style="border-radius: 3px; font-weight: bold">
-                    Subtotal(+)
+                    Subtotal
                 </td>
             </tr>
         </thead>
@@ -85,15 +85,28 @@
                     <td style="width: 35%">
                         @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
                     </td>
-                    <td class="text-center" style="width: 10%">
+                    @*<td class="text-center" style="width: 10%">
                         @Html.DisplayFor(modelItem => item.LineQuantity)
-                    </td>
-                    <td class="text-center" style="width: 10%">
-                        @Html.DisplayFor(modelItem => item.LineDiscount)
-                    </td>
+                    </td>*@
+                    @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+                    {
+                        <td class="text-center" style="width: 10%">
+                            @item.LineQuantity.ToString("#,###0.000")
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center" style="width: 10%">
+                            @item.LineQuantity.ToString("#,###0")
+                        </td>
+                    }
                     <td class="text-center">
                         @Html.DisplayFor(modelItem => item.LinePrice)
-                <td class="text-center" style="width: 20%">
+                    </td>
+                    <td class="text-center" style="width: 15%">
+                        @item.LineDiscount.ToString("#,###0")
+                    </td>
+                    <td class="text-center" style="width: 15%">
                         @Html.DisplayFor(modelItem => item.LineTotal)
                     </td>
                 </tr>
@@ -134,7 +147,7 @@
 
     <div class="text-center hidden-print">
        
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                     <a class="btn btn-warning hidden-print" id="impcomprobante" onclick="imprimir1();">
                         Imprimir
                     </a>

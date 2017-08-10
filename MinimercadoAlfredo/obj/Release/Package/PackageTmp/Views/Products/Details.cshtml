@@ -5,7 +5,7 @@
 }
 
 <div>
-    
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Category.CategoryName)
@@ -60,18 +60,53 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UploadDate)
+            @Html.DisplayFor(model => model.UploadDate) <text style="color: blue; display: inline-flex">(*)</text>
         </dd>
 
         <dt>
-            Stock
+            Stock Real
         </dt>
 
         @if (Model.Stock != null)
         {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Stock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Stock.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
             <dd>
-                @Html.DisplayFor(model => model.ParcialStock)
+                <p>Sin especificar</p>
             </dd>
+        }
+
+        <dt>
+            Stock Disponible
+        </dt>
+
+        @if (Model.ParcialStock != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.ParcialStock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.ParcialStock.Value.ToString("#,##0")
+                </dd>
+            }
         }
         else
         {
@@ -86,10 +121,20 @@
 
         @if (Model.Minimum != null)
         {
-            <dd>
-                @Html.DisplayFor(model => model.Minimum)
-            </dd>
-        }else
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Minimum)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Minimum.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
         {
             <dd>
                 <p>Sin especificar</p>
@@ -115,6 +160,7 @@
 
     </dl>
 </div>
+<text style="color: blue; font-size: smaller">* La fecha se actualiza cuando el producto cambia cualquier valor a excepción de su stock</text>
 <hr style="color:grey;border-color:lightgray" />
 <div class="form-actions no-color text-center">
     <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>

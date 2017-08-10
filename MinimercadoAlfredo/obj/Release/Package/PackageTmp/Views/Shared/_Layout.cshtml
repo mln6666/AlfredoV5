@@ -97,6 +97,8 @@
                             <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Resúmenes", "Index", "Informations")</li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -116,7 +118,7 @@
                         <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
                             <li style="font-weight: bold;">@Html.ActionLink("Nuevo", "CreateProduct", "Products")</li>
                             <li class="divider"></li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Listado", "Index", "Products")</li>
+                            <li style="font-weight: bold;">@Html.ActionLink("Listados", "Index", "Products")</li>
                             <li class="divider"></li>
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@>Catálogos</a>
@@ -145,7 +147,7 @@
                     </li>
                     <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
                     <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
-                    <li>@Html.ActionLink("Usuarios", "Index", "Users")</li>
+                    @*<li>@Html.ActionLink("Usuarios", "Index", "Users")</li>*@
 
                     
 

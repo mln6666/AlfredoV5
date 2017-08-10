@@ -12,18 +12,18 @@ namespace MinimercadoAlfredo
             ScriptBundle scriptBundle = new ScriptBundle("~/js");
             string[] scriptArray =
             {
-                "~/Scripts/jquery-1.12.4.js",
+                
                 "~/Scripts/jquery-1.12.4.min.js",
-                "~/Scripts/jquery-ui-1.12.0.js",
                 "~/Scripts/jquery-ui-1.12.0.min.js",
-                "~/Scripts/jquery.unobtrusive-ajax.js",
-                "~/Scripts/bootstrap.js",
-                "~/Scripts/datatables/jquery.datatables.js",
-                "~/Scripts/datatables/datatables.bootstrap.js",
+                "~/Scripts/jquery.unobtrusive-ajax.min.js",
                 "~/Scripts/bootstrap.min.js",
-                "~/Scripts/respond.js",
-                "~/Scripts/bootbox.js",
-                "~/scripts/toastr.js","~/Scripts/bootstrap-select.min.js"
+                "~/Scripts/datatables/jquery.datatables.min.js",
+                "~/Scripts/datatables/datatables.bootstrap.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.min.js",
+                "~/Scripts/bootbox.min.js",
+                "~/Scripts/toastr.min.js",
+                "~/Scripts/bootstrap-select.min.js"
             };
 
             scriptBundle.Include(scriptArray);
@@ -42,10 +42,10 @@ namespace MinimercadoAlfredo
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-spacelab.css",
-                      "~/Content/datatables/css/datatables.bootstrap.css",
+                      "~/Content/datatables/css/datatables.bootstrap.min.css",
                       "~/content/toastr.css",
-                      "~/Content/site.css", "~/Content/bootstrap-select.css",
-                       "~/Content/bootstrap-select.css.map"));
+                      "~/Content/site.css", "~/Content/bootstrap-select.min.css",
+                       "~/Content/bootstrap-select.min.css.map"));
         }
     }
 }

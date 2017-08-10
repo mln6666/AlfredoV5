@@ -8,54 +8,46 @@
 {
    <input id="message" style="display: none" value="@TempData["message"]" />
 }
-<h2 class="text-center">Lista de Productos Activos</h2>
-<hr style="color:grey;border-color:grey" />
-
 
 <div class="row">
-    <div class="col-lg-10">
-        <a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success chicle">Agregar Producto</a>
-    </div>    
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
-
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Productos Activos</a></li>
-            <li><a href="@Url.Action("Minimum","Products")">Productos con Stock mínimo</a></li>
-            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
-            @if (ViewBag.Purchases != 0)
-            {
-                <li><a href="@Url.Action("LastBought","Products")">Última adquisición</a></li>
-            }
-        </ul>
-    </div>
+    <div class="col-lg-3"><a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success" style="margin-top: 6%">Agregar Producto</a></div>
+    <div class="col-lg-6">
+        <h2 class="text-center">Productos Activos</h2></div>
+    <div class="col-lg-3"></div>
 </div>
-<br />
+<hr style="color: grey; border-color: grey; margin-top: 0"/>
+
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="#" class="btn btn-default active">Activos</a>
+    <a href="@Url.Action("Minimum", "Products")" class="btn btn-default">Stock mínimo</a>
+    <a href="@Url.Action("OffProducts", "Products")" class="btn btn-default">Desactivados</a>
+    <a href="@Url.Action("Record", "Products")" class="btn btn-default">Todos</a>
+    @if (ViewBag.Purchases != 0)
+    {
+        <a href="@Url.Action("LastBought", "Products")" class="btn btn-default">Última compra</a>
+    }
+</div>
+<br/>
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th>
+            <th style="width: 30%">
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
-            <th style="width:100px">
-                Nro Artículo
+            <th class="text-center" style="width: 12%">
+                Artículo
             </th>
-            <th style="width:70px">
+            <th class="text-center" style="width: 14%">
                 Stock
             </th>
-            
 
-            <th class="text-center" style="width:130px">
+            <th class="text-center" style="width: 14%">
                 Opciones
             </th>
         </tr>
@@ -64,7 +56,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @if (item.Stock >= item.Minimum | item.Minimum == null)
+                @if (item.ParcialStock >= item.Minimum | item.Minimum == null)
                 {
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
@@ -73,17 +65,26 @@
                         @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
                    
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
-                        </td>
-                    
                     <td>
+                        @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
+                    </td>
+                    
+                    <td class="text-center">
                         @Html.DisplayFor(modelItem => item.IdProduct)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ParcialStock)
-                    </td>
-                    
+                    if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERIA" | item.Category.CategoryName == "Fiambres" | item.Category.CategoryName == "FIAMBRES")
+                    {
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.ParcialStock)
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-center">
+                            @item.ParcialStock.Value.ToString("#,##0")
+                        </td>
+                    }
+
                 }
                 else
                 {
@@ -96,11 +97,14 @@
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                     </td>
-                    <td style="color:red">
+                    <td class="text-center" style="color: red">
                         @Html.DisplayFor(modelItem => item.IdProduct)
                     </td>
-                    <td style="color: red">
-                        @Html.DisplayFor(modelItem => item.ParcialStock)
+                    <td class="text-center" style="color: red">
+                        @item.Stock.Value.ToString("#,##0")
+                    </td>
+                    <td class="text-center" style="color: red">
+                        @item.ParcialStock.Value.ToString("#,##0")
                     </td>
                         
                 }
@@ -119,7 +123,7 @@
 
 <div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 90%; left: 4%">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title text-center">Detalle de Producto</h4>

@@ -31,13 +31,10 @@
         <div class="col-md-10">
             <div>
                 <select class="js-example-basic-single" id="IdTrademark" name="IdTrademark" onchange="Marca()" style="font: small-caption; width: 280px; height: 38px; background-color: beige;">
-                    <option value="@Model.IdTrademark">@Model.Trademark.TrademarkName</option>
+                    <option value="0">Producto sin Marca</option>
                     @foreach (var item in ViewBag.Trademarks)
                     {
-                        if (item.IdTrademark != Model.IdTrademark)
-                        {
-                            <option value="@item.IdTrademark">@item.TrademarkName</option>
-                        }
+                        <option value="@item.IdTrademark">@item.TrademarkName</option>
                     }
                 </select>
                 <span id="spantrademark" style="color:red"></span>
@@ -119,7 +116,7 @@
         <div class="col-md-offset-2 col-md-10">
             <a href="@Url.Action("Index", "Products")" class="btn btn-primary"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Volver</a>
 
-            <button type="button" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk"></span></button>
+            <button type="button" id="botonGuardar" class="btn btn-success">Guardar &nbsp;<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span></button>
         </div>
     </div>
 </div>
@@ -129,13 +126,14 @@
     <script>
         $(document).ready(function() {
             $(".js-example-basic-single").select2();
+
+            $('#IdTrademark').val(@Model.IdTrademark).trigger('change');
         });
 
         var validcost = true;
         var optionstate;
         var IsValidItem = true;
         var IsValidItem2 = true;
-        var IsValidItem3 = true;
 
         function category() {
             if ($('#ProductDescription').val() != "") {
@@ -180,14 +178,6 @@
             if ($('#ProductDescription').val() != "") {
                 DescExistente();
             }
-
-            if ($('#IdTrademark').val() == 0) {
-                $('#spantrademark').text("Debe seleccionar una Marca");
-                IsValidItem3 = false;
-            } else {
-                IsValidItem3 = true;
-                $('#spantrademark').text("");
-            }
         }
 
         function ValidCost() {
@@ -214,7 +204,7 @@
         //BOTÓN GUARDAR PRODUCTO
 
         $('#botonGuardar').click(function() {
-            if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
+            if (validcost & IsValidItem & IsValidItem2) {
 
                 bootbox.confirm({
                     title: "Confirmación",

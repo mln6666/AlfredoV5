@@ -10,10 +10,10 @@
 @*///////////////////////////*@
 
 
-<h3 class="text-center hidden-print" style="margin-bottom: 5px;">
-    Baja productos
-</h3>
-
+<h2 class="text-center hidden-print" style="margin-bottom: 5px;">
+    Baja de Productos
+</h2>
+<hr style="color: grey; border-color: grey" />
 <legend style="margin-bottom: 2px;">
     Productos a dar de baja
 </legend>
@@ -32,9 +32,7 @@
             <th class="text-center">
                 Stock Posterior
             </th>
-            <th class="text-center">
-                Acción
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="last">
@@ -43,7 +41,14 @@
             <option value="0">Seleccionar Producto...</option>
             @foreach (var item in ViewBag.Products)
             {
-                <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                if (item.IdTrademark != null)
+                {
+                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+                }
+                else
+                {
+                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                }
             }
         </select>
         <input type="hidden" id="shadow" value="">
@@ -62,7 +67,7 @@
 
     </td>
     <td class="text-center" style="background: #a0cee8">
-        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />Agregar
+        <button type="button" id="add" class="btn btn-success btn-sm " value="Agregar" style="bottom:auto" />
         <span class="glyphicon glyphicon-plus"></span>
     </td>
   
@@ -310,7 +315,7 @@
                         $row.append($('<td class="text-center"></td>').html(val.LinePrice));
                         $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
                         $row.append($('<td class="text-center"></td>').html(val.LineTotal));
-                        var $remove = $('<a href="#">Eliminar</a>');
+                        var $remove = $('<a href="#"><button type="button" class="btn btn-danger btn-xs" style="bottom: auto"><span class="glyphicon glyphicon-remove"></span></button></a>');
                         $remove.click(function(e) {
                             e.preventDefault();
                             orderItems.splice(i, 1);

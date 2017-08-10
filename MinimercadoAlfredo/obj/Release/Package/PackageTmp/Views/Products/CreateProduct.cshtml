@@ -141,7 +141,6 @@
         var optionstate;
         var IsValidItem;
         var IsValidItem2;
-        var IsValidItem3;
 
         function category() {
             if ($('#ProductDescription').val() != "") {
@@ -187,14 +186,6 @@
         function Marca() {
             if ($('#ProductDescription').val() != "") {
                 DescExistente();
-            }
-
-            if ($('#IdTrademark').val() == 0) {
-                $('#spantrademark').text("Debe seleccionar una Marca.");
-                IsValidItem3 = false;
-            } else {
-                IsValidItem3 = true;
-                $('#spantrademark').text("");
             }
         }
 
@@ -287,7 +278,7 @@
 
         $('#botonGuardar').click(function () {
 
-            if (validcost & IsValidItem & IsValidItem2 & IsValidItem3) {
+            if (validcost & IsValidItem & IsValidItem2) {
 
                 bootbox.confirm({
                     title: "Confirmación",
@@ -347,9 +338,6 @@
                 }
                 if ($('#ProductDescription').val() == "") {
                     $('#spandescexistente').text("Debe ingresar la descripción del Producto.");
-                }
-                if ($('#IdTrademark').val() == 0) {
-                    $('#spantrademark').text("Debe seleccionar una Marca.");
                 }
             }
         });

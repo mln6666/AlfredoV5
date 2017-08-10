@@ -8,7 +8,7 @@
     <script type="text/javascript"> var id = null; function openWindow() { var pnl = $get("pnl"); if (pnl != null) { pnl.style.left = "50px"; pnl.style.top = "50px"; id = setTimeout("movePanel();", 100); } } </script>
 </head>
 <h3 class="text-center" style="color: red; margin-top: 1%">¿Está seguro de eliminar el siguiente Producto?</h3>
-<text style="margin-top: 4%; font-weight: bold">IMPORTANTE</text><text style="margin-top: 4%">: Al eliminar un producto, éste desaparecerá de todas las compras y ventas que haya realizado pero no alterará los valores de sus totales si no son modificadas. Se recomienda eliminar este producto sólo si las compras y ventas en las que aparece no volverán a ser alteradas.</text>
+@*<text style="margin-top: 4%; font-weight: bold">IMPORTANTE</text><text style="margin-top: 4%">: Al eliminar un producto, éste desaparecerá de todas las compras y ventas que haya realizado pero no alterará los valores de sus totales si no son modificadas. Se recomienda eliminar este producto sólo si las compras y ventas en las que aparece no volverán a ser alteradas.</text>*@
 
 <div style="margin-top: 3%">
     <dl class="dl-horizontal">
@@ -25,7 +25,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>        
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
         </dt>
@@ -63,12 +63,82 @@
             @Html.DisplayFor(model => model.UploadDate)
         </dd>
         <dt>
-            Stock
+            Stock Real
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Stock)
-        </dd>
+        @if (Model.Stock != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Stock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Stock.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
+
+        <dt>
+            Stock Disponible
+        </dt>
+
+        @if (Model.ParcialStock != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.ParcialStock)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.ParcialStock.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Minimum)
+        </dt>
+
+        @if (Model.Minimum != null)
+        {
+            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <dd>
+                    @Html.DisplayFor(model => model.Minimum)
+                </dd>
+            }
+            else
+            {
+                <dd>
+                    @Model.Minimum.Value.ToString("#,##0")
+                </dd>
+            }
+        }
+        else
+        {
+            <dd>
+                <p>Sin especificar</p>
+            </dd>
+        }
 
         <dt>
             Estado
@@ -79,7 +149,8 @@
             <dd>
                 <text class="text-success">Activo</text>
             </dd>
-        }else
+        }
+        else
         {
             <dd>
                 <text class="text-danger">Desactivado</text>
@@ -87,16 +158,42 @@
         }
 
     </dl>
-    <hr style="color:grey;border-color:lightgray" />
-    @using (Html.BeginForm())
+    <hr style="color: grey; border-color: lightgray"/>
+    @using (Html.BeginForm("Delete", "Products", null, FormMethod.Post, new {id = "deleteProduct"}))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color text-center">
             <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-danger" >Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            <button type="submit" class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
         </div>
     }
 
-    
+
 </div>
+
+<script>
+    $('#deleteProduct').submit(function(e) {
+        var x = this;
+        e.preventDefault();
+        bootbox.confirm({
+            title: "Confirmación",
+            message: "Está por eliminar un producto. ¿Continuar?",
+            buttons: {
+                confirm: {
+                    label: "Eliminar",
+                    className: "btn-danger"
+                },
+                cancel: {
+                    label: "Cancelar",
+                    className: "btn-primary"
+                }
+            },
+            callback: function(result) {
+                if (result) {
+                    x.submit();
+                }
+            }
+        });
+    });
+</script>

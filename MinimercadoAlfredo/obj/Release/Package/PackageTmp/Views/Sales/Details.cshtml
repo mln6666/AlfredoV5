@@ -19,10 +19,10 @@
             <th>
                 Dirección
             </th>
-            <th class="hidden-print" style="width:220px">
+            <th class="hidden-print text-center" style="width:220px">
                 Estado de Venta
             </th>
-            <th style="width:170px">
+            <th style="width:170px" class="text">
                 @Html.DisplayNameFor(model => model.SaleDate)
             </th>
 
@@ -49,7 +49,7 @@
                     @Html.DisplayFor(model => model.SaleAddress)}
             </td>
 
-            <td class="hidden-print">
+            <td class="hidden-print text-center">
                 @Html.DisplayFor(model => model.SaleState)
             </td>
             <td>
@@ -61,7 +61,7 @@
 </table>
 <h3 class="text-center hidden-print">Lista de Productos</h3>
 <hr style="color:grey;border-color:grey" />
-<table class="table table-condensed table-striped table-bordered" id="tabla">
+<table class="table table-condensed table-striped table-bordered" id="tabla" style="background: none">
     <thead>
     <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
         <td class="text-center" style="border-radius: 3px">
@@ -85,7 +85,7 @@
     <tbody>
     @foreach (var item in Model.SaleLines)
     {
-        <tr>
+        <tr style="background: white">
             @if (item.Product.IdTrademark != null)
             {
                 <td>
@@ -99,14 +99,23 @@
                 </td>
             }
 
-            <td class="text-center">
-                @Html.DisplayFor(modelItem => item.LineQuantity)
-            </td>
+            @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+            {
+                <td class="text-center">
+                    @item.LineQuantity.ToString("#,###0.000")
+                </td>
+            }
+            else
+            {
+                <td class="text-center">
+                    @item.LineQuantity.ToString("#,###0")
+                </td>
+            }
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.LinePrice)
             </td>
             <td class="text-center">
-                @Html.DisplayFor(modelItem => item.LineDiscount)%
+                @item.LineDiscount.ToString("#0")%
             </td>
             <td class="text-center" style="font-weight: bold">
                 @Html.DisplayFor(modelItem => item.LineTotal)
@@ -114,7 +123,7 @@
         </tr>
     }
     </tbody>
-    <tr>
+    <tr style="background: none">
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>
         <td style="border-color: transparent"></td>

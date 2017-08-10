@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MinimercadoAlfredo.Models.Product>
 
 @{
-    ViewBag.Title = "Stock mínimo";
+    ViewBag.Title = "Stock Mínimo";
 }
 
 @if (TempData["message"] != null)
@@ -9,28 +9,24 @@
     <input id="message" style="display: none" value="@TempData["message"]" />
 }
 
-<h2 class="text-center">Lista de Productos con Stock mínimo</h2>
-<hr style="color:grey;border-color:grey" />
-
 <div class="row">
-    <div class="col-lg-10"></div>
-    <div class="btn-group col-lg-1">
-        <button type="button" class="btn btn-primary dropdown-toggle"
-                data-toggle="dropdown">
-            Mostrar <span class="caret"></span>
-        </button>
-
-        <ul class="dropdown-menu" role="menu">
-            <li><a href="@Url.Action("Index","Products")">Productos Activos</a></li>
-            <li><a href="#">Productos con Stock mínimo</a></li>
-            <li><a href="@Url.Action("OffProducts","Products")">Productos Desactivados</a></li>
-            <li><a href="@Url.Action("Record", "Products")">Todos los Productos</a></li>
-            @if (ViewBag.Purchases != 0)
-            {
-                <li><a href="@Url.Action("LastBought","Products")">Última adquisición</a></li>
-            }
-        </ul>
+    <div class="col-lg-3"><a href="@Url.Action("CreateProduct", "Products")" class="btn btn-success" style="margin-top: 6%">Agregar Producto</a></div>
+    <div class="col-lg-6">
+        <h2 class="text-center">Productos con Stock Mínimo</h2>
     </div>
+    <div class="col-lg-3"></div>
+</div>
+<hr style="color: grey; border-color: grey; margin-top: 0" />
+
+<div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
+    <a href="@Url.Action("Index", "Products")" class="btn btn-default">Activos</a>
+    <a href="#" class="btn btn-default active">Stock mínimo</a>
+    <a href="@Url.Action("OffProducts", "Products")" class="btn btn-default">Desactivados</a>
+    <a href="@Url.Action("Record", "Products")" class="btn btn-default">Todos</a>
+    @if (ViewBag.Purchases != 0)
+    {
+        <a href="@Url.Action("LastBought", "Products")" class="btn btn-default">Última compra</a>
+    }
 </div>
 <br />
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
@@ -39,22 +35,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th>
+            <th style="width: 30%">
                 @Html.DisplayNameFor(model => model.ProductDescription)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
             </th>
             <th>
-                Nro Artículo
-            </th>
-            <th>
-                Costo
+                Artículo
             </th>            
             <th>
                 Stock
             </th>            
-            <th class="text-center">Opciones</th>
+            <th class="text-center" style="width: 13%">Opciones</th>
         </tr>
     </thead>
 
@@ -74,12 +67,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cost)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ParcialStock)
-                </td>
+                @if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERÍA")
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ParcialStock)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @item.ParcialStock.Value.ToString("#,##0")
+                    </td>
+                }
                 <td class="text-center">
                     <a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
                     <a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
