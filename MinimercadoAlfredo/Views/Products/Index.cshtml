@@ -34,20 +34,23 @@
             <th>
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th style="width: 30%">
-                @Html.DisplayNameFor(model => model.ProductDescription)
+            <th style="width: 40%">
+                Producto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
+                Marca
             </th>
-            <th class="text-center" style="width: 12%">
-                Artículo
+            <th class="text-center">
+                Costo
             </th>
-            <th class="text-center" style="width: 14%">
+            <th class="text-center">
+                Precio
+            </th>
+            <th class="text-center">
                 Stock
             </th>
 
-            <th class="text-center" style="width: 14%">
+            <th class="text-center" style="width: 13%">
                 Opciones
             </th>
         </tr>
@@ -62,15 +65,17 @@
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                        @Html.DisplayFor(modelItem => item.IdProduct) - @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
                    
                     <td>
                         @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                     </td>
-                    
                     <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.IdProduct)
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.WholeSalePrice)
                     </td>
                     if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERIA" | item.Category.CategoryName == "Fiambres" | item.Category.CategoryName == "FIAMBRES")
                     {
@@ -92,13 +97,16 @@
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
                     <td style="color:red">
-                        @Html.DisplayFor(modelItem => item.ProductDescription)
+                        @Html.DisplayFor(modelItem => item.IdProduct) - @Html.DisplayFor(modelItem => item.ProductDescription)
                     </td>
-                    <td style="color:red">
+                    <td style="color: red">
                         @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                     </td>
-                    <td class="text-center" style="color: red">
-                        @Html.DisplayFor(modelItem => item.IdProduct)
+                    <td style="color: red">
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                    <td style="color: red">
+                        @Html.DisplayFor(modelItem => item.WholeSalePrice)
                     </td>
                     <td class="text-center" style="color: red">
                         @item.Stock.Value.ToString("#,##0")

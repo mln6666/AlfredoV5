@@ -64,33 +64,7 @@
         </dd>
 
         <dt>
-            Stock Real
-        </dt>
-
-        @if (Model.Stock != null)
-        {
-            if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
-            {
-                <dd>
-                    @Html.DisplayFor(model => model.Stock)
-                </dd>
-            }
-            else
-            {
-                <dd>
-                    @Model.Stock.Value.ToString("#,##0")
-                </dd>
-            }
-        }
-        else
-        {
-            <dd>
-                <p>Sin especificar</p>
-            </dd>
-        }
-
-        <dt>
-            Stock Disponible
+            Stock
         </dt>
 
         @if (Model.ParcialStock != null)
