@@ -21,7 +21,7 @@ namespace MinimercadoAlfredo.Models
         public string ProviderAddress { get; set; }
 
         [Display(Name = "Teléfono")]
-        public int? ProviderPhone { get; set; }
+        public string ProviderPhone { get; set; }
 
         public string ProviderEmail { get; set; }
 
