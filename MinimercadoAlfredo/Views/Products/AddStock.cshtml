@@ -56,6 +56,7 @@
     </td>
     <td class="text-center" style="background: #a0cee8">
         <input type="text" class="panel-info form-control inputForm" style="width: 100%;height:25px;" id="stockactual" value="0" onchange="totalstock()" onkeypress="solonumerosptocoma()" readonly="readonly" />
+        @*<span class="text-danger"></span>*@
 
     </td>
     <td class="text-center"  style="background: #a0cee8">
@@ -162,13 +163,13 @@
                 } else {
                     $('#linedescription').siblings('span.text-danger').html('');
                 }
-                if ($('#stockactual').val().trim() == '' | $('#stockactual').val().trim() == 0) {
-                    isValidItem = false;
-                    $('#stockactual').siblings('span.text-danger').html('Requerido.');
+                //if ($('#stockactual').val().trim() == '' | $('#stockactual').val().trim() == 0) {
+                //    isValidItem = false;
+                //    $('#stockactual').siblings('span.text-danger').html('Requerido.');
                    
-                } else {
-                    $('#stockactual').siblings('span.text-danger').html('');
-                }
+                //} else {
+                //    $('#stockactual').siblings('span.text-danger').html('');
+                //}
 
                 if ($('#baja').val().trim() == '') {
                     isValidItem = false;
