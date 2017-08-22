@@ -100,7 +100,13 @@
 
             ////Grilla automatica//
             $("#tabla").DataTable({
-                "language": { "url": "/Scripts/DataTables/spanish.json" }
+                "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
+                "language": {
+                    "url": "/Scripts/DataTables/spanish.json"
+                },
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true
             });
 
             $('.dropdown-toggle').dropdown();

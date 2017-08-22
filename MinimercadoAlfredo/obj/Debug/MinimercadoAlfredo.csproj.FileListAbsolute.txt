@@ -1324,3 +1324,5 @@ D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
+C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.phoneToString.resources
+C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
