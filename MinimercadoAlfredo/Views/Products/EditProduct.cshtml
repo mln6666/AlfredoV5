@@ -58,15 +58,15 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Cost, "Costo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="number" id="ProductCost" class="form-control input-sm" maxlength="9" value="@Model.Cost" placeholder="Ingrese el costo del Producto" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()" />
-            <span id="spanvalidcost" class="text-center" style="color:red"></span>
+            <input type="number" id="ProductCost" class="form-control input-sm" maxlength="9" value="@Model.Cost.Value.ToString("##.#0")" placeholder="Ingrese el costo del Producto" style="width: 280px" onchange="ValidCost()" oninput="ValidCost()" />
+            <span id="spanvalidcost" class="text-center" style="color: red"></span>
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.WholeSalePrice, "Precio", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="number" id="ProductWholeSalePrice" value="@Model.WholeSalePrice" maxlength="9" class="form-control input-sm" style="width: 280px" placeholder="Ingrese el precio del Producto" onchange="ValidCost()" oninput="ValidCost()" />
+            <input type="number" id="ProductWholeSalePrice" value="@Model.WholeSalePrice.Value.ToString("##.#0")" maxlength="9" class="form-control input-sm" style="width: 280px" placeholder="Ingrese el precio del Producto" onchange="ValidCost()" oninput="ValidCost()" />
             <span id="spanwholesaleprice" style="color:red"></span>
             <span id="spanvalidcost2" class="text-center" style="color:red"></span>
         </div>
@@ -107,7 +107,14 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Minimum, "Stock Mínimo", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="number" id="productMinimum" class="form-control input-sm" value="@Model.Minimum" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock mínimo" />
+            @if (Model.Category.CategoryName == "Fiambrería" | Model.Category.CategoryName == "FIAMBRERÍA" | Model.Category.CategoryName == "FIAMBRERIA" | Model.Category.CategoryName == "Fiambres" | Model.Category.CategoryName == "FIAMBRES")
+            {
+                <input type="number" id="productMinimum" class="form-control input-sm" value="@Model.Minimum" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock mínimo" />
+            }
+            else
+            {
+                <input type="number" id="productMinimum" class="form-control input-sm" value="@Model.Minimum.Value.ToString("#,##0")" min="0" maxlength="4" style="width: 280px" placeholder="Ingrese Stock mínimo" />
+            }
             <span style="display: inline-flex">El Sistema le avisará cuando el Stock de este Producto sea menor a este valor</span>
         </div>
     </div>
