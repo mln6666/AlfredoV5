@@ -315,6 +315,30 @@ namespace MinimercadoAlfredo.Controllers
             return Json(status, JsonRequestBehavior.AllowGet);
 
         }
+        public JsonResult EditPrice(Product product)
+        {
+            try
+            {
+
+                Product prod = new Product();
+                prod = db.Products.Find(product.IdProduct);
+                prod.WholeSalePrice = product.WholeSalePrice;
+                db.Entry(prod).State = EntityState.Modified;
+                db.SaveChanges();
+
+                string data = prod.ProductDescription + " - $" + prod.WholeSalePrice.ToString();
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+
+                return Json("error", JsonRequestBehavior.AllowGet);
+            }
+
+          
+
+        }
 
         public ActionResult CreateProduct(int? message)
         {

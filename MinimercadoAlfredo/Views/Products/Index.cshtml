@@ -40,15 +40,15 @@
             <th>
                 Marca
             </th>
-            <th class="text-center">
+            @*<th class="text-center">
                 Costo
-            </th>
+            </th>*@
             <th class="text-center">
                 Precio
             </th>
-            <th class="text-center">
+            @*<th class="text-center">
                 Stock
-            </th>
+            </th>*@
 
             <th class="text-center" style="width: 13%">
                 Opciones
@@ -59,8 +59,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                @if (item.ParcialStock >= item.Minimum | item.Minimum == null)
-                {
+              
                     <td>
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
                     </td>
@@ -71,13 +70,15 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
                     </td>
-                    <td class="text-center">
+                    @*<td class="text-center">
                         @Html.DisplayFor(modelItem => item.Cost)
+                    </td>*@
+                    <td class="text-center" style="display: flex" >
+                        <span id="@("spanedit" + @item.IdProduct)" style="width: 90%">@Html.DisplayFor(modelItem => item.WholeSalePrice)</span> 
+                        <span id="@("spanbut" + @item.IdProduct)"><button id="@("edit" + @item.IdProduct)" onclick="edit(@item.IdProduct,@item.WholeSalePrice)" title="Editar precio" class="btn btn-xs btn-default glyphicon glyphicon-refresh"></button></span>
+
                     </td>
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.WholeSalePrice)
-                    </td>
-                    if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERIA" | item.Category.CategoryName == "Fiambres" | item.Category.CategoryName == "FIAMBRES")
+                    @*@if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERIA" | item.Category.CategoryName == "Fiambres" | item.Category.CategoryName == "FIAMBRES")
                     {
                         <td class="text-center">
                             @Html.DisplayFor(modelItem => item.ParcialStock)
@@ -88,10 +89,10 @@
                         <td class="text-center">
                             @item.ParcialStock.Value.ToString("#,##0")
                         </td>
-                    }
+                    }*@
 
-                }
-                else
+               
+                @*else
                 {
                     <td style="color:red">
                         @Html.DisplayFor(modelItem => item.Category.CategoryName)
@@ -115,7 +116,7 @@
                         @item.ParcialStock.Value.ToString("#,##0")
                     </td>
                         
-                }
+                }*@
                 <td class="text-center">
                     <a href="@Url.Action("Details","Products", new { id = item.IdProduct })" class="btn btn-primary btn-sm dialog-window2" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
                     <a href="@Url.Action("EditProduct", "Products", new {id = item.IdProduct})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
@@ -126,7 +127,7 @@
     </tbody>
 </table>
 
-<p style="color:red">**Los Productos en color rojo tienen Stock por debajo de la mínima</p>
+@*<p style="color:red">**Los Productos en color rojo tienen Stock por debajo de la mínima</p>*@
 
 
 <div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -142,13 +143,50 @@
         </div>
     </div>
 </div>
-
-
+<input class="form-control input-sm" type="number" maxlength="9" >
 @section scripts
 {
+
     <script>
         $('#myModal').modal('show');
+             function edit(id,precio) {
+                 $('#spanedit' + id).html('<input id="input'+id+'" class="form-control input-sm" type="number" value="'+precio+'" maxlength="9" style="width: 90%">');
+                 $('#spanbut' + id).html('<button id="guardar'+id+'" onclick="guardar('+id+')" title="Guardar precio" class="btn btn-xs btn-success glyphicon glyphicon-ok"></button>');
 
+
+             };
+
+        function guardar(id) {
+            var precionew = $('#input' + id).val();
+
+            var options = {};
+            var product = {
+
+                IdProduct: id,
+                WholeSalePrice: parseFloat(precionew).toFixed(2)
+            };
+            options.url = '@Url.Action("EditPrice", "Products")';
+            options.data = product;
+            options.dataType = "json";
+            options.success = function (data) {
+                if (data != "error") {
+                    toastr.success(data,"Precio actualizado");
+                    $('#spanedit' + id).html('$' + parseFloat(precionew).toFixed(2));
+                    $('#spanbut' + id).html('<button id="edit' + id + '" onclick="edit(' + id + "," + precionew + ')" title="Editar precio" class="btn btn-xs btn-default glyphicon glyphicon-refresh"></button>');
+
+
+
+                } else
+                    
+                        toastr.error("Error inesperado, intentelo más tarde");
+                   
+
+            }
+            $.ajax(options);
+
+           
+
+        };
         $(document).ready(function() {
 
             if ($('#message').val() == 1)
