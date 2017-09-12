@@ -1,6 +1,7 @@
 ﻿
-function solonumeros() {
-    
+function solonumeros(param) {
+
+    console.log(param);
     if (event.keyCode < 48 || event.keyCode > 57) {
         event.preventDefault();
 
