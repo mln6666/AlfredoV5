@@ -197,7 +197,7 @@
          
             $.ajax({
                 url: $('#imprimirSeleccionadas').val(),
-               
+                type: "GET",   
                 traditional: true,
                 data: { 'arraySelected': arraySelected },
                 dataType: "JSON",

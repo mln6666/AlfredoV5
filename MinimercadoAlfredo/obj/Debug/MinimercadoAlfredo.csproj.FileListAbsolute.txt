@@ -1330,3 +1330,4 @@ E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.xml
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.phoneToString.resources
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
+E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Reports.dll

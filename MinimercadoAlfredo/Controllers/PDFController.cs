@@ -1,187 +1,187 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
+﻿using Root.Reports;
+using System;
 using System.IO;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using iTextSharp.text;
-using iTextSharp.text.html.simpleparser;
-using iTextSharp.text.pdf;
 
-namespace MinimercadoAlfredo.Controllers
+namespace MinimercadoAlfredo
 {
-    public class PDFController : Controller
+    public class TableLayoutManagerSample : Report
     {
-        public void Page_Load(object sender, EventArgs e)
+        private FontDef fontDef_Helvetica;
+        private Double rPosLeft = 20;  // millimeters
+        private Double rPosRight = 195;  // millimeters
+        private Double rPosTop = 24;  // millimeters
+        private Double rPosBottom = 278;  // millimeters
+
+        public void CreatePdfReport(string[] arraySelected)
         {
-        }
-        public DataTable GetData(SqlCommand cmd)
-        {
-            DataTable dt = new DataTable();
-            String strConnString =
-                System.Configuration.ConfigurationManager.
-                ConnectionStrings["AlfredoContext"].ConnectionString;
-            SqlConnection con = new SqlConnection(strConnString);
-            SqlDataAdapter sda = new SqlDataAdapter();
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            try
+            fontDef_Helvetica = new FontDef(this, FontDef.StandardFont.Helvetica);
+            FontProp fontProp_Text = new FontPropMM(fontDef_Helvetica, 1.9);  // standard font
+            FontProp fontProp_Header = new FontPropMM(fontDef_Helvetica, 1.9);  // font of the table header
+            fontProp_Header.bBold = true;
+
+            //Stream stream_Phone = GetType().Assembly.GetManifestResourceStream("ReportSamples.Phone.jpg");
+            Random random = new Random(6);
+
+            // INICIO TABLE HEADER
+            TableLayoutManager tlm;
+            using (tlm = new TableLayoutManager(fontProp_Header))
             {
-                con.Open();
-                sda.SelectCommand = cmd;
-                sda.Fill(dt);
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                con.Close();
-                sda.Dispose();
-                con.Dispose();
-            }
-        }
-        public void ExportToWord(object sender, EventArgs e)
-        {
-            //Get the data from database into datatable
-            string strQuery = "select CustomerID, ContactName, City, PostalCode from customers";
-            SqlCommand cmd = new SqlCommand(strQuery);
-            DataTable dt = GetData(cmd);
+                tlm.rContainerHeightMM = rPosBottom - rPosTop;  // set height of table
+                tlm.tlmCellDef_Header.rAlignV = RepObj.rAlignCenter;  // set vertical alignment of all header cells
+                tlm.tlmCellDef_Default.penProp_LineBottom = new PenProp(this, 0.05, Color.LightGray);  // set bottom line for all cells
+                tlm.tlmHeightMode = TlmHeightMode.AdjustLast;
+                tlm.eNewContainer += new TableLayoutManager.NewContainerEventHandler(Tlm_NewContainer);
 
-            //Create a dummy GridView
-            GridView GridView1 = new GridView();
-            GridView1.AllowPaging = false;
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
+                // define columns
+                TlmColumn col;
+                col = new TlmColumnMM(tlm, "Nº", 13);
 
-            Response.Clear();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.doc");
-            Response.Charset = "";
-            Response.ContentType = "application/vnd.ms-word ";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            GridView1.RenderControl(hw);
-            Response.Output.Write(sw.ToString());
-            Response.Flush();
-            Response.End();
-        }
+                col = new TlmColumnMM(tlm, "Cliente", 40);
+                col.tlmCellDef_Default.tlmTextMode = TlmTextMode.MultiLine;
+
+                col = new TlmColumnMM(tlm, "Dirección", 36);
+
+                col = new TlmColumnMM(tlm, "Fecha", 22);
 
 
-        public void ExportToExcel(object sender, EventArgs e)
-        {
-            //Get the data from database into datatable
-            string strQuery = "select CustomerID, ContactName, City, PostalCode from customers";
-            SqlCommand cmd = new SqlCommand(strQuery);
-            DataTable dt = GetData(cmd);
-
-            //Create a dummy GridView
-            GridView GridView1 = new GridView();
-            GridView1.AllowPaging = false;
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-
-            Response.Clear();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition",
-             "attachment;filename=GridViewExport.xls");
-            Response.Charset = "";
-            Response.ContentType = "application/vnd.ms-excel";
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-
-            for (int i = 0; i < GridView1.Rows.Count; i++)
-            {
-                //Apply text style to each Row
-                GridView1.Rows[i].Attributes.Add("class", "textmode");
-            }
-            GridView1.RenderControl(hw);
-
-            //style to format numbers to string
-            string style = @"<style> .textmode { mso-number-format:\@; } </style>";
-            Response.Write(style);
-            Response.Output.Write(sw.ToString());
-            Response.Flush();
-            Response.End();
-        }
-
-        //[HttpPost]
-        public void ExportToPdf(List<String> arraySelected)
-        {
-            //Get the data from database into datatable
-            string strQuery =
-                "select * from Sales";
-
-            SqlCommand cmd = new SqlCommand(strQuery);
-            DataTable dt = GetData(cmd);
-
-            //Create a dummy GridView
-            GridView GridView1 = new GridView();
-            GridView1.AllowPaging = false;
-            GridView1.DataSource = dt;
-            GridView1.DataBind();
-
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition",
-                "attachment;filename=ventas-seleccionadas.pdf");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            GridView1.RenderControl(hw);
-            StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-            pdfDoc.Open();
-            htmlparser.Parse(sr);
-            pdfDoc.Close();
-            Response.Write(pdfDoc);
-            Response.End();
-        }
-
-        public void ExportToCSV(object sender, EventArgs e)
-        {
-            //Get the data from database into datatable
-            string strQuery = "select CustomerID, ContactName, City, PostalCode from customers";
-            SqlCommand cmd = new SqlCommand(strQuery);
-            DataTable dt = GetData(cmd);
-
-            Response.Clear();
-            Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment;filename=GridViewExport.csv");
-            Response.Charset = "";
-            Response.ContentType = "application/text";
-
-
-            StringBuilder sb = new StringBuilder();
-            for (int k = 0; k < dt.Columns.Count; k++)
-            {
-                //add separator
-                sb.Append(dt.Columns[k].ColumnName + ',');
-            }
-            //append new line
-            sb.Append("\r\n");
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                for (int k = 0; k < dt.Columns.Count; k++)
+                // open data set
+                DataSet ds = new DataSet();
+                try
                 {
-                    //add separator
-                    sb.Append(dt.Rows[i][k].ToString().Replace(",", ";") + ',');
+
+                    string connectionString = System.Configuration.ConfigurationManager.
+                 ConnectionStrings["DefaultConnection"].ConnectionString;
+
+
+                    SqlDataAdapter da = new SqlDataAdapter(
+                        "SELECT * FROM Sales",
+                    connectionString);
+
+                    da.Fill(ds);
                 }
-                //append new line
-                sb.Append("\r\n");
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("SQL exception occurred: " + ex.Message);
+                }
+
+
+                DataTable dataTable_Sales = ds.Tables[0];
+
+                foreach (DataRow dr in dataTable_Sales.Rows)
+                {
+                    
+                    
+                    tlm.NewRow();
+                    tlm.Add(0, new RepString(fontProp_Text, (String)dr["CustomerID"]));
+                    tlm.Add(1, new RepString(fontProp_Text, (String)dr["CompanyName"]));
+                    tlm.Add(2, new RepString(fontProp_Text, (String)dr["Address"]));
+                    tlm.Add(3, new RepString(fontProp_Text, (String)dr["City"]));
+                    tlm.Add(4, new RepString(fontProp_Text, (String)dr["PostalCode"]));
+                   
+                    
+                }
             }
-            Response.Output.Write(sb.ToString());
-            Response.Flush();
-            Response.End();
+            ////FIN TABLE HEADER
+
+
+            ///////INCIO TABLE CONTENT
+            TableLayoutManager tlmContent;
+            using (tlmContent = new TableLayoutManager(fontProp_Header))
+            {
+                tlmContent.rContainerHeightMM = rPosBottom - rPosTop;  // set height of table
+                tlmContent.tlmCellDef_Header.rAlignV = RepObj.rAlignCenter;  // set vertical alignment of all header cells
+                tlmContent.tlmCellDef_Default.penProp_LineBottom = new PenProp(this, 0.05, Color.LightGray);  // set bottom line for all cells
+                tlmContent.tlmHeightMode = TlmHeightMode.AdjustLast;
+                tlmContent.eNewContainer += new TableLayoutManager.NewContainerEventHandler(Tlm_NewContainer);
+
+                // define columns
+                TlmColumn col;
+                col = new TlmColumnMM(tlmContent, "Nº", 13);
+
+                col = new TlmColumnMM(tlmContent, "Producto", 40);
+                col.tlmCellDef_Default.tlmTextMode = TlmTextMode.MultiLine;
+
+                col = new TlmColumnMM(tlmContent, "Cantidad", 36);
+
+                col = new TlmColumnMM(tlmContent, "Precio", 22);
+
+                col = new TlmColumnMM(tlmContent, "Descuento", 22);
+
+                col = new TlmColumnMM(tlmContent, "Subtotal", 22);
+
+                // open data set
+                DataSet dsContent = new DataSet();
+                try
+                {
+
+                    string connectionString = System.Configuration.ConfigurationManager.
+                 ConnectionStrings["DefaultConnection"].ConnectionString;
+
+
+                    SqlDataAdapter daContent = new SqlDataAdapter(
+                        "SELECT * FROM Sales",
+                    connectionString);
+
+                    // Fill the DataSet.
+                    daContent.Fill(dsContent);
+                   
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("SQL exception occurred: " + ex.Message);
+                }
+
+                DataTable dataTable_Content = dsContent.Tables[0];
+
+                foreach (DataRow dr in dataTable_Content.Rows)
+                {
+
+
+                    tlm.NewRow();
+                    tlm.Add(0, new RepString(fontProp_Text, (String)dr["CustomerID"]));
+                    tlm.Add(1, new RepString(fontProp_Text, (String)dr["CompanyName"]));
+                    tlm.Add(2, new RepString(fontProp_Text, (String)dr["Address"]));
+                    tlm.Add(3, new RepString(fontProp_Text, (String)dr["City"]));
+                    tlm.Add(4, new RepString(fontProp_Text, (String)dr["PostalCode"]));
+
+
+                }
+            }
+            ///////FIN TABLE CONTENT
+            
+            page_Cur.AddCT_MM(rPosLeft + tlm.rWidthMM / 2, rPosTop + tlm.rCurY_MM + 2, new RepString(fontProp_Text, "- end of table -"));
+
+            // print page number and current date/time
+            Double rY = rPosBottom + 1.5;
+            foreach (Page page in enum_Page)
+            {
+                page.AddLT_MM(rPosLeft, rY, new RepString(fontProp_Text, DateTime.Now.ToShortDateString() + "  " + DateTime.Now.ToShortTimeString()));
+                page.AddRT_MM(rPosRight, rY, new RepString(fontProp_Text, page.iPageNo + " / " + iPageCount));
+            }
         }
 
+
+        public void Tlm_NewContainer(Object oSender, TableLayoutManager.NewContainerEventArgs ea)
+        {  // only "public" for NDoc, should be "private"
+            new Page(this);
+
+            // first page with caption
+            if (page_Cur.iPageNo == 1)
+            {
+                FontProp fontProp_Title = new FontPropMM(fontDef_Helvetica, 7);
+                fontProp_Title.bBold = true;
+                page_Cur.AddCT_MM(rPosLeft + (rPosRight - rPosLeft) / 2, rPosTop, new RepString(fontProp_Title, "Customer List"));
+                ea.container.rHeightMM -= fontProp_Title.rLineFeedMM;  // reduce height of table container for the first page
+            }
+
+            // the new container must be added to the current page
+            page_Cur.AddMM(rPosLeft, rPosBottom - ea.container.rHeightMM, ea.container);
+        }
     }
 }
