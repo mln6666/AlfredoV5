@@ -31,23 +31,20 @@
 <table class="table table-condensed   table-striped table-bordered" id="tabla">
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-            <th>
+            <th style="width: 18%">
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
-            <th style="width: 25%">
-                @Html.DisplayNameFor(model => model.ProductDescription)
+            <th style="width: 40%">
+                Producto
             </th>
-            <th style="width: 15%">
+            <th>
                 @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
-            </th>
-            <th class="text-center" style="width: 12%">
-                Artículo
             </th>           
-            <th style="width: 12%">
+            <th style="width: 10%">
                 Estado
             </th>
 
-            <th class="text-center" style="width: 16%">
+            <th class="text-center" style="width: 17%">
                 Opciones
             </th>
         </tr>
@@ -56,17 +53,14 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td style="width: 13%">
+                <td>
                     @Html.DisplayFor(modelItem => item.Category.CategoryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.IdProduct) - @Html.DisplayFor(modelItem => item.ProductDescription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
-                </td>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
                 @if (item.ProductState)
                 {
@@ -160,7 +154,10 @@
                 "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
                 "language": {
                     "url": "/Scripts/DataTables/spanish.json"
-                }
+                },
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true
             });
 
             $("body").on("click", "button.dialog-window1", null, function(e) {

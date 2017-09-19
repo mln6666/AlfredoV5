@@ -33,16 +33,13 @@
     <thead>
         <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
             <th>
-                @Html.DisplayNameFor(model => model.Category.CategoryName)
+                Rubro
             </th>
             <th style="width: 30%">
-                @Html.DisplayNameFor(model => model.ProductDescription)
+                Producto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
-            </th>
-            <th style="width: 15%">
-                Artículo
+                Marca
             </th>
             <th class="text-center" style="width:18%">
                 Opciones
@@ -57,13 +54,10 @@
                     @Html.DisplayFor(modelItem => item.Category.CategoryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.IdProduct) - @Html.DisplayFor(modelItem => item.ProductDescription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
                 <td class="text-center">
                     <a href="@Url.Action("Details", "Products", new {id = item.IdProduct})" class="btn btn-primary btn-sm dialog-window3" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
@@ -124,7 +118,10 @@
                 "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
                 "language": {
                     "url": "/Scripts/DataTables/spanish.json"
-                }
+                },
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true
             });
 
             $("body").on("click", "a.dialog-window1", null, function(e) {

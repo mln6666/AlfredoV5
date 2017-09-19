@@ -36,14 +36,11 @@
                 @Html.DisplayNameFor(model => model.Category.CategoryName)
             </th>
             <th style="width: 30%">
-                @Html.DisplayNameFor(model => model.ProductDescription)
+                Producto
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Trademark.TrademarkName)
+                Marca
             </th>
-            <th>
-                Artículo
-            </th>            
             <th>
                 Stock
             </th>            
@@ -59,13 +56,10 @@
                     @Html.DisplayFor(modelItem => item.Category.CategoryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
+                    @Html.DisplayFor(modelItem => item.IdProduct) - @Html.DisplayFor(modelItem => item.ProductDescription)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Trademark.TrademarkName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdProduct)
                 </td>
                 @if (item.Category.CategoryName == "Fiambrería" | item.Category.CategoryName == "FIAMBRERÍA" | item.Category.CategoryName == "FIAMBRERÍA")
                 {
@@ -120,7 +114,10 @@
                 "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
                 "language": {
                     "url": "/Scripts/DataTables/spanish.json"
-                }
+                },
+                "scrollY": "400px",
+                "scrollCollapse": true,
+                "paging": true
             });
 
             $("body").on("click", "a.dialog-window", null, function(e) {
