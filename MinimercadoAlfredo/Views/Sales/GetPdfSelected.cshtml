@@ -1,0 +1,168 @@
+﻿@using MinimercadoAlfredo.Models
+@model IEnumerable<MinimercadoAlfredo.Models.Sale>
+
+@{
+    ViewBag.Title = "Imprimir ventas seleccionadas";
+    Layout = null;
+}
+<h2 class="text-center hidden-print">Detalle impresión</h2>
+@using (Html.BeginForm("Export", "Sales", FormMethod.Post))
+{
+    <input type="hidden" name="GridHtml" />
+        <input type="submit" id="btnSubmit" value="Exportar PDF" />
+}
+<script type="text/javascript">
+        $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+</script>
+<hr style="color: grey; border-color: grey"/>
+<div id="GridHtml">
+    @foreach (var venta in Model)
+    {
+        <table class="table table-condensed table-striped table-bordered">
+            <thead>
+                <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                    <th style="width:110px">
+                        N° Venta
+                    </th>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        Dirección
+                    </th>
+                    <th class="hidden-print text-center" style="width:220px">
+                        Estado de Venta
+                    </th>
+                    <th style="width:170px" class="text">
+                        @Html.DisplayNameFor(model => model.SaleDate)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background-color: white">
+                    <td class="text-center" style="background-color: khaki">
+                        @Html.DisplayForModel(venta.IdSale)
+                    </td>
+
+                    <td>
+                        @if (venta.IdCustomer == null)
+                        { <text>-</text>}
+                        else
+                        {  @venta.Customer.CustomerName }
+
+                    </td>
+                    <td>
+                        @if (venta.SaleAddress == "" | venta.SaleAddress == null)
+                {<text>-</text>}
+                else
+                {
+                            @Html.DisplayForModel(venta.SaleAddress)}
+                    </td>
+
+                    <td class="hidden-print text-center">
+                        @Html.DisplayForModel(venta.SaleState)
+                    </td>
+                    <td>
+                        <input type="date" value="@venta.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly" />
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <h3 class="text-center hidden-print">Lista de Productos</h3>
+        <table class="table table-condensed table-striped table-bordered" id="tabla" style="background: none">
+            <thead>
+                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                    <td class="text-center" style="border-radius: 3px">
+                        Producto
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 14%">
+                        Cantidad
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 14%">
+                        Precio
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 14%">
+                        Descuento (%)
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 16%">
+                        Subtotal
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in venta.SaleLines)
+                {
+                    <tr style="background: white">
+                        @if (item.Product.IdTrademark != null)
+                    {
+                            <td>
+                                &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                            </td>
+                        }
+
+                        @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+                    {
+                            <td class="text-center">
+                                @item.LineQuantity.ToString("#,###0.000")
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                @item.LineQuantity.ToString("#,###0")
+                            </td>
+                        }
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.LinePrice)
+                        </td>
+                        <td class="text-center">
+                            @item.LineDiscount.ToString("#0")%
+                        </td>
+                        <td class="text-center" style="font-weight: bold">
+                            @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tr style="background: none">
+                <td style="border-color: transparent"></td>
+                <td style="border-color: transparent"></td>
+                <td style="border-color: transparent"></td>
+                <th class="text-center" style="background-color: khaki">TOTAL</th>
+                <th class="text-center" style="background-color: khaki">
+                    @Html.DisplayForModel(venta.SaleTotal)
+                </th>
+            </tr>
+        </table>
+        <table class="table table-condensed   table-striped table-bordered">
+            <thead>
+                <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                    <td class="text-left" style="border-radius: 3px">
+                        Observaciones
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@venta.Comments</td>
+                </tr>
+            </tbody>
+        </table>
+
+    }
+</div>  
+
+
+

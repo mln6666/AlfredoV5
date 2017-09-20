@@ -794,7 +794,6 @@ E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Google.resources.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
-E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Microsoft.AI.DependencyCollector.dll
@@ -1331,3 +1330,5 @@ E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.xml
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.phoneToString.resources
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Reports.dll
+E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.xmlworker.dll
+E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Rotativa.dll

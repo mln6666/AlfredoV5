@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using MinimercadoAlfredo.Context;
 using MinimercadoAlfredo.Models;
 using MinimercadoAlfredo.ViewModels;
+using iTextSharp.tool.xml;
+using iTextSharp.text.html.simpleparser;
 
 namespace MinimercadoAlfredo.Controllers
 {
@@ -408,6 +413,46 @@ namespace MinimercadoAlfredo.Controllers
                 return HttpNotFound();
             }
             return View(sale);
+        }
+
+        public ActionResult GetPdfSelected(string[] arraySelected)
+        {
+            List<Sale> salesList = new List<Sale>();
+
+            foreach (var saleId in arraySelected)
+            {
+                if (saleId == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var saleIdInt = Int32.Parse(saleId);
+                Sale sale = db.Sales.Find(saleIdInt);
+                if (sale == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    salesList.Add(sale);
+                }
+            }
+            return View(salesList);
+        }
+
+
+        [HttpPost]
+        public FileResult Export(string GridHtml)
+        {
+            using (MemoryStream stream = new System.IO.MemoryStream())
+            {
+                StringReader sr = new StringReader(GridHtml);
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                pdfDoc.Open();
+                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                pdfDoc.Close();
+                return File(stream.ToArray(), "application/pdf", "Ventas.pdf");
+            }
         }
 
         public ActionResult modalCustomer(int? id)
