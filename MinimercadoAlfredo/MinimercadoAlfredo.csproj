@@ -250,6 +250,7 @@
     <Compile Include="Models\SaleState.cs" />
     <Compile Include="Models\Trademark.cs" />
     <Compile Include="Models\UserView.cs" />
+    <Compile Include="PdfHerlper\PDFHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CatalogVM.cs" />
