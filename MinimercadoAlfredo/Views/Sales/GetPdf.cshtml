@@ -6,7 +6,7 @@
     Layout = null;
 }
 <h2 class="text-center hidden-print">Detalle impresión</h2>
-@using (Html.BeginForm("Export", "Sales", FormMethod.Post))
+@*@using (Html.BeginForm("Export", "Sales", FormMethod.Post))
 {
     <input type="hidden" name="GridHtml" />
         <input type="submit" id="btnSubmit" value="Exportar PDF" />
@@ -17,7 +17,7 @@
                 $("input[name='GridHtml']").val($("#Grid").html());
             });
         });
-</script>
+</script>*@
 <hr style="color: grey; border-color: grey"/>
 <div id="GridHtml">
     @foreach (var venta in Model)

@@ -203,34 +203,35 @@
                 dataType: "JSON",
                 contentType: "application/json",
                 success: function (d) {
-                    if (d == 1) {
-                        toastr.options = {
-                            "closeButton": false,
-                            "debug": false,
-                            "newestOnTop": false,
-                            "progressBar": true,
-                            "positionClass": "toast-top-right",
-                            "preventDuplicates": false,
-                            "onclick": null,
-                            "showDuration": "5000",
-                            "hideDuration": "1000",
-                            "timeOut": "10000",
-                            "extendedTimeOut": "1000",
-                            "showEasing": "swing",
-                            "hideEasing": "linear",
-                            "showMethod": "fadeIn",
-                            "hideMethod": "fadeOut"
-                        }
-                        toastr["info"]("En breve un operador se comunicará con usted. Volviendo a la página de inicio...", "Solicitud enviada!");
-                    } else {
-                        if (d == 2) {
-                            toastr["info"]("Usted ya está activo o se encuentra efectuando un reclamo.", "Atención!");
-                        } else {
-                            toastr["error"]("Ha ocurrido un error inesperado...", "Atención!");
-                        }
+                    alert(d);
+                    //if (d == 1) {
+                    //    toastr.options = {
+                    //        "closeButton": false,
+                    //        "debug": false,
+                    //        "newestOnTop": false,
+                    //        "progressBar": true,
+                    //        "positionClass": "toast-top-right",
+                    //        "preventDuplicates": false,
+                    //        "onclick": null,
+                    //        "showDuration": "5000",
+                    //        "hideDuration": "1000",
+                    //        "timeOut": "10000",
+                    //        "extendedTimeOut": "1000",
+                    //        "showEasing": "swing",
+                    //        "hideEasing": "linear",
+                    //        "showMethod": "fadeIn",
+                    //        "hideMethod": "fadeOut"
+                    //    }
+                    //    toastr["info"]("En breve un operador se comunicará con usted. Volviendo a la página de inicio...", "Solicitud enviada!");
+                    //} else {
+                    //    if (d == 2) {
+                    //        toastr["info"]("Usted ya está activo o se encuentra efectuando un reclamo.", "Atención!");
+                    //    } else {
+                    //        toastr["error"]("Ha ocurrido un error inesperado...", "Atención!");
+                    //    }
 
 
-                    }
+                    //}
 
                 }
             });

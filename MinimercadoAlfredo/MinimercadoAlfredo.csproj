@@ -829,7 +829,7 @@
     <Content Include="Views\Informations\YearSales.cshtml" />
     <Content Include="Views\Informations\MonthSales.cshtml" />
     <Content Include="Views\Informations\DaySales.cshtml" />
-    <Content Include="Views\Sales\GetPdfSelected.cshtml" />
+    <Content Include="Views\Sales\GetPdf.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

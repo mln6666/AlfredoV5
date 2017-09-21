@@ -415,6 +415,7 @@ namespace MinimercadoAlfredo.Controllers
             return View(sale);
         }
 
+
         public ActionResult GetPdfSelected(string[] arraySelected)
         {
             List<Sale> salesList = new List<Sale>();
@@ -436,8 +437,14 @@ namespace MinimercadoAlfredo.Controllers
                     salesList.Add(sale);
                 }
             }
-            return View(salesList);
+            //return RedirectToAction("Index");
+
+
+            return Json(salesList, JsonRequestBehavior.AllowGet);
+
         }
+
+
 
 
         [HttpPost]
