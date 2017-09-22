@@ -14,6 +14,7 @@ using MinimercadoAlfredo.Models;
 using MinimercadoAlfredo.ViewModels;
 using iTextSharp.tool.xml;
 using iTextSharp.text.html.simpleparser;
+using Newtonsoft.Json;
 
 namespace MinimercadoAlfredo.Controllers
 {
@@ -414,8 +415,7 @@ namespace MinimercadoAlfredo.Controllers
             }
             return View(sale);
         }
-
-
+       
         public ActionResult GetPdfSelected(string[] arraySelected)
         {
             List<Sale> salesList = new List<Sale>();
@@ -437,30 +437,30 @@ namespace MinimercadoAlfredo.Controllers
                     salesList.Add(sale);
                 }
             }
-            //return RedirectToAction("Index");
 
 
-            return Json(salesList, JsonRequestBehavior.AllowGet);
+
+            return View(salesList);
 
         }
 
 
 
 
-        [HttpPost]
-        public FileResult Export(string GridHtml)
-        {
-            using (MemoryStream stream = new System.IO.MemoryStream())
-            {
-                StringReader sr = new StringReader(GridHtml);
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
-                PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                pdfDoc.Open();
-                XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
-                pdfDoc.Close();
-                return File(stream.ToArray(), "application/pdf", "Ventas.pdf");
-            }
-        }
+        //[HttpPost]
+        //public FileResult Export(string gridHtml)
+        //{
+        //    using (MemoryStream stream = new System.IO.MemoryStream())
+        //    {
+        //        StringReader sr = new StringReader(gridHtml);
+        //        Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 100f, 0f);
+        //        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+        //        pdfDoc.Open();
+        //        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+        //        pdfDoc.Close(); //error: the document has no pages
+        //        return File(stream.ToArray(), "application/pdf", "Ventas.pdf");
+        //    }
+        //}
 
         public ActionResult modalCustomer(int? id)
         {
