@@ -9,6 +9,28 @@
         li:hover {
             background-color: lightblue;
         }
+
+        .dropdown {
+    position: relative;
+    display: inline-block;
+}
+        .phover:hover {
+            background-color: lightblue;
+        }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
     </style>
   
    
@@ -25,16 +47,15 @@
         <h2 class="text-center">Lista de Ventas</h2>
     </div>
     <div class="col-lg-3">
-        <button class="dropdown">
-            <span data-toggle="dropdown" style="font-weight: bold" class="" href="#">
-                Imprimir <span class="caret"></span>
-            </span>
-            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                <li style="cursor: pointer;" id="ventasSeleccionadas">Seleccionadas</li>
-                <li class="divider"></li>
-                <li style="cursor: pointer" id="ventasDelDia">Todas las del día</li>
-            </ul>
-        </button>
+
+        <div class="dropdown" style="padding-top: 10px;">
+            <button title="Imprimir" style="font-size: large" class="btn btn-info glyphicon glyphicon-print"> Imprimir</button>
+            <div class="dropdown-content">
+                <h4 class="phover" style="cursor: pointer;" id="ventasSeleccionadas">Seleccionadas</h4>
+                <h4 class="phover" style="cursor: pointer" id="ventasDelDia"> Aún no impresas</h4>
+            </div>
+        </div>
+       
     </div>
 
 </div>

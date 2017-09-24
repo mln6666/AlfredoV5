@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
 using MinimercadoAlfredo.Context;
 using MinimercadoAlfredo.Models;
 using MinimercadoAlfredo.ViewModels;
-using iTextSharp.tool.xml;
-using iTextSharp.text.html.simpleparser;
-using Newtonsoft.Json;
+
 
 namespace MinimercadoAlfredo.Controllers
 {

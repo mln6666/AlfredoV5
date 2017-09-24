@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "Imprimir ventas seleccionadas";
 }
+
+<style>
+    hr.style16 { 
+  border-top: 1px dashed #8c8b8b; 
+} 
+</style>
 @section scripts{
 <script type="text/javascript">
-        //$(function () {
-        //    $("#btnSubmit").click(function () {
-        //        console.log($("#GridHtml").html());
-        //        $("#gridHtmlInput").val($("#GridHtml").html());
-           
-        //    });
-        //});
+      
 </script>
 }
 <hr style="color: grey; border-color: grey"/>
@@ -145,24 +145,25 @@
            if (!(@venta.Comments.IsEmpty()))
 
            {
-        <table class="table table-condensed table-striped ">
-            <thead>
-                <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-                    <td class="text-left" style="border-radius: 3px">
-                        Observaciones
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-          
-            <tr>
-                <td>@venta.Comments</td>
-            </tr>
-            </tbody>
-        </table>}
-           
+               <table class="table table-condensed table-striped ">
+                   <thead>
+                   <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                       <td class="text-left" style="border-radius: 3px">
+                           Observaciones
+                       </td>
+                   </tr>
+                   </thead>
+                   <tbody>
 
-       }
+                   <tr>
+                       <td>@venta.Comments</td>
+                   </tr>
+                   </tbody>
+               </table>
+              
+        }
+        <hr class="style16"/>
+            }
 </div>  
 
 
