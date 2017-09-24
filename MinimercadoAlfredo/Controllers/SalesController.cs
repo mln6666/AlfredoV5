@@ -443,10 +443,6 @@ namespace MinimercadoAlfredo.Controllers
             return View(salesList);
 
         }
-
-
-
-
         //[HttpPost]
         //public FileResult Export(string gridHtml)
         //{

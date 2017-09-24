@@ -1,33 +1,24 @@
 ﻿@using MinimercadoAlfredo.Models
 @model IEnumerable<MinimercadoAlfredo.Models.Sale>
-
 @{
     ViewBag.Title = "Imprimir ventas seleccionadas";
-   
 }
-
-<input type="hidden" name="gridHtml" id="gridHtmlInput" />
-
-
-
 @section scripts{
 <script type="text/javascript">
-        $(function () {
-            $("#btnSubmit").click(function () {
-                console.log($("#GridHtml").html());
-                $("#gridHtmlInput").val($("#GridHtml").html());
+        //$(function () {
+        //    $("#btnSubmit").click(function () {
+        //        console.log($("#GridHtml").html());
+        //        $("#gridHtmlInput").val($("#GridHtml").html());
            
-            });
-        });
+        //    });
+        //});
 </script>
-    
 }
-
 <hr style="color: grey; border-color: grey"/>
 <div id="GridHtml">
     @foreach (var venta in Model)
     {
-        <table class="table table-condensed table-striped table-bordered">
+        <table class="table table-condensed table-striped">
             <thead>
                 <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
                     <th style="width:110px">
@@ -51,7 +42,7 @@
             <tbody>
                 <tr style="background-color: white">
                     <td class="text-center" style="background-color: khaki">
-                        @Html.DisplayForModel(venta.IdSale)
+                        @venta.IdSale
                     </td>
 
                     <td>
@@ -66,11 +57,11 @@
                 {<text>-</text>}
                 else
                 {
-                            @Html.DisplayForModel(venta.SaleAddress)}
+                            @venta.SaleAddress}
                     </td>
 
                     <td class="hidden-print text-center">
-                        @Html.DisplayForModel(venta.SaleState)
+                        @venta.SaleState
                     </td>
                     <td>
                         <input type="date" value="@venta.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly" />
@@ -79,67 +70,66 @@
                 </tr>
             </tbody>
         </table>
-        <h3 class="text-center hidden-print">Lista de Productos</h3>
-        <table class="table table-condensed table-striped table-bordered" id="tabla" style="background: none">
+        <table class="table table-condensed table-striped" id="tabla" style="background: none">
             <thead>
-                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                    <td class="text-center" style="border-radius: 3px">
-                        Producto
-                    </td>
-                    <td class="text-center" style="border-radius: 3px; width: 14%">
-                        Cantidad
-                    </td>
-                    <td class="text-center" style="border-radius: 3px; width: 14%">
-                        Precio
-                    </td>
-                    <td class="text-center" style="border-radius: 3px; width: 14%">
-                        Descuento (%)
-                    </td>
-                    <td class="text-center" style="border-radius: 3px; width: 16%">
-                        Subtotal
-                    </td>
-                </tr>
+            <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                <td class="text-center" style="border-radius: 3px">
+                    Producto
+                </td>
+                <td class="text-center" style="border-radius: 3px; width: 14%">
+                    Cantidad
+                </td>
+                <td class="text-center" style="border-radius: 3px; width: 14%">
+                    Precio
+                </td>
+                <td class="text-center" style="border-radius: 3px; width: 14%">
+                    Descuento (%)
+                </td>
+                <td class="text-center" style="border-radius: 3px; width: 16%">
+                    Subtotal
+                </td>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var item in venta.SaleLines)
-                {
-                    <tr style="background: white">
-                        @if (item.Product.IdTrademark != null)
+            @foreach (var item in venta.SaleLines)
+            {
+                <tr style="background: white">
+                    @if (item.Product.IdTrademark != null)
                     {
-                            <td>
-                                &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                            </td>
-                        }
+                        <td>
+                            &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                        </td>
+                    }
 
-                        @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+                    @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
                     {
-                            <td class="text-center">
-                                @item.LineQuantity.ToString("#,###0.000")
-                            </td>
-                        }
-                        else
-                        {
-                            <td class="text-center">
-                                @item.LineQuantity.ToString("#,###0")
-                            </td>
-                        }
                         <td class="text-center">
-                            @Html.DisplayFor(modelItem => item.LinePrice)
+                            @item.LineQuantity.ToString("#,###0.000")
                         </td>
+                    }
+                    else
+                    {
                         <td class="text-center">
-                            @item.LineDiscount.ToString("#0")%
+                            @item.LineQuantity.ToString("#,###0")
                         </td>
-                        <td class="text-center" style="font-weight: bold">
-                            @Html.DisplayFor(modelItem => item.LineTotal)
-                        </td>
-                    </tr>
-                }
+                    }
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.LinePrice)
+                    </td>
+                    <td class="text-center">
+                        @item.LineDiscount.ToString("#0")%
+                    </td>
+                    <td class="text-center" style="font-weight: bold">
+                        @Html.DisplayFor(modelItem => item.LineTotal)
+                    </td>
+                </tr>
+            }
             </tbody>
             <tr style="background: none">
                 <td style="border-color: transparent"></td>
@@ -147,11 +137,15 @@
                 <td style="border-color: transparent"></td>
                 <th class="text-center" style="background-color: khaki">TOTAL</th>
                 <th class="text-center" style="background-color: khaki">
-                    @Html.DisplayForModel(venta.SaleTotal)
+                    @venta.SaleTotal
                 </th>
             </tr>
         </table>
-        <table class="table table-condensed   table-striped table-bordered">
+       
+           if (!(@venta.Comments.IsEmpty()))
+
+           {
+        <table class="table table-condensed table-striped ">
             <thead>
                 <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
                     <td class="text-left" style="border-radius: 3px">
@@ -160,13 +154,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>@venta.Comments</td>
-                </tr>
+          
+            <tr>
+                <td>@venta.Comments</td>
+            </tr>
             </tbody>
-        </table>
+        </table>}
+           
 
-    }
+       }
 </div>  
 
 

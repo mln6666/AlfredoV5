@@ -196,7 +196,15 @@
         $('#ventasSeleccionadas').click(function () {
 
 
-            var url = "/Sales/GetPdfSelected?arraySelected=4&arraySelected=3";
+            var url = "/Sales/GetPdfSelected?";
+            $.each(arraySelected, function (key, value) {
+                if (key == arraySelected.length - 1) {
+                    url = url + "arraySelected=" + value ;
+                } else {
+                    url = url + "arraySelected=" + value + "&";
+                }
+              
+            });
             window.open(url);
     
 
