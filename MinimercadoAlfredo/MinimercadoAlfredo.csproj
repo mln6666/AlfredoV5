@@ -234,9 +234,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708172137459_phoneToString.cs" />
-    <Compile Include="Migrations\201708172137459_phoneToString.Designer.cs">
-      <DependentUpon>201708172137459_phoneToString.cs</DependentUpon>
+    <Compile Include="Migrations\201709252214556_ImpresaNoImpresa.cs" />
+    <Compile Include="Migrations\201709252214556_ImpresaNoImpresa.Designer.cs">
+      <DependentUpon>201709252214556_ImpresaNoImpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -840,8 +840,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708172137459_phoneToString.resx">
-      <DependentUpon>201708172137459_phoneToString.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709252214556_ImpresaNoImpresa.resx">
+      <DependentUpon>201709252214556_ImpresaNoImpresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

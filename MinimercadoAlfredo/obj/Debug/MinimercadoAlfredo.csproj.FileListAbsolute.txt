@@ -1327,8 +1327,6 @@ C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Mi
 C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.xml
-E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.phoneToString.resources
-E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Reports.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\itextsharp.xmlworker.dll
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\bin\Rotativa.dll
@@ -1442,3 +1440,5 @@ D:\Desarrollos\Alfredo\AlfredoV5-PdfBranch\AlfredoV5\MinimercadoAlfredo\obj\Debu
 D:\Desarrollos\Alfredo\AlfredoV5-PdfBranch\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
 D:\Desarrollos\Alfredo\AlfredoV5-PdfBranch\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
 E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
+E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.ImpresaNoImpresa.resources
+E:\Proyectos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache

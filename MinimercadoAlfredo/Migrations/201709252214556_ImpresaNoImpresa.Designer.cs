@@ -7,13 +7,13 @@ namespace MinimercadoAlfredo.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class phoneToString : IMigrationMetadata
+    public sealed partial class ImpresaNoImpresa : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(phoneToString));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ImpresaNoImpresa));
         
         string IMigrationMetadata.Id
         {
-            get { return "201708172137459_phoneToString"; }
+            get { return "201709252214556_ImpresaNoImpresa"; }
         }
         
         string IMigrationMetadata.Source
