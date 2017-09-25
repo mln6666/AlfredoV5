@@ -226,7 +226,10 @@
                 }
               
             });
-            window.open(url);
+            if (arraySelected.length > 0) {
+                window.open(url);
+            }
+            
     
 
         });

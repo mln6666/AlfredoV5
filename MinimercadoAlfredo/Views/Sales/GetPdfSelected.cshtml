@@ -8,21 +8,41 @@
     hr.style16 { 
   border-top: 1px dashed #8c8b8b; 
 } 
+
+@@media print
+{
+      .page-break  { display:block; page-break-before:always; }
+
+}
 </style>
 @section scripts{
 <script type="text/javascript">
       
 </script>
 }
-<hr style="color: grey; border-color: grey"/>
+
 <div id="GridHtml">
     @foreach (var venta in Model)
     {
-        <table class="table table-condensed table-striped">
-            <thead>
-                <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-                    <th style="width:110px">
-                        N° Venta
+        <br />
+        for (int i = 0; i <= 1; i++)
+        {
+            if (i == 0)
+            {
+               <span class="text-center" style="display: block;border: solid"><span style="border: solid; border-style: double; font-size: medium; font-weight: bold">&nbsp;X </span>&nbsp; NOTA DE PEDIDO - Original</span>
+            }
+            else
+            {
+                <span class="text-center" style="display: block;border: solid"><span style="border: solid; border-style: double; font-size: medium; font-weight: bold">&nbsp;X </span>&nbsp; NOTA DE PEDIDO - Duplicado</span>
+            }
+
+
+
+            <table class="table table-condensed table-striped" style="margin-bottom: 0px; border-left: solid;border-right:solid">
+                <thead>
+                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                    <th class="text-center" style="width: 110px">
+                        N°
                     </th>
                     <th>
                         Cliente
@@ -30,16 +50,13 @@
                     <th>
                         Dirección
                     </th>
-                    <th class="hidden-print text-center" style="width:220px">
-                        Estado de Venta
-                    </th>
-                    <th style="width:170px" class="text">
-                        @Html.DisplayNameFor(model => model.SaleDate)
+                    <th style="width: 170px" class="text-center">
+                        Fecha
                     </th>
 
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr style="background-color: white">
                     <td class="text-center" style="background-color: khaki">
                         @venta.IdSale
@@ -47,123 +64,117 @@
 
                     <td>
                         @if (venta.IdCustomer == null)
-                        { <text>-</text>}
+                        {
+                            <text>-</text>}
                         else
-                        {  @venta.Customer.CustomerName }
+                        {
+                            @venta.Customer.CustomerName
+                        }
 
                     </td>
                     <td>
                         @if (venta.SaleAddress == "" | venta.SaleAddress == null)
-                {<text>-</text>}
-                else
+                        {<text>-</text>}
+                        else
+                        {
+                            @venta.SaleAddress
+                        }
+                    </td>
+                    <td class="text-center">
+                        @venta.SaleDate.ToString("dd/MM/yyyy")
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+            <table class="table table-condensed table-striped" id="tabla" style="background: none; border: solid; margin-bottom: 0px;">
+                <thead>
+                <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
+                    <td class="text-left" style="border-radius: 3px">
+                        Producto
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 20%">
+                        Cantidad
+                    </td>
+                    <td class="text-center" style="border-radius: 3px; width: 20%">
+                        Precio
+                    </td>
+
+                    <td class="text-center" style="border-radius: 3px; width: 20%">
+                        Subtotal
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in venta.SaleLines)
                 {
-                            @venta.SaleAddress}
-                    </td>
+                    <tr style="background: white">
+                        @if (item.Product.IdTrademark != null)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Product.ProductDescription)
+                            </td>
+                        }
 
-                    <td class="hidden-print text-center">
-                        @venta.SaleState
-                    </td>
-                    <td>
-                        <input type="date" value="@venta.SaleDate.ToString("yyyy-MM-dd")" style="text-align: center; background-color: transparent; border-color: transparent" readonly="readonly" />
-                    </td>
-
+                        @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
+                        {
+                            <td class="text-center">
+                                @item.LineQuantity.ToString("#,###0.000")
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-center">
+                                @item.LineQuantity.ToString("#,###0")
+                            </td>
+                        }
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.LinePrice)
+                        </td>
+                        <td class="text-center" style="font-weight: bold">
+                            @Html.DisplayFor(modelItem => item.LineTotal)
+                        </td>
+                    </tr>
+                }
+                </tbody>
+                <tr style="background: none">
+                    <td style="border-color: transparent; font-size: x-small; font-style: italic">No válido como factura</td>
+                    <td style="border-color: transparent"></td>
+                    <th class="text-center" style="background-color: khaki">TOTAL</th>
+                    <th class="text-center" style="background-color: khaki">
+                        $@venta.SaleTotal
+                    </th>
                 </tr>
-            </tbody>
-        </table>
-        <table class="table table-condensed table-striped" id="tabla" style="background: none">
-            <thead>
-            <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                <td class="text-center" style="border-radius: 3px">
-                    Producto
-                </td>
-                <td class="text-center" style="border-radius: 3px; width: 14%">
-                    Cantidad
-                </td>
-                <td class="text-center" style="border-radius: 3px; width: 14%">
-                    Precio
-                </td>
-                <td class="text-center" style="border-radius: 3px; width: 14%">
-                    Descuento (%)
-                </td>
-                <td class="text-center" style="border-radius: 3px; width: 16%">
-                    Subtotal
-                </td>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in venta.SaleLines)
+            </table>
+
+           
+
+            
+                <table class="table table-condensed table-striped " style="border-bottom: solid; border-right: solid;border-left: solid">
+                    <tbody>
+
+                    <tr>
+                        <td style="height: 50px;"><b>Observaciones:</b>@venta.Comments</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            
+            if (i == 0)
             {
-                <tr style="background: white">
-                    @if (item.Product.IdTrademark != null)
-                    {
-                        <td>
-                            &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription) - @Html.DisplayFor(modelItem => item.Product.Trademark.TrademarkName)
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            &nbsp; @Html.DisplayFor(modelItem => item.Product.IdProduct) - @Html.DisplayFor(modelItem => item.Product.ProductDescription)
-                        </td>
-                    }
-
-                    @if (item.Product.Category.CategoryName == "Fiambrería" | item.Product.Category.CategoryName == "FIAMBRERÍA" | item.Product.Category.CategoryName == "FIAMBRERIA" | item.Product.Category.CategoryName == "Fiambres" | item.Product.Category.CategoryName == "FIAMBRES")
-                    {
-                        <td class="text-center">
-                            @item.LineQuantity.ToString("#,###0.000")
-                        </td>
-                    }
-                    else
-                    {
-                        <td class="text-center">
-                            @item.LineQuantity.ToString("#,###0")
-                        </td>
-                    }
-                    <td class="text-center">
-                        @Html.DisplayFor(modelItem => item.LinePrice)
-                    </td>
-                    <td class="text-center">
-                        @item.LineDiscount.ToString("#0")%
-                    </td>
-                    <td class="text-center" style="font-weight: bold">
-                        @Html.DisplayFor(modelItem => item.LineTotal)
-                    </td>
-                </tr>
+                <hr class="style16 visible-print" style="margin: 0px;" />
+                <hr class="style16" style="margin-top: 0px;margin-bottom: 5px;" />
             }
-            </tbody>
-            <tr style="background: none">
-                <td style="border-color: transparent"></td>
-                <td style="border-color: transparent"></td>
-                <td style="border-color: transparent"></td>
-                <th class="text-center" style="background-color: khaki">TOTAL</th>
-                <th class="text-center" style="background-color: khaki">
-                    @venta.SaleTotal
-                </th>
-            </tr>
-        </table>
-       
-           if (!(@venta.Comments.IsEmpty()))
 
-           {
-               <table class="table table-condensed table-striped ">
-                   <thead>
-                   <tr class="text-center" style="color: black; font-weight: bold; background-color: lightsteelblue">
-                       <td class="text-left" style="border-radius: 3px">
-                           Observaciones
-                       </td>
-                   </tr>
-                   </thead>
-                   <tbody>
-
-                   <tr>
-                       <td>@venta.Comments</td>
-                   </tr>
-                   </tbody>
-               </table>
-              
         }
-        <hr class="style16"/>
-            }
+        <div class="page-break"></div>
+    }
 </div>  
 
 
