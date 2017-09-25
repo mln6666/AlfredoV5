@@ -290,6 +290,7 @@ namespace MinimercadoAlfredo.Controllers
                 sale.SaleTotal = O.SaleTotal;
                 sale.LinesTotal = O.SaleTotal;
                 sale.IdBill = bill.IdBill;
+                sale.Impresa = false;
                 if (cusid != 0) { sale.IdCustomer = cusid; }
 
                   
@@ -408,30 +409,50 @@ namespace MinimercadoAlfredo.Controllers
             }
             return View(sale);
         }
-       
+
+        
         public ActionResult GetPdfSelected(string[] arraySelected)
         {
             List<Sale> salesList = new List<Sale>();
 
-            foreach (var saleId in arraySelected)
+            if (arraySelected[0] == "NoImp")
             {
-                if (saleId == null)
+                salesList = db.Sales.ToList();
+                salesList.RemoveAll(v => v.Impresa == true);
+
+                foreach (var saleNoImp in salesList)
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                var saleIdInt = Int32.Parse(saleId);
-                Sale sale = db.Sales.Find(saleIdInt);
-                if (sale == null)
-                {
-                    return HttpNotFound();
-                }
-                else
-                {
-                    salesList.Add(sale);
+                    saleNoImp.Impresa = true;
+                    db.Entry(saleNoImp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    salesList.Add(saleNoImp);
                 }
             }
+            else
+            {
+                foreach (var saleId in arraySelected)
+                {
+                    if (saleId == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    var saleIdInt = Int32.Parse(saleId);
+                    Sale sale = db.Sales.Find(saleIdInt);
 
+                    if (sale == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    else
+                    {
+                        sale.Impresa = true;
+                        db.Entry(sale).State = EntityState.Modified;
+                        db.SaveChanges();
+                        salesList.Add(sale);
+                    }
+                }
 
+            }
 
             return View(salesList);
 
