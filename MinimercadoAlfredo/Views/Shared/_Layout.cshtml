@@ -78,84 +78,81 @@
             -moz-border-radius: 6px 0 6px 6px;
             border-radius: 6px 0 6px 6px;
         }
+        .dropdown-menu{ min-width: min-content !important;}
+            .dropdown-menu > li > a{ padding-bottom: 0px;padding-top: 0px;margin-bottom: 4px;margin-top: 4px;}
+        nav ul li {
+            display: grid!important;
+        }
     </style>
 
 </head>
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
-    <div class="navbar navbar-inverse hidden-print" style="margin-bottom: 0px;">
-        <div class="container">
-            <div class="navbar-btn sombra_externa">
-                @Html.ActionLink("Minimercado Alfredo", "Index", "Home", new { area = "" }, new { @class = "navbar-Trademark" })
-            </div>
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav ">
-                    <li class="dropdown">
-                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="#">
-                            Ventas <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Resúmenes", "Index", "Informations")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="#">
-                            Compras <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <li>@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Listado", "Index", "Purchases")</li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a id="dLabel" data-toggle="dropdown" style="font-weight: bold" class="" data-target="#" href="#">
-                            Productos <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                            <li style="font-weight: bold;">@Html.ActionLink("Nuevo", "CreateProduct", "Products")</li>
-                            <li class="divider"></li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Listados", "Index", "Products")</li>
-                            <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@>Catálogos</a>
-                                <ul class="dropdown-menu">
-                                    <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
-                                    <li style="font-weight: bold;"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
-                                </ul>
-                            </li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Rubros", "Index", "Categories")</li>
-                            <li class="divider"></li>
-                            <li>@Html.ActionLink("Marcas", "Index", "Trademarks")</li>
-                            <li class="divider"></li>
-                            <li class="dropdown-submenu">
-                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@>Actualización de Stock</a>
-                                <ul class="dropdown-menu">
-                                    <li style="font-weight: bold;">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
-                                    <li class="divider"></li>
-                                    <li style="font-weight: bold;">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
-                                </ul>
-                            </li>
-                            <li class="divider"></li>
-                            <li style="font-weight: bold;">@Html.ActionLink("Actualización de Precios", "PriceUpdate", "Products")</li>
+<nav class="navbar navbar-inverse" style="padding-top: 0px;padding-bottom: 0px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Home/Index" style="font-style: italic;font-family: monospace;">Minimercado Alfredo</a>
+        </div>
 
-                        </ul>
-                    </li>
-                    <li>@Html.ActionLink("Clientes", "Index", "Customers")</li>
-                    <li>@Html.ActionLink("Proveedores", "Index", "Providers")</li>
-                    @*<li>@Html.ActionLink("Usuarios", "Index", "Users")</li>*@
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+            <ul class="nav navbar-nav">
+               
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Compras <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li style="text-transform: uppercase">@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
+                        <li class="divider"></li>
+                        <li style="text-transform: uppercase">@Html.ActionLink("Listado", "Index", "Purchases")</li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Productos <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Nuevo", "CreateProduct", "Products")</li>
+                        <li class="divider"></li>
+                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Listados", "Index", "Products")</li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Catálogos</a>
+                            <ul class="dropdown-menu">
+                                <li style="font-weight: bold; font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
+                                <li class="divider"></li>
+                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li style="text-transform: uppercase">@Html.ActionLink("Rubros", "Index", "Categories")</li>
+                        <li class="divider"></li>
+                        <li style="text-transform: uppercase">@Html.ActionLink("Marcas", "Index", "Trademarks")</li>
+                        <li class="divider"></li>
+                        <li class="dropdown-submenu">
+                            <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Actualización de Stock</a>
+                            <ul class="dropdown-menu">
+                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
+                                <li class="divider"></li>
+                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Actualización de Precios", "PriceUpdate", "Products")</li>
 
-                    
+                    </ul>
+                </li>
 
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                <li style="text-transform: uppercase">@Html.ActionLink("Clientes", "Index", "Customers")</li>
+
+                <li style="text-transform: uppercase">@Html.ActionLink("Proveedores", "Index", "Providers")</li>
+            </ul>
+          
+            @Html.Partial("_LoginPartial")
         </div>
     </div>
+</nav>
 <div class="container body-content">
 
     @RenderBody()

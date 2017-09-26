@@ -19,7 +19,6 @@ namespace MinimercadoAlfredo
                 "~/Scripts/bootstrap.min.js",
                 "~/Scripts/datatables/jquery.datatables.min.js",
                 "~/Scripts/datatables/datatables.bootstrap.min.js",
-                "~/Scripts/bootstrap.min.js",
                 "~/Scripts/respond.min.js",
                 "~/Scripts/bootbox.min.js",
                 "~/Scripts/toastr.min.js",
