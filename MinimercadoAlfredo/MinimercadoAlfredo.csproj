@@ -217,9 +217,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201708172137459_phoneToString.cs" />
-    <Compile Include="Migrations\201708172137459_phoneToString.Designer.cs">
-      <DependentUpon>201708172137459_phoneToString.cs</DependentUpon>
+    <Compile Include="Migrations\201708081237572_InitialCreate.cs" />
+    <Compile Include="Migrations\201708081237572_InitialCreate.Designer.cs">
+      <DependentUpon>201708081237572_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709282201013_impresa.cs" />
+    <Compile Include="Migrations\201709282201013_impresa.Designer.cs">
+      <DependentUpon>201709282201013_impresa.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -805,6 +809,7 @@
     <Content Include="Views\Informations\YearSales.cshtml" />
     <Content Include="Views\Informations\MonthSales.cshtml" />
     <Content Include="Views\Informations\DaySales.cshtml" />
+    <Content Include="Views\Sales\GetPdfSelected.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -814,8 +819,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708172137459_phoneToString.resx">
-      <DependentUpon>201708172137459_phoneToString.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201708081237572_InitialCreate.resx">
+      <DependentUpon>201708081237572_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709282201013_impresa.resx">
+      <DependentUpon>201709282201013_impresa.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -410,6 +410,59 @@ namespace MinimercadoAlfredo.Controllers
             return View(sale);
         }
 
+        public ActionResult GetPdfSelected(string[] arraySelected)
+        {
+            List<Sale> salesList = new List<Sale>();
+            List<Sale> salesListNoImpresa = new List<Sale>();
+
+            if (arraySelected[0] == "NoImp")
+            {
+                salesList = db.Sales.ToList().FindAll(v => v.Impresa == false);
+                //salesList.RemoveAll(v => v.Impresa == true);
+                if (!(salesList.Any()))
+                {
+                    TempData["FacturasTodasImpresas"] = true;
+                    return View("Index", db.Sales.ToList());
+                }
+                foreach (var saleNoImp in salesList)
+                {
+                    saleNoImp.Impresa = true;
+                    db.Entry(saleNoImp).State = EntityState.Modified;
+                    db.SaveChanges();
+                    
+                }
+                
+            }
+            else
+            {
+                foreach (var saleId in arraySelected)
+                {
+                    if (saleId == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    var saleIdInt = Int32.Parse(saleId);
+                    Sale sale = db.Sales.Find(saleIdInt);
+
+                    if (sale == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    else
+                    {
+                        sale.Impresa = true;
+                        db.Entry(sale).State = EntityState.Modified;
+                        db.SaveChanges();
+                        salesList.Add(sale);
+                    }
+                }
+
+            }
+
+            return View(salesList);
+
+        }
+
         public ActionResult modalCustomer(int? id)
         {
             if (id == null)

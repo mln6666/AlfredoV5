@@ -10,6 +10,7 @@ namespace MinimercadoAlfredo.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "MinimercadoAlfredo.Context.AlfredoContext";
         }
 
         protected override void Seed(MinimercadoAlfredo.Context.AlfredoContext context)
