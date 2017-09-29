@@ -5,173 +5,177 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sistema Minimercado Alfredo</title>
-
     <link href="/Content/Site.css" rel="stylesheet">
     <link rel="stylesheet" href="/Content/normalize.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
     @*<script type="text/javascript" src='@Url.Content("~/Scripts/jquery-1.12.4.min.js")'></script>
-    <script type="text/javascript" src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
+        <script type="text/javascript" src='@Url.Content("~/Scripts/bootstrap.min.js")'></script>*@
     <style>
         @@media print {
             a[href]:after {
                 content: none !important;
             }
         }
-
+        center{display: none}
         .full {
-             -webkit-background-size: cover;
-             -moz-background-size: cover;
-             background-size: cover;
-             -o-background-size: cover;
-             height: 100%;
-         }
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            height: 100%;
+        }
 
         body {
             color: #151515 !important;
         }
+
         .dropdown-submenu {
             position: relative;
         }
 
-        .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: -1px;
-            -webkit-border-radius: 0 6px 6px 6px;
-            -moz-border-radius: 0 6px 6px;
-            border-radius: 0 6px 6px 6px;
+            .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
+
+            .dropdown-submenu:hover > .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-submenu > a:after {
+                display: block;
+                content: " ";
+                float: right;
+                width: 0;
+                height: 0;
+                border-color: transparent;
+                border-style: solid;
+                border-width: 5px 0 5px 5px;
+                border-left-color: #ccc;
+                margin-top: 5px;
+                margin-right: -10px;
+            }
+
+            .dropdown-submenu:hover > a:after {
+                border-left-color: #fff;
+            }
+
+            .dropdown-submenu.pull-left {
+                float: none;
+            }
+
+                .dropdown-submenu.pull-left > .dropdown-menu {
+                    left: -100%;
+                    margin-left: 10px;
+                    -webkit-border-radius: 6px 0 6px 6px;
+                    -moz-border-radius: 6px 0 6px 6px;
+                    border-radius: 6px 0 6px 6px;
+                }
+
+        .dropdown-menu {
+            min-width: min-content !important;
         }
 
-        .dropdown-submenu:hover > .dropdown-menu {
-            display: block;
-        }
+            .dropdown-menu > li > a {
+                padding-bottom: 0px;
+                padding-top: 0px;
+                margin-bottom: 4px;
+                margin-top: 4px;
+            }
 
-        .dropdown-submenu > a:after {
-            display: block;
-            content: " ";
-            float: right;
-            width: 0;
-            height: 0;
-            border-color: transparent;
-            border-style: solid;
-            border-width: 5px 0 5px 5px;
-            border-left-color: #ccc;
-            margin-top: 5px;
-            margin-right: -10px;
-        }
-
-        .dropdown-submenu:hover > a:after {
-            border-left-color: #fff;
-        }
-
-        .dropdown-submenu.pull-left {
-            float: none;
-        }
-
-        .dropdown-submenu.pull-left > .dropdown-menu {
-            left: -100%;
-            margin-left: 10px;
-            -webkit-border-radius: 6px 0 6px 6px;
-            -moz-border-radius: 6px 0 6px 6px;
-            border-radius: 6px 0 6px 6px;
-        }
-        .dropdown-menu{ min-width: min-content !important;}
-            .dropdown-menu > li > a{ padding-bottom: 0px;padding-top: 0px;margin-bottom: 4px;margin-top: 4px;}
         nav ul li {
-            display: grid!important;
+            display: grid !important;
         }
     </style>
-
 </head>
 <body class="full" background="~/Content/Images/BACKGROUND-TOP.jpg">
-<nav class="navbar navbar-inverse" style="padding-top: 0px;padding-bottom: 0px;">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <img  href="/Home/Index" src="~/Content/Images/logoalfredo1.png" style="width: 130px;height: 70px;">
+    <nav class="navbar navbar-inverse" style="padding-top: 0px;padding-bottom: 0px;margin-bottom:0px">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/Home/Index"><img href="/Home/Index" src="/Content/Images/logoalfredo1.png" style="width: 130px;height: 70px;"></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Ventas <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Resúmenes", "Index", "Informations")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Compras <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li style="text-transform: uppercase">@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
+                            <li class="divider"></li>
+                            <li style="text-transform: uppercase">@Html.ActionLink("Listado", "Index", "Purchases")</li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Productos <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Nuevo", "CreateProduct", "Products")</li>
+                            <li class="divider"></li>
+                            <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Listados", "Index", "Products")</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Catálogos</a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-weight: bold; font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
+                                    <li class="divider"></li>
+                                    <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
+                                </ul>
+                            </li>
+                            <li class="divider"></li>
+                            <li style="text-transform: uppercase">@Html.ActionLink("Rubros", "Index", "Categories")</li>
+                            <li class="divider"></li>
+                            <li style="text-transform: uppercase">@Html.ActionLink("Marcas", "Index", "Trademarks")</li>
+                            <li class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Actualización de Stock</a>
+                                <ul class="dropdown-menu">
+                                    <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
+                                    <li class="divider"></li>
+                                    <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
+                                </ul>
+                            </li>
+                            <li class="divider"></li>
+                            <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Actualización de Precios", "PriceUpdate", "Products")</li>
+                        </ul>
+                    </li>
+                    <li style="text-transform: uppercase">@Html.ActionLink("Clientes", "Index", "Customers")</li>
+                    <li style="text-transform: uppercase">@Html.ActionLink("Proveedores", "Index", "Providers")</li>
+                </ul>
+
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Ventas <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Resúmenes", "Index", "Informations")</li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Compras <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li style="text-transform: uppercase">@Html.ActionLink("Nueva", "CreatePurchase", "Purchases")</li>
-                        <li class="divider"></li>
-                        <li style="text-transform: uppercase">@Html.ActionLink("Listado", "Index", "Purchases")</li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="text-transform: uppercase">Productos <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Nuevo", "CreateProduct", "Products")</li>
-                        <li class="divider"></li>
-                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Listados", "Index", "Products")</li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Catálogos</a>
-                            <ul class="dropdown-menu">
-                                <li style="font-weight: bold; font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = true})">Vendedores</a></li>
-                                <li class="divider"></li>
-                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important"><a href="@Url.Action("Catalog", "Products", new {personal = false})">Clientes</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li style="text-transform: uppercase">@Html.ActionLink("Rubros", "Index", "Categories")</li>
-                        <li class="divider"></li>
-                        <li style="text-transform: uppercase">@Html.ActionLink("Marcas", "Index", "Trademarks")</li>
-                        <li class="divider"></li>
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#" @*onclick="event.stopPropagation()"*@ style="text-transform: uppercase">Actualización de Stock</a>
-                            <ul class="dropdown-menu">
-                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Alta Stock", "AddStock", "Products")</li>
-                                <li class="divider"></li>
-                                <li style="font-weight: bold;font-style: italic;text-transform: capitalize!important">@Html.ActionLink("Baja Stock", "RemoveStock", "Products")</li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li style="font-weight: bold;text-transform: uppercase">@Html.ActionLink("Actualización de Precios", "PriceUpdate", "Products")</li>
-
-                    </ul>
-                </li>
-
-                <li style="text-transform: uppercase">@Html.ActionLink("Clientes", "Index", "Customers")</li>
-
-                <li style="text-transform: uppercase">@Html.ActionLink("Proveedores", "Index", "Providers")</li>
-            </ul>
-          
-            @Html.Partial("_LoginPartial")
-        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr class="hidden-print" />
+        @Scripts.Render("~/js")
+        <footer>
+            <p class="text-center hidden-print">
+                - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ® <a class="hidden-print" style="color: black">@Html.ActionLink("Contacto", "Contact", "Home")</></a> -
+            </p>
+        </footer>
     </div>
-</nav>
-<div class="container body-content">
-
-    @RenderBody()
-    <hr class="hidden-print"/>
-    @Scripts.Render("~/js")
-    <footer>
-        <p class="text-center hidden-print"> - Sistema Minimercado Alfredo &copy; @DateTime.Now.Year - Godesa Solutions ® <a class="hidden-print" style="color: black">@Html.ActionLink("Contacto", "Contact", "Home")</></a> -
-        </p>
-    </footer>
-</div>
     @*@Scripts.Render("~/bundles/lib")*@
     @RenderSection("scripts", required: false)
 </body>
