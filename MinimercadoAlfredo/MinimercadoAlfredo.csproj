@@ -810,6 +810,7 @@
     <Content Include="Views\Informations\MonthSales.cshtml" />
     <Content Include="Views\Informations\DaySales.cshtml" />
     <Content Include="Views\Sales\GetPdfSelected.cshtml" />
+    <Content Include="Views\Sales\SinFacturas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

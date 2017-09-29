@@ -410,6 +410,12 @@ namespace MinimercadoAlfredo.Controllers
             return View(sale);
         }
 
+        public ActionResult SinFacturas()
+        {
+            return View();
+        }
+
+
         public ActionResult GetPdfSelected(string[] arraySelected)
         {
             List<Sale> salesList = new List<Sale>();
@@ -421,8 +427,7 @@ namespace MinimercadoAlfredo.Controllers
                 //salesList.RemoveAll(v => v.Impresa == true);
                 if (!(salesList.Any()))
                 {
-                    TempData["FacturasTodasImpresas"] = true;
-                    return View("Index", db.Sales.ToList());
+                    return View("SinFacturas");
                 }
                 foreach (var saleNoImp in salesList)
                 {
