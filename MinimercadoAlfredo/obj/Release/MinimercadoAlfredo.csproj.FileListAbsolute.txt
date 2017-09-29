@@ -302,7 +302,9 @@ D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Securi
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.Twitter.resources.dll
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\bin\es\Microsoft.Owin.Security.MicrosoftAccount.resources.dll
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.csprojResolveAssemblyReference.cache
-D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.Migrations.phoneToString.resources
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.csproj.GenerateResource.Cache
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.dll
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.pdb
+D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.Migrations.InitialCreate.resources
+D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.Migrations.impresa.resources
+D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Release\MinimercadoAlfredo.csproj.CoreCompileInputs.cache

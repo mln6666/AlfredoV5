@@ -273,7 +273,9 @@
     <Content Include="Content\Images\IMG_30319.jpg" />
     <Content Include="Content\Images\productos.jpg" />
     <Content Include="Content\Images\ventas2.jpg" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\roboto.css" />
     <Content Include="Content\Select2\select2.css" />
     <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
