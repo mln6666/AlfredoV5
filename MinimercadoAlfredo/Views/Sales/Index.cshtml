@@ -134,16 +134,15 @@
     </tbody>
 </table>
 
-
+<input id="noHayFacturasPImprimir" style="display: none" value="@TempData["FacturasTodasImpresas"]"/>
 
 @section scripts
 {
     <script>
-
         $(document).ready(function () {
-            var soyUnViewBag = @ViewBag.mensajeImpresion;
-             @*@if (TempData["FacturasTodasImpresas"]) { };*@
-             if (soyUnViewBag !== "") {
+           
+          
+            if ($('#noHayFacturasPImprimir').isNaN) {
                  toastr["info"]("Todas las facturas fueron impresas con anterioridad. Si desea reimprimirlas puede seleccionar las deseadas y elegir  imprimir 'SELECCIONADAS'.<br /><br /><button type='button' class='btn clear'>Ok</button>", "Atención");
 
                  toastr.options = {
@@ -265,7 +264,7 @@
             window.open(url1);
         });
 
-        //toast para avisar que todas las boletas están impresas
+      
         
 
     </script>
