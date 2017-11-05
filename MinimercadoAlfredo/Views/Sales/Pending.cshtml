@@ -61,7 +61,7 @@
             <td class="text-center">
                 @Html.DisplayFor(modelItem => item.SaleTotal)
             </td>
-            <td>
+            
             <td class="text-center">
                 <button id="@item.IdSale" class="@item.IdSale btn btn-success btn-sm" data-idsale="@item.IdSale" onclick="finalizar(@item.IdSale)" title="Finalizar"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
                 <a href="@Url.Action("Details","Sales", new { id = item.IdSale })" class="btn btn-primary btn-sm" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>

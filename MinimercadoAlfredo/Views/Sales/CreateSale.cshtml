@@ -62,7 +62,7 @@
             <option value="0">Seleccionar Cliente...</option>
             @foreach (var item in ViewBag.Customers)
             {
-                <option value="@item.IdCustomer">@item.CustomerName</option>
+                <option value="@item.IdCustomer#@item.CustomerName#@item.CustomerAddress#@item.CuitCuil">@item.CustomerName</option>
             }
         </select>
         @*<input type="text" class="panel-info" style="width: 60px;height:25px;" id="customername" placeholder="" />*@
@@ -96,7 +96,7 @@
             <th class="text-center">
                 Cantidad
             </th>
-            <th class="text-center">
+            <th class="text-center" style="display: none">
                 Descuento (%)
             </th>
             <th class="text-center">
@@ -113,11 +113,11 @@
             {
                 if (item.IdTrademark != null)
                 {
-                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
+                    <option value="@item.IdProduct#@item.ProductDescription#@item.WholeSalePrice">@item.IdProduct - @item.ProductDescription | @item.Trademark.TrademarkName</option>
                 }
                 else
                 {
-                    <option value="@item.IdProduct">@item.IdProduct - @item.ProductDescription</option>
+                    <option value="@item.IdProduct#@item.ProductDescription#@item.WholeSalePrice">@item.IdProduct - @item.ProductDescription</option>
                 }
             }
         </select>
@@ -132,7 +132,7 @@
         <input type="number" class="panel-info form-control inputForm" value="1" id="linequantity" onFocus="this.select()" onchange="totallinea()" oninput="totallinea()" onkeypress="solonumerosptocoma(); enterToSave();" />
         <span class="text-danger"></span>
     </td>
-    <td style="background: #a0cee8">
+    <td style="background: #a0cee8;display: none">
         <input type="tel" min="0" step="1" class="panel-info form-control inputForm" value="0" id="linediscount" onFocus="this.select()" oninput="totallinea()" maxlength="3" oninput="javascript:if (this.value > 100) this.value = 100;" onchange="totallinea();" onkeypress="solonumeros(); enterToSave();" />
         <span class="text-danger"></span>
     </td>
@@ -147,7 +147,7 @@
     <tr id="trtot">
         <td class="sinborde"></td>
         <td class="sinborde"></td>
-        <td class="sinborde"></td>
+        <td class="sinborde" style="display: none"></td>
         <th class="text-center" style="background: khaki">TOTAL</th>
         <td class="ftot" style="background: khaki">
             <input type="text" class="panel-info form-control text-center fina" value="0.00" id="saletotal" placeholder="" readonly="readonly" style="font-weight: bold; border: none" />
@@ -297,7 +297,23 @@
         $(document).ready(function() {
             $("#customername").change(function() {
 
-                var options = {};
+                //obtener cliente sin ajax
+
+                var cdata = $('#customername').val();
+                var cid = cdata.split("#")[0];
+                var cname = cdata.split("#")[1];
+                var caddress = cdata.split("#")[2];
+                var ccuitcuil = cdata.split("#")[3];
+                if (caddress != null & caddress!='') {
+                    document.getElementById("saleaddress").value = caddress;
+                } else { document.getElementById("saleaddress").value = '';}
+                if (ccuitcuil != null & ccuitcuil != '') {
+                    document.getElementById("cuitcuil").value = ccuitcuil;
+                } else { document.getElementById("cuitcuil").value = '';}
+                //fin obtener cliente sin ajax
+
+                //obtener cliente con ajax
+                @*var options = {};
                 options.url = '@Url.Action("Getcustomerdata", "Sales")';
                 options.type = "GET";
                 options.data = { "cus": $("#customername").val() };
@@ -310,7 +326,8 @@
                         document.getElementById("cuitcuil").value = data.CuitCuil;
                     }
                 };
-                $.ajax(options);
+                $.ajax(options);*@
+                //fin obtener cliente con ajax
             });
         });
         //////////////End:Autocomplete Sale Address CuitCuil/////////////
@@ -319,7 +336,23 @@
         $(document).ready(function() {
             $("#linedescription").change(function() {
 
-                var options = {};
+                //COMIENZO OBT PROD SIN AJAX
+                var pdata = $('#linedescription').val();
+                var pid = pdata.split("#")[0];
+                var pdescription = pdata.split("#")[1];
+                var pprice = parseFloat(pdata.split("#")[2]).toFixed(2); 
+                document.getElementById("lineprice").value = pprice;
+
+                var price = parseFloat($('#lineprice').val());
+                var quantity = parseFloat($('#linequantity').val());
+                var discount = parseFloat($('#linediscount').val());
+                var total = (price * quantity);
+                total = total - (total * discount / 100);
+                document.getElementById("linetotal").value = total.toFixed(2);;
+                //FIN OBT PROD SIN AJAX
+
+                //obtener prod con ajax
+                @*var options = {};
                 options.url = '@Url.Action("Getproductdata", "Sales")';
                 options.type = "GET";
                 options.data = { "pro": $("#linedescription").val() };
@@ -333,8 +366,8 @@
                     total = total - (total * discount / 100);
                     document.getElementById("linetotal").value = total.toFixed(2);;
                 };
-                $.ajax(options);
-
+                $.ajax(options);*@
+                //FIN OBTENER PROD CON AJAX
             });
 
         });
@@ -412,13 +445,16 @@
                     ////////////***********//////////
                     var historial = verifproductos;
                     var errorproductos = false;
-                    productoact = parseInt($('#linedescription').val().trim());
+                    var errormaxprod = false;
+
+                    productoact = parseInt($('#linedescription').val().split("#")[0]);
                     $.each(historial, function() {
                         if (productoact == parseInt(this)) {
                             errorproductos = true;
 
                         }
                     });
+                    if(orderItems.length==15){errormaxprod=true}
                 }
                 if (errorproductos) {
                     isValidItem = false;
@@ -428,105 +464,39 @@
                         backdrop: true
                     });
                 }
-
-                //Validacion de Stock
+                if (errormaxprod) {
+                    isValidItem = false;
+                    bootbox.alert({
+                        title: "Cantidad máxima de productos",
+                        message: "Cada venta puede poseer hasta un máximo de 15 productos.",
+                        backdrop: true
+                    });
+                }
+                //validación
                 if (isValidItem) {
-                    var options = {};
-                    options.url = '@Url.Action("ValStockSale", "Sales")';
-                    options.type = "GET";
-                    options.data = { "pro": $("#linedescription").val() };
-                    options.dataType = "json";
-                    options.success = function (data) {
-                        var parcialstock = parseFloat(data);
-                        var cantidad = ($('#linequantity').val().trim());
-                        var faltante = parseFloat($('#linequantity').val().trim()) - parcialstock;
+                    orderItems.push({
+                        IdProduct: $('#linedescription').val().split("#")[0],
+                        LinePrice: $('#lineprice').val().trim(),                                
+                        LineQuantity: $('#linequantity').val().trim(),
+                        LineDiscount: $('#linediscount').val().trim(),
+                        LineTotal: $('#linetotal').val().trim(),
+                        LineDescription: $('#shadow').val().trim()
+                    });
+                    verifproductos.push(
+                        parseInt($('#linedescription').val().split("#")[0])
+                    );
+                    totgral.push(
+                        parseFloat($('#linetotal').val().trim())
+                    );
+                    //Clear fields
+                    //$(document).find('#linedescription').select2();
+                    $("#linedescription").val(0).trigger('change');
+                    $('#lineprice,#linequantity,#linetotal').val('0.00');
+                    $('#linediscount').val('0');
+                    $('#linequantity').val('1');
 
-                        if (parcialstock < cantidad) {
-                            toastr.options = {
-                                "closeButton": false,
-                                "debug": false,
-                                "newestOnTop": false,
-                                "progressBar": false,
-                                "positionClass": "toast-top-right",
-                                "preventDuplicates": false,
-                                "onclick": null,
-                                "showDuration": "300",
-                                "hideDuration": "1000",
-                                "timeOut": "7000",
-                                "extendedTimeOut": "1000",
-                                "showEasing": "swing",
-                                "hideEasing": "linear",
-                                "showMethod": "fadeIn",
-                                "hideMethod": "fadeOut"
-                            }
-                            toastr["warning"]($('#shadow').val().trim() + "<br/># Disponible: " + parcialstock + "<br/># Solicitada: " + cantidad + "<br/># Faltante: " + faltante, "Fuera de Stock")
-
-                          
-                         
-                        }
-                       
-                            //                    data = data.replace(",",'.');
-
-                            orderItems.push({
-                                IdProduct: $('#linedescription').val().trim(),
-                                LinePrice: $('#lineprice').val().trim(),                                
-                                LineQuantity: $('#linequantity').val().trim(),
-                                LineDiscount: $('#linediscount').val().trim(),
-                                LineTotal: $('#linetotal').val().trim(),
-                                LineDescription: $('#shadow').val().trim()
-                            });
-                            verifproductos.push(
-                                parseInt($('#linedescription').val().trim())
-                            );
-                            totgral.push(
-                               parseFloat($('#linetotal').val().trim())
-                           );
-                            //Clear fields
-                            //$(document).find('#linedescription').select2();
-                            $("#linedescription").val(0).trigger('change');
-                            $('#lineprice,#linequantity,#linetotal').val('0.00');
-                            $('#linediscount').val('0');
-                            $('#linequantity').val('1');
-
-                            GeneratedItemsTable();
-                       
-
-                        ////NO PERMITIR AGREGAR PRODUCTOS SIN STOCK
-                        //if (parcialstock < cantidad) {
-                        //    bootbox.alert({
-                        //        title: "No hay suficiente stock",
-                        //       message: "Producto: " + $('#shadow').val().trim()+"<br/>Stock disponible: "+parcialstock+"<br/>Stock solicitado: "+cantidad+"<br/>Stock faltante: "+faltante,
-                        //        backdrop: true
-                        //    });
-                        //}
-                        //else {
-                        //    //                    data = data.replace(",",'.');
-
-                        //    orderItems.push({
-                        //        IdProduct: $('#linedescription').val().trim(),
-                        //        LinePrice: $('#lineprice').val().trim(),                                
-                        //        LineQuantity: $('#linequantity').val().trim(),
-                        //        LineDiscount: $('#linediscount').val().trim(),
-                        //        LineTotal: $('#linetotal').val().trim(),
-                        //        LineDescription: $('#shadow').val().trim()
-                        //    });
-                        //    verifproductos.push(
-                        //        parseInt($('#linedescription').val().trim())
-                        //    );
-                        //    totgral.push(
-                        //       parseFloat($('#linetotal').val().trim())
-                        //   );
-                        //    //Clear fields
-                        //    //$(document).find('#linedescription').select2();
-                        //    $("#linedescription").val(0).trigger('change');
-                        //    $('#lineprice,#linequantity,#linetotal').val('0.00');
-                        //    $('#linediscount').val('0');
-                        //    $('#linequantity').val('1');
-
-                        //    GeneratedItemsTable();
-                        //}
-                    };
-                    $.ajax(options);
+                    GeneratedItemsTable();
+                 
                 }
 
 
@@ -568,7 +538,7 @@
                 //Save if valid
                 if (isAllValid) {
                     var data = {
-                        CustomerName: $('#customername').val().trim(),
+                        CustomerName: $('#customername').val().split("#")[0],
                         //Sorry forgot to add Description Field
                         SaleAddress: $('#saleaddress').val().trim(),
                         CuitCuil: $('#cuitcuil').val().trim(),
@@ -642,7 +612,7 @@
                 //Save if valid
                 if (isAllValid) {
                     var data = {
-                        CustomerName: $('#customername').val().trim(),
+                        CustomerName: $('#customername').val().split("#")[0],
                         //Sorry forgot to add Description Field
                         SaleAddress: $('#saleaddress').val().trim(),
                         CuitCuil: $('#cuitcuil').val().trim(),
@@ -698,7 +668,7 @@
                     $row.append($('<td></td>').html(val.LineDescription));
                     $row.append($('<td class="text-center"></td>').html(parseFloat(val.LinePrice).toFixed(2)));
                     $row.append($('<td class="text-center"></td>').html(val.LineQuantity));
-                    $row.append($('<td class="text-center"></td>').html(val.LineDiscount));
+                    $row.append($('<td class="text-center" style="display:none"></td>').html(val.LineDiscount));
                     $row.append($('<td class="text-center"></td>').html(val.LineTotal));
                     var $remove = $('<a href="#"><button type="button" class="btn btn-danger btn-xs" style="bottom: auto"><span class="glyphicon glyphicon-remove"></span></button></a>');
                     //CALCULO TOTAL GRAL

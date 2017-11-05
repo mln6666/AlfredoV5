@@ -154,6 +154,18 @@
                             </td>
                         </tr>
                     }
+                    @if (venta.SaleLines.Count() < 15) {
+                        for (int a = 0; a < 15-venta.SaleLines.Count(); a++)
+                        {                        
+                            <tr class="visible-print" style="background: white">
+                                <td class="text-center">&nbsp;</td>
+                                <td class="text-center">&nbsp;</td>
+                                <td class="text-center">&nbsp;</td>
+                                <td class="text-center">&nbsp;</td>
+                            </tr>
+                           
+                        }
+                    }
                 </tbody>
                 <tr style="background: none">
                     <td style="border-color: transparent;"></td>
