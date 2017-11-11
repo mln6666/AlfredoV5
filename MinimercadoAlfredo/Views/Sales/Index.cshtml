@@ -204,28 +204,28 @@
 
 @if (ViewBag.Page != 0 & ViewBag.CantPages != 0)
 {
-    <div style="width:100%" class="text-right">
+    <div style="width: 100%" class="text-right">
         <div id="pag" role="toolbar" aria-label="Toolbar with button groups">
             <div class="btn-group mr-2" role="group" aria-label="First group">
-                <a id="pagant" href="@Url.Action("Index", "Sales", new { pag = ViewBag.Page - 1, widthpage = ViewBag.WidthPage })" class="btn btn-primary"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span> Anterior</a>
+                <a id="pagant" href="@Url.Action("Index", "Sales", new {pag = ViewBag.Page - 1, widthpage = ViewBag.WidthPage})" class="btn btn-primary"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span> Anterior</a>
                 @if (ViewBag.CantPages > 2)
                 {
                     if (ViewBag.Page > 2)
                     {
-                        if (ViewBag.CantPages < ViewBag.Page + 2 & ViewBag.CantPages > 4)//
+                        if (ViewBag.CantPages < ViewBag.Page + 2 & ViewBag.CantPages > 4) //
                         {
                             if (ViewBag.Page < ViewBag.CantPages)
                             {
                                 for (var i = ViewBag.Page - 3; i < ViewBag.Page + 2; i++) //última y anteúltima
                                 {
-                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                    <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                                 }
                             }
                             else
                             {
                                 for (var i = ViewBag.Page - 4; i < ViewBag.Page + 1; i++)
                                 {
-                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                    <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                                 }
                             }
                         }
@@ -235,14 +235,14 @@
                             {
                                 for (var i = 1; i < ViewBag.CantPages + 1; i++) //4 páginas (caso raro)
                                 {
-                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                    <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                                 }
                             }
                             else
                             {
                                 for (var i = ViewBag.Page - 2; i < ViewBag.Page + 3 & i < ViewBag.CantPages + 1; i++) //Medio
                                 {
-                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                    <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                                 }
                             }
                         }
@@ -251,7 +251,7 @@
                     {
                         for (var i = 1; i < ViewBag.CantPages + 1 & i < 6; i++)
                         {
-                            <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                            <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                         }
                     }
                 }
@@ -259,14 +259,18 @@
                 {
                     for (var i = 1; i < ViewBag.CantPages + 1; i++)
                     {
-                        <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                        <a id="@("pag" + i)" href="@Url.Action("Index", "Sales", new {pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
                     }
                 }
-                <a id="pagsig" href="@Url.Action("Index","Sales", new { pag = ViewBag.Page + 1, widthpage = ViewBag.WidthPage })" class="btn btn-primary">Siguiente <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+                <a id="pagsig" href="@Url.Action("Index", "Sales", new {pag = ViewBag.Page + 1, widthpage = ViewBag.WidthPage})" class="btn btn-primary">Siguiente <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
             </div>
 
         </div>
     </div>
+}
+else
+{
+    <a href="@Url.Action("Index", "Sales", new { pag = 1, widthpage = 100})" class="btn btn-primary">Terminar Búsqueda</a>
 }
 
 <input id="noHayFacturasPImprimir" style="display: none" value="@TempData["FacturasTodasImpresas"]" />
@@ -274,79 +278,79 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             var page = @ViewBag.Page;
             $('#pag' + @ViewBag.Page).addClass('active');
             @*$('#widthpage').val(@ViewBag.WidthPage).trigger('change');*@
             if (page == 1) {
                 $('#pagant').addClass('disabled');
             }
-            if (page == @ViewBag.CantPages){
+            if (page == @ViewBag.CantPages) {
                 $('#pagsig').addClass('disabled');
+        }
+
+        if (@ViewBag.Customer != 0) {
+            $('#searchcustomer').val(@ViewBag.Customer);
+        }
+
+        if ($('#noHayFacturasPImprimir').isNaN) {
+            toastr["info"]("Todas las facturas fueron impresas con anterioridad. Si desea reimprimirlas puede seleccionar las deseadas y elegir  imprimir 'SELECCIONADAS'.<br /><br /><button type='button' class='btn clear'>Ok</button>", "Atención");
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": 0,
+                "extendedTimeOut": 0,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "tapToDismiss": false
+            }
+        };
+
+        arraySelected = [];
+
+        $('#tabla tbody').on('click', 'tr', function() {
+
+            $(this).toggleClass('selected');
+
+            if ($(this).hasClass('selected')) {
+                arraySelected.push(table.row(this).data()[0]);
+                //acá tengo que agregar los id al arreglo
+            } else {
+
+                var index = arraySelected.indexOf(table.row(this).data()[0]);
+                arraySelected.splice(index, 1);
+
+                //aca quitar los id al arreglo
             }
 
-            if (@ViewBag.Customer != 0) {
-                $('#searchcustomer').val(@ViewBag.Customer);
-            }
-
-            if ($('#noHayFacturasPImprimir').isNaN) {
-                 toastr["info"]("Todas las facturas fueron impresas con anterioridad. Si desea reimprimirlas puede seleccionar las deseadas y elegir  imprimir 'SELECCIONADAS'.<br /><br /><button type='button' class='btn clear'>Ok</button>", "Atención");
-
-                 toastr.options = {
-                     "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-top-right",
-                    "preventDuplicates": false,
-                    "onclick": null,
-                    "showDuration": "300",
-                    "hideDuration": "1000",
-                    "timeOut": 0,
-                    "extendedTimeOut": 0,
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut",
-                    "tapToDismiss": false
-                     }
-             };
-
-            arraySelected = [];
-
-            $('#tabla tbody').on('click', 'tr', function () {
-
-                $(this).toggleClass('selected');
-
-                if ($(this).hasClass('selected')) {
-                    arraySelected.push(table.row(this).data()[0]);
-                 //acá tengo que agregar los id al arreglo
-                } else {
-
-                    var index = arraySelected.indexOf(table.row(this).data()[0]);
-                    arraySelected.splice(index, 1);
-
-                     //aca quitar los id al arreglo
-                }
-
-            });
-
-            $('#imprimirVentas').click(function () {
-                alert(table.rows('.selected').data().length + ' row(s) selected');
-            });
-
-            $('.dropdown-toggle').dropdown();
-
-            if ($('#message').val() == 0) {
-                toastr.warning("Ha ocurrido un error al eliminar la venta");
-            };
-            if ($('#message').val() == 2) {
-                toastr.success("Venta modificada exitosamente");
-            };
-            if ($('#message').val() == 3) {
-                toastr.success("Venta eliminada exitosamente");
-            };
         });
+
+        $('#imprimirVentas').click(function() {
+            alert(table.rows('.selected').data().length + ' row(s) selected');
+        });
+
+        $('.dropdown-toggle').dropdown();
+
+        if ($('#message').val() == 0) {
+            toastr.warning("Ha ocurrido un error al eliminar la venta");
+        };
+        if ($('#message').val() == 2) {
+            toastr.success("Venta modificada exitosamente");
+        };
+        if ($('#message').val() == 3) {
+            toastr.success("Venta eliminada exitosamente");
+        };
+    });
 
         function finalized() {
             bootbox.alert({
