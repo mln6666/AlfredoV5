@@ -19,7 +19,7 @@
 <hr style="color: grey; border-color: grey; margin-top: 0" />
 
 <div class="btn-group btn-group-justified btn-group-xs" style="margin-top: -1%">
-    <a href="@Url.Action("Index","Sales")" class="btn btn-default">Todas</a>
+    <a href="@Url.Action("Index","Sales", new { pag = 1, widthpage = 100})" class="btn btn-default">Todas</a>
     <a href="@Url.Action("Pending","Sales")" class="btn btn-default">Pendientes</a>
     <a href="#" class="btn btn-default active">Finalizadas</a>
 </div>
