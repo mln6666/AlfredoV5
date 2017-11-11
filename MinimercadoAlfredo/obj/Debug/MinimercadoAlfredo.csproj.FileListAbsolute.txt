@@ -1324,7 +1324,6 @@ D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.dll
 D:\Desarrollos\Alfredo\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.pdb
-C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.phoneToString.resources
 C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.GenerateResource.Cache
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.csproj.CoreCompileInputs.cache
@@ -1435,3 +1434,5 @@ E:\Proyectos\AlfredoMaster\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlf
 E:\Proyectos\AlfredoMaster\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.impresa.resources
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.InitialCreate.resources
 D:\NorteDev\MLN\Godesa\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.impresa.resources
+C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.InitialCreate.resources
+C:\Proyectos\GitHub\AlfredoV5\MinimercadoAlfredo\obj\Debug\MinimercadoAlfredo.Migrations.impresa.resources

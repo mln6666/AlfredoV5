@@ -17,21 +17,95 @@ namespace MinimercadoAlfredo.Controllers
     {
         private AlfredoContext db = new AlfredoContext();
 
-
-      
-
         // GET: Sales
-        public ActionResult Index(int? message)
+        public ActionResult Index(int? message, int pag, int widthpage)
         {
-            var sales = db.Sales.Include(s => s.Customer);
-
-            if (message != null)
+            decimal cantpags = Math.Ceiling(Decimal.Divide(db.Sales.Count(), widthpage));
+            if (db.Sales.Any())
             {
-                TempData["message"] = message;
+                if (pag < 1 | pag > cantpags)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
             }
-
-            return View(sales.ToList());
+            int n = (pag - 1) * widthpage; // Para saltear las ventas de paginas anteriores
+            if (db.Sales.Any())
+            {
+                var sales =
+                    db.Sales.ToList().OrderByDescending(s => Tuple.Create(s.SaleDate, s.IdSale)).Skip(n).Take(widthpage);
+                    //Obtengo las últimas n ventas ordenadas por SaleDate y IdSale
+                if (message != null)
+                {
+                    TempData["message"] = message;
+                }
+                ViewBag.Page = pag;
+                ViewBag.CantPages = cantpags;
+                ViewBag.WidthPage = widthpage;
+                ViewBag.Customer = 0;
+                ViewBag.Date = 0;
+                ViewBag.Sale = 0;
+                return View(sales.ToList());
+            }
+            else
+            {
+                ViewBag.Page = pag;
+                ViewBag.CantPages = cantpags;
+                ViewBag.WidthPage = widthpage;
+                ViewBag.Customer = 0;
+                ViewBag.Date = 0;
+                ViewBag.Sale = 0;
+                return View(db.Sales.ToList());
+            }
         }
+
+        public ActionResult GetSales(string customer, DateTime? date, int? idsale)
+        {
+            //List<Sale> sales = new List<Sale>();
+            if (customer != null)
+            {
+                //sales = db.Sales.ToList().FindAll(c => c.Customer.CustomerName.Contains());
+                var sales = (from s in db.Sales
+                             where s.Customer.CustomerName.Contains(customer)
+                             select s);
+                ViewBag.Customer = customer;
+                ViewBag.Date = 0;
+                ViewBag.Sale = 0;
+                ViewBag.Page = 0;
+                ViewBag.CantPages = 0;
+                return View("Index", sales.ToList());
+            }
+            else
+            {
+                if (date != null)
+                {
+                    var sales = db.Sales.ToList().FindAll(s => s.SaleDate == date);
+                    ViewBag.Date = date;
+                    ViewBag.Customer = 0;
+                    ViewBag.Sale = 0;
+                    ViewBag.Page = 0;
+                    ViewBag.CantPages = 0;
+                    return View("Index", sales.ToList());
+                }
+                else
+                {
+                    if (idsale != null & idsale != 0)
+                    {
+                        var sales = (from s in db.Sales
+                                     where s.IdSale == idsale
+                                     select s);
+                        ViewBag.Sale = idsale;
+                        ViewBag.Date = 0;
+                        ViewBag.Customer = 0;
+                        ViewBag.Page = 0;
+                        ViewBag.CantPages = 0;
+                        return View("Index", sales.ToList());
+                    }
+                }
+                return RedirectToAction("Index", new { pag = 1 });
+
+            }
+        }
+
         public ActionResult Pending(int? message)
         {
             var sales = (from s in db.Sales

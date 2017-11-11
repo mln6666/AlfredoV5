@@ -113,7 +113,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li>@Html.ActionLink("Nueva", "CreateSale", "Sales")</li>
                             <li class="divider"></li>
-                            <li>@Html.ActionLink("Listado", "Index", "Sales")</li>
+                            <li><a href="@Url.Action("Index","Sales", new {pag = 1, widthpage = 100})">Listado</a></li>
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Resúmenes", "Index", "Informations")</li>
                         </ul>

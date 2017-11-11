@@ -7,7 +7,7 @@
 <head>
     <style>
         .selected {
-            background-color: lightblue!important;
+            background-color: lightblue !important;
         }
 
         .dropdown {
@@ -27,11 +27,23 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             padding: 8px 12px;
             z-index: 1;
-            text-align: left
+            text-align: left;
         }
 
         .dropdown:hover .dropdown-content {
             display: block;
+        }
+
+        #tabla {
+            height: 450px;
+            overflow: scroll;
+        }
+
+        #pag input {
+            color: white;
+            background-color: #446e9b;
+            border: 1px solid #2e4b69;
+            border-radius: 3px;
         }
     </style>
 
@@ -68,80 +80,215 @@
     <a href="@Url.Action("Pending","Sales")" class="btn btn-default">Pendientes</a>
     <a href="@Url.Action("Finalized","Sales")" class="btn btn-default">Finalizadas</a>
 </div>
-<br />
-<table class="table table-condensed display table-striped table-bordered" id="tabla">
-    <thead>
-        <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
-            <th style="width: 10%">
-                Nº Venta
-            </th>
-            <th style="width: 14%">
-                @Html.DisplayNameFor(model => model.SaleDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer.CustomerName)
-            </th>
-            <th class="text-center" style="width: 13%">
-                @Html.DisplayNameFor(model => model.SaleTotal)
-            </th>
-            <th class="text-center" style="width: 12%">
-                Estado
-            </th>
-            <th class="text-center" style="width: 14%">
-                Opciones
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IdSale)
-
-                </td>
-                <td>
-                    <div class="hidden">@Html.DisplayFor(modelItem => item.SaleDate)</div>
-                    <div>
-                        @Html.DisplayFor(modelItem => item.SaleDate.Day)/@Html.DisplayFor(modelItem => item.SaleDate.Month)/@Html.DisplayFor(modelItem => item.SaleDate.Year)
-                    </div>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
-                </td>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.SaleTotal)
-                </td>
-                <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.SaleState)
-                </td>
-                <td class="text-center">
-                    <a href="@Url.Action("Details", "Sales", new {id = item.IdSale})" class="btn btn-primary btn-sm" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
-                    @if (item.SaleState == MinimercadoAlfredo.Models.SaleState.Pendiente)
+<div style="width:100%;display:inline-flex">
+    <div style="width:12%"><p>Mostrar páginas de </p></div>
+    <div style="width:5%;margin:17px 0 5px">
+        <select id="widthpage" style="font-weight:bold">
+            @if (ViewBag.WidthPage == 100)
+            {
+                <option value="@Url.Action("Index", "Sales", new { pag = 1, widthpage = 100 })" selected="selected">100</option>
+                <option value="@Url.Action("Index", "Sales", new { pag = 1, widthpage = 200 })">200</option>
+                <option value="@Url.Action("Index", "Sales", new { pag = 1, widthpage = 300 })">300</option>
+                <option value="@Url.Action("Index", "Sales", new { pag = 1, widthpage = 400 })">400</option>
+            }
+            else
+            {
+                if (ViewBag.WidthPage == 200)
+                {
+                    <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=100})">100</option>
+                    <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=200})" selected="selected">200</option>
+                    <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=300})">300</option>
+                    <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=400})">400</option>
+                }
+                else
+                {
+                    if (ViewBag.WidthPage == 300)
                     {
-                        <a href="@Url.Action("EditSales", "Sales", new {id = item.IdSale})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                        <a href="@Url.Action("Delete", "Sales", new {id = item.IdSale, view = 1})" class="btn btn-danger btn-sm dialog-window" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=100})">100</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=200})">200</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=300})" selected="selected">300</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=400})">400</option>
                     }
                     else
                     {
-                        <button type="button" class="btn btn-primary btn-sm" title="Editar" onclick="finalized()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                        <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="deleted()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=100})">100</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=200})">200</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=300})">300</option>
+                        <option value="@Url.Action("Index","Sales",new { pag=1,widthpage=400})" selected="selected">400</option>
                     }
-
-                </td>
+                }
+            }
+        </select>
+    </div>
+    <div style="width:33%"><p> ventas</p></div>
+    <div class="text-right" style="width:50%;margin: 17px 0 5px">
+        <text>Buscar:</text>&nbsp;
+        <input id="searchcustomer" type="text" />
+        <input id="searchdate" type="date" style="display: none" />
+        <input id="searchnumber" type="number" style="display: none" />
+        <text>por:</text>&nbsp;
+        <select id="selectsearch" onchange="ShowInput(value)">
+            <option value="0">Cliente</option>
+            <option value="1">Fecha de Venta</option>
+            <option value="2">Nro Venta</option>
+        </select>
+        <button id="searchsale" class="btn-primary btn-xs"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+    </div>
+</div>
+<div id="tabla" style="margin-top: 1%">
+    <table class="table table-condensed display table-striped table-bordered">
+        <thead>
+            <tr class="text-center" style="color:black;font-weight: bold; background-color:lightsteelblue">
+                <th style="width: 10%">
+                    Nº Venta
+                </th>
+                <th style="width: 14%">
+                    @Html.DisplayNameFor(model => model.SaleDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Customer.CustomerName)
+                </th>
+                <th class="text-center" style="width: 13%">
+                    @Html.DisplayNameFor(model => model.SaleTotal)
+                </th>
+                <th class="text-center" style="width: 12%">
+                    Estado
+                </th>
+                <th class="text-center" style="width: 14%">
+                    Opciones
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody id="tbody">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdSale)
 
-<input id="noHayFacturasPImprimir" style="display: none" value="@TempData["FacturasTodasImpresas"]"/>
+                    </td>
+                    <td>
+                        <div class="hidden">@Html.DisplayFor(modelItem => item.SaleDate)</div>
+                        <div>
+                            @Html.DisplayFor(modelItem => item.SaleDate.Day)/@Html.DisplayFor(modelItem => item.SaleDate.Month)/@Html.DisplayFor(modelItem => item.SaleDate.Year)
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.SaleTotal)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.SaleState)
+                    </td>
+                    <td class="text-center">
+                        <a href="@Url.Action("Details", "Sales", new {id = item.IdSale})" class="btn btn-primary btn-sm" title="Detalles"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+                        @if (item.SaleState == MinimercadoAlfredo.Models.SaleState.Pendiente)
+                        {
+                            <a href="@Url.Action("EditSales", "Sales", new {id = item.IdSale})" class="btn btn-primary btn-sm" title="Editar"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            <a href="@Url.Action("Delete", "Sales", new {id = item.IdSale, view = 1})" class="btn btn-danger btn-sm dialog-window" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-primary btn-sm" title="Editar" onclick="finalized()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                            <button type="button" class="btn btn-danger btn-sm" title="Eliminar" onclick="deleted()"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                        }
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (ViewBag.Page != 0 & ViewBag.CantPages != 0)
+{
+    <div style="width:100%" class="text-right">
+        <div id="pag" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                <a id="pagant" href="@Url.Action("Index", "Sales", new { pag = ViewBag.Page - 1, widthpage = ViewBag.WidthPage })" class="btn btn-primary"><span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span> Anterior</a>
+                @if (ViewBag.CantPages > 2)
+                {
+                    if (ViewBag.Page > 2)
+                    {
+                        if (ViewBag.CantPages < ViewBag.Page + 2 & ViewBag.CantPages > 4)//
+                        {
+                            if (ViewBag.Page < ViewBag.CantPages)
+                            {
+                                for (var i = ViewBag.Page - 3; i < ViewBag.Page + 2; i++) //última y anteúltima
+                                {
+                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                }
+                            }
+                            else
+                            {
+                                for (var i = ViewBag.Page - 4; i < ViewBag.Page + 1; i++)
+                                {
+                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (ViewBag.CantPages == 4)
+                            {
+                                for (var i = 1; i < ViewBag.CantPages + 1; i++) //4 páginas (caso raro)
+                                {
+                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                }
+                            }
+                            else
+                            {
+                                for (var i = ViewBag.Page - 2; i < ViewBag.Page + 3 & i < ViewBag.CantPages + 1; i++) //Medio
+                                {
+                                    <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (var i = 1; i < ViewBag.CantPages + 1 & i < 6; i++)
+                        {
+                            <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                        }
+                    }
+                }
+                else
+                {
+                    for (var i = 1; i < ViewBag.CantPages + 1; i++)
+                    {
+                        <a id="@("pag" + i)" href="@Url.Action("Index","Sales", new { pag = i, widthpage = ViewBag.WidthPage})" class="btn btn-primary">@i</a>
+                    }
+                }
+                <a id="pagsig" href="@Url.Action("Index","Sales", new { pag = ViewBag.Page + 1, widthpage = ViewBag.WidthPage })" class="btn btn-primary">Siguiente <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span></a>
+            </div>
+
+        </div>
+    </div>
+}
+
+<input id="noHayFacturasPImprimir" style="display: none" value="@TempData["FacturasTodasImpresas"]" />
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-           
-          
+            var page = @ViewBag.Page;
+            $('#pag' + @ViewBag.Page).addClass('active');
+            @*$('#widthpage').val(@ViewBag.WidthPage).trigger('change');*@
+            if (page == 1) {
+                $('#pagant').addClass('disabled');
+            }
+            if (page == @ViewBag.CantPages){
+                $('#pagsig').addClass('disabled');
+            }
+
+            if (@ViewBag.Customer != 0) {
+                $('#searchcustomer').val(@ViewBag.Customer);
+            }
+
             if ($('#noHayFacturasPImprimir').isNaN) {
                  toastr["info"]("Todas las facturas fueron impresas con anterioridad. Si desea reimprimirlas puede seleccionar las deseadas y elegir  imprimir 'SELECCIONADAS'.<br /><br /><button type='button' class='btn clear'>Ok</button>", "Atención");
 
@@ -164,17 +311,6 @@
                     "tapToDismiss": false
                      }
              };
-
-            var table = $('#tabla').DataTable({
-                order: [[0, "desc"]],
-                "lengthMenu": [[50, 100, 150, 200], [50, 100, 150, 200]],
-                "language": {
-                    "url": "/Scripts/DataTables/spanish.json"
-                },
-                "scrollY": "400px",
-                "scrollCollapse": true,
-                "paging": true
-            });
 
             arraySelected = [];
 
@@ -259,15 +395,60 @@
 
 
         });
+
         $('#ventasDelDia').click(function() {
             var url1 = "/Sales/GetPdfSelected?" + "arraySelected=NoImp";
             window.open(url1);
         });
 
-      
-        
+        function ShowInput(value) {
+            switch (value) {
+                case '0':
+                    $('#searchdate').hide();
+                    $('#searchnumber').hide();
+                    $('#searchdate').val(null);
+                    $('#searchnumber').val(null);
+                    $('#searchcustomer').show('slow');
+                    break;
+                case '1':
+                    $('#searchcustomer').hide();
+                    $('#searchnumber').hide();
+                    $('#searchcustomer').val(null);
+                    $('#searchnumber').val(null);
+                    $('#searchdate').show('slow');
+                    break;
+                case '2':
+                    $('#searchcustomer').hide();
+                    $('#searchdate').hide();
+                    $('#searchcustomer').val(null);
+                    $('#searchdate').val(null);
+                    $('#searchnumber').show('slow');
+                    break;
+            }
+        }
 
+        $('#searchsale').click(function () {
+            if ($('#selectsearch').val() == 0) {
+                if ($('#searchcustomer').val() != '') {
+                    var url = '@Url.Action("GetSales", "Sales", new { customer = "__customer__" })';
+                    window.location.href = url.replace('__customer__', $('#searchcustomer').val().trim());
+                }
+            } else {
+                if ($('#searchdate').val() != '') {
+                    var url = '@Url.Action("GetSales", "Sales", new { date = "__date__", customer = String.Empty, idsale = 0 })';
+                    window.location.href = url.replace('__date__', $('#searchdate').val());
+                } else {
+                    if ($('#searchnumber').val() != null & $('#searchnumber').val() != 0){
+                        var url = '@Url.Action("GetSales", "Sales", new { idsale = "__idsale__" })';
+                        window.location.href = url.replace('__idsale__', $('#searchnumber').val());
+                    }
+                }
+            }
+        });
+
+        $('#widthpage').change(function () {
+            var url = $('#widthpage').val();
+            window.location.href = url;
+        });
     </script>
 }
-
-
