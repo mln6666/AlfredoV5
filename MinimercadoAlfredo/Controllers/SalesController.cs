@@ -20,43 +20,26 @@ namespace MinimercadoAlfredo.Controllers
         // GET: Sales
         public ActionResult Index(int? message, int pag, int widthpage)
         {
-            decimal cantpags = Math.Ceiling(Decimal.Divide(db.Sales.Count(), widthpage));
-            if (db.Sales.Any())
+            decimal cantpags = Math.Ceiling(Decimal.Divide(db.Sales.Count(), 3));
+            if (pag < 1 | pag > cantpags)
             {
-                if (pag < 1 | pag > cantpags)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            int n = (pag - 1) * widthpage; // Para saltear las ventas de paginas anteriores
-            if (db.Sales.Any())
+            int n = (pag - 1) * 3; // Para saltear las ventas de paginas anteriores
+            var sales = db.Sales.ToList().OrderByDescending(s => Tuple.Create(s.SaleDate, s.IdSale)).Skip(n).Take(3); //Obtengo las últimas n ventas ordenadas por SaleDate y IdSale
+            if (message != null)
             {
-                var sales =
-                    db.Sales.ToList().OrderByDescending(s => Tuple.Create(s.SaleDate, s.IdSale)).Skip(n).Take(widthpage);
-                    //Obtengo las últimas n ventas ordenadas por SaleDate y IdSale
-                if (message != null)
-                {
-                    TempData["message"] = message;
-                }
-                ViewBag.Page = pag;
-                ViewBag.CantPages = cantpags;
-                ViewBag.WidthPage = widthpage;
-                ViewBag.Customer = 0;
-                ViewBag.Date = 0;
-                ViewBag.Sale = 0;
-                return View(sales.ToList());
+                TempData["message"] = message;
             }
-            else
-            {
-                ViewBag.Page = pag;
-                ViewBag.CantPages = cantpags;
-                ViewBag.WidthPage = widthpage;
-                ViewBag.Customer = 0;
-                ViewBag.Date = 0;
-                ViewBag.Sale = 0;
-                return View(db.Sales.ToList());
-            }
+            ViewBag.Page = pag;
+            ViewBag.CantPages = cantpags;
+            ViewBag.WidthPage = widthpage;
+            ViewBag.Customer = 0;
+            ViewBag.Date = 0;
+            ViewBag.Sale = 0;
+            return View(sales.ToList());
         }
+
 
         public ActionResult GetSales(string customer, DateTime? date, int? idsale)
         {
@@ -720,7 +703,7 @@ namespace MinimercadoAlfredo.Controllers
 
                 
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new{pag=1, widthpage = 100});
         }
 
         protected override void Dispose(bool disposing)
